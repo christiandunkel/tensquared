@@ -31,8 +31,8 @@ public class mainMenuAnimation : MonoBehaviour {
     );*/
 
     if (moveIn < 200) {
-      float reduceSpeed = (float) (moveIn * 2.2) / 100;
-      transform.Translate(new Vector3(5.5f - reduceSpeed, 0.0f, 0.0f));
+      float reduceSpeed = (float) (moveIn * 2.1) / 100;
+      transform.Translate(new Vector3(4.3f - reduceSpeed, 0.0f, 0.0f));
       moveIn++;
     }
 

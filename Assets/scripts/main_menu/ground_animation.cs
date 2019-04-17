@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ground_animation : MonoBehaviour
 {
-  float scrollPercentage = 0.3f;
-  float scrollBy; // calculated with width and scrollPercentage
-  float startPosX;
-  float width;
-  float counter;
+  public float scrollPercentage = 0.3f;
+  private float scrollBy; // calculated with width and scrollPercentage
+  private float startPosX;
+  private float width;
+  private float counter;
 
   void Start()
   {

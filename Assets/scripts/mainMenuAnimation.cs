@@ -30,20 +30,9 @@ public class mainMenuAnimation : MonoBehaviour {
 
     );*/
 
-    // move circle into view on main menu
-    if (moveIn < 80) {
-      // addition speed boost at beginning
-      transform.Translate(new Vector3(1.5f, 0.0f, 0.0f));
-    }
-
-    if (moveIn < 150) {
-      // addition speed boost for main distance
-      transform.Translate(new Vector3(1.5f, 0.0f, 0.0f));
-    }
-
     if (moveIn < 200) {
-      // normal speed
-      transform.Translate(new Vector3(1.0f, 0.0f, 0.0f));
+      float reduceSpeed = (float) (moveIn * 2.2) / 100;
+      transform.Translate(new Vector3(5.5f - reduceSpeed, 0.0f, 0.0f));
       moveIn++;
     }
 

@@ -60,8 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\scripts\MainMenu.cs" />
-    <Compile Include="Assets\scripts\mainMenuAnimation.cs" />
+    <Compile Include="Assets\scripts\main_menu\buttons.cs" />
+    <Compile Include="Assets\scripts\main_menu\circle_animation.cs" />
+    <Compile Include="Assets\scripts\main_menu\ground_animation.cs" />
     <Compile Include="Assets\scripts\VolumeValueChange.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

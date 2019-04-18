@@ -9,13 +9,22 @@ public class sidescrolling_animation : MonoBehaviour
   private float startPosX;
   private float width;
   private float counter;
+  public bool useLocalTransform = true;
 
   void Start()
   {
     RectTransform rt = (RectTransform)transform;
     width = rt.rect.width;
 
-    startPosX = transform.localPosition.x;
+    if (useLocalTransform)
+    {
+      startPosX = transform.localPosition.x;
+    }
+    else
+    {
+      startPosX = transform.position.x;
+    }
+    
     scrollBy = width / 100 * scrollPercentage;
     counter = 0.0f;
 
@@ -28,23 +37,51 @@ public class sidescrolling_animation : MonoBehaviour
     // current x position of element
     counter += 1.0f;
 
-    // move ground in relation to parent
-    transform.localPosition = new Vector3(
-      transform.localPosition.x - scrollBy, 
-      transform.localPosition.y, 
-      transform.localPosition.z
-    );
 
-    // reset counter on 100 %
-    if ((counter * scrollPercentage) >= 100.0f)
-    {
-      counter = 0.0f;
-      // reset position of element back to beginning
+    if (useLocalTransform) { 
+
+      // move object in relation to parent
       transform.localPosition = new Vector3(
-        startPosX,
-        transform.localPosition.y,
+        transform.localPosition.x - scrollBy, 
+        transform.localPosition.y, 
         transform.localPosition.z
       );
+
+      // reset counter on 100 %
+      if ((counter * scrollPercentage) >= 100.0f)
+      {
+        counter = 0.0f;
+        // reset position of element back to beginning
+        transform.localPosition = new Vector3(
+          startPosX,
+          transform.localPosition.y,
+          transform.localPosition.z
+        );
+      }
+
+    }
+    else
+    {
+
+      // move object
+      transform.position = new Vector3(
+        transform.position.x - scrollBy,
+        transform.position.y,
+        transform.position.z
+      );
+
+      // reset counter on 100 %
+      if ((counter * scrollPercentage) >= 100.0f)
+      {
+        counter = 0.0f;
+        // reset position of element back to beginning
+        transform.position = new Vector3(
+          startPosX,
+          transform.position.y,
+          transform.position.z
+        );
+      }
+
     }
 
   }

@@ -6634,8 +6634,8 @@ MonoBehaviour:
   - {fileID: 154829330}
   - {fileID: 910178220}
   - {fileID: 171290629}
-  fadeinTime: 0.25
-  fadeoutTime: 0.1
+  fadeinTime: 0.15
+  fadeoutTime: 0.05
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6648,6 +6648,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586c6aba719774649b020425548ac074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startResolution: 00050000d0020000
+  aspectRatio: 1000000009000000
 --- !u!1 &554954777
 GameObject:
   m_ObjectHideFlags: 0

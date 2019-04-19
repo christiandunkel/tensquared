@@ -2,49 +2,97 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Force16x9AspectRatio : MonoBehaviour
-{
+public class Force16x9AspectRatio : MonoBehaviour {
+
+
+  public int[] startResolution = {1280, 720};
+  public int[] aspectRatio = {16, 9};
+
+  /*
+
   // initialization
   void Start()
   {
 
-    // desired aspect ratio
-    float targetRatio = 16.0f / 9.0f;
+    Screen.SetResolution(startResolution[0], startResolution[1], false);
 
-    // game window's current aspect ratio
-    float windowRatio = (float)Screen.width / (float)Screen.height;
+  }
 
-    // current viewport height should be scaled by this amount
-    float scaleHeight = windowRatio / targetRatio;
+  private float time = 0.0f;
+  private float lastTestedTime = 0.0f;
+  // wait time in seconds before updating window size
+  private float waitBeforeTesting = 0.3f;
 
-    // camera component to modify
-    Camera camera = GetComponent<Camera>();
+  private float lastWidth;
+  private float lastHeight;
+  private int lastWidthChange = 0;
+  private int lastHeightChange = 0;
 
-    // if scaled height is less than current height, add letterbox
-    if (scaleHeight < 1.0f)
-    {
-      Rect rect = camera.rect;
+  private void Update()
+  {
 
-      rect.width = 1.0f;
-      rect.height = scaleHeight;
-      rect.x = 0;
-      rect.y = (1.0f - scaleHeight) / 2.0f;
+    if (!Screen.fullScreen && Camera.main.aspect != 1) {
 
-      camera.rect = rect;
-    }
-    else // add pillarbox
-    {
-      float scalewidth = 1.0f / scaleHeight;
+      time += Time.deltaTime;
 
-      Rect rect = camera.rect;
+      if (lastTestedTime + waitBeforeTesting < time)
+      {
+        lastTestedTime = time;
 
-      rect.width = scalewidth;
-      rect.height = 1.0f;
-      rect.x = (1.0f - scalewidth) / 2.0f;
-      rect.y = 0;
+        // check what was last changed
+        if (lastHeight != Screen.height)
+        {
+          lastHeightChange = 1;
+        }
+        if (lastWidth != Screen.width)
+        {
+          lastWidthChange = 1;
+        }
 
-      camera.rect = rect;
+        if (lastWidth == Screen.width && lastHeight == Screen.height)
+        {
+          updateWindowSize();
+          lastWidthChange = 0;
+          lastHeightChange = 0;
+
+          lastWidth = Screen.width;
+          lastHeight = Screen.height;
+        }
+
+      }
+
     }
   }
-  
+
+  private void updateWindowSize()
+  {
+
+    int width = Screen.width,
+        height = Screen.height;
+
+    // fit width and height to max resolution of display if they're too big
+    if (Screen.currentResolution.width < width)
+    {
+      width = Screen.currentResolution.width;
+    }
+    if (Screen.currentResolution.height < height)
+    {
+      height = Screen.currentResolution.height;
+    }
+
+    bool widthIsBigger = width / aspectRatio[0] > height / aspectRatio[1];
+
+    // width is larger in relation to 16:9
+    if (lastWidthChange != 0)
+    {
+      Screen.SetResolution(width, (int)(width * aspectRatio[1] / aspectRatio[0]), false);
+    }
+    // height is larger in relation to 16:9
+    else if (lastHeightChange != 0)
+    {
+      Screen.SetResolution((int)(height * aspectRatio[0] / aspectRatio[1]), height, false);
+    }
+
+  }*/
+
 }

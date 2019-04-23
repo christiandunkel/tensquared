@@ -3,27 +3,61 @@
 public class VolumeController : MonoBehaviour {
 
   // reference to audio source component
+  public AudioSource[] musicSources;
+  public AudioSource[] soundSources;
+  public AudioSource[] speechSources;
   private AudioSource audioSrc;
   private float musicVolume = 1f;
-
-  // initialization
-  void Start() {
-    // assign audio source component
-    audioSrc = GetComponent<AudioSource>();
-  }
+  private float soundVolume = 1f;
+  private float speechVolume = 1f;
 
   // called once per frame
   void Update() {
-    // set volume of audio source equal to musicVolume given in options
-    audioSrc.volume = musicVolume;
+
+    // set volumes of all music sources equal to musicVolume given in options
+    foreach (AudioSource src in musicSources)
+    {
+      src.volume = musicVolume;
+    }
+
+    // set volumes of all sound sources
+    foreach (AudioSource src in soundSources)
+    {
+      src.volume = soundVolume;
+    }
+
+    // set volumes of all speech sources
+    foreach (AudioSource src in speechSources)
+    {
+      src.volume = speechVolume;
+    }
+
   }
 
-  // called by slider game object
-  public void SetVolume(float newVolume) {
+  public void SetMusicVolume(float newVolume) {
 
-    Debug.Log("Change music volume to " + newVolume);
+    Debug.Log("Changed music volume to " + newVolume);
 
     musicVolume = newVolume;
+
+  }
+
+  public void SetSoundVolume(float newVolume)
+  {
+
+    Debug.Log("Changed sound volume to " + newVolume);
+
+    soundVolume = newVolume;
+
+  }
+
+  public void SetSpeechVolume(float newVolume)
+  {
+
+    Debug.Log("Changed speech volume to " + newVolume);
+
+    speechVolume = newVolume;
+
   }
 
 }

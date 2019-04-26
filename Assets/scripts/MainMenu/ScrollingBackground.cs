@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sidescrolling_animation : MonoBehaviour
+public class ScrollingBackground : MonoBehaviour
 {
+
+  public bool useLocalTransform = true;
+
   public float scrollPercentage = 0.3f;
   private float scrollBy; // calculated with width and scrollPercentage
   private float startPosX;
-  private float width;
   private float counter;
-  public bool useLocalTransform = true;
 
   void Start()
   {
+
     RectTransform rt = (RectTransform)transform;
-    width = rt.rect.width;
+    float width = rt.rect.width;
 
     if (useLocalTransform)
     {

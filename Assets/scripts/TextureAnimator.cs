@@ -8,14 +8,17 @@ public class TextureAnimator : MonoBehaviour
 {
 
   // public variables
-  public int framesPerSec = 20;
-  public string directory;
+  public int framesPerSec = 30; 
+  public string directory; // directory of textures
+  public float delay = 0.0f; // delay animation by given seconds
+  public bool loop = true; // if false, only play animation once
 
   // internal use
   private SpriteRenderer spriteRenderer;
   private Sprite[] sprites;
   private int spriteNum;
-  
+  private bool ranOnce = false;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -27,36 +30,6 @@ public class TextureAnimator : MonoBehaviour
     sprites = Resources.LoadAll<Sprite>(directory);
     spriteNum = sprites.Length;
 
-    /*
-
-    // define array with size of images
-    sprites = new Sprite[info.Length];
-
-    // add files in directory to array
-    int count = 0;
-    foreach (FileInfo f in info)
-    {
-      // load image into byte array, then texture
-      byte[] fileData = File.ReadAllBytes(f.FullName);
-      Texture2D SpriteTexture = new Texture2D(1, 1);
-      SpriteTexture.LoadImage(fileData);
-
-      float PixelsPerUnit = 100.0f;
-      Debug.Log(SpriteTexture.width);
-
-      sprites[count] = Sprite.Create(SpriteTexture,
-        new Rect(0, 0, SpriteTexture.width, SpriteTexture.height),
-        new Vector2(0.5f, 0.5f), PixelsPerUnit, 0, SpriteMeshType.Tight);
-
-      count++;
-    }//*/
-
-    // print items found
-    /* foreach (Sprite sprite in sprites)
-    {
-      Debug.Log(sprite.name);
-    }//*/
-
   }
 
   private float timer = 0.0f;
@@ -64,8 +37,30 @@ public class TextureAnimator : MonoBehaviour
 
   void Update()
   {
+
+    // stop after first runthrough, if loops are disabled
+    if (!loop && ranOnce)
+    {
+      return;
+    }
     
-    timer += Time.deltaTime;
+    // use normal timer if delay is 0 or less than 0
+    if (delay <= 0.0f)
+    {
+      timer += Time.deltaTime;
+
+      // for beauty's sake, set negative values to 0
+      if (delay < 0.0f)
+      {
+        delay = 0.0f;
+      }
+
+    }
+    // otherwise reduce delay timer until 0
+    else
+    {
+      delay -= Time.deltaTime;
+    }
 
     // draw every defined frame per second a new image
     if (timer > (1f / framesPerSec))
@@ -75,6 +70,7 @@ public class TextureAnimator : MonoBehaviour
       if (counter >= spriteNum)
       {
         counter = 0;
+        ranOnce = true;
       }
 
       // set image as new sprite in renderer

@@ -455,7 +455,8 @@ GameObject:
   - component: {fileID: 28327138}
   - component: {fileID: 28327137}
   m_Layer: 0
-  m_Name: TMP SubMeshUI [Roboto-Bold SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [Roboto-Bold SDF (Low Shadows) Material + LiberationSans SDF
+    Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,7 +506,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 5.015937
+  m_padding: 0
   m_canvasRenderer: {fileID: 28327138}
   m_TextComponent: {fileID: 1234932233}
   m_materialReferenceIndex: 1
@@ -1657,8 +1658,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: PLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c5c26889b5da3dc4aaeff0752699d6b0, type: 2}
-  m_sharedMaterial: {fileID: 21613860362335242, guid: c5c26889b5da3dc4aaeff0752699d6b0,
+  m_fontAsset: {fileID: 11400000, guid: ccb231fc79b1111498ec0f286a21a999, type: 2}
+  m_sharedMaterial: {fileID: -7083854819714818863, guid: ccb231fc79b1111498ec0f286a21a999,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2094,7 +2095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.13725491}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.24313726}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2749,7 +2750,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "\u2190"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c5c26889b5da3dc4aaeff0752699d6b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: db80a06c653d97c438b41165d612b44d, type: 2}
   m_sharedMaterial: {fileID: 21613860362335242, guid: c5c26889b5da3dc4aaeff0752699d6b0,
     type: 2}
   m_fontSharedMaterials: []
@@ -2829,7 +2830,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 172278586}
@@ -3347,8 +3348,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "\u2190"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c5c26889b5da3dc4aaeff0752699d6b0, type: 2}
-  m_sharedMaterial: {fileID: 21613860362335242, guid: c5c26889b5da3dc4aaeff0752699d6b0,
+  m_fontAsset: {fileID: 11400000, guid: db80a06c653d97c438b41165d612b44d, type: 2}
+  m_sharedMaterial: {fileID: 426509956201513659, guid: db80a06c653d97c438b41165d612b44d,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -7214,6 +7215,96 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &918745291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 918745292}
+  - component: {fileID: 918745294}
+  - component: {fileID: 918745293}
+  - component: {fileID: 918745295}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &918745292
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918745291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.13823298, y: 0.13823298, z: 0.13823298}
+  m_Children: []
+  m_Father: {fileID: 1149523867}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 11.6, y: -0.0000092078}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &918745293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918745291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 314ee8cf7e7975c41a861ddbb2c2e01c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &918745294
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918745291}
+  m_CullTransparentMesh: 0
+--- !u!114 &918745295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918745291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.34901962}
+  m_EffectDistance: {x: 2.5, y: -2.5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &940403121
 GameObject:
   m_ObjectHideFlags: 0
@@ -7879,7 +7970,8 @@ GameObject:
   - component: {fileID: 1064570104}
   - component: {fileID: 1064570103}
   m_Layer: 0
-  m_Name: TMP SubMeshUI [Roboto-Bold SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [Roboto-Bold SDF (Low Shadows) Material + LiberationSans SDF
+    Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7929,7 +8021,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 5.015937
+  m_padding: 0
   m_canvasRenderer: {fileID: 1064570104}
   m_TextComponent: {fileID: 1858337055}
   m_materialReferenceIndex: 1
@@ -8155,17 +8247,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075111591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.59035975, y: 0.60733336, z: 0.6945}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000005109814}
+  m_LocalScale: {x: 0.9080938, y: 0.9342027, z: 1.0682827}
   m_Children: []
   m_Father: {fileID: 1149523867}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 41.8, y: 0}
-  m_SizeDelta: {x: 98, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -4.3, y: -0.10998906}
+  m_SizeDelta: {x: 84, y: 12.35}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1075111593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8756,13 +8848,14 @@ RectTransform:
   m_LocalScale: {x: 2.1033769, y: 1.9341397, z: 1.9341397}
   m_Children:
   - {fileID: 1075111592}
+  - {fileID: 918745292}
   m_Father: {fileID: 1068028381}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 138, y: -34}
-  m_SizeDelta: {x: 74.87, y: 13.07}
+  m_AnchoredPosition: {x: 120, y: -42.86}
+  m_SizeDelta: {x: 91.99, y: 22.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1149523868
 MonoBehaviour:
@@ -9333,8 +9426,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "\u2193"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c5c26889b5da3dc4aaeff0752699d6b0, type: 2}
-  m_sharedMaterial: {fileID: 21613860362335242, guid: c5c26889b5da3dc4aaeff0752699d6b0,
+  m_fontAsset: {fileID: 11400000, guid: db80a06c653d97c438b41165d612b44d, type: 2}
+  m_sharedMaterial: {fileID: 426509956201513659, guid: db80a06c653d97c438b41165d612b44d,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -13323,8 +13416,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "\u2191"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c5c26889b5da3dc4aaeff0752699d6b0, type: 2}
-  m_sharedMaterial: {fileID: 21613860362335242, guid: c5c26889b5da3dc4aaeff0752699d6b0,
+  m_fontAsset: {fileID: 11400000, guid: db80a06c653d97c438b41165d612b44d, type: 2}
+  m_sharedMaterial: {fileID: 426509956201513659, guid: db80a06c653d97c438b41165d612b44d,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -18696,7 +18789,8 @@ GameObject:
   - component: {fileID: 2052127120}
   - component: {fileID: 2052127119}
   m_Layer: 5
-  m_Name: TMP SubMeshUI [Roboto-Bold SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [Roboto-Bold SDF (Low Shadows) Material + LiberationSans SDF
+    Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18746,7 +18840,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 5.015937
+  m_padding: 0
   m_canvasRenderer: {fileID: 2052127120}
   m_TextComponent: {fileID: 458149828}
   m_materialReferenceIndex: 1

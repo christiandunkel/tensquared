@@ -14,9 +14,9 @@ public class TextureAnimator : MonoBehaviour
   public bool loop = true; // if false, only play animation once
 
   // internal use
-  private SpriteRenderer spriteRenderer;
+  private SpriteRenderer spriteRenderer = null;
   private Sprite[] sprites;
-  private int spriteNum;
+  private int spriteNum = 0;
   private bool ranOnce = false;
 
   // Start is called before the first frame update

@@ -9,7 +9,7 @@ public class CircleAnimation : MonoBehaviour {
   private int timer = 0;
 
   // circle image
-  public GameObject image;
+  public GameObject image = null;
 
   // properties for circle rotation
   public float rotationSpeed = -120.0f;

@@ -75,11 +75,15 @@ public class PositionAnimator : MonoBehaviour
       );
       /* Debug.Log("Translate vektor for " + obj.obj.name + ": " + obj.translate); //*/
 
-      // asign duration
+      // assign duration
       obj.duration = elem.duration;
 
       // add global delay to every object
       obj.delay += globalDelay;
+
+      // assign movement variables
+      obj.leftToRight = elem.leftToRight;
+      obj.downwards = elem.downwards;
 
       /*Debug.Log(
 
@@ -139,13 +143,15 @@ public class PositionAnimator : MonoBehaviour
       if (obj.steps > 0)
       {
 
-        Debug.Log(obj.steps + " steps left for " + obj.obj.name);//*/
+        /*Debug.Log(obj.steps + " steps left for " + obj.obj.name);//*/
 
         // this element was animated, thus try running in next tick as well
         run = true;
 
         // move element by amount
-        obj.obj.transform.localPosition -= obj.translate;
+        obj.obj.transform.localPosition += new Vector3(obj.leftToRight ? obj.translate.x : -obj.translate.x, 0.0f, 0.0f);
+        obj.obj.transform.localPosition += new Vector3(0.0f, !obj.downwards ? obj.translate.y : -obj.translate.y, 0.0f);
+        obj.obj.transform.localPosition += new Vector3(0.0f, 0.0f, obj.translate.z);
 
         // minus one step
         obj.steps -= 1;
@@ -168,6 +174,10 @@ public class PositionAnimator : MonoBehaviour
     [SerializeField] public Vector3 moveBy;
     [SerializeField] public bool toCurrentPos; // if true, move from posX and posY to current position
 
+    // directions in which the object will move
+    [SerializeField] public bool downwards;
+    [SerializeField] public bool leftToRight;
+
   }
 
   // class generating objects used by the script
@@ -182,6 +192,9 @@ public class PositionAnimator : MonoBehaviour
     public Vector3 endPos;
     public Vector3 translate;
     public int steps;
+
+    public bool downwards;
+    public bool leftToRight;
 
     public AnimateObject() {}
 

@@ -4077,7 +4077,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Main Camera (+Unity Splashscreen BG color)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4105,7 +4105,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21960786, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -13083,14 +13083,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b00559008f84854aa864f906e7dc1e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalDelay: 0
+  globalDelay: 1
   framesPerSecond: 20
   elements:
+  - obj: {fileID: 1291651265}
+    delay: 0
+    duration: 1
+    moveBy: {x: 0, y: 50, z: 0}
+    toCurrentPos: 1
+    downwards: 1
+    leftToRight: 0
   - obj: {fileID: 987206160}
-    delay: 0.5
-    duration: 1.5
+    delay: 1
+    duration: 2
     moveBy: {x: 0, y: 17, z: 0}
     toCurrentPos: 1
+    downwards: 1
+    leftToRight: 0
+  - obj: {fileID: 1110603785}
+    delay: 8
+    duration: 4.5
+    moveBy: {x: 0, y: 17, z: 0}
+    toCurrentPos: 1
+    downwards: 1
+    leftToRight: 0
+  - obj: {fileID: 201029475}
+    delay: 3
+    duration: 3
+    moveBy: {x: 0, y: 17, z: 0}
+    toCurrentPos: 1
+    downwards: 1
+    leftToRight: 0
+  - obj: {fileID: 657476748}
+    delay: 9
+    duration: 5.5
+    moveBy: {x: 0, y: -40, z: 0}
+    toCurrentPos: 1
+    downwards: 0
+    leftToRight: 0
+  - obj: {fileID: 472227888}
+    delay: 11
+    duration: 4
+    moveBy: {x: 0, y: -32, z: 0}
+    toCurrentPos: 1
+    downwards: 0
+    leftToRight: 0
+  - obj: {fileID: 940403121}
+    delay: 0
+    duration: 6
+    moveBy: {x: 0, y: -100, z: 0}
+    toCurrentPos: 1
+    downwards: 0
+    leftToRight: 0
 --- !u!1 &1806740481
 GameObject:
   m_ObjectHideFlags: 0
@@ -13509,16 +13553,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859515721}
-  m_LocalRotation: {x: -0.18301266, y: -0.6830127, z: -0.18301266, w: 0.6830127}
+  m_LocalRotation: {x: -0.40557975, y: -0.579228, z: -0.40557975, w: 0.579228}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1537934187}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -30, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: -70, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.5, y: -32.7}
+  m_AnchoredPosition: {x: -34.7, y: -56.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!199 &1859515723
@@ -13773,7 +13817,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.15686275, g: 0.22745098, b: 0.50980395, a: 1}
+      maxColor: {r: 0.31132078, g: 0.14538093, b: 0.15920927, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -13835,7 +13879,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 11
+      scalar: 7
       minScalar: 1
       maxCurve:
         serializedVersion: 2

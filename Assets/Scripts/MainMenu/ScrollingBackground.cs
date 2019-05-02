@@ -30,6 +30,8 @@ public class ScrollingBackground : MonoBehaviour
     scrollBy = width / 100 * scrollPercentage;
     counter = 0.0f;
 
+    Debug.Log("Object " + gameObject.name + " will move from x=" + startPosX + " over " + width + " points.");
+
   }
 
   

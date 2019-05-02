@@ -79,7 +79,7 @@ public class PositionAnimator : MonoBehaviour
       obj.duration = elem.duration;
 
       // add global delay to every object
-      obj.delay += globalDelay;
+      obj.delay = elem.delay + globalDelay;
 
       // assign movement variables
       obj.leftToRight = elem.leftToRight;

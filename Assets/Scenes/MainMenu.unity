@@ -3038,6 +3038,8 @@ GameObject:
   - component: {fileID: 439366070}
   - component: {fileID: 439366069}
   - component: {fileID: 439366068}
+  - component: {fileID: 439366072}
+  - component: {fileID: 439366073}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -3127,6 +3129,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &439366072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439366067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0c421b33d77a74083a115b05d01667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fps: 30
+  delay: 7
+  duration: 4
+  fadeOut: 0
+--- !u!225 &439366073
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439366067}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &452446384
 GameObject:
   m_ObjectHideFlags: 0
@@ -8453,7 +8483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7771838
+  m_AspectRatio: 1.7775799
 --- !u!1 &1110592560
 GameObject:
   m_ObjectHideFlags: 0
@@ -11388,6 +11418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 2036417804}
   rotationSpeed: -120
+  delay: 3
 --- !u!222 &1537934189
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13083,54 +13114,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b00559008f84854aa864f906e7dc1e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalDelay: 1
+  globalDelay: 2
   framesPerSecond: 20
   elements:
   - obj: {fileID: 1291651265}
     delay: 0
-    duration: 1
+    duration: 1.2
     moveBy: {x: 0, y: 50, z: 0}
     toCurrentPos: 1
     downwards: 1
     leftToRight: 0
   - obj: {fileID: 987206160}
-    delay: 1
-    duration: 2
+    delay: 1.2
+    duration: 4
     moveBy: {x: 0, y: 17, z: 0}
     toCurrentPos: 1
     downwards: 1
     leftToRight: 0
   - obj: {fileID: 1110603785}
-    delay: 8
-    duration: 4.5
+    delay: 3
+    duration: 5
     moveBy: {x: 0, y: 17, z: 0}
     toCurrentPos: 1
     downwards: 1
     leftToRight: 0
   - obj: {fileID: 201029475}
-    delay: 3
-    duration: 3
+    delay: 2.5
+    duration: 3.5
     moveBy: {x: 0, y: 17, z: 0}
     toCurrentPos: 1
     downwards: 1
     leftToRight: 0
   - obj: {fileID: 657476748}
-    delay: 9
-    duration: 5.5
+    delay: 2
+    duration: 8
     moveBy: {x: 0, y: -40, z: 0}
     toCurrentPos: 1
     downwards: 0
     leftToRight: 0
   - obj: {fileID: 472227888}
-    delay: 11
-    duration: 4
+    delay: 1.4
+    duration: 7
     moveBy: {x: 0, y: -32, z: 0}
     toCurrentPos: 1
     downwards: 0
     leftToRight: 0
   - obj: {fileID: 940403121}
-    delay: 0
-    duration: 6
+    delay: 1.5
+    duration: 5
     moveBy: {x: 0, y: -100, z: 0}
     toCurrentPos: 1
     downwards: 0

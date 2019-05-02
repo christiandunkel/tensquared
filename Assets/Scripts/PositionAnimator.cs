@@ -8,7 +8,7 @@ public class PositionAnimator : MonoBehaviour
   public float globalDelay = 0.0f;
   public int framesPerSecond = 20;
   public Element[] elements = null;
-  private List<AnimateObject> animateObjects = null;
+  private List<AnimateObject> animateObjects = new List<AnimateObject>();
   
   void Start()
   {
@@ -73,6 +73,7 @@ public class PositionAnimator : MonoBehaviour
         startY > endY ? (startY - endY) / steps : (endY - startY) / steps,
         startZ > endZ ? (startZ - endZ) / steps : (endZ - startZ) / steps
       );
+      /* Debug.Log("Translate vektor for " + obj.obj.name + ": " + obj.translate); //*/
 
       // asign duration
       obj.duration = elem.duration;
@@ -89,7 +90,7 @@ public class PositionAnimator : MonoBehaviour
         " after a delay of " + obj.delay + "s" +
         " over " + obj.steps + " steps."
 
-      );*/
+      );//*/
 
       animateObjects.Add(obj);
 
@@ -125,29 +126,29 @@ public class PositionAnimator : MonoBehaviour
     }
 
     // go through each element and animate them
-    foreach (AnimateObject elem in animateObjects)
+    foreach (AnimateObject obj in animateObjects)
     {
 
-      if (timer < elem.delay)
+      // this element is still in delay phase, try in next tick again
+      if (timer < obj.delay)
       {
-        // this element is still in delay phase, try running in next tick 
         run = true;
         continue;
       }
 
-      Debug.Log(timer + " " + elem.delay + " " + elem.steps);
-
-      if (elem.steps <= 0)
+      if (obj.steps > 0)
       {
+
+        Debug.Log(obj.steps + " steps left for " + obj.obj.name);//*/
 
         // this element was animated, thus try running in next tick as well
         run = true;
 
         // move element by amount
-        elem.obj.transform.Translate( elem.translate );
+        obj.obj.transform.localPosition -= obj.translate;
 
         // minus one step
-        elem.steps -= 1;
+        obj.steps -= 1;
 
       }
 
@@ -166,7 +167,6 @@ public class PositionAnimator : MonoBehaviour
     [SerializeField] public float duration;
     [SerializeField] public Vector3 moveBy;
     [SerializeField] public bool toCurrentPos; // if true, move from posX and posY to current position
-    [SerializeField] public bool loop;
 
   }
 
@@ -177,14 +177,13 @@ public class PositionAnimator : MonoBehaviour
     public GameObject obj;
     public float delay;
     public float duration;
-    public bool loop;
 
     public Vector3 startPos;
     public Vector3 endPos;
     public Vector3 translate;
     public int steps;
 
-    public AnimateObject() { }
+    public AnimateObject() {}
 
   }
 

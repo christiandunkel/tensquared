@@ -66,6 +66,7 @@ public class PositionAnimator : MonoBehaviour
       // calculate steps
       int steps = (int) (elem.duration * framesPerSecond);
       obj.steps = steps;
+      obj.stepsTotal = steps;
 
       // assign translation vector (calculate translation per step)
       obj.translate = new Vector3(
@@ -148,10 +149,37 @@ public class PositionAnimator : MonoBehaviour
         // this element was animated, thus try running in next tick as well
         run = true;
 
+        float translateX = obj.translate.x,
+              translateY = obj.translate.y,
+              translateZ = obj.translate.z;
+
+        // smooth animations with more than 50 steps
+        if (obj.stepsTotal > 70) { 
+
+          // make first ten steps faster
+          if ((obj.stepsTotal - obj.steps) < 31)
+          {
+            translateX += (obj.translate.z * obj.steps * 9.5f / 100);
+            translateY += (obj.translate.z * obj.steps * 9.5f / 100);
+            translateZ += (obj.translate.z * obj.steps * 9.5f / 100);
+          }
+
+          // make last ten steps slower
+          if (obj.steps < 31)
+          {
+            int temp = obj.steps + 1 - 30;
+            
+            translateX -= (obj.translate.z * temp * 9.5f / 100);
+            translateY -= (obj.translate.z * temp * 9.5f / 100);
+            translateZ -= (obj.translate.z * temp * 9.5f / 100);
+          }
+
+        }
+
         // move element by amount
-        obj.obj.transform.localPosition += new Vector3(obj.leftToRight ? obj.translate.x : -obj.translate.x, 0.0f, 0.0f);
-        obj.obj.transform.localPosition += new Vector3(0.0f, !obj.downwards ? obj.translate.y : -obj.translate.y, 0.0f);
-        obj.obj.transform.localPosition += new Vector3(0.0f, 0.0f, obj.translate.z);
+        obj.obj.transform.localPosition += new Vector3(obj.leftToRight ? translateX : -translateX, 0.0f, 0.0f);
+        obj.obj.transform.localPosition += new Vector3(0.0f, !obj.downwards ? translateY : -translateY, 0.0f);
+        obj.obj.transform.localPosition += new Vector3(0.0f, 0.0f, translateZ);
 
         // minus one step
         obj.steps -= 1;
@@ -192,6 +220,7 @@ public class PositionAnimator : MonoBehaviour
     public Vector3 endPos;
     public Vector3 translate;
     public int steps;
+    public int stepsTotal;
 
     public bool downwards;
     public bool leftToRight;

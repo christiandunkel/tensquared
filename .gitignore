@@ -1,0 +1,68 @@
+[Ll]ibrary/
+[Ll]ocal[Cc]ache/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+
+
+# Never ignore Asset meta data
+![Aa]ssets/**/*.meta
+
+# TextMesh Pro files
+#[Aa]ssets/TextMesh*Pro/
+
+# Visual Studio directories
+.vs/
+.vscode/
+
+# Gradle cache directory
+.gradle/
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity3D generated file on crash reports
+sysinfo.txt
+
+# Builds
+*.apk
+*.unitypackage
+
+# Crashlytics generated file
+crashlytics-build.properties
+
+# https://gist.github.com/FullStackForger/20bbf62861394b1a3de0
+
+# VS/MD/Consulo solution and project files
+[Ee]xportedObj/
+*.booproj
+*.csproj
+*.sln
+*.suo
+*.svd
+*.unityproj
+*.user
+*.userprefs
+*.pidb
+
+.consulo/
+*.unityproj
+*.tmp
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

@@ -7184,7 +7184,7 @@ GameObject:
   - component: {fileID: 250980247}
   - component: {fileID: 250980246}
   m_Layer: 0
-  m_Name: SaveManager
+  m_Name: SaveLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7202,6 +7202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14612231900c6344890a54ddc08b7834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exportField: {fileID: 1854177992}
+  exportSettings: {fileID: 403537495}
 --- !u!4 &250980247
 Transform:
   m_ObjectHideFlags: 0
@@ -8189,7 +8191,7 @@ GameObject:
   - component: {fileID: 381689586}
   - component: {fileID: 381689585}
   m_Layer: 0
-  m_Name: AudioPlayer
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8526,7 +8528,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 250980246}
+        m_MethodName: LoadExportData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
@@ -10572,6 +10585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14612231900c6344890a54ddc08b7834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exportField: {fileID: 0}
+  exportSettings: {fileID: 0}
 --- !u!1 &526854783
 GameObject:
   m_ObjectHideFlags: 0
@@ -30537,6 +30552,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 250980246}
+        m_MethodName: LoadExportData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

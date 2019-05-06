@@ -10,18 +10,6 @@ public class SaveLoader : MonoBehaviour
 
   private string encoding_pass_phrase = "tensquaredSaveFileCipher";
 
-  private class VolumeSettings
-  {
-    public string music = "0.0f";
-    public string sound = "0.0f";
-    public string speech = "0.0f";
-  }
-
-  private class Progress
-  {
-    
-  }
-
   void Start()
   {
 
@@ -49,7 +37,7 @@ public class SaveLoader : MonoBehaviour
       Debug.Log("No 'export settings button' set in SaveLoader.");
       return;
     }
-
+    /*
     string save_data = "";
 
     if (exportSettings.isOn == true)
@@ -63,8 +51,22 @@ public class SaveLoader : MonoBehaviour
 
     }
 
-    save_data += "progess";
+    save_data += "progess";*/
 
+    Save save = new Save();
+
+    if (exportSettings.isOn == true)
+    {
+
+      String[] volume = GetVolumeSettings();
+
+      save.music_volume = volume[0];
+      save.sound_volume = volume[1];
+      save.speech_volume = volume[2];
+
+    }
+
+    string save_data = JsonUtility.ToJson(save);
 
     // encode with base64
     byte[] bytesToEncode = Encoding.UTF8.GetBytes(save_data);
@@ -77,14 +79,14 @@ public class SaveLoader : MonoBehaviour
 
   }
 
-  private VolumeSettings GetVolumeSettings()
+  private String[] GetVolumeSettings()
   {
 
-    VolumeSettings volume = new VolumeSettings();
-
-    volume.music = PlayerPrefs.GetFloat("music_volume").ToString();
-    volume.sound = PlayerPrefs.GetFloat("sound_volume").ToString();
-    volume.speech = PlayerPrefs.GetFloat("speech_volume").ToString();
+    String[] volume = {
+      PlayerPrefs.GetFloat("music_volume").ToString(),
+      PlayerPrefs.GetFloat("sound_volume").ToString(),
+      PlayerPrefs.GetFloat("speech_volume").ToString()
+    };
 
     return volume;
 

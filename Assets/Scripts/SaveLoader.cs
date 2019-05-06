@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class SaveLoader : MonoBehaviour
 {
 
+  private string encoding_pass_phrase = "tensquaredSaveFileCipher";
+
   private class VolumeSettings
   {
     public string music = "0.0f";
@@ -67,6 +69,9 @@ public class SaveLoader : MonoBehaviour
     // encode with base64
     byte[] bytesToEncode = Encoding.UTF8.GetBytes(save_data);
     save_data = Convert.ToBase64String(bytesToEncode);
+
+    // encrypt the save data
+    save_data = Cipher.Encrypt(save_data, encoding_pass_phrase);
 
     exportField.text = save_data;
 

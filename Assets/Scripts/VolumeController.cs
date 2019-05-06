@@ -36,27 +36,38 @@ public class VolumeController : MonoBehaviour {
 
   public void SetMusicVolume(float newVolume) {
 
-    Debug.Log("Changed music volume to " + newVolume);
+    /*Debug.Log("Changed music volume to " + newVolume);//*/
 
     musicVolume = newVolume;
+
+    // save volume in player prefs
+    PlayerPrefs.SetFloat("music_volume", newVolume);
 
   }
 
   public void SetSoundVolume(float newVolume)
   {
 
-    Debug.Log("Changed sound volume to " + newVolume);
+    /*Debug.Log("Changed sound volume to " + newVolume);//*/
 
     soundVolume = newVolume;
+
+    // save volume in player prefs
+    PlayerPrefs.SetFloat("sound_volume", newVolume);
 
   }
 
   public void SetSpeechVolume(float newVolume)
   {
 
-    Debug.Log("Changed speech volume to " + newVolume);
+    /*Debug.Log("Changed speech volume to " + newVolume);//*/
 
     speechVolume = newVolume;
+
+    // save volume in player prefs
+    PlayerPrefs.SetFloat("speech_volume", newVolume);
+
+    /*Debug.Log(PlayerPrefs.GetFloat("speech_volume").ToString());//*/
 
   }
 

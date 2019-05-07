@@ -6,11 +6,23 @@ using TMPro;
 public class LevelManager : MonoBehaviour
 {
 
+  // singleton
+
+  public static LevelManager Instance;
+
+  void Awake()
+  {
+    Instance = this;
+  }
+
+
+
   private static int levelsUnlocked = 1;
   private static List<GameObject> LevelButton = new List<GameObject>();
 
   // element containing all lvl btn gameobjects
-  private static GameObject lvlsParent = null;
+  public GameObject lvlsParent = null;
+  private static GameObject lvlsParent_ = null;
 
   public void LoadLevelProgess_()
   {
@@ -22,11 +34,8 @@ public class LevelManager : MonoBehaviour
 
     Debug.Log("LevelManager: Loaded level progress.");
 
-    // fetch 'lvl btns' container object by tag, if undefined
-    if (lvlsParent == null)
-    {
-      lvlsParent = GameObject.FindGameObjectWithTag("LevelParentContainer");
-    }
+    // get 'level button' parent container
+    lvlsParent_ = LevelManager.Instance.lvlsParent;
 
     // determine current number of unlocked levels
     if (PlayerPrefs.HasKey("lvls_unlocked"))
@@ -53,7 +62,7 @@ public class LevelManager : MonoBehaviour
       if (LevelButton.Count == 0)
       {
         // get children (lvl buttons) using transform property
-        foreach (Transform child in lvlsParent.transform)
+        foreach (Transform child in lvlsParent_.transform)
         {
           LevelButton.Add(child.gameObject);
         }

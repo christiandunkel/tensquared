@@ -9,11 +9,34 @@ public class CanvasGroupFader : MonoBehaviour
   public float fadeinTime = 0.3f;
   public float fadeoutTime = 0.1f;
 
+  public void FadeIn(GameObject obj)
+  {
+    CanvasGroup uiElement = obj.GetComponent<CanvasGroup>();
+    StartCoroutine(FadeCanvasGroup(uiElement, 0, 1, fadeinTime, false, true, true));
+  }
+
+  public void FadeIn(string name)
+  {
+    CanvasGroup uiElement = GameObject.Find(name).GetComponent<CanvasGroup>();
+    StartCoroutine(FadeCanvasGroup(uiElement, 0, 1, fadeinTime, false, true, true));
+  }
+
   public void FadeIn(int id)
   {
     CanvasGroup uiElement = uiElements[id];
-    //StartCoroutine(FadeCanvasGroup(uiElement, uiElement.alpha, 1, fadeinTime, false, true, true));
     StartCoroutine(FadeCanvasGroup(uiElement, 0, 1, fadeinTime, false, true, true));
+  }
+
+  public void FadeOut(GameObject obj)
+  {
+    CanvasGroup uiElement = obj.GetComponent<CanvasGroup>();
+    StartCoroutine(FadeCanvasGroup(uiElement, uiElement.alpha, 0, fadeoutTime, false, false, false));
+  }
+
+  public void FadeOut(string name)
+  {
+    CanvasGroup uiElement = GameObject.Find(name).GetComponent<CanvasGroup>();
+    StartCoroutine(FadeCanvasGroup(uiElement, uiElement.alpha, 0, fadeoutTime, false, false, false));
   }
 
   public void FadeOut(int id)

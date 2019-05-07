@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* @basic script from 
+ * https://answers.unity.com/questions/551808/parallax-scrolling-using-orthographic-camera.html */
+
 [ExecuteInEditMode]
 public class ParallaxBackground : MonoBehaviour
 {
@@ -11,16 +14,26 @@ public class ParallaxBackground : MonoBehaviour
 
   void Start()
   {
+
     if (parallaxCamera == null)
+    {
       parallaxCamera = Camera.main.GetComponent<ParallaxCamera>();
+    }
+      
     if (parallaxCamera != null)
+    {
       parallaxCamera.onCameraTranslate += Move;
+    }
+      
     SetLayers();
+
   }
 
   void SetLayers()
   {
+
     parallaxLayers.Clear();
+
     for (int i = 0; i < transform.childCount; i++)
     {
 
@@ -28,19 +41,21 @@ public class ParallaxBackground : MonoBehaviour
 
       if (layer != null)
       {
-        layer.name = "Layer-" + i;
         parallaxLayers.Add(layer);
       }
 
     }
+
   }
 
   void Move(float delta)
   {
+
     foreach (ParallaxLayer layer in parallaxLayers)
     {
       layer.Move(delta);
     }
+
   }
 
 }

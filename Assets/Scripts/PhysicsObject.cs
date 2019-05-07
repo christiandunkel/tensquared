@@ -46,6 +46,7 @@ public class PhysicsObject : MonoBehaviour
 
   void FixedUpdate()
   {
+
     velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
     velocity.x = targetVelocity.x;
 
@@ -62,16 +63,20 @@ public class PhysicsObject : MonoBehaviour
     move = Vector2.up * deltaPosition.y;
 
     Movement(move, true);
+
   }
 
   void Movement(Vector2 move, bool yMovement)
   {
+
     float distance = move.magnitude;
 
     if (distance > minMoveDistance)
     {
+
       int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
       hitBufferList.Clear();
+
       for (int i = 0; i < count; i++)
       {
         hitBufferList.Add(hitBuffer[i]);
@@ -79,7 +84,9 @@ public class PhysicsObject : MonoBehaviour
 
       for (int i = 0; i < hitBufferList.Count; i++)
       {
+
         Vector2 currentNormal = hitBufferList[i].normal;
+
         if (currentNormal.y > minGroundNormalY)
         {
           grounded = true;
@@ -91,6 +98,7 @@ public class PhysicsObject : MonoBehaviour
         }
 
         float projection = Vector2.Dot(velocity, currentNormal);
+
         if (projection < 0)
         {
           velocity = velocity - projection * currentNormal;
@@ -98,12 +106,13 @@ public class PhysicsObject : MonoBehaviour
 
         float modifiedDistance = hitBufferList[i].distance - shellRadius;
         distance = modifiedDistance < distance ? modifiedDistance : distance;
-      }
 
+      }
 
     }
 
     rb2d.position = rb2d.position + move.normalized * distance;
+
   }
 
 }

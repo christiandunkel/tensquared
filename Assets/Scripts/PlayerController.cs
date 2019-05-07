@@ -11,7 +11,7 @@ public class PlayerController : PhysicsObject
   private SpriteRenderer spriteRenderer;
   private Animator animator;
 
-  // Use this for initialization
+  // initialization
   void Awake()
   {
     spriteRenderer = GetComponent<SpriteRenderer>();
@@ -20,6 +20,7 @@ public class PlayerController : PhysicsObject
 
   protected override void ComputeVelocity()
   {
+
     Vector2 move = Vector2.zero;
 
     move.x = Input.GetAxis("Horizontal");
@@ -28,13 +29,15 @@ public class PlayerController : PhysicsObject
     {
       velocity.y = jumpTakeOffSpeed;
     }
+
+    /*
     else if (Input.GetButtonUp("Jump"))
     {
       if (velocity.y > 0)
       {
         velocity.y = velocity.y * 0.5f;
       }
-    }
+    }*/
 
     bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f));
     if (flipSprite)
@@ -46,6 +49,7 @@ public class PlayerController : PhysicsObject
     animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
     targetVelocity = move * maxSpeed;
+
   }
 
 }

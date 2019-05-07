@@ -2,6 +2,8 @@
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -104,6 +106,9 @@ public class SaveLoader : MonoBehaviour
   }
 
 
+
+
+
   // reset saved progress data
   public void ResetProgress()
   {
@@ -124,9 +129,100 @@ public class SaveLoader : MonoBehaviour
     PlayerPrefs.SetString("lvl8_timer", def_timer);
     PlayerPrefs.SetString("lvl9_timer", def_timer);
     PlayerPrefs.SetString("lvl10_timer", def_timer);
-    
 
   }
+
+
+
+
+  public InputField importField = null;
+  public CanvasGroup errorMessage = null;
+
+  public void ImportSave()
+  {
+
+    string save_data = importField.text;
+
+    try { 
+
+      // decrypt string
+      save_data = Cipher.Decrypt(save_data, encoding_pass_phrase);
+
+      // decode base64
+      byte[] decodedBytes = Convert.FromBase64String(save_data);
+      save_data = Encoding.UTF8.GetString(decodedBytes);
+
+    }
+    catch (Exception e)
+    {
+      Debug.Log("SaveLoader: Could not import save data: " + e);
+
+      // load error message
+      errorMessage.gameObject.SetActive(true);
+      errorMessage.alpha = 1;
+      errorMessage.interactable = true;
+
+      return;
+    }
+
+    // test if settings had been exported as well
+    bool exported_settings = false;
+    if (Regex.IsMatch(save_data, "music_volume"))
+    {
+      exported_settings = true;
+    }
+
+    // convert JSON string back to object
+    if (exported_settings)
+    {
+      Save save = new Save();
+      save = JsonUtility.FromJson<Save>(save_data);
+
+      PlayerPrefs.SetFloat("music_volume", float.Parse(save.music_volume));
+      PlayerPrefs.SetFloat("sound_volume", float.Parse(save.sound_volume));
+      PlayerPrefs.SetFloat("speech_volume", float.Parse(save.speech_volume));
+
+      PlayerPrefs.SetInt("lvls_unlocked", Int32.Parse(save.lvls_unlocked));
+
+      PlayerPrefs.SetString("lvl1_timer", save.lvl1_timer);
+      PlayerPrefs.SetString("lvl2_timer", save.lvl2_timer);
+      PlayerPrefs.SetString("lvl3_timer", save.lvl3_timer);
+      PlayerPrefs.SetString("lvl4_timer", save.lvl4_timer);
+      PlayerPrefs.SetString("lvl5_timer", save.lvl5_timer);
+      PlayerPrefs.SetString("lvl6_timer", save.lvl6_timer);
+      PlayerPrefs.SetString("lvl7_timer", save.lvl7_timer);
+      PlayerPrefs.SetString("lvl8_timer", save.lvl8_timer);
+      PlayerPrefs.SetString("lvl9_timer", save.lvl9_timer);
+      PlayerPrefs.SetString("lvl10_timer", save.lvl10_timer);
+
+      VolumeController.loadPlayerPrefs();
+
+    }
+    else
+    {
+      SaveNoSettings save = new SaveNoSettings();
+      save = JsonUtility.FromJson<SaveNoSettings>(save_data);
+
+      PlayerPrefs.SetInt("lvls_unlocked", Int32.Parse(save.lvls_unlocked));
+
+      PlayerPrefs.SetString("lvl1_timer", save.lvl1_timer);
+      PlayerPrefs.SetString("lvl2_timer", save.lvl2_timer);
+      PlayerPrefs.SetString("lvl3_timer", save.lvl3_timer);
+      PlayerPrefs.SetString("lvl4_timer", save.lvl4_timer);
+      PlayerPrefs.SetString("lvl5_timer", save.lvl5_timer);
+      PlayerPrefs.SetString("lvl6_timer", save.lvl6_timer);
+      PlayerPrefs.SetString("lvl7_timer", save.lvl7_timer);
+      PlayerPrefs.SetString("lvl8_timer", save.lvl8_timer);
+      PlayerPrefs.SetString("lvl9_timer", save.lvl9_timer);
+      PlayerPrefs.SetString("lvl10_timer", save.lvl10_timer);
+
+    }
+
+    // reset 'import save' input field
+    importField.text = "";
+
+  }
+
 
 
 

@@ -47,15 +47,24 @@ public class LevelManager : MonoBehaviour
 
     Debug.Log("LevelManager: " + levelsUnlocked + " level(s) unlocked.");
 
-    // test if lvl button list is empty, and fill it if so
-    if (LevelButton.Count == 0)
-    {
-      // get children (lvl buttons) using transform property
-      foreach (Transform child in lvlsParent.transform)
+    try { 
+
+      // test if lvl button list is empty, and fill it if so
+      if (LevelButton.Count == 0)
       {
-        LevelButton.Add(child.gameObject);
+        // get children (lvl buttons) using transform property
+        foreach (Transform child in lvlsParent.transform)
+        {
+          LevelButton.Add(child.gameObject);
+        }
       }
+
     }
+    catch (System.Exception e)
+    {
+      Debug.LogWarning("LevelManager: Could not locate level buttons: " + e);
+      return;
+    } 
 
     int counter = 1;
     foreach (GameObject lvl in LevelButton)

@@ -10,8 +10,6 @@ using UnityEngine.UI;
 public class SaveLoader : MonoBehaviour
 {
 
-  public Button aboutMenuButton = null;
-
   private string encoding_pass_phrase = "tensquaredSaveFileCipher";
 
   // default value / format of timer
@@ -138,6 +136,7 @@ public class SaveLoader : MonoBehaviour
 
 
   public InputField importField = null;
+  public CanvasGroup successMessage = null;
   public CanvasGroup errorMessage = null;
 
   public void ImportSave()
@@ -160,7 +159,6 @@ public class SaveLoader : MonoBehaviour
       Debug.LogWarning("SaveLoader: Could not import save data: " + e);
 
       // load error message
-      aboutMenuButton.interactable = false;
       errorMessage.gameObject.SetActive(true);
       errorMessage.alpha = 1;
       errorMessage.interactable = true;
@@ -228,6 +226,11 @@ public class SaveLoader : MonoBehaviour
 
     // reset 'import save' input field
     importField.text = "";
+
+    // load 'successful import' message
+    successMessage.gameObject.SetActive(true);
+    successMessage.alpha = 1;
+    successMessage.interactable = true;
 
   }
 

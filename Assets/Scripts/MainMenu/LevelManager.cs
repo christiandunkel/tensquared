@@ -6,17 +6,23 @@ using TMPro;
 public class LevelManager : MonoBehaviour
 {
 
-  private int levelsUnlocked = 1;
-  private List<GameObject> LevelButton = new List<GameObject>();
+  private static int levelsUnlocked = 1;
+  private static List<GameObject> LevelButton = new List<GameObject>();
 
   // element containing all lvl btn gameobjects
-  public GameObject lvlsParent = null;
+  private static GameObject lvlsParent = null;
 
-  public void LoadLevelProgess()
+  public void LoadLevelProgess_()
+  {
+    LoadLevelProgess();
+  }
+
+  public static void LoadLevelProgess()
   {
 
     Debug.Log("LevelManager: Loaded level progress.");
 
+    // fetch 'lvl btns' container object by tag, if undefined
     if (lvlsParent == null)
     {
       lvlsParent = GameObject.FindGameObjectWithTag("LevelParentContainer");
@@ -41,33 +47,42 @@ public class LevelManager : MonoBehaviour
 
     Debug.Log("LevelManager: " + levelsUnlocked + " level(s) unlocked.");
 
-    // get children (lvl buttons) using transform property
-    foreach (Transform child in lvlsParent.transform)
+    // test if lvl button list is empty, and fill it if so
+    if (LevelButton.Count == 0)
     {
-      LevelButton.Add(child.gameObject);
+      // get children (lvl buttons) using transform property
+      foreach (Transform child in lvlsParent.transform)
+      {
+        LevelButton.Add(child.gameObject);
+      }
     }
 
     int counter = 1;
     foreach (GameObject lvl in LevelButton)
     {
 
+      CanvasGroup CG = lvl.GetComponent<CanvasGroup>();
+
       // disable buttons for levels not yet unlocked
       if (counter > levelsUnlocked)
       {
-        CanvasGroup CG = lvl.GetComponent<CanvasGroup>();
         CG.alpha = 0.2f; // opacity
         CG.interactable = false;
       }
-      // if already unlocked, set timer value
+      // if already unlocked, set visible again
       else
       {
-        foreach (Transform obj in lvl.transform)
+        CG.alpha = 1.0f; // opacity
+        CG.interactable = true;
+      }
+
+      // set timer values
+      foreach (Transform obj in lvl.transform)
+      {
+        if (obj.name == "Timer")
         {
-          if (obj.name == "Timer")
-          {
-            string timer = PlayerPrefs.GetString("lvl" + counter + "_timer");
-            obj.gameObject.GetComponent<TextMeshProUGUI>().text = timer;
-          }
+          string timer = PlayerPrefs.GetString("lvl" + counter + "_timer");
+          obj.gameObject.GetComponent<TextMeshProUGUI>().text = timer;
         }
       }
 

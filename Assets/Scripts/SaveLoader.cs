@@ -10,6 +10,8 @@ using UnityEngine.UI;
 public class SaveLoader : MonoBehaviour
 {
 
+  public Button aboutMenuButton = null;
+
   private string encoding_pass_phrase = "tensquaredSaveFileCipher";
 
   // default value / format of timer
@@ -155,9 +157,10 @@ public class SaveLoader : MonoBehaviour
     }
     catch (Exception e)
     {
-      Debug.Log("SaveLoader: Could not import save data: " + e);
+      Debug.LogWarning("SaveLoader: Could not import save data: " + e);
 
       // load error message
+      aboutMenuButton.interactable = false;
       errorMessage.gameObject.SetActive(true);
       errorMessage.alpha = 1;
       errorMessage.interactable = true;
@@ -171,6 +174,9 @@ public class SaveLoader : MonoBehaviour
     {
       exported_settings = true;
     }
+
+    Debug.Log("SaveLoader: Import save data" + 
+              (exported_settings ? " with export settings" : ""));
 
     // convert JSON string back to object
     if (exported_settings)
@@ -218,6 +224,8 @@ public class SaveLoader : MonoBehaviour
 
     }
 
+    LevelManager.LoadLevelProgess();
+
     // reset 'import save' input field
     importField.text = "";
 
@@ -235,15 +243,17 @@ public class SaveLoader : MonoBehaviour
 
     if (exportField == null)
     {
-      Debug.Log("No 'export field' set in SaveLoader.");
+      Debug.LogWarning("SaveLoader: No 'export field' defined.");
       return;
     }
 
     if (exportSettings == null)
     {
-      Debug.Log("No 'export settings button' set in SaveLoader.");
+      Debug.LogWarning("SaveLoader: No 'export settings button'.");
       return;
     }
+
+    Debug.Log("SaveLoader: Exported save data");
 
     string save_data = "";
 

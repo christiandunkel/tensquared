@@ -8,22 +8,18 @@ using UnityEngine;
 
 public class PlayerController : PhysicsObject
 {
-
-  private bool movingX = false;
-  private float lastX;
-  private bool movingY = false;
-  private float lastY;
+  
   public float maxSpeed = 7;
   public float jumpTakeOffSpeed = 7;
 
   public GameObject circleObject = null;
 
   /*
-   * 1 = circle
-   * 2 = triangle
-   * 3 = rectangle
+   * "circle"
+   * "triangle"
+   * "rectangle"
    */
-  public int state = 1;
+  public string state = "circle";
   
   private Animator animator;
 
@@ -43,21 +39,8 @@ public class PlayerController : PhysicsObject
 
     move.x = Input.GetAxis("Horizontal");
 
-    // test if player is currently moving on x axis
-    movingX = false;
-    if (lastX != transform.position.x)
-    {
-      movingX = true;
-    }
-    lastX = transform.position.x;
-
-    // test if player is currently moving on Y axis
-    movingY = false;
-    if (lastY != transform.position.y)
-    {
-      movingY = true;
-    }
-    lastY = transform.position.y;
+    // test if player is currently moving
+    testForMovement();
 
     if (Input.GetButtonDown("Jump") && grounded)
     {
@@ -71,28 +54,98 @@ public class PlayerController : PhysicsObject
 
 
     // if moving, rotate circle
-    if (movingX)
+    if (state == "circle" && movingX)
     {
       // rotate circle in the right direction
-      rotateCircle(move.x < 0.01f);
+      rotateCircle();
+    }
+
+    if (movingX && grounded)
+    {
+      showMovementParticles(true);
+    }
+    else
+    {
+      showMovementParticles(false);
     }
 
   }
 
   /*
+   * tests if the player is currently moving
+   * sets movingX, movingY, upwards and leftwards
+   */
+  private bool leftwards = false; // direction on last movement
+  private bool movingX = false;
+  private float lastX;
+  private bool upwards = false; // direction on last movement
+  private bool movingY = false;
+  private float lastY;
+  protected void testForMovement()
+  {
+
+    // test if player is currently moving on x axis
+    movingX = false;
+    float currX = transform.position.x; // current
+    if (System.Math.Abs(lastX - currX) > 0.1f)
+    {
+      movingX = true;
+      leftwards = (lastX > currX ? true : false);
+    }
+    lastX = transform.position.x;
+
+    // test if player is currently moving on Y axis
+    movingY = false;
+    float currY = transform.position.y; // current
+    if (System.Math.Abs(lastY - currY) > 0.1f)
+    {
+      movingY = true;
+      upwards = (lastY < currY ? true : false);
+    }
+    lastY = transform.position.y;
+
+  }
+
+
+  /*
    * called while moving as circle, rotates texture
    */
   private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
-  protected void rotateCircle(bool toLeft)
+  protected void rotateCircle()
   {
 
-    float zRotation = Time.deltaTime * maxSpeed * (toLeft ? 25.0f : -25f);
+    float zRotation = Time.deltaTime * maxSpeed * (leftwards ? 25.0f : -25f);
     zRotation %= 360;
 
     rotationVec.z = zRotation;
 
     circleObject.transform.Rotate(rotationVec);
 
+  }
+
+  /*
+  * called every frame
+  * update state of showing movement particles
+  */
+  public GameObject movementParticles = null;
+  protected void showMovementParticles(bool show)
+  {
+
+    ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
+    ParticleSystem.VelocityOverLifetimeModule velocity = ps.velocityOverLifetime;
+
+    if (show)
+    {
+      velocity.x = (leftwards ? 11.0f : -11.0f);
+      velocity.y = 7.0f;
+      ps.startLifetime = 5.0f;
+    }
+    else
+    {
+      velocity.x = 0.0f;
+      velocity.y = 0.0f;
+      ps.startLifetime = 0.0f;
+    }
   }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -8,10 +9,13 @@ public class LevelManager : MonoBehaviour
   private int levelsUnlocked = 1;
   private List<GameObject> LevelButton = new List<GameObject>();
 
-  private GameObject lvlsParent = null;
+  // element containing all lvl btn gameobjects
+  public GameObject lvlsParent = null;
 
   public void LoadLevelProgess()
   {
+
+    Debug.Log("LevelManager: Loaded level progress.");
 
     if (lvlsParent == null)
     {
@@ -35,6 +39,8 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    Debug.Log("LevelManager: " + levelsUnlocked + " level(s) unlocked.");
+
     // get children (lvl buttons) using transform property
     foreach (Transform child in lvlsParent.transform)
     {
@@ -51,6 +57,18 @@ public class LevelManager : MonoBehaviour
         CanvasGroup CG = lvl.GetComponent<CanvasGroup>();
         CG.alpha = 0.2f; // opacity
         CG.interactable = false;
+      }
+      // if already unlocked, set timer value
+      else
+      {
+        foreach (Transform obj in lvl.transform)
+        {
+          if (obj.name == "Timer")
+          {
+            string timer = PlayerPrefs.GetString("lvl" + counter + "_timer");
+            obj.gameObject.GetComponent<TextMeshProUGUI>().text = timer;
+          }
+        }
       }
 
       counter++;

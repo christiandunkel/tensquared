@@ -6047,61 +6047,6 @@ MonoBehaviour:
         m_MethodName: enableButton
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1654171087}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 340162535}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1618446998}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 466461705}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2053062691}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
           m_ObjectArgument: {fileID: 1312708105}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
@@ -6177,7 +6122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &154829326
 Transform:
   m_ObjectHideFlags: 0
@@ -6491,28 +6436,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 585743689}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: disableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1394313888}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: disableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 181258177}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8760,7 +8683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &397178543
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13659,7 +13582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &729912383
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13995,7 +13918,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 773888962}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
@@ -19987,6 +19910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d31611de6a0fb43affdb7ccca19140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lvlsParent: {fileID: 846624380}
 --- !u!1 &866872715
 GameObject:
   m_ObjectHideFlags: 0
@@ -20503,7 +20427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &910178219
 Transform:
   m_ObjectHideFlags: 0
@@ -21716,6 +21640,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 2025542864}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 519420034}
+        m_MethodName: enableButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1312708105}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -23491,61 +23426,6 @@ MonoBehaviour:
         m_MethodName: enableButton
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1654171087}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 340162535}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1618446998}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 466461705}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2053062691}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
           m_ObjectArgument: {fileID: 1312708105}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
@@ -24364,28 +24244,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 585743689}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 181258177}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1394313888}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -33053,7 +32911,7 @@ GameObject:
   - component: {fileID: 1654171087}
   - component: {fileID: 1654171086}
   m_Layer: 0
-  m_Name: ResetProgress
+  m_Name: ResetProgressButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33179,61 +33037,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ResetConfirmation
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: disableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1654171087}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: disableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 340162535}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: disableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1618446998}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: disableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 466461705}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: disableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2053062691}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 519420034}
@@ -41708,28 +41511,6 @@ MonoBehaviour:
         m_MethodName: enableButton
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 181258177}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1394313888}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 519420034}
-        m_MethodName: enableButton
-        m_Mode: 2
-        m_Arguments:
           m_ObjectArgument: {fileID: 1312708105}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
@@ -41887,7 +41668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2025542865
 RectTransform:
   m_ObjectHideFlags: 0

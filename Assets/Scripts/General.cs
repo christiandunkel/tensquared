@@ -9,16 +9,20 @@ public class General : MonoBehaviour
 
   public void disableButton(Button btn)
   {
+    Debug.Log("General: Disabled button " + btn.name + ".");
     btn.interactable = false;
   }
 
   public void enableButton(Button btn)
   {
+    Debug.Log("General: Enabled button " + btn.name + ".");
     btn.interactable = true;
   }
 
   public void _loadSceneByName(string name)
   {
+
+    Debug.Log("General: Loaded scene " + name + ".");
 
     SceneManager.LoadScene(name);
 
@@ -31,7 +35,7 @@ public class General : MonoBehaviour
     Application.Quit();
 
     // for debug purposes in Unity editor
-    Debug.Log("Quit the game!");
+    Debug.Log("General: Quit the game.");
 
   }
 

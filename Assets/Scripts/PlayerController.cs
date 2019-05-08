@@ -138,7 +138,7 @@ public class PlayerController : PhysicsObject
     {
       velocity.x = (leftwards ? 11.0f : -11.0f);
       velocity.y = 7.0f;
-      ps.startLifetime = 5.0f;
+      ps.startLifetime = 2.7f;
     }
     else
     {

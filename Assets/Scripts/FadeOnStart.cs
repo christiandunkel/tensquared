@@ -5,6 +5,8 @@ using UnityEngine;
 public class FadeOnStart : MonoBehaviour
 {
 
+  public static bool disableDelay = false;
+
   public int fps = 30;
   public float delay = 0.0f;
   public float duration = 1.0f;
@@ -16,11 +18,15 @@ public class FadeOnStart : MonoBehaviour
 
   void Start()
   {
-    
     gameObject.GetComponent<CanvasGroup>().alpha = (!fadeOut ? 0.0f : 1.0f);
     gameObject.GetComponent<CanvasGroup>().interactable = ((delay <= 0.5f) || !fadeOut ? false : true);
 
     stepsTotal = fps * (int) duration;
+
+    if (disableDelay)
+    {
+      delay = 0.0f;
+    }
 
   }
 

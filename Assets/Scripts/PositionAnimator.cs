@@ -10,8 +10,16 @@ public class PositionAnimator : MonoBehaviour
   public Element[] elements = null;
   private List<AnimateObject> animateObjects = new List<AnimateObject>();
   
+  // immediately loads end positions all elements at their end positions
+  public static bool disabledAnimation = false;
+
   void Start()
   {
+
+    if (disabledAnimation)
+    {
+      return;
+    }
 
     // modify all elements
     foreach (Element elem in elements)
@@ -25,39 +33,18 @@ public class PositionAnimator : MonoBehaviour
       float startX, startY, startZ,
             endX, endY, endZ;
 
-      // if to animate from some position to current position
-      if (elem.toCurrentPos == true)
-      {
+      // get starting position
+      startX = elem.obj.transform.localPosition.x + elem.moveBy.x;
+      startY = elem.obj.transform.localPosition.y + elem.moveBy.y;
+      startZ = elem.obj.transform.localPosition.z + elem.moveBy.z;
 
-        // get starting position
-        startX = elem.obj.transform.localPosition.x + elem.moveBy.x;
-        startY = elem.obj.transform.localPosition.y + elem.moveBy.y;
-        startZ = elem.obj.transform.localPosition.z + elem.moveBy.z;
+      // get ending position
+      endX = elem.obj.transform.localPosition.x;
+      endY = elem.obj.transform.localPosition.y;
+      endZ = elem.obj.transform.localPosition.z;
 
-        // get ending position
-        endX = elem.obj.transform.localPosition.x;
-        endY = elem.obj.transform.localPosition.y;
-        endZ = elem.obj.transform.localPosition.z;
-
-        // set new position of object
-        elem.obj.transform.localPosition = new Vector3(startX, startY, startZ);
-
-      }
-      // other way around, animate from current position to new one
-      else
-      {
-
-        // get starting position
-        startX = elem.obj.transform.localPosition.x;
-        startY = elem.obj.transform.localPosition.y;
-        startZ = elem.obj.transform.localPosition.z;
-
-        // get ending position
-        endX = elem.obj.transform.localPosition.x + elem.moveBy.x;
-        endY = elem.obj.transform.localPosition.y + elem.moveBy.y;
-        endZ = elem.obj.transform.localPosition.z + elem.moveBy.z;
-
-      }
+      // set new position of object
+      elem.obj.transform.localPosition = new Vector3(startX, startY, startZ);
 
       // assign start and end position
       obj.startPos = new Vector3(startX, startY, startZ);
@@ -200,8 +187,7 @@ public class PositionAnimator : MonoBehaviour
     [SerializeField] public float delay;
     [SerializeField] public float duration;
     [SerializeField] public Vector3 moveBy;
-    [SerializeField] public bool toCurrentPos; // if true, move from posX and posY to current position
-
+    
     // directions in which the object will move
     [SerializeField] public bool downwards;
     [SerializeField] public bool leftToRight;

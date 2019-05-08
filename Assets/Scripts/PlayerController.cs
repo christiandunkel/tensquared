@@ -38,6 +38,7 @@ public class PlayerController : PhysicsObject
 
 
 
+  private bool groundedInLastFrame = true;
   protected override void ComputeVelocity()
   {
 
@@ -47,11 +48,20 @@ public class PlayerController : PhysicsObject
 
     // test if player is currently moving
     testForMovement();
-
+    
+    // jumping
     if (Input.GetButtonDown("Jump") && grounded)
     {
+      textureObject.GetComponent<Animator>().Play("JumpSquish", 0);
       velocity.y = jumpTakeOffSpeed;
     }
+
+    // landing
+    if (!groundedInLastFrame && grounded)
+    {
+      textureObject.GetComponent<Animator>().Play("LandSquish", 0);
+    }
+    groundedInLastFrame = grounded ? true : false;
 
     if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle")
     {
@@ -183,7 +193,7 @@ public class PlayerController : PhysicsObject
     }
     else if (newState == "Rectangle")
     {
-      gravityModifier = 12f;
+      gravityModifier = 25f;
       maxSpeed = 6f;
       jumpTakeOffSpeed = 0f;
     }

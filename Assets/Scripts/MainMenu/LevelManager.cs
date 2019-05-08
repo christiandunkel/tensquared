@@ -79,8 +79,6 @@ public class LevelManager : MonoBehaviour
     foreach (GameObject lvl in LevelButton)
     {
 
-      Debug.Log(lvl);
-
       CanvasGroup CG = lvl.GetComponent<CanvasGroup>();
 
       // disable buttons for levels not yet unlocked

@@ -14,11 +14,8 @@ public class JumpingTextAnimator : MonoBehaviour
   public int jumpItemCount;
   int currentItem;
 
-  public bool reverse;
-
   public bool alwaysAnimateNext = true;
-  public bool alwaysReverseOnEnd;
-  public bool alwaysUpdateList;
+  public bool alwaysUpdateList = false;
 
   List<Animator> animators;
 
@@ -47,11 +44,6 @@ public class JumpingTextAnimator : MonoBehaviour
 
       IEnumerable<Animator> tempAnimators = animators;
 
-      if (reverse)
-      {
-        tempAnimators.Reverse();
-      }
-
       foreach (Animator animator in tempAnimators)
       {
         if (currentItem == System.Int32.MaxValue)
@@ -75,11 +67,7 @@ public class JumpingTextAnimator : MonoBehaviour
       }
 
       yield return new WaitForSeconds(waitEnd);
-
-      if (alwaysReverseOnEnd)
-      {
-        reverse = !reverse;
-      }
+      
     }
   }
 

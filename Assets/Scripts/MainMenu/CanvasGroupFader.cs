@@ -102,7 +102,8 @@ public class CanvasGroupFader : MonoBehaviour
     cg.interactable = interactableEnd;
 
     // if it faded out, set as inactive
-    if (!isFadeInAnimation) { 
+    if (!isFadeInAnimation)
+    {
       cg.gameObject.SetActive(false);
     }
 

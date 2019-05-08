@@ -20,6 +20,7 @@ public class DialogSystem : MonoBehaviour
   public static bool dialogEnabled = true;
 
 
+  private static AudioSource audioSource = null;
   private static GameObject dialogBox = null;
   private static Vector3 dialogBoxPos = new Vector3(0.0f, 0.0f, 0.0f);
   private static Vector3 dialogBoxPosHidden = new Vector3(0.0f, 0.0f, 0.0f);
@@ -67,8 +68,11 @@ public class DialogSystem : MonoBehaviour
             closeSymbol = obj2.GetComponent<CanvasGroup>();
           }
         }
-
-        break;
+        
+      }
+      else if (obj.name == "DialogAudioSource")
+      {
+        audioSource = obj.GetComponent<AudioSource>();
       }
 
     }
@@ -115,8 +119,8 @@ public class DialogSystem : MonoBehaviour
     switch (name)
     {
       case "lvl1_greeting":
-        text = "Who are you, my little friend?...\nWhat are you doing out here all by yourself?";
-        audio = "";
+        text = "Who are you, my little friend?\nWhat are you doing out here all by yourself?";
+        audio = "lvl1_greeting";
         break;
       default:
         Debug.Log("DialogSystem: Could not find dialog \"" + name + "\".");
@@ -172,6 +176,7 @@ public class DialogSystem : MonoBehaviour
       {
         typewriterRunning = true;
         DialogSystem.Instance.StartCoroutine(ShowText());
+        PlayVoice();
       }
       moveDialog = null;
 
@@ -187,7 +192,7 @@ public class DialogSystem : MonoBehaviour
   private static string text = ""; // text
   private static string audio = ""; // path to audio
   private static string currentText = ""; // temporary, current progress of typewriter
-  private static float delay = 0.08f; // delay between characters
+  private static float delay = 0.06f; // delay between characters
   private static int currentChar;
   private static Regex punctuation_regex = new Regex(@"[.!?]+");
   private static Match punctuation_match;
@@ -214,6 +219,18 @@ public class DialogSystem : MonoBehaviour
 
       yield return new WaitForSeconds(punctuation_match.Success ? delay*15 : delay);
     }
+  }
+
+
+
+
+  private static void PlayVoice()
+  {
+
+    AudioClip clip = Resources.Load("Dialog/" + audio, typeof(AudioClip)) as AudioClip;
+
+    audioSource.PlayOneShot(clip);
+
   }
 
 }

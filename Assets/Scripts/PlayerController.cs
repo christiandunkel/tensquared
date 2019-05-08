@@ -162,6 +162,26 @@ public class PlayerController : PhysicsObject
       }
     }
 
+    // set movement variables
+    if (newState == "Circle")
+    {
+      gravityModifier = 4f;
+      maxSpeed = 14f;
+      jumpTakeOffSpeed = 14f;
+    }
+    else if (newState == "Rectangle")
+    {
+      gravityModifier = 12f;
+      maxSpeed = 6f;
+      jumpTakeOffSpeed = 0f;
+    }
+    else if (newState == "Triangle")
+    {
+      gravityModifier = 2f;
+      maxSpeed = 0f;
+      jumpTakeOffSpeed = 20f;
+    }
+
     // reset frame counter for state-change animation
     frameCounter = 0;
 

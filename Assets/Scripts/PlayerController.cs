@@ -193,9 +193,9 @@ public class PlayerController : PhysicsObject
     }
     else if (newState == "Rectangle")
     {
-      gravityModifier = 25f;
+      gravityModifier = 15f;
       maxSpeed = 6f;
-      jumpTakeOffSpeed = 0f;
+      jumpTakeOffSpeed = 15f;
     }
     else if (newState == "Triangle")
     {

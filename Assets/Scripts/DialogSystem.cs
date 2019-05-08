@@ -158,10 +158,12 @@ public class DialogSystem : MonoBehaviour
         start = dialogBoxPosHidden;
         end = dialogBoxPos;
         moveTimer += Time.deltaTime / divisionValue;
+        dialogBox.GetComponent<CanvasGroup>().alpha = moveTimer;
       }
       else
       {
         moveTimer += Time.deltaTime / divisionValue;
+        dialogBox.GetComponent<CanvasGroup>().alpha = 1.0f - moveTimer;
       }
 
       dialogBox.transform.localPosition = Vector3.Lerp(start, end, moveTimer);

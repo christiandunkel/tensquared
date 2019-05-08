@@ -1920,6 +1920,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 817186964578937763}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1653840473 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4875782376814993553, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 817186964578937763}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1710609854
 GameObject:
   m_ObjectHideFlags: 0
@@ -2561,6 +2567,28 @@ Transform:
   m_Father: {fileID: 1763020057}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1863170486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 817186964467294757, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 817186964578937763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1863170487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863170486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefcd61a94e472f4796aff0cd45599e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghost: {fileID: 3073112644976609894, guid: 9832e2d1b9f2cb34eaed2748e3428ffa, type: 3}
+  textureObject: {fileID: 1653840473}
+  delayBetweenGhosts: 0.07
+  makeGhost: 0
 --- !u!1 &1912306584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,6 +3268,11 @@ PrefabInstance:
       propertyPath: minGroundNormalY
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 817186964467294762, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: ghost
+      value: 
+      objectReference: {fileID: 1863170487}
     - target: {fileID: 817186964467294756, guid: 781a989841c99fe4f901ed8c83bef8af,
         type: 3}
       propertyPath: m_Size.x

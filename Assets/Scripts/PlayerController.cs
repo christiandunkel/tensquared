@@ -13,6 +13,7 @@ public class PlayerController : PhysicsObject
   public float jumpTakeOffSpeed = 7;
 
   public GameObject textureObject = null;
+  public GhostingEffect ghost;
 
   private Animator animator;
 
@@ -83,6 +84,17 @@ public class PlayerController : PhysicsObject
       rotateCircle();
     }
 
+    // ghosting effect while moving
+    if (movingX || movingY)
+    {
+      ghost.makeGhost = true;
+    }
+    else
+    {
+      ghost.makeGhost = false;
+    }
+
+    // ground particles when moving over it
     if (movingX && grounded)
     {
       showMovementParticles(true);

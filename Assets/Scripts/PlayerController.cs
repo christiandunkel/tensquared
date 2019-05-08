@@ -198,6 +198,15 @@ public class PlayerController : PhysicsObject
     {
       stateChangeTimer = 0.0f;
 
+      if (frameCounter >= 1)
+      {
+        textureObject.transform.eulerAngles = new Vector3(
+          textureObject.transform.eulerAngles.x,
+          textureObject.transform.eulerAngles.y,
+          0.0f
+        );
+      }
+
       textureObject.GetComponent<SpriteRenderer>().sprite = 
         animationArray[frameCounter] as Sprite;
       

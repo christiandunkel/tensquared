@@ -12,15 +12,8 @@ public class PlayerController : PhysicsObject
   public float maxSpeed = 7;
   public float jumpTakeOffSpeed = 7;
 
-  public GameObject circleObject = null;
+  public GameObject textureObject = null;
 
-  /*
-   * "circle"
-   * "triangle"
-   * "rectangle"
-   */
-  public string state = "circle";
-  
   private Animator animator;
 
   // initialization
@@ -30,7 +23,19 @@ public class PlayerController : PhysicsObject
 
     lastX = transform.position.x;
     lastY = transform.position.y;
+
+    // the inner texture objects sprite renderer
+    SpriteRenderer spriteRenderer = textureObject.GetComponent<SpriteRenderer>();
+
+    // scan given directory and load images as sprites into memory
+    rectToCircle = Resources.LoadAll<Sprite>("Morph_Rectangle_to_Circle");
+    rectToTriangle = Resources.LoadAll<Sprite>("Morph_Rectangle_to_Triangle");
+    triangleToCircle = Resources.LoadAll<Sprite>("Morph_Triangle_to_Circle");
+
   }
+
+
+
 
   protected override void ComputeVelocity()
   {
@@ -47,14 +52,32 @@ public class PlayerController : PhysicsObject
       velocity.y = jumpTakeOffSpeed;
     }
 
-    animator.SetBool("grounded", grounded);
-    animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+    if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle")
+    {
+      newState = "Circle";
+      ChangeState();
+    }
+
+    if (Input.GetKeyDown("" + 2) && !changingState && state != "Triangle")
+    {
+      newState = "Triangle";
+      ChangeState();
+    }
+
+    if (Input.GetKeyDown("" + 3) && !changingState && state != "Rectangle")
+    {
+      newState = "Rectangle";
+      ChangeState();
+    }
+
+    //animator.SetBool("grounded", grounded);
+    //animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
     targetVelocity = move * maxSpeed;
 
 
     // if moving, rotate circle
-    if (state == "circle" && movingX)
+    if (state == "Circle" && movingX)
     {
       // rotate circle in the right direction
       rotateCircle();
@@ -69,7 +92,132 @@ public class PlayerController : PhysicsObject
       showMovementParticles(false);
     }
 
+    // called when changing state, to animate new texture
+    if (changingState)
+    {
+      animateState();
+    }
+
   }
+
+
+
+
+
+  /*
+   * changes state of player to other form
+   */
+  private bool changingState = false;
+  private string state = "Circle";
+  private string newState = "";
+  // the morphing graphics
+  private Sprite[] rectToCircle;
+  private Sprite[] rectToTriangle;
+  private Sprite[] triangleToCircle;
+  // the final array which will be animated
+  private Sprite[] animationArray;
+  protected void ChangeState()
+  {
+
+    if (state == "Circle")
+    {
+      if (newState == "Triangle")
+      {
+        animationArray = new Sprite[triangleToCircle.Length];
+        animationArray = assignSpriteArray(animationArray, triangleToCircle);
+        System.Array.Reverse(animationArray);
+      }
+      else if (newState == "Rectangle")
+      {
+        animationArray = new Sprite[rectToCircle.Length];
+        animationArray = assignSpriteArray(animationArray, rectToCircle);
+        System.Array.Reverse(animationArray);
+      }
+    }
+    else if (state == "Triangle")
+    {
+      if (newState == "Circle")
+      {
+        animationArray = new Sprite[triangleToCircle.Length];
+        animationArray = assignSpriteArray(animationArray, triangleToCircle);
+      }
+      else if (newState == "Rectangle")
+      {
+        animationArray = new Sprite[rectToTriangle.Length];
+        animationArray = assignSpriteArray(animationArray, rectToTriangle);
+        System.Array.Reverse(animationArray);
+      }
+    }
+    else if (state == "Rectangle")
+    {
+      if (newState == "Circle")
+      {
+        animationArray = new Sprite[rectToCircle.Length];
+        animationArray = assignSpriteArray(animationArray, rectToCircle);
+      }
+      else if (newState == "Triangle")
+      {
+        animationArray = new Sprite[rectToTriangle.Length];
+        animationArray = assignSpriteArray(animationArray, rectToTriangle);
+      }
+    }
+
+    // reset frame counter for state-change animation
+    frameCounter = 0;
+
+    changingState = true;
+
+  }
+
+
+  // assigns values of array b to array a, 
+  private static Sprite[] assignSpriteArray(Sprite[] a, Sprite[] b)
+  {
+    int counter = 0;
+    foreach (Sprite sprite in b)
+    {
+      a[counter] = sprite;
+      counter++;
+    }
+    return a;
+  }
+
+
+
+
+
+  private float animationDuration = 0.16f;
+  private int frameCounter = 0;
+  private float stateChangeTimer = 0.0f;
+  private void animateState()
+  {
+
+    stateChangeTimer += Time.deltaTime;
+
+    if (stateChangeTimer > animationDuration / animationArray.Length)
+    {
+      stateChangeTimer = 0.0f;
+
+      textureObject.GetComponent<SpriteRenderer>().sprite = 
+        animationArray[frameCounter] as Sprite;
+      
+      // last image -> reset
+      if (frameCounter >= animationArray.Length - 1)
+      {
+        stateChangeTimer = 0.0f;
+        frameCounter = 0;
+        changingState = false;
+        state = newState;
+      }
+
+      frameCounter++;
+
+    }
+
+  }
+
+
+
 
   /*
    * tests if the player is currently moving
@@ -107,6 +255,9 @@ public class PlayerController : PhysicsObject
   }
 
 
+
+
+
   /*
    * called while moving as circle, rotates texture
    */
@@ -119,9 +270,14 @@ public class PlayerController : PhysicsObject
 
     rotationVec.z = zRotation;
 
-    circleObject.transform.Rotate(rotationVec);
+    textureObject.transform.Rotate(rotationVec);
 
   }
+
+
+
+
+
 
   /*
   * called every frame

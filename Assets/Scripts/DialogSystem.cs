@@ -94,7 +94,7 @@ public class DialogSystem : MonoBehaviour
       MoveDialogBox();
     }
 
-    if (dialogBoxVisible && !typewriterRunning)
+    if (dialogBoxVisible && !typewriterRunning && moveDialog == null)
     {
       // close the current dialog window
       if (Input.GetMouseButtonDown(0))
@@ -135,15 +135,16 @@ public class DialogSystem : MonoBehaviour
   }
 
 
-
   private static float generalTimer = 0.0f;
   private static float moveTimer = 0.0f;
   private static float scrollTimeDown = 0.6f; // time for dialog box to appear / vanish
   private static float scrollTimeUp = 0.2f; // time for dialog box to appear / vanish
-  private static float delayBeforeText = 0.6f; // delay before text appears on dialogbox that is already in position
+  private static float delayBeforeText = 0.3f; // delay before text appears on dialogbox that is already in position
 
   private static void MoveDialogBox()
   {
+
+    float divisionValue = (moveDialog == "down" ? scrollTimeDown : scrollTimeUp);
 
     if (moveTimer < 1.0f)
     {
@@ -156,19 +157,22 @@ public class DialogSystem : MonoBehaviour
       {
         start = dialogBoxPosHidden;
         end = dialogBoxPos;
-        moveTimer += Time.deltaTime / scrollTimeDown;
+        moveTimer += Time.deltaTime / divisionValue;
       }
       else
       {
-        moveTimer += Time.deltaTime / scrollTimeUp;
+        moveTimer += Time.deltaTime / divisionValue;
       }
 
       dialogBox.transform.localPosition = Vector3.Lerp(start, end, moveTimer);
     }
 
-    generalTimer += Time.deltaTime;
+    generalTimer += Time.deltaTime / divisionValue;
 
-    if (generalTimer >= 1.0f + delayBeforeText)
+    if (
+      generalTimer >= 
+      (1.0f + delayBeforeText * divisionValue)
+    )
     {
       generalTimer = 0.0f;
       moveTimer = 0.0f;
@@ -177,6 +181,10 @@ public class DialogSystem : MonoBehaviour
         typewriterRunning = true;
         DialogSystem.Instance.StartCoroutine(ShowText());
         PlayVoice();
+      }
+      else
+      {
+        dialogBoxVisible = false;
       }
       moveDialog = null;
 

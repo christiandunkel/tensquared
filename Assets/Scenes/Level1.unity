@@ -2607,8 +2607,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghost: {fileID: 3073112644976609894, guid: 9832e2d1b9f2cb34eaed2748e3428ffa, type: 3}
   textureObject: {fileID: 1653840473}
-  delayBetweenGhosts: 0.07
+  delayBetweenGhosts: 0.05
   makeGhost: 0
+  durationOfAnimation: 0.31
 --- !u!1 &1912306584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3258,6 +3259,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Texture
       objectReference: {fileID: 0}
+    - target: {fileID: 4875782376814993553, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 817186964467294762, guid: 781a989841c99fe4f901ed8c83bef8af,
         type: 3}
       propertyPath: movementParticles
@@ -3302,11 +3308,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 19.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875782376814993553, guid: 781a989841c99fe4f901ed8c83bef8af,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3228207113522422957, guid: 781a989841c99fe4f901ed8c83bef8af,
         type: 3}

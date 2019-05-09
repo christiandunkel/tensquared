@@ -10,6 +10,7 @@ public class GhostingEffect : MonoBehaviour
   public float delayBetweenGhosts;
   private float ghostDelaySeconds;
   public bool makeGhost = false;
+  public float durationOfAnimation = 0.5f;
 
   // Start is called before the first frame update
   void Start()
@@ -39,7 +40,7 @@ public class GhostingEffect : MonoBehaviour
         Sprite currentSprite = textureObject.GetComponent<SpriteRenderer>().sprite;
         currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;
         // destroy the new ghost object after the fade-out animation
-        Destroy(currentGhost, 0.5f);
+        Destroy(currentGhost, durationOfAnimation);
       }
 
     }

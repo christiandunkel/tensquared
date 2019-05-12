@@ -649,6 +649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 484407849}
   - component: {fileID: 484407848}
+  - component: {fileID: 484407850}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -708,6 +709,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &484407850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484407847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc55cd6a18122de4ea14ff55bd46283d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VirtualCamera: {fileID: 484407848}
 --- !u!4 &518621578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 817186964467294761, guid: 781a989841c99fe4f901ed8c83bef8af,
@@ -1669,9 +1683,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 832623808}
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 746272336}
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7118,7 +7132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446635820}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -142.9826, y: 6.3888245, z: -441.9393}
+  m_LocalPosition: {x: -142.9826, y: 53, z: -441.9393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1235153649}
@@ -7231,10 +7245,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -8353,6 +8367,7 @@ GameObject:
   - component: {fileID: 2113296072}
   - component: {fileID: 2113296074}
   - component: {fileID: 2113296073}
+  - component: {fileID: 2113296075}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -8427,6 +8442,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2113296075
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113296071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &817186964578937763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8569,6 +8600,11 @@ PrefabInstance:
       propertyPath: rectangleLight
       value: 
       objectReference: {fileID: 966688396}
+    - target: {fileID: 817186964467294762, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 1912306586}
     - target: {fileID: 817186964467294756, guid: 781a989841c99fe4f901ed8c83bef8af,
         type: 3}
       propertyPath: m_Size.x

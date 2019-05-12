@@ -62,6 +62,12 @@ public class PlayerController : PhysicsObject
     // landing
     if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f) { 
       textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
+
+      // shake on landing with rectangle
+      if (state == "Rectangle") {
+        CameraShake.Instance.Play(.1f, 12f, 12f);
+      }
+
     }
     groundedInLastFrame = grounded ? true : false;
 
@@ -170,6 +176,8 @@ public class PlayerController : PhysicsObject
 
     LevelSettings settings = LevelSettings.Instance;
 
+    CameraShake.Instance.Play(.2f, 10f, 7f);
+
     gameObject.transform.localPosition = settings.playerSpawn;
 
     settings.isDead = false;
@@ -194,68 +202,36 @@ public class PlayerController : PhysicsObject
   protected void ChangeState()
   {
 
+    // from circle to triangle / rectangle
     if (state == "Circle")
     {
-      if (newState == "Triangle")
-      {
-        animationArray = new Sprite[triangleToCircle.Length];
-        animationArray = assignSpriteArray(animationArray, triangleToCircle);
-        System.Array.Reverse(animationArray);
-      }
-      else if (newState == "Rectangle")
-      {
-        animationArray = new Sprite[rectToCircle.Length];
-        animationArray = assignSpriteArray(animationArray, rectToCircle);
+      animationArray = new Sprite[newState == "Triangle" ? triangleToCircle.Length : rectToCircle.Length];
+      animationArray = assignSpriteArray(animationArray, 
+                                         newState == "Triangle" ? triangleToCircle : rectToCircle);
+      System.Array.Reverse(animationArray);
+    }
+    // from triangle to circle / rectangle
+    else if (state == "Triangle") 
+    {
+      animationArray = new Sprite[newState == "Circle" ? triangleToCircle.Length : rectToTriangle.Length];
+      animationArray = assignSpriteArray(animationArray, 
+                                         newState == "Circle" ? triangleToCircle : rectToTriangle);
+      if (newState == "Rectangle") {
         System.Array.Reverse(animationArray);
       }
     }
-    else if (state == "Triangle")
+    // from rectangle to circle / triangle
+    else if (state == "Rectangle") 
     {
-      if (newState == "Circle")
-      {
-        animationArray = new Sprite[triangleToCircle.Length];
-        animationArray = assignSpriteArray(animationArray, triangleToCircle);
-      }
-      else if (newState == "Rectangle")
-      {
-        animationArray = new Sprite[rectToTriangle.Length];
-        animationArray = assignSpriteArray(animationArray, rectToTriangle);
-        System.Array.Reverse(animationArray);
-      }
-    }
-    else if (state == "Rectangle")
-    {
-      if (newState == "Circle")
-      {
-        animationArray = new Sprite[rectToCircle.Length];
-        animationArray = assignSpriteArray(animationArray, rectToCircle);
-      }
-      else if (newState == "Triangle")
-      {
-        animationArray = new Sprite[rectToTriangle.Length];
-        animationArray = assignSpriteArray(animationArray, rectToTriangle);
-      }
+      animationArray = new Sprite[newState == "Circle" ? rectToCircle.Length : rectToTriangle.Length];
+      animationArray = assignSpriteArray(animationArray, 
+                                          newState == "Circle" ? rectToCircle : rectToTriangle);
     }
 
     // set proper lights
-    if (newState == "Circle")
-    {
-      circleLight.gameObject.SetActive(true);
-      rectangleLight.gameObject.SetActive(false);
-      triangleLight.gameObject.SetActive(false);
-    }
-    else if (newState == "Rectangle")
-    {
-      circleLight.gameObject.SetActive(false);
-      rectangleLight.gameObject.SetActive(true);
-      triangleLight.gameObject.SetActive(false);
-    }
-    else
-    {
-      rectangleLight.gameObject.SetActive(false);
-      circleLight.gameObject.SetActive(false);
-      triangleLight.gameObject.SetActive(true);
-    }
+    circleLight.gameObject.SetActive(newState == "Circle" ? true : false);
+    triangleLight.gameObject.SetActive(newState == "Triangle" ? true : false);
+    rectangleLight.gameObject.SetActive(newState == "Rectangle" ? true : false);
 
     // set movement variables of each character type
     if (newState == "Circle") {

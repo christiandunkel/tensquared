@@ -14,6 +14,16 @@ public class PlayerController : PhysicsObject
 
   public GameObject textureContainer = null;
   public GameObject textureObject = null;
+
+  // light objects for each of the different textures
+  public Light circleLight = null;
+  public Light triangleLight = null;
+  public Light rectangleLight = null;
+  // intensity is set to values given in inspector; used while morphing
+  private float circleLightIntensity = 0.0f;
+  private float triangleLightIntensity = 0.0f;
+  private float rectangleLightIntensity = 0.0f;
+
   public GhostingEffect ghost;
 
   private Animator animator;
@@ -25,6 +35,11 @@ public class PlayerController : PhysicsObject
 
     lastX = transform.position.x;
     lastY = transform.position.y;
+
+    // take light intensity values from Unity inspector
+    circleLightIntensity = circleLight.intensity;
+    triangleLightIntensity = triangleLight.intensity;
+    rectangleLightIntensity = rectangleLight.intensity;
 
     // the inner texture objects sprite renderer
     SpriteRenderer spriteRenderer = textureObject.GetComponent<SpriteRenderer>();
@@ -38,7 +53,7 @@ public class PlayerController : PhysicsObject
 
 
 
-
+  private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
   private bool groundedInLastFrame = true;
   protected override void ComputeVelocity()
   {
@@ -58,11 +73,19 @@ public class PlayerController : PhysicsObject
     }
 
     // landing
-    if (!groundedInLastFrame && grounded)
+    if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f)
     {
       textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
     }
     groundedInLastFrame = grounded ? true : false;
+    if (!grounded)
+    {
+      secondsNotGrounded += Time.deltaTime;
+    }
+    else
+    {
+      secondsNotGrounded = 0.0f;
+    }
 
     if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle")
     {
@@ -185,18 +208,38 @@ public class PlayerController : PhysicsObject
       }
     }
 
+    // set proper lights
+    if (newState == "Circle")
+    {
+      circleLight.gameObject.SetActive(true);
+      rectangleLight.gameObject.SetActive(false);
+      triangleLight.gameObject.SetActive(false);
+    }
+    else if (newState == "Rectangle")
+    {
+      circleLight.gameObject.SetActive(false);
+      rectangleLight.gameObject.SetActive(true);
+      triangleLight.gameObject.SetActive(false);
+    }
+    else
+    {
+      rectangleLight.gameObject.SetActive(false);
+      circleLight.gameObject.SetActive(false);
+      triangleLight.gameObject.SetActive(true);
+    }
+
     // set movement variables
     if (newState == "Circle")
     {
       gravityModifier = 4f;
-      maxSpeed = 14f;
-      jumpTakeOffSpeed = 14f;
+      maxSpeed = 18f;
+      jumpTakeOffSpeed = 16f;
     }
     else if (newState == "Rectangle")
     {
       gravityModifier = 15f;
       maxSpeed = 6f;
-      jumpTakeOffSpeed = 15f;
+      jumpTakeOffSpeed = 26f;
     }
     else if (newState == "Triangle")
     {
@@ -248,6 +291,9 @@ public class PlayerController : PhysicsObject
           textureObject.transform.eulerAngles.y,
           0.0f
         );
+        circleLight.intensity = 1.0f;
+        triangleLight.intensity = 1.0f;
+        rectangleLight.intensity = 1.0f;
       }
 
       textureObject.GetComponent<SpriteRenderer>().sprite = 
@@ -260,6 +306,9 @@ public class PlayerController : PhysicsObject
         frameCounter = 0;
         changingState = false;
         state = newState;
+        circleLight.intensity = circleLightIntensity;
+        triangleLight.intensity = triangleLightIntensity;
+        rectangleLight.intensity = rectangleLightIntensity;
       }
 
       frameCounter++;
@@ -340,19 +389,20 @@ public class PlayerController : PhysicsObject
   {
 
     ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
+    ParticleSystem.MainModule ps_main = movementParticles.GetComponent<ParticleSystem>().main;
     ParticleSystem.VelocityOverLifetimeModule velocity = ps.velocityOverLifetime;
 
     if (show)
     {
       velocity.x = (leftwards ? 11.0f : -11.0f);
       velocity.y = 7.0f;
-      ps.startLifetime = 2.7f;
+      ps_main.startLifetime = 2.7f;
     }
     else
     {
       velocity.x = 0.0f;
       velocity.y = 0.0f;
-      ps.startLifetime = 0.0f;
+      ps_main.startLifetime = 0.0f;
     }
   }
 

@@ -120,7 +120,7 @@ public class DialogSystem : MonoBehaviour
     {
       case "lvl1_greeting":
         text = "Who are you, my little friend?\nWhat are you doing out here all by yourself?";
-        audio = "lvl1_greeting";
+        audio_path = "lvl1_greeting";
         break;
       default:
         Debug.Log("DialogSystem: Could not find dialog \"" + name + "\".");
@@ -200,7 +200,7 @@ public class DialogSystem : MonoBehaviour
   // text is still being written on screen
   private static bool typewriterRunning = false;
   private static string text = ""; // text
-  private static string audio = ""; // path to audio
+  private static string audio_path = ""; // path to audio
   private static string currentText = ""; // temporary, current progress of typewriter
   private static float delay = 0.06f; // delay between characters
   private static int currentChar;
@@ -237,7 +237,7 @@ public class DialogSystem : MonoBehaviour
   private static void PlayVoice()
   {
 
-    AudioClip clip = Resources.Load("Dialog/" + audio, typeof(AudioClip)) as AudioClip;
+    AudioClip clip = Resources.Load("Dialog/" + audio_path, typeof(AudioClip)) as AudioClip;
 
     audioSource.PlayOneShot(clip);
 

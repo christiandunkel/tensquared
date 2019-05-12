@@ -20,10 +20,6 @@ public class PlayerController : PhysicsObject
 
   // saves the attributes of each character state
   public Attributes[] characterAttributes = null;
-  private Attributes circleAttributes;
-  private Attributes triangleAttributes;
-  private Attributes rectangleAttributes;
-
 
 
 
@@ -57,20 +53,6 @@ public class PlayerController : PhysicsObject
     lastX = transform.position.x;
     lastY = transform.position.y;
 
-    foreach (Attributes m in characterAttributes) {
-
-      switch (m.name)
-      {
-        case "Circle":
-          circleAttributes = m; break;
-        case "Triangle":
-          triangleAttributes = m; break;
-        case "Rectangle":
-          rectangleAttributes = m; break;
-        default: break;
-      }
-    }
-
     // take light intensity values from Unity inspector
     circleLightIntensity = circleLight.intensity;
     triangleLightIntensity = triangleLight.intensity;
@@ -83,56 +65,6 @@ public class PlayerController : PhysicsObject
     rectToCircle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle");
     rectToTriangle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle");
     triangleToCircle = Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle");
-
-  }
-
-
-
-
-  public void handleJumping()
-  {
-
-    // jumping
-    if (Input.GetButtonDown("Jump") && grounded) { 
-      textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
-      velocity.y = jumpTakeOffSpeed;
-    }
-
-    // landing
-    if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f) { 
-      textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
-
-      // shake on landing with rectangle
-      if (state == "Rectangle") {
-        CameraShake.Instance.Play(.1f, 18f, 18f);
-      }
-
-    }
-    groundedInLastFrame = grounded ? true : false;
-
-    // check time sind player was last grounded
-    secondsNotGrounded = !grounded ? secondsNotGrounded + Time.deltaTime : 0.0f;
-
-  }
-
-
-  public void handleMorphing()
-  {
-
-    if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle") {
-      newState = "Circle";
-      ChangeState();
-    }
-
-    if (Input.GetKeyDown("" + 2) && !changingState && state != "Triangle") {
-      newState = "Triangle";
-      ChangeState();
-    }
-
-    if (Input.GetKeyDown("" + 3) && !changingState && state != "Rectangle") {
-      newState = "Rectangle";
-      ChangeState();
-    }
 
   }
 
@@ -159,8 +91,39 @@ public class PlayerController : PhysicsObject
         move.x = Input.GetAxis("Horizontal");
 
         if (settings.canJump) {
-          handleJumping();
+
+          // jumping
+          if (Input.GetButtonDown("Jump") && grounded)
+          {
+            textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
+            velocity.y = jumpTakeOffSpeed;
+          }
+          else if (Input.GetButtonDown("Jump") && state == "Triangle" && velocity.y > 0f)
+          {
+            velocity.y = jumpTakeOffSpeed * 1.2f;
+          }
+
+          // landing
+          if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f)
+          {
+
+            textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
+
+            // shake on landing with rectangle
+            if (state == "Rectangle")
+            {
+              CameraShake.Instance.Play(.1f, 18f, 18f);
+            }
+
+          }
+          groundedInLastFrame = grounded ? true : false;
+
+          // check time sind player was last grounded
+          secondsNotGrounded = !grounded ? secondsNotGrounded + Time.deltaTime : 0.0f;
+
         }
+
+        targetVelocity = move * maxSpeed;
 
       }
 
@@ -181,11 +144,6 @@ public class PlayerController : PhysicsObject
       {
         animateState();
       }
-
-      //animator.SetBool("grounded", grounded);
-      //animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
-
-      targetVelocity = move * maxSpeed;
 
 
 
@@ -244,6 +202,7 @@ public class PlayerController : PhysicsObject
       {
         gravityModifier = a.gravityModifier;
         sr.sprite = a.sprite;
+        break;
       }
     }
 
@@ -264,6 +223,49 @@ public class PlayerController : PhysicsObject
   /*
    * changes state of player to other form
    */
+  public void handleMorphing()
+  {
+
+    if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle")
+    {
+      newState = "Circle";
+      GetComponent<CircleCollider2D>().enabled = true;
+      GetComponent<PolygonCollider2D>().enabled = false;
+      GetComponent<BoxCollider2D>().enabled = false;
+      //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+      //GetComponent<Rigidbody2D>().freezeRotation = true;
+      //GetComponent<Rigidbody2D>().rotation = 0f;
+      //GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+      ChangeState();
+    }
+
+    if (Input.GetKeyDown("" + 2) && !changingState && state != "Triangle")
+    {
+      newState = "Triangle";
+      GetComponent<CircleCollider2D>().enabled = false;
+      GetComponent<PolygonCollider2D>().enabled = true;
+      GetComponent<BoxCollider2D>().enabled = false;
+      //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+      //GetComponent<Rigidbody2D>().freezeRotation = true;
+      //GetComponent<Rigidbody2D>().rotation = 0f;
+      //GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
+      ChangeState();
+    }
+
+    if (Input.GetKeyDown("" + 3) && !changingState && state != "Rectangle")
+    {
+      newState = "Rectangle";
+      GetComponent<CircleCollider2D>().enabled = false;
+      GetComponent<PolygonCollider2D>().enabled = false;
+      GetComponent<BoxCollider2D>().enabled = true;
+      //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+      //GetComponent<Rigidbody2D>().freezeRotation = true;
+      //GetComponent<Rigidbody2D>().rotation = 0f;
+      //GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+      ChangeState();
+    }
+
+  }
   private bool changingState = false;
   private string state = "Circle";
   private string newState = "";
@@ -310,21 +312,16 @@ public class PlayerController : PhysicsObject
     triangleLight.gameObject.SetActive(newState == "Triangle" ? true : false);
     rectangleLight.gameObject.SetActive(newState == "Rectangle" ? true : false);
 
-    // set movement variables of each character type
-    if (newState == "Circle") {
-      gravityModifier = circleAttributes.gravityModifier;
-      maxSpeed = circleAttributes.maxSpeed;
-      jumpTakeOffSpeed = circleAttributes.jumpTakeOffSpeed;
-    }
-    else if (newState == "Rectangle") {
-      gravityModifier = rectangleAttributes.gravityModifier;
-      maxSpeed = rectangleAttributes.maxSpeed;
-      jumpTakeOffSpeed = rectangleAttributes.jumpTakeOffSpeed;
-    }
-    else if (newState == "Triangle") {
-      gravityModifier = triangleAttributes.gravityModifier;
-      maxSpeed = triangleAttributes.maxSpeed;
-      jumpTakeOffSpeed = triangleAttributes.jumpTakeOffSpeed;
+    // set movement variables of the character type
+    foreach (Attributes a in characterAttributes)
+    {
+      if (a.name == newState)
+      {
+        gravityModifier = a.gravityModifier;
+        maxSpeed = a.maxSpeed;
+        jumpTakeOffSpeed = a.jumpTakeOffSpeed;
+        break;
+      }
     }
 
     // reset frame counter for state-change animation
@@ -493,6 +490,7 @@ public class PlayerController : PhysicsObject
 
       if (m.name == state) {
         mainModule.startColor = m.particleColor;
+        break;
       }
       
     }

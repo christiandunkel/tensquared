@@ -12,6 +12,7 @@ public class PlayerController : PhysicsObject
   public float maxSpeed = 7;
   public float jumpTakeOffSpeed = 7;
 
+  public GameObject textureContainer = null;
   public GameObject textureObject = null;
   public GhostingEffect ghost;
 
@@ -52,14 +53,14 @@ public class PlayerController : PhysicsObject
     // jumping
     if (Input.GetButtonDown("Jump") && grounded)
     {
-      textureObject.GetComponent<Animator>().Play("JumpSquish", 0);
+      textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
       velocity.y = jumpTakeOffSpeed;
     }
 
     // landing
     if (!groundedInLastFrame && grounded)
     {
-      textureObject.GetComponent<Animator>().Play("LandSquish", 0);
+      textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
     }
     groundedInLastFrame = grounded ? true : false;
 

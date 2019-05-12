@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* @basic script from 
- * https://unity3d.com/learn/tutorials/topics/2d-game-creation/player-controller-script
- */
-
 public class PlayerController : PhysicsObject
 {
   
@@ -53,99 +49,132 @@ public class PlayerController : PhysicsObject
 
 
 
-  private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
-  private bool groundedInLastFrame = true;
-  protected override void ComputeVelocity()
+
+  public void handleJumping()
   {
 
-    Vector2 move = Vector2.zero;
-
-    move.x = Input.GetAxis("Horizontal");
-
-    // test if player is currently moving
-    testForMovement();
-    
     // jumping
-    if (Input.GetButtonDown("Jump") && grounded)
-    {
+    if (Input.GetButtonDown("Jump") && grounded) { 
       textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
       velocity.y = jumpTakeOffSpeed;
     }
 
     // landing
-    if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f)
-    {
+    if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f) { 
       textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
     }
     groundedInLastFrame = grounded ? true : false;
-    if (!grounded)
-    {
-      secondsNotGrounded += Time.deltaTime;
-    }
-    else
-    {
-      secondsNotGrounded = 0.0f;
-    }
 
-    if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle")
-    {
+    // check time sind player was last grounded
+    secondsNotGrounded = !grounded ? secondsNotGrounded + Time.deltaTime : 0.0f;
+
+  }
+
+
+  public void handleMorphing()
+  {
+
+    if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle") {
       newState = "Circle";
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 2) && !changingState && state != "Triangle")
-    {
+    if (Input.GetKeyDown("" + 2) && !changingState && state != "Triangle") {
       newState = "Triangle";
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 3) && !changingState && state != "Rectangle")
-    {
+    if (Input.GetKeyDown("" + 3) && !changingState && state != "Rectangle") {
       newState = "Rectangle";
       ChangeState();
     }
 
-    //animator.SetBool("grounded", grounded);
-    //animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
-
-    targetVelocity = move * maxSpeed;
+  }
 
 
-    // if moving, rotate circle
+
+  private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
+  private bool groundedInLastFrame = true;
+  protected override void ComputeVelocity()
+  {
+
+    LevelSettings settings = LevelSettings.Instance;
+
+    Vector2 move = Vector2.zero;
+
+    // test if player is currently moving
+    testForMovement();
+
+    // handle movement of character on x and y axis
+    if (settings.canMove)
+    {
+
+      move.x = Input.GetAxis("Horizontal");
+
+      if (settings.canJump) {
+        handleJumping();
+      }
+
+    }
+
+    // if moving, rotate circle in right direction
     if (state == "Circle" && movingX)
     {
-      // rotate circle in the right direction
       rotateCircle();
     }
 
     // ghosting effect while moving
-    if (movingX || movingY)
-    {
-      ghost.makeGhost = true;
-    }
-    else
-    {
-      ghost.makeGhost = false;
-    }
+    ghost.makeGhost = movingX || movingY ? true : false;
 
-    // ground particles when moving over it
-    if (movingX && grounded)
-    {
-      showMovementParticles(true);
-    }
-    else
-    {
-      showMovementParticles(false);
-    }
+    // ground particles when moving over ground on the x axis
+    showMovementParticles(movingX && grounded ? true : false);
 
     // called when changing state, to animate new texture
     if (changingState)
     {
       animateState();
     }
+    
+    //animator.SetBool("grounded", grounded);
+    //animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+
+    targetVelocity = move * maxSpeed;
+
+
+
+
+
+    // handle morphing from circle, rectangle, triangle into each other
+    if (settings.canMorph) {
+      handleMorphing();
+    }
+    
+
+    
+    if (settings.isDead)
+    {
+      respawn();
+    }
+
+
+
+
 
   }
 
+
+
+
+  private void respawn()
+  {
+
+    LevelSettings settings = LevelSettings.Instance;
+
+    gameObject.transform.localPosition = settings.playerSpawn;
+
+    settings.isDead = false;
+
+  }
 
 
 
@@ -228,21 +257,18 @@ public class PlayerController : PhysicsObject
       triangleLight.gameObject.SetActive(true);
     }
 
-    // set movement variables
-    if (newState == "Circle")
-    {
+    // set movement variables of each character type
+    if (newState == "Circle") {
       gravityModifier = 4f;
       maxSpeed = 18f;
       jumpTakeOffSpeed = 16f;
     }
-    else if (newState == "Rectangle")
-    {
+    else if (newState == "Rectangle") {
       gravityModifier = 15f;
       maxSpeed = 6f;
       jumpTakeOffSpeed = 26f;
     }
-    else if (newState == "Triangle")
-    {
+    else if (newState == "Triangle") {
       gravityModifier = 2f;
       maxSpeed = 0f;
       jumpTakeOffSpeed = 20f;

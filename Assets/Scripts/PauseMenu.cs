@@ -57,7 +57,7 @@ public class PauseMenu : MonoBehaviour
     PositionAnimator.disabledAnimation = true;
     FadeOnStart.disableDelay = true;
 
-    SceneManager.LoadScene("MainMenu");
+    SceneTransition.Instance.LoadScene("MainMenu");
 
   }
 

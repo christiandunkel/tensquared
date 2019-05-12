@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 817186964467294762}
   - component: {fileID: 817186964467294763}
   - component: {fileID: 817186964467294756}
-  - component: {fileID: 817186964467294767}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -52,8 +51,13 @@ MonoBehaviour:
   gravityModifier: 1.5
   maxSpeed: 14
   jumpTakeOffSpeed: 0
-  circleObject: {fileID: 8048499748152415660}
-  state: 1
+  textureContainer: {fileID: 0}
+  textureObject: {fileID: 0}
+  circleLight: {fileID: 0}
+  triangleLight: {fileID: 0}
+  rectangleLight: {fileID: 0}
+  ghost: {fileID: 0}
+  movementParticles: {fileID: 0}
 --- !u!50 &817186964467294763
 Rigidbody2D:
   serializedVersion: 4
@@ -91,25 +95,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.000003187173, y: -0.031626318}
   m_Size: {x: 20.467215, y: 20.467215}
   m_Direction: 0
---- !u!95 &817186964467294767
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817186964467294757}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1524846543162360245
 GameObject:
   m_ObjectHideFlags: 0

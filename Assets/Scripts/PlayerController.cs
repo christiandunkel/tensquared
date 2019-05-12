@@ -29,9 +29,9 @@ public class PlayerController : PhysicsObject
     SpriteRenderer spriteRenderer = textureObject.GetComponent<SpriteRenderer>();
 
     // scan given directory and load images as sprites into memory
-    rectToCircle = Resources.LoadAll<Sprite>("Morph_Rectangle_to_Circle");
-    rectToTriangle = Resources.LoadAll<Sprite>("Morph_Rectangle_to_Triangle");
-    triangleToCircle = Resources.LoadAll<Sprite>("Morph_Triangle_to_Circle");
+    rectToCircle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle");
+    rectToTriangle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle");
+    triangleToCircle = Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle");
 
   }
 

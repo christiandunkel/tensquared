@@ -33,6 +33,7 @@ public class GhostingEffect : MonoBehaviour
       {
         // generate fading ghost object
         GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
+        currentGhost.transform.SetParent(transform.parent);
         ghostDelaySeconds = delayBetweenGhosts;
         // scale current ghost to player object
         currentGhost.transform.localScale = this.transform.localScale;

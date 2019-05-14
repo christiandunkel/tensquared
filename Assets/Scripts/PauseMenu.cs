@@ -6,7 +6,14 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
 
-  public static bool isPaused;
+  // singleton
+  public static PauseMenu Instance;
+  void Awake()
+  {
+    Instance = this;
+  }
+
+  public bool isPaused;
 
   public GameObject pauseMenuUI;
 

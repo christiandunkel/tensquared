@@ -197,7 +197,7 @@ public class PlayerController : PhysicsObject
           
 
           // landing
-          if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f)
+          if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.2f)
           {
 
             textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
@@ -265,6 +265,10 @@ public class PlayerController : PhysicsObject
     settings.canMove = false;
     settings.canMorph = false;
     settings.canJump = false;
+
+    GetComponent<Rigidbody2D>().freezeRotation = true;
+    GetComponent<Rigidbody2D>().rotation = 0f;
+    GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
 
     CameraShake.Instance.Play(.2f, 10f, 7f);
 

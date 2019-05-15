@@ -557,10 +557,17 @@ public class PlayerController : PhysicsObject
 
     string colObjName = col.gameObject.name;
 
-    if (colObjName == "KillZone") {
-      Debug.Log("Player died by entering a kill zone.");
-      StartCoroutine(respawn());
-      return;
+    switch (colObjName)
+    {
+
+      case "KillZone":
+        Debug.Log("Player died by entering a kill zone.");
+        StartCoroutine(respawn());
+        break;
+
+      default:
+        break;
+
     }
 
   }
@@ -569,6 +576,19 @@ public class PlayerController : PhysicsObject
   {
 
     string colObjName = col.gameObject.name;
+
+    switch (colObjName)
+    {
+
+      case "Water":
+        Debug.Log("Player died by entering water.");
+        StartCoroutine(respawn());
+        break;
+
+      default:
+        break;
+
+    }
 
   }
 

@@ -310,9 +310,9 @@ public class PlayerController : PhysicsObject
       GetComponent<PolygonCollider2D>().enabled = false;
       GetComponent<BoxCollider2D>().enabled = false;
       //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-      //GetComponent<Rigidbody2D>().freezeRotation = true;
-      //GetComponent<Rigidbody2D>().rotation = 0f;
-      //GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+      GetComponent<Rigidbody2D>().freezeRotation = true;
+      GetComponent<Rigidbody2D>().rotation = 0f;
+      GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
       ChangeState();
     }
 
@@ -323,9 +323,9 @@ public class PlayerController : PhysicsObject
       GetComponent<PolygonCollider2D>().enabled = true;
       GetComponent<BoxCollider2D>().enabled = false;
       //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-      //GetComponent<Rigidbody2D>().freezeRotation = true;
-      //GetComponent<Rigidbody2D>().rotation = 0f;
-      //GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
+      GetComponent<Rigidbody2D>().freezeRotation = true;
+      GetComponent<Rigidbody2D>().rotation = 0f;
+      GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
       ChangeState();
     }
 
@@ -336,9 +336,9 @@ public class PlayerController : PhysicsObject
       GetComponent<PolygonCollider2D>().enabled = false;
       GetComponent<BoxCollider2D>().enabled = true;
       //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-      //GetComponent<Rigidbody2D>().freezeRotation = true;
-      //GetComponent<Rigidbody2D>().rotation = 0f;
-      //GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+      GetComponent<Rigidbody2D>().freezeRotation = true;
+      GetComponent<Rigidbody2D>().rotation = 0f;
+      GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
       ChangeState();
     }
 

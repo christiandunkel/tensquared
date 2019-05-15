@@ -5150,11 +5150,12 @@ GameObject:
   m_Component:
   - component: {fileID: 993583905248000379}
   - component: {fileID: 993583906059848013}
+  - component: {fileID: 993583906059848006}
+  - component: {fileID: 4230689970831439879}
   - component: {fileID: 993583906059848010}
   - component: {fileID: 993583906059848011}
   - component: {fileID: 993583906059848008}
   - component: {fileID: 993583906059848009}
-  - component: {fileID: 993583906059848006}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5223,6 +5224,35 @@ MonoBehaviour:
   circleLight: {fileID: 993583906373981344}
   triangleLight: {fileID: 993583905881401589}
   rectangleLight: {fileID: 993583905149373659}
+--- !u!114 &993583906059848006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993583906059848007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefcd61a94e472f4796aff0cd45599e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghost: {fileID: 3073112644976609894, guid: 9832e2d1b9f2cb34eaed2748e3428ffa, type: 3}
+  textureObject: {fileID: 993583904557061724}
+  delayBetweenGhosts: 0.05
+  makeGhost: 0
+  durationOfAnimation: 0.31
+--- !u!114 &4230689970831439879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993583906059848007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87354b9d2b073394c89d5ea5c81bc57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &993583906059848010
 Rigidbody2D:
   serializedVersion: 4
@@ -5314,23 +5344,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 20}
   m_EdgeRadius: 0
---- !u!114 &993583906059848006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993583906059848007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eefcd61a94e472f4796aff0cd45599e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ghost: {fileID: 3073112644976609894, guid: 9832e2d1b9f2cb34eaed2748e3428ffa, type: 3}
-  textureObject: {fileID: 993583904557061724}
-  delayBetweenGhosts: 0.05
-  makeGhost: 0
-  durationOfAnimation: 0.31
 --- !u!1 &993583906373981374
 GameObject:
   m_ObjectHideFlags: 0

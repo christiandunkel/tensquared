@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerController : PhysicsObject
 {
+
+  // singleton
+  public static PlayerController Instance;
+
+
+
   /*
    ========================
    === PLAYER VARIABLES ===
@@ -11,6 +17,7 @@ public class PlayerController : PhysicsObject
    */
 
   private bool isDead = false;
+  private bool steppedOnPiston = false;
 
   private bool isChangingState = false;
   private string state = "Circle";
@@ -87,6 +94,26 @@ public class PlayerController : PhysicsObject
 
   /*
    ==============
+   === SETTER ===
+   ==============
+   */
+
+  public void setValue(string name, bool val)
+  {
+    switch (name)
+    {
+      case "steppedOnPiston":
+        steppedOnPiston = val;
+        break;
+      default:
+        break;
+    }
+  }
+
+
+
+  /*
+   ==============
    === GETTER ===
    ==============
    */
@@ -126,6 +153,8 @@ public class PlayerController : PhysicsObject
 
   void Awake()
   {
+
+    Instance = this;
 
     // set attributes for start character state
     Attributes a = getAttributes();
@@ -214,6 +243,12 @@ public class PlayerController : PhysicsObject
           // check time sind player was last grounded
           secondsNotGrounded = !grounded ? secondsNotGrounded + Time.deltaTime : 0.0f;
 
+        }
+
+        if (steppedOnPiston)
+        {
+          steppedOnPiston = false;
+          velocity.y = jumpTakeOffSpeed * 2f;
         }
 
         targetVelocity = move * maxSpeed;
@@ -585,13 +620,19 @@ public class PlayerController : PhysicsObject
     {
 
       case "Water":
-        Debug.Log("Player died by entering water.");
+        Debug.Log("PlayerController: Player died by entering water.");
         StartCoroutine(respawn());
         break;
 
       default:
         break;
 
+    }
+
+    if (colObjName == "Piston")
+    {
+      Debug.Log("PlayerController: Stepped on a piston.");
+      Piston.Instance.GoUp(col.gameObject);
     }
 
   }

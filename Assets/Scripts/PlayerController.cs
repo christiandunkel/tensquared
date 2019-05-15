@@ -5,61 +5,133 @@ using UnityEngine;
 public class PlayerController : PhysicsObject
 {
   /*
-   =======================
-   === PLAYER SETTINGS ===
-   =======================
+   ========================
+   === PLAYER VARIABLES ===
+   ========================
    */
 
   private bool isDead = false;
 
+  private bool isChangingState = false;
+  private string state = "Circle";
+  private string newState = "";
 
+  private bool groundedInLastFrame = true;
+
+  private float lastX;
+  private float lastY;
+  private bool leftwards = false; // direction on last movement
+  private bool movingX = false;
+  private bool upwards = false; // direction on last movement
+  private bool movingY = false;
+
+
+
+  /*
+   =========================
+   === PLAYER ATTRIBUTES ===
+   =========================
+   */
+
+  private float maxSpeed,
+                jumpTakeOffSpeed;
 
   [System.Serializable]
   public struct Attributes {
-
-    // attributes
     [SerializeField] public string name;
     [SerializeField] public float gravityModifier;
     [SerializeField] public float maxSpeed;
     [SerializeField] public float jumpTakeOffSpeed;
     [SerializeField] public Sprite sprite;
     [SerializeField] public Color particleColor;
-
   }
 
   // saves the attributes of each character state
-  public Attributes[] characterAttributes = null;
+  public Attributes[] characterAttributes = new Attributes[3];
+  
 
-  private GameObject playerParentObject = null;
 
-  public float maxSpeed = 14f;
-  public float jumpTakeOffSpeed = 14f;
+  /*
+   ======================
+   === PLAYER OBJECTS ===
+   ======================
+   */
 
-  public AudioSource soundPlayer = null;
-  public AudioClip morphSound = null;
+  public AudioSource soundPlayer;
+  public AudioClip morphSound;
 
-  public GameObject textureContainer = null;
-  public GameObject textureObject = null;
-
-  // light objects for each of the different textures
-  public Light circleLight = null;
-  public Light triangleLight = null;
-  public Light rectangleLight = null;
-  // intensity is set to values given in inspector; used while morphing
-  private float circleLightIntensity = 0.0f;
-  private float triangleLightIntensity = 0.0f;
-  private float rectangleLightIntensity = 0.0f;
+  public GameObject textureContainer;
+  public GameObject textureObject;
 
   public GhostingEffect ghost;
 
-  private Animator animator;
+  public GameObject movementParticles = null;
+  public GameObject deathParticles = null;
 
-  // initialization
+
+
+  /*
+   ==============
+   === LIGHTS ===
+   ==============
+   */
+
+  // lights for each of the different textures
+  public Light circleLight, triangleLight, rectangleLight;
+  // intensity is set in inspector; value is used while morphing
+  private float circleLightIntensity = 0.0f,
+                triangleLightIntensity = 0.0f,
+                rectangleLightIntensity = 0.0f;
+
+
+
+  /*
+   ==============
+   === GETTER ===
+   ==============
+   */
+
+  private Attributes getAttributes() {
+    return getAttributes(state);
+  }
+
+  private Attributes getAttributes(string stateName) {
+
+    // look for given name
+    foreach (Attributes a51511552 in characterAttributes) {
+      if (a51511552.name == stateName) {
+        return a51511552;
+      }
+    }
+
+    // if fails return attributes for current state
+    Attributes a = new Attributes();
+    foreach (Attributes a_temp in characterAttributes) {
+      if (a_temp.name == state) {
+        a = a_temp;
+        break;
+      }
+    }
+    return a;
+
+  }
+
+
+
+  /*
+   ======================
+   === INITIALIZATION ===
+   ======================
+   */
+
   void Awake()
   {
-    animator = GetComponent<Animator>();
 
-    playerParentObject = gameObject.transform.parent.gameObject;
+    // set attributes for start character state
+    Attributes a = getAttributes();
+    maxSpeed = a.maxSpeed;
+    jumpTakeOffSpeed = a.jumpTakeOffSpeed;
+    gravityModifier = a.gravityModifier;
 
     lastX = transform.position.x;
     lastY = transform.position.y;
@@ -81,8 +153,13 @@ public class PlayerController : PhysicsObject
 
 
 
+  /*
+   ================
+   === MOVEMENT ===
+   ================
+   */
+
   private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
-  private bool groundedInLastFrame = true;
   protected override void ComputeVelocity()
   {
 
@@ -104,15 +181,20 @@ public class PlayerController : PhysicsObject
         if (settings.canJump) {
 
           // jumping
-          if (Input.GetButtonDown("Jump") && grounded)
+          if (Input.GetButtonDown("Jump"))
           {
-            textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
-            velocity.y = jumpTakeOffSpeed;
+
+            if (grounded) {
+              textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
+              velocity.y = jumpTakeOffSpeed;
+            }
+            // double jump for triangle
+            else if (state == "Triangle" && velocity.y > 0f) {
+              velocity.y = jumpTakeOffSpeed * 1.2f;
+            }
+
           }
-          else if (Input.GetButtonDown("Jump") && state == "Triangle" && velocity.y > 0f)
-          {
-            velocity.y = jumpTakeOffSpeed * 1.2f;
-          }
+          
 
           // landing
           if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.3f)
@@ -138,27 +220,27 @@ public class PlayerController : PhysicsObject
 
       }
 
-      // if moving, rotate circle in right direction
-      if (state == "Circle" && movingX)
-      {
-        rotateCircle();
-      }
+      // if moving on x axis
+      if (movingX) {
 
-      // ghosting effect while moving
-      ghost.makeGhost = movingX || movingY ? true : false;
+        // rotate circle in right direction
+        if (state == "Circle") {
+          rotateCircle();
+        }
+
+      }
 
       // ground particles when moving over ground on the x axis
       showMovementParticles(movingX && grounded ? true : false);
+      
+      // ghosting effect while moving
+      ghost.makeGhost = movingX || movingY ? true : false;
 
       // called when changing state, to animate new texture
-      if (changingState)
+      if (isChangingState)
       {
         animateState();
       }
-
-
-
-
 
       // handle morphing from circle, rectangle, triangle into each other
       if (settings.canMorph) {
@@ -174,12 +256,12 @@ public class PlayerController : PhysicsObject
   IEnumerator respawn()
   {
 
-    isDead = true;
-
     LevelSettings settings = LevelSettings.Instance;
 
+    isDead = true;
     gravityModifier = 0.0f;
     velocity.y = 0.0f;
+
     settings.canMove = false;
     settings.canMorph = false;
     settings.canJump = false;
@@ -198,20 +280,15 @@ public class PlayerController : PhysicsObject
     SpriteRenderer sr = textureObject.GetComponent<SpriteRenderer>();
 
     // reset gravity modifier and set sprite visible again
-    foreach (Attributes a in characterAttributes)
-    {
-      if (a.name == state)
-      {
-        gravityModifier = a.gravityModifier;
-        sr.sprite = a.sprite;
-        break;
-      }
-    }
+    Attributes a = getAttributes();
+    gravityModifier = a.gravityModifier;
+    sr.sprite = a.sprite;
+
+    isDead = false;
 
     settings.canMove = true;
     settings.canMorph = true;
     settings.canJump = true;
-    isDead = false;
 
     StopCoroutine(respawn());
 
@@ -226,7 +303,7 @@ public class PlayerController : PhysicsObject
   public void handleMorphing()
   {
 
-    if (Input.GetKeyDown("" + 1) && !changingState && state != "Circle")
+    if (Input.GetKeyDown("" + 1) && !isChangingState && state != "Circle")
     {
       newState = "Circle";
       GetComponent<CircleCollider2D>().enabled = true;
@@ -239,7 +316,7 @@ public class PlayerController : PhysicsObject
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 2) && !changingState && state != "Triangle")
+    if (Input.GetKeyDown("" + 2) && !isChangingState && state != "Triangle")
     {
       newState = "Triangle";
       GetComponent<CircleCollider2D>().enabled = false;
@@ -252,7 +329,7 @@ public class PlayerController : PhysicsObject
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 3) && !changingState && state != "Rectangle")
+    if (Input.GetKeyDown("" + 3) && !isChangingState && state != "Rectangle")
     {
       newState = "Rectangle";
       GetComponent<CircleCollider2D>().enabled = false;
@@ -266,42 +343,35 @@ public class PlayerController : PhysicsObject
     }
 
   }
-  private bool changingState = false;
-  private string state = "Circle";
-  private string newState = "";
   // the morphing graphics
   private Sprite[] rectToCircle;
   private Sprite[] rectToTriangle;
   private Sprite[] triangleToCircle;
   // the final array which will be animated
-  private Sprite[] animationArray;
+  private static Sprite[] animationArray;
   protected void ChangeState()
   {
 
-    // from circle to triangle / rectangle
-    if (state == "Circle")
+    switch (state)
     {
-      animationArray = new Sprite[newState == "Triangle" ? triangleToCircle.Length : rectToCircle.Length];
-      animationArray = assignSpriteArray(animationArray, 
-                                         newState == "Triangle" ? triangleToCircle : rectToCircle);
-      System.Array.Reverse(animationArray);
-    }
-    // from triangle to circle / rectangle
-    else if (state == "Triangle") 
-    {
-      animationArray = new Sprite[newState == "Circle" ? triangleToCircle.Length : rectToTriangle.Length];
-      animationArray = assignSpriteArray(animationArray, 
-                                         newState == "Circle" ? triangleToCircle : rectToTriangle);
-      if (newState == "Rectangle") {
-        System.Array.Reverse(animationArray);
-      }
-    }
-    // from rectangle to circle / triangle
-    else if (state == "Rectangle") 
-    {
-      animationArray = new Sprite[newState == "Circle" ? rectToCircle.Length : rectToTriangle.Length];
-      animationArray = assignSpriteArray(animationArray, 
-                                          newState == "Circle" ? rectToCircle : rectToTriangle);
+      // from circle to triangle / rectangle
+      case "Circle":
+        assignAnimationArray(newState == "Triangle" ? triangleToCircle : rectToCircle, true);
+        break;
+
+      // from triangle to circle / rectangle
+      case "Triangle":
+        assignAnimationArray(newState == "Circle" ? triangleToCircle : rectToTriangle, newState == "Rectangle");
+        break;
+
+      // from rectangle to circle / triangle
+      case "Rectangle":
+        assignAnimationArray(newState == "Circle" ? rectToCircle : rectToTriangle, false);
+        break;
+
+      default:
+        break;
+
     }
 
     // play sound
@@ -313,35 +383,32 @@ public class PlayerController : PhysicsObject
     rectangleLight.gameObject.SetActive(newState == "Rectangle" ? true : false);
 
     // set movement variables of the character type
-    foreach (Attributes a in characterAttributes)
-    {
-      if (a.name == newState)
-      {
-        gravityModifier = a.gravityModifier;
-        maxSpeed = a.maxSpeed;
-        jumpTakeOffSpeed = a.jumpTakeOffSpeed;
-        break;
-      }
-    }
+    Attributes a = getAttributes(newState);
+    gravityModifier = a.gravityModifier;
+    maxSpeed = a.maxSpeed;
+    jumpTakeOffSpeed = a.jumpTakeOffSpeed;
 
     // reset frame counter for state-change animation
     frameCounter = 0;
 
-    changingState = true;
+    isChangingState = true;
 
   }
 
 
-  // assigns values of array b to array a, 
-  private static Sprite[] assignSpriteArray(Sprite[] a, Sprite[] b)
+  // create and reutrn new array with values of given array
+  private static void assignAnimationArray(Sprite[] a, bool reverse)
   {
-    int counter = 0;
-    foreach (Sprite sprite in b)
-    {
-      a[counter] = sprite;
-      counter++;
+
+    animationArray = new Sprite[a.Length];
+
+    int counter = reverse ? a.Length - 1 : 0;
+
+    foreach (Sprite sprite in a) {
+      animationArray[counter] = sprite;
+      counter = reverse ? counter - 1 : counter + 1;
     }
-    return a;
+
   }
 
 
@@ -362,25 +429,24 @@ public class PlayerController : PhysicsObject
 
       if (frameCounter >= 1)
       {
-        textureObject.transform.eulerAngles = new Vector3(
-          textureObject.transform.eulerAngles.x,
-          textureObject.transform.eulerAngles.y,
-          0.0f
-        );
+        // reset rotation
+        Vector3 ea = textureObject.transform.eulerAngles;
+        ea.z = 0.0f;
+        textureObject.transform.eulerAngles = ea;
+
         circleLight.intensity = 1.0f;
         triangleLight.intensity = 1.0f;
         rectangleLight.intensity = 1.0f;
       }
 
-      textureObject.GetComponent<SpriteRenderer>().sprite = 
-        animationArray[frameCounter] as Sprite;
+      textureObject.GetComponent<SpriteRenderer>().sprite = animationArray[frameCounter] as Sprite;
       
       // last image -> reset
       if (frameCounter >= animationArray.Length - 1)
       {
         stateChangeTimer = 0.0f;
         frameCounter = 0;
-        changingState = false;
+        isChangingState = false;
         state = newState;
         circleLight.intensity = circleLightIntensity;
         triangleLight.intensity = triangleLightIntensity;
@@ -400,20 +466,13 @@ public class PlayerController : PhysicsObject
    * tests if the player is currently moving
    * sets movingX, movingY, upwards and leftwards
    */
-  private bool leftwards = false; // direction on last movement
-  private bool movingX = false;
-  private float lastX;
-  private bool upwards = false; // direction on last movement
-  private bool movingY = false;
-  private float lastY;
   protected void testForMovement()
   {
 
     // test if player is currently moving on x axis
     movingX = false;
     float currX = transform.position.x; // current
-    if (System.Math.Abs(lastX - currX) > 0.1f)
-    {
+    if (System.Math.Abs(lastX - currX) > 0.1f) {
       movingX = true;
       leftwards = (lastX > currX ? true : false);
     }
@@ -422,8 +481,7 @@ public class PlayerController : PhysicsObject
     // test if player is currently moving on Y axis
     movingY = false;
     float currY = transform.position.y; // current
-    if (System.Math.Abs(lastY - currY) > 0.1f)
-    {
+    if (System.Math.Abs(lastY - currY) > 0.1f) {
       movingY = true;
       upwards = (lastY < currY ? true : false);
     }
@@ -439,16 +497,9 @@ public class PlayerController : PhysicsObject
    * called while moving as circle, rotates texture
    */
   private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
-  protected void rotateCircle()
-  {
-
-    float zRotation = Time.deltaTime * maxSpeed * (leftwards ? 25.0f : -25f);
-    zRotation %= 360;
-
-    rotationVec.z = zRotation;
-
+  protected void rotateCircle() {
+    rotationVec.z = (Time.deltaTime * maxSpeed * (leftwards ? 25.0f : -25f)) % 360;
     textureObject.transform.Rotate(rotationVec);
-
   }
 
 
@@ -458,57 +509,40 @@ public class PlayerController : PhysicsObject
 
   /*
   * called every frame
-  * update state of showing movement particles
+  * update state of "showing movement particles"
   */
-  public GameObject movementParticles = null;
-  public GameObject deathParticles = null;
   protected void showMovementParticles(bool show)
   {
 
     ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
-    ParticleSystem.MainModule ps_main = movementParticles.GetComponent<ParticleSystem>().main;
-    ParticleSystem.VelocityOverLifetimeModule velocity = ps.velocityOverLifetime;
+    ParticleSystem.MainModule ps_main = ps.main;
+    ParticleSystem.VelocityOverLifetimeModule ps_velocity = ps.velocityOverLifetime;
 
-    if (show)
-    {
-      velocity.x = (leftwards ? 11.0f : -11.0f);
-      velocity.y = 7.0f;
+    if (show) {
+      ps_velocity.x = (leftwards ? 11.0f : -11.0f);
+      ps_velocity.y = 7.0f;
       ps_main.startLifetime = 2.7f;
     }
-    else
-    {
-      velocity.x = 0.0f;
-      velocity.y = 0.0f;
+    else {
+      ps_velocity.x = 0.0f;
+      ps_velocity.y = 0.0f;
       ps_main.startLifetime = 0.0f;
     }
   }
+
   protected void playDeathParticles()
   {
 
     ParticleSystem.MainModule mainModule = deathParticles.GetComponent<ParticleSystem>().main;
-    foreach (Attributes m in characterAttributes) {
 
-      if (m.name == state) {
-        mainModule.startColor = m.particleColor;
-        break;
-      }
-      
-    }
+    // set particle color for death particles
+    Attributes a = getAttributes();
+    mainModule.startColor = a.particleColor;
 
     deathParticles.SetActive(true);
     deathParticles.GetComponent<ParticleSystem>().Play();
+
   }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -521,18 +555,20 @@ public class PlayerController : PhysicsObject
   public void OnCollisionEnter2D(Collision2D col)
   {
 
-    switch (col.gameObject.name)
-    {
+    string colObjName = col.gameObject.name;
 
-      case "KillZone":
-        Debug.Log("Player died by entering a kill zone.");
-        StartCoroutine(respawn());
-        break;
-
-      default:
-        break;
-
+    if (colObjName == "KillZone") {
+      Debug.Log("Player died by entering a kill zone.");
+      StartCoroutine(respawn());
+      return;
     }
+
+  }
+
+  public void OnTriggerEnter2D(Collider2D col)
+  {
+
+    string colObjName = col.gameObject.name;
 
   }
 

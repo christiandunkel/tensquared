@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpriteDropShadow : MonoBehaviour
 {
 
-  public Vector3 shadowOffset = new Vector3(0.5f, 0.5f, 0f);
+  public Vector3 shadowOffset = new Vector3(0.3f, -0.3f, 0f);
   public Material material;
 
   private GameObject shadow;

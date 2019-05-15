@@ -16,7 +16,6 @@ public class LevelSettings : MonoBehaviour
   public bool canMove = true; // if player can use input to influence movement of character
   public bool canJump = true; // if player can jump by key
   public bool canMorph = true; // if player can change the form of the character
-  public bool isDead = false; // if the player is currently dead
 
   // world stats
   public Vector2 worldSpawn;

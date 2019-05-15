@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class PlayerController : PhysicsObject
 {
+  /*
+   =======================
+   === PLAYER SETTINGS ===
+   =======================
+   */
+
+  private bool isDead = false;
+
+
 
   [System.Serializable]
   public struct Attributes {
@@ -21,7 +30,7 @@ public class PlayerController : PhysicsObject
   // saves the attributes of each character state
   public Attributes[] characterAttributes = null;
 
-
+  private GameObject playerParentObject = null;
 
   public float maxSpeed = 14f;
   public float jumpTakeOffSpeed = 14f;
@@ -49,6 +58,8 @@ public class PlayerController : PhysicsObject
   void Awake()
   {
     animator = GetComponent<Animator>();
+
+    playerParentObject = gameObject.transform.parent.gameObject;
 
     lastX = transform.position.x;
     lastY = transform.position.y;
@@ -82,7 +93,7 @@ public class PlayerController : PhysicsObject
     // test if player is currently moving
     testForMovement();
 
-    if (!deathAnimationPlaying) {
+    if (!isDead) {
 
       // handle movement of character on x and y axis
       if (settings.canMove)
@@ -154,25 +165,16 @@ public class PlayerController : PhysicsObject
         handleMorphing();
       }
 
-
-
-      // play death animation and respawn
-      if (settings.isDead)
-      {
-        StartCoroutine(respawn());
-      }
-
     }
 
   }
 
 
-
-  private bool deathAnimationPlaying = false;
+  
   IEnumerator respawn()
   {
-    
-    deathAnimationPlaying = true;
+
+    isDead = true;
 
     LevelSettings settings = LevelSettings.Instance;
 
@@ -209,9 +211,7 @@ public class PlayerController : PhysicsObject
     settings.canMove = true;
     settings.canMorph = true;
     settings.canJump = true;
-    settings.isDead = false;
-
-    deathAnimationPlaying = false;
+    isDead = false;
 
     StopCoroutine(respawn());
 
@@ -497,6 +497,43 @@ public class PlayerController : PhysicsObject
 
     deathParticles.SetActive(true);
     deathParticles.GetComponent<ParticleSystem>().Play();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+   ===============================
+   === TRIGGERS AND COLLISIONS ===
+   ===============================
+   */
+
+  public void OnCollisionEnter2D(Collision2D col)
+  {
+
+    switch (col.gameObject.name)
+    {
+
+      case "KillZone":
+        Debug.Log("Player died by entering a kill zone.");
+        StartCoroutine(respawn());
+        break;
+
+      default:
+        break;
+
+    }
+
   }
 
 }

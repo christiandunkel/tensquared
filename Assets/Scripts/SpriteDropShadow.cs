@@ -25,6 +25,9 @@ public class SpriteDropShadow : MonoBehaviour
     sr_shadow.sprite = sr_original.sprite;
     sr_shadow.material = material;
 
+    sr_shadow.flipX = sr_original.flipX;
+    sr_shadow.flipY = sr_original.flipY;
+
     sr_shadow.sortingLayerName = sr_original.sortingLayerName;
     sr_shadow.sortingOrder = sr_original.sortingOrder - 1;
 

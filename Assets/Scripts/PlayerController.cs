@@ -188,6 +188,16 @@ public class PlayerController : PhysicsObject
    ================
    */
 
+  // stop figure rolling away even though there is no movement
+  private float rollingFixTimer = 0.0f;
+  private float rollingFixTimerDefault = 0.5f;
+  private void stopRollingFix()
+  {
+    GetComponent<Rigidbody2D>().freezeRotation = true;
+    GetComponent<Rigidbody2D>().rotation = 0f;
+    GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+  }
+  
   private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
   protected override void ComputeVelocity()
   {
@@ -195,6 +205,12 @@ public class PlayerController : PhysicsObject
     LevelSettings settings = LevelSettings.Instance;
 
     Vector2 move = Vector2.zero;
+
+    rollingFixTimer -= Time.deltaTime;
+    if (rollingFixTimer <= 0.0f)
+    {
+      stopRollingFix();
+    }
 
     // test if player is currently moving
     testForMovement();
@@ -206,6 +222,10 @@ public class PlayerController : PhysicsObject
       {
 
         move.x = Input.GetAxis("Horizontal");
+        if (move.x > 0.0f)
+        {
+          rollingFixTimer = rollingFixTimerDefault;
+        }
 
         if (settings.canJump) {
 

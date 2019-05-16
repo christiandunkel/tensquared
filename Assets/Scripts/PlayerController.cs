@@ -16,6 +16,10 @@ public class PlayerController : PhysicsObject
    ========================
    */
 
+  private bool canMove = false;
+  private bool canMorph = false;
+  private bool canJump = false;
+
   private bool isDead = false;
   private bool steppedOnPiston = false;
 
@@ -179,6 +183,16 @@ public class PlayerController : PhysicsObject
     triangleToCircle = Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle");
 
   }
+  private bool loadSettings_Toggle = true;
+  void loadSettings()
+  {
+    loadSettings_Toggle = false;
+
+    LevelSettings settings = LevelSettings.Instance;
+    canMove = settings.canMove;
+    canJump = settings.canJump;
+    canMorph = settings.canMorph;
+  }
 
 
 
@@ -202,7 +216,10 @@ public class PlayerController : PhysicsObject
   protected override void ComputeVelocity()
   {
 
-    LevelSettings settings = LevelSettings.Instance;
+    if (loadSettings_Toggle)
+    {
+      loadSettings();
+    }
 
     Vector2 move = Vector2.zero;
 
@@ -219,7 +236,7 @@ public class PlayerController : PhysicsObject
     if (!isDead) {
 
       // handle movement of character on x and y axis
-      if (settings.canMove)
+      if (canMove)
       {
 
         move.x = Input.GetAxis("Horizontal");
@@ -228,7 +245,7 @@ public class PlayerController : PhysicsObject
           rollingFixTimer = rollingFixTimerDefault;
         }
 
-        if (settings.canJump) {
+        if (canJump) {
 
           // jumping
           if (Input.GetButtonDown("Jump"))
@@ -299,7 +316,7 @@ public class PlayerController : PhysicsObject
       }
 
       // handle morphing from circle, rectangle, triangle into each other
-      if (settings.canMorph) {
+      if (canMorph) {
         handleMorphing();
       }
 
@@ -312,15 +329,13 @@ public class PlayerController : PhysicsObject
   IEnumerator respawn()
   {
 
-    LevelSettings settings = LevelSettings.Instance;
-
     isDead = true;
     gravityModifier = 0.0f;
     velocity.y = 0.0f;
 
-    settings.canMove = false;
-    settings.canMorph = false;
-    settings.canJump = false;
+    canMove = false;
+    canMorph = false;
+    canJump = false;
 
     GetComponent<Rigidbody2D>().freezeRotation = true;
     GetComponent<Rigidbody2D>().rotation = 0f;
@@ -335,7 +350,7 @@ public class PlayerController : PhysicsObject
     yield return new WaitForSeconds(1.5f);
 
     // teleport to spawn point
-    gameObject.transform.localPosition = settings.playerSpawn;
+    gameObject.transform.localPosition = LevelSettings.Instance.playerSpawn;
 
     SpriteRenderer sr = textureObject.GetComponent<SpriteRenderer>();
 
@@ -346,9 +361,9 @@ public class PlayerController : PhysicsObject
 
     isDead = false;
 
-    settings.canMove = true;
-    settings.canMorph = true;
-    settings.canJump = true;
+    canMove = true;
+    canMorph = true;
+    canJump = true;
 
     // reset attributes to current state
     Attributes resA = getAttributes();

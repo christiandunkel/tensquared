@@ -350,6 +350,13 @@ public class PlayerController : PhysicsObject
     settings.canMorph = true;
     settings.canJump = true;
 
+    // reset attributes to current state
+    Attributes resA = getAttributes();
+    gravityModifier = resA.gravityModifier;
+    maxSpeed = resA.maxSpeed;
+    jumpTakeOffSpeed = resA.jumpTakeOffSpeed;
+    textureObject.GetComponent<SpriteRenderer>().sprite = resA.sprite;
+
     StopCoroutine(respawn());
 
   }

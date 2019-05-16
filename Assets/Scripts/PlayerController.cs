@@ -361,9 +361,11 @@ public class PlayerController : PhysicsObject
 
     isDead = false;
 
-    canMove = true;
-    canMorph = true;
-    canJump = true;
+    // reset internal settings for player with level settings
+    LevelSettings sett = LevelSettings.Instance;
+    canMove = sett.canMove;
+    canMorph = sett.canMorph;
+    canJump = sett.canJump;
 
     // reset attributes to current state
     Attributes resA = getAttributes();

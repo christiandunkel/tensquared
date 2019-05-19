@@ -70,6 +70,9 @@ public class PlayerController : PhysicsObject
 
   public AudioSource soundPlayer;
   public AudioClip morphSound;
+  public AudioClip landingRectangleSound;
+  public AudioClip waterSplashSound;
+  public AudioClip walkThroughGrassSound;
 
   public GameObject textureContainer;
   public GameObject textureObject;
@@ -273,6 +276,7 @@ public class PlayerController : PhysicsObject
             if (state == "Rectangle")
             {
               CameraShake.Instance.Play(.1f, 18f, 18f);
+              soundPlayer.PlayOneShot(landingRectangleSound);
             }
 
           }
@@ -666,6 +670,7 @@ public class PlayerController : PhysicsObject
 
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
+        soundPlayer.PlayOneShot(waterSplashSound);
         StartCoroutine(respawn());
         break;
 

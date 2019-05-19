@@ -12322,6 +12322,21 @@ PrefabInstance:
       propertyPath: CollisionModule.collisionMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 993583906059848013, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: landingRectangleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b4bc9897dbcc35408c08989f561b89a, type: 3}
+    - target: {fileID: 993583906059848013, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: waterSplashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fbeb17467f311884fa11074b3ef793a5, type: 3}
+    - target: {fileID: 993583906059848013, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: walkThroughGrassSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 54f5ae8fd3de2394091c633b94c10adc, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 781a989841c99fe4f901ed8c83bef8af, type: 3}
 --- !u!1001 &1605041715753875220

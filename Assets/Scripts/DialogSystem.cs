@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DialogSystem : MonoBehaviour
@@ -11,24 +12,26 @@ public class DialogSystem : MonoBehaviour
 
   public static DialogSystem Instance;
 
-  void Awake()
-  {
+  void Awake() {
     Instance = this;
   }
 
-
+  // settings
   public static bool dialogEnabled = true;
 
-
-  private static AudioSource audioSource = null;
-  private static GameObject dialogBox = null;
+  // attributes
   private static Vector3 dialogBoxPos = new Vector3(0.0f, 0.0f, 0.0f);
   private static Vector3 dialogBoxPosHidden = new Vector3(0.0f, 0.0f, 0.0f);
+
+  // elements of the dialog box
+  private static AudioSource audioSource = null;
+  private static GameObject dialogBox = null;
   private static GameObject textElement = null;
   private static GameObject panelElement = null;
   private static CanvasGroup closeSymbol = null;
+  private static Image iconElement = null;
 
-  // Start is called before the first frame update
+  // called before the first frame update
   void Start()
   {
 
@@ -37,41 +40,53 @@ public class DialogSystem : MonoBehaviour
     // get inner elements
     foreach (Transform child in gameObject.transform)
     {
+
       GameObject obj = child.gameObject;
 
-      if (obj.name == "DialogBox")
-      {
+      dialogIcons = Resources.LoadAll<Sprite>("Dialog/Icons/");
+
+      if (obj.name == "DialogBox") {
 
         dialogBox = obj;
-        dialogBoxPos.x = dialogBox.transform.localPosition.x;
-        dialogBoxPos.y = dialogBox.transform.localPosition.y;
-        dialogBoxPos.z= dialogBox.transform.localPosition.z;
-        dialogBox.GetComponent<CanvasGroup>().alpha = 0.0f;
-        dialogBoxPosHidden.x = dialogBox.transform.localPosition.x;
-        dialogBoxPosHidden.y = 180.0f;
-        dialogBoxPosHidden.z = dialogBox.transform.localPosition.z;
 
-        foreach (Transform child2 in obj.transform)
-        {
+        // get local position and hidden position of dialog box
+        Vector3 lp = dialogBox.transform.localPosition;
+        dialogBoxPos = new Vector3(lp.x, lp.y, lp.z);
+        dialogBoxPosHidden = new Vector3(lp.x, 180.0f, lp.z);
+
+        dialogBox.GetComponent<CanvasGroup>().alpha = 0.0f;
+
+        foreach (Transform child2 in obj.transform) {
+
           GameObject obj2 = child2.gameObject;
 
-          if (obj2.name == "Background")
-          {
-            panelElement = obj2;
+          switch (obj2.name) {
+
+            case "Background":
+              panelElement = obj2;
+              break;
+
+            case "Text":
+              textElement = obj2;
+              break;
+
+            case "CloseSymbol":
+              closeSymbol = obj2.GetComponent<CanvasGroup>();
+              break;
+
+            case "Icon":
+              iconElement = obj2.GetComponent<Image>();
+              break;
+
+            default:
+              break;
+
           }
-          else if (obj2.name == "Text")
-          {
-            textElement = obj2;
-          }
-          else if (obj2.name == "CloseSymbol")
-          {
-            closeSymbol = obj2.GetComponent<CanvasGroup>();
-          }
+
         }
         
       }
-      else if (obj.name == "DialogAudioSource")
-      {
+      else if (obj.name == "DialogAudioSource") {
         audioSource = obj.GetComponent<AudioSource>();
       }
 
@@ -81,26 +96,26 @@ public class DialogSystem : MonoBehaviour
 
   }
 
-  void Update()
-  {
+  void Update() {
 
-    if (!dialogEnabled)
-    {
+    // dialog is disabled, don't continue
+    if (!dialogEnabled) {
       return;
     }
 
-    if (moveDialog != null)
-    {
+    // move the dialog box in or out of the frame
+    if (moveDialog != null) {
       MoveDialogBox();
+      return;
     }
 
-    if (dialogBoxVisible && !typewriterRunning && moveDialog == null)
-    {
-      // close the current dialog window
-      if (Input.GetMouseButtonDown(0))
-      {
+    if (dialogBoxVisible && !typewriterRunning) {
+
+      // close the current dialog window by clicking
+      if (Input.GetMouseButtonDown(0)) {
         moveDialog = "up";
       }
+
     }
 
   }
@@ -116,21 +131,44 @@ public class DialogSystem : MonoBehaviour
     currentText = "";
     dialogBox.GetComponent<CanvasGroup>().alpha = 1.0f;
 
-    switch (name)
-    {
+    switch (name) {
+
       case "lvl1_greeting":
-        text = "Who are you, my little friend?\nWhat are you doing out here all by yourself?";
+        text = "Who are you, my little friend?";
+        text += "\nWhat are you doing out here all by yourself?";
         audio_path = "lvl1_greeting";
+        iconElement.sprite = getIcon("happy");
         break;
       default:
         Debug.Log("DialogSystem: Could not find dialog \"" + name + "\".");
         return;
+
     }
 
     moveDialog = "down";
     // little arrow symbol, indicating that you can close the dialog
     closeSymbol.alpha = 0.0f;
     dialogBoxVisible = true;
+
+  }
+  private static Sprite[] dialogIcons = null;
+  private static Sprite getIcon(string name) {
+
+    switch (name) {
+
+      case "neutral":
+        return dialogIcons[0];
+
+      case "happy":
+        return dialogIcons[1];
+
+      default:
+        Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");
+        break;
+
+    }
+
+    return dialogIcons[0];
 
   }
 
@@ -141,8 +179,7 @@ public class DialogSystem : MonoBehaviour
   private static float scrollTimeUp = 0.2f; // time for dialog box to appear / vanish
   private static float delayBeforeText = 0.3f; // delay before text appears on dialogbox that is already in position
 
-  private static void MoveDialogBox()
-  {
+  private static void MoveDialogBox() {
 
     float divisionValue = (moveDialog == "down" ? scrollTimeDown : scrollTimeUp);
 
@@ -234,13 +271,9 @@ public class DialogSystem : MonoBehaviour
 
 
 
-  private static void PlayVoice()
-  {
-
+  private static void PlayVoice() {
     AudioClip clip = Resources.Load("Dialog/" + audio_path, typeof(AudioClip)) as AudioClip;
-
     audioSource.PlayOneShot(clip);
-
   }
 
 }

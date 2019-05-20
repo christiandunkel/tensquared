@@ -1,12 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerController : PhysicsObject
 {
 
   // singleton
   public static PlayerController Instance;
+
+
+
+  /*
+   =======================
+   === CAMERA CONTROLS ===
+   =======================
+   */
+
+  public Animator VirtualCameraAnimator;
+
+  private float zoomedInCameraTimer = 0.0f;
 
 
 
@@ -59,7 +72,7 @@ public class PlayerController : PhysicsObject
 
   // saves the attributes of each character state
   public Attributes[] characterAttributes = new Attributes[3];
-  
+
 
 
   /*
@@ -218,6 +231,17 @@ public class PlayerController : PhysicsObject
   private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
   protected override void ComputeVelocity()
   {
+
+    // handle camera zooming
+    if (zoomedInCameraTimer > 0.0f) {
+      zoomedInCameraTimer -= Time.deltaTime;
+      if (!VirtualCameraAnimator.GetBool("ZoomedIn")) {
+        VirtualCameraAnimator.SetBool("ZoomedIn", true);
+      }
+    }
+    else if (VirtualCameraAnimator.GetBool("ZoomedIn")) {
+      VirtualCameraAnimator.SetBool("ZoomedIn", false);
+    }
 
     if (loadSettings_Toggle)
     {
@@ -671,11 +695,9 @@ public class PlayerController : PhysicsObject
 
   private float grassWalkTimer = 0.0f;
 
-  public void OnTriggerEnter2D(Collider2D col)
-  {
+  public void OnTriggerEnter2D(Collider2D col) {
 
     string colObjName = col.gameObject.name;
-
 
     switch (col.gameObject.tag) {
 
@@ -712,5 +734,22 @@ public class PlayerController : PhysicsObject
     }
 
   }
+
+  public void OnTriggerStay2D(Collider2D col) {
+
+      switch (col.gameObject.name)
+      {
+
+        case "ZoomInCamera":
+          zoomedInCameraTimer = 0.5f;
+          break;
+
+        default:
+          break;
+
+      }
+
+  }
+
 
 }

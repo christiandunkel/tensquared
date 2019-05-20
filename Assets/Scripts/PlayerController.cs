@@ -324,6 +324,8 @@ public class PlayerController : PhysicsObject
         handleMorphing();
       }
 
+      updateMovementSounds();
+
     }
 
   }
@@ -660,10 +662,34 @@ public class PlayerController : PhysicsObject
 
   }
 
+
+  private void updateMovementSounds() {
+
+    grassWalkTimer -= Time.deltaTime;
+
+  }
+
+  private float grassWalkTimer = 0.0f;
+
   public void OnTriggerEnter2D(Collider2D col)
   {
 
     string colObjName = col.gameObject.name;
+
+
+    switch (col.gameObject.tag) {
+
+      case "Grass":
+        if (grassWalkTimer <= 0.0f) {
+          grassWalkTimer = 0.24f;
+          soundPlayer.PlayOneShot(walkThroughGrassSound);
+        }
+        break;
+
+      default:
+        break;
+
+    }
 
     switch (colObjName)
     {

@@ -162,6 +162,24 @@ public class DialogSystem : MonoBehaviour
       case "happy":
         return dialogIcons[1];
 
+      case "laughing":
+        return dialogIcons[2];
+
+      case "surprised":
+        return dialogIcons[3];
+
+      case "sleepy":
+        return dialogIcons[4];
+
+      case "annoyed":
+        return dialogIcons[5];
+
+      case "angry":
+        return dialogIcons[6];
+
+      case "sad":
+        return dialogIcons[7];
+
       default:
         Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");
         break;

@@ -86,7 +86,8 @@ public class PlayerController : PhysicsObject
   public AudioClip morphSound,
                    landingRectangleSound,
                    waterSplashSound,
-                   walkThroughGrassSound;
+                   walkThroughGrassSound,
+                   pistonPushSound;
 
   public GameObject textureContainer;
   public GameObject textureObject;
@@ -736,6 +737,7 @@ public class PlayerController : PhysicsObject
     {
       Debug.Log("PlayerController: Stepped on a piston.");
       Piston.Instance.GoUp(col.gameObject);
+      soundPlayer.PlayOneShot(pistonPushSound);
     }
 
   }

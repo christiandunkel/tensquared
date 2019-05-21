@@ -20,8 +20,8 @@ public class DialogSystem : MonoBehaviour
   public static bool dialogEnabled = true;
 
   // attributes
-  private static Vector3 dialogBoxPos = new Vector3(0.0f, 0.0f, 0.0f);
-  private static Vector3 dialogBoxPosHidden = new Vector3(0.0f, 0.0f, 0.0f);
+  private static Vector3 dialogBoxPos = new Vector3(0.0f, 0.0f, 0.0f),
+                         dialogBoxPosHidden = new Vector3(0.0f, 0.0f, 0.0f);
 
   // elements of the dialog box
   private static AudioSource audioSource = null;

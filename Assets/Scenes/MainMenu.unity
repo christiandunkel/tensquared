@@ -1226,7 +1226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.5, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &84671048
 GameObject:
   m_ObjectHideFlags: 0
@@ -6914,6 +6913,7 @@ GameObject:
   - component: {fileID: 201029476}
   - component: {fileID: 201029477}
   - component: {fileID: 201029478}
+  - component: {fileID: 201029479}
   m_Layer: 5
   m_Name: Cloud
   m_TagString: Untagged
@@ -7007,6 +7007,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &201029479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201029475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e51164b678ff62438835579a9f8f886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowOffset: {x: 0.3, y: -0.3, z: 0}
 --- !u!1 &210059300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8104,7 +8117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.5, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &296766955
 GameObject:
   m_ObjectHideFlags: 0
@@ -8284,7 +8296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.3, y: -0.3, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &307237667
 GameObject:
   m_ObjectHideFlags: 0
@@ -8420,7 +8431,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.4, y: -0.4, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &328812147
 GameObject:
   m_ObjectHideFlags: 0
@@ -8781,7 +8791,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.5, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &348568912
 GameObject:
   m_ObjectHideFlags: 0
@@ -14879,7 +14888,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.5, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &785515446
 GameObject:
   m_ObjectHideFlags: 0
@@ -21226,6 +21234,7 @@ GameObject:
   - component: {fileID: 933075066}
   - component: {fileID: 933075067}
   - component: {fileID: 933075068}
+  - component: {fileID: 933075069}
   m_Layer: 13
   m_Name: Sun
   m_TagString: Untagged
@@ -21319,6 +21328,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &933075069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933075065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e51164b678ff62438835579a9f8f886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowOffset: {x: 0.3, y: -0.3, z: 0}
 --- !u!1 &937057752
 GameObject:
   m_ObjectHideFlags: 0
@@ -22688,7 +22710,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.5, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &1034242213
 GameObject:
   m_ObjectHideFlags: 0
@@ -22894,7 +22915,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.2, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &1059073445
 GameObject:
   m_ObjectHideFlags: 0
@@ -23560,6 +23580,7 @@ GameObject:
   - component: {fileID: 1110603786}
   - component: {fileID: 1110603787}
   - component: {fileID: 1110603788}
+  - component: {fileID: 1110603789}
   m_Layer: 5
   m_Name: Cloud2
   m_TagString: Untagged
@@ -23653,6 +23674,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1110603789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110603785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e51164b678ff62438835579a9f8f886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowOffset: {x: 0.3, y: -0.3, z: 0}
 --- !u!1 &1116188329
 GameObject:
   m_ObjectHideFlags: 0
@@ -31472,7 +31506,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.3, y: 0.3, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!212 &1377063220
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -41016,7 +41049,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.3, y: -0.3, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &1898931280
 GameObject:
   m_ObjectHideFlags: 0
@@ -43765,7 +43797,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.5, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}
 --- !u!1 &2136108277
 GameObject:
   m_ObjectHideFlags: 0

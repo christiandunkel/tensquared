@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class SpriteDropShadow : MonoBehaviour
 {
 
   public Vector3 shadowOffset = new Vector3(0.3f, -0.3f, 0f);
-  public Material material;
+  private Material shadowMaterial = null;
 
   private GameObject shadow;
+
+  private void Awake() {
+    shadowMaterial = Resources.Load<Material>("Materials/ShadowMaterial");
+  }
 
   void Start()  {
 
@@ -23,7 +29,7 @@ public class SpriteDropShadow : MonoBehaviour
     SpriteRenderer sr_shadow = shadow.AddComponent<SpriteRenderer>();
 
     sr_shadow.sprite = sr_original.sprite;
-    sr_shadow.material = material;
+    sr_shadow.material = shadowMaterial;
 
     sr_shadow.flipX = sr_original.flipX;
     sr_shadow.flipY = sr_original.flipY;

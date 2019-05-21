@@ -29,25 +29,24 @@ public class PlayerController : PhysicsObject
    ========================
    */
 
-  private bool canMove = false;
-  private bool canMorph = false;
-  private bool canJump = false;
-
-  private bool isDead = false;
-  private bool steppedOnPiston = false;
+  private bool canMove = false,
+               canMorph = false,
+               canJump = false,
+    
+               isDead = false,
+               steppedOnPiston = false;
 
   private bool isChangingState = false;
-  private string state = "Circle";
-  private string newState = "";
+  private string state = "Circle",
+                 newState = "";
 
   private bool groundedInLastFrame = true;
 
-  private float lastX;
-  private float lastY;
-  private bool leftwards = false; // direction on last movement
-  private bool movingX = false;
-  private bool upwards = false; // direction on last movement
-  private bool movingY = false;
+  private float lastX, lastY; // last x and y position
+  private bool leftwards = false, // direction on last movement
+               movingX = false,
+               upwards = false, // direction on last movement
+               movingY = false;
 
 
 
@@ -737,17 +736,17 @@ public class PlayerController : PhysicsObject
 
   public void OnTriggerStay2D(Collider2D col) {
 
-      switch (col.gameObject.name)
-      {
+    switch (col.gameObject.name)
+    {
 
-        case "ZoomInCamera":
-          zoomedInCameraTimer = 0.5f;
-          break;
+      case "ZoomInCamera":
+        zoomedInCameraTimer = 0.5f;
+        break;
 
-        default:
-          break;
+      default:
+        break;
 
-      }
+    }
 
   }
 

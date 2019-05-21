@@ -10,9 +10,11 @@ public class Piston : MonoBehaviour
   void Awake()
   {
     Instance = this;
+    Debug.Log("Piston: Script is attached to " + this.name);
   }
 
-  public float delayBeforePush = 1.0f;
+  private const float delayBeforePush = 0.2f;
+
   private float timer = 0.0f;
   public bool pistonIsPlaying = false;
   private Animator pistonAni;
@@ -29,19 +31,14 @@ public class Piston : MonoBehaviour
     
   }
 
-  public void PlayAnimation()
-  {
-    pistonAni.SetTrigger("PushUp");
-    PlayerController.Instance.setValue("steppedOnPiston", true);
-  }
-
   // Update is called once per frame
   void Update()
   {
     if (pistonIsPlaying && timer <= 0.0f)
     {
       pistonIsPlaying = false;
-      PlayAnimation();
+      pistonAni.SetTrigger("PushUp");
+      PlayerController.Instance.setValue("steppedOnPiston", true);
     }
     else
     {

@@ -43,7 +43,7 @@ public class DialogSystem : MonoBehaviour
 
       GameObject obj = child.gameObject;
 
-      dialogIcons = Resources.LoadAll<Sprite>("Dialog/Icons/");
+      dialogIcons = Resources.LoadAll<Sprite>("DialogIcons/");
 
       if (obj.name == "DialogBox") {
 

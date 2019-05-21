@@ -13,7 +13,7 @@ public class MouseCursor : MonoBehaviour
   public ParticleSystem clickEffect;
   public ParticleSystem trailEffect;
 
-  public CanvasGroup cursorCG;
+  public SpriteRenderer cursorImage;
 
   private Vector2 mousePos;
   private Vector2 lastMousePos;
@@ -37,25 +37,28 @@ public class MouseCursor : MonoBehaviour
     gameObject.transform.position = mousePos;
     
 
-    if (pauseMenuExists && !PauseMenu.Instance.isPaused)
+    if (pauseMenuExists)
     {
-      // deactivate cursor once more, if visible through bug
-      if (Cursor.visible) {
-        Cursor.visible = false;
+
+      if (PauseMenu.Instance.isPaused) {
+        Cursor.visible = true;
+        // make image transparent
+        cursorImage.color = new Color(1f, 1f, 1f, 0f);
       }
-      if (cursorCG.alpha < 1f) {
-        cursorCG.alpha = 1f;
+      else {
+        // deactivate cursor once more, if visible through bug
+        if (Cursor.visible) {
+          Cursor.visible = false;
+        }
+        if (cursorImage.color.a < 1f) {
+          // make image visible 
+          cursorImage.color = new Color(1f,1f,1f,1f);
+        }
       }
+
     }
-    else if (pauseMenuExists) {
-      Cursor.visible = true;
-      cursorCG.alpha = 0f;
-    }
-    else
-    {
-      if (Cursor.visible) {
-        Cursor.visible = false;
-      }
+    else if (Cursor.visible) {
+      Cursor.visible = false;
     }
 
     // play different animation on holding mouse button

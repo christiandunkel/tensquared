@@ -7,6 +7,8 @@ public class ScriptedEventsManager : MonoBehaviour
 
   public static ScriptedEventsManager Instance;
 
+  public Animator camera;
+
   public int levelID = 1;
 
   void Awake()
@@ -23,7 +25,26 @@ public class ScriptedEventsManager : MonoBehaviour
       default:
         break;
     }
-    
+
+  }
+
+  public void LoadEvent(int lvl, string name) {
+
+    // only play events of current level
+    if (lvl != levelID) {
+      return;
+    }
+
+    switch (lvl)
+    {
+
+      case 1: LoadLevel1Event(name); break;
+
+      default:
+        break;
+
+    }
+
   }
 
   /* ===============
@@ -36,7 +57,45 @@ public class ScriptedEventsManager : MonoBehaviour
 
     DialogSystem.LoadDialog("lvl1_greeting");
 
+    yield return new WaitForSeconds(8.0f);
+
+    CameraShake.Instance.Play(1f, 6f, 6f);
+
     yield return new WaitForSeconds(5.0f);
+
+    CameraShake.Instance.Play(2f, 10f, 10f);
+    GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
+
+    yield return new WaitForSeconds(2.0f);
+
+    camera.GetComponent<Animator>().SetTrigger("StartFrequenceOver");
+
+    TooltipManager.showTooltip("Move");
+
+    LevelSettings.Instance.SetSetting("canMove", true);
+
+  }
+
+  private float water_deaths = 0;
+
+  private void LoadLevel1Event(string name) {
+
+    switch (name) {
+
+      case "water_death":
+        water_deaths++;
+        if (water_deaths == 1) {
+          DialogSystem.LoadDialog("lvl1_water_death");
+        }
+        else if (water_deaths == 2) {
+          DialogSystem.LoadDialog("lvl1_water_death2");
+        }
+        break;
+
+      default:
+        break;
+
+    }
 
   }
 

@@ -33,4 +33,30 @@ public class LevelSettings : MonoBehaviour
 
   }
 
+  public void SetSetting(string name, bool value)
+  {
+    switch (name)
+    {
+
+      case "canMove":
+        canMove = value;
+        PlayerController.Instance.SetSetting(name, value);
+        break;
+
+      case "canJump":
+        canJump = value;
+        PlayerController.Instance.SetSetting(name, value);
+        break;
+
+      case "canMorph":
+        canMorph = value;
+        PlayerController.Instance.SetSetting(name, value);
+        break;
+
+      default:
+        break;
+
+    }
+  }
+
 }

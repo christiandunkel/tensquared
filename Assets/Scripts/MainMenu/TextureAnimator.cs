@@ -12,6 +12,8 @@ public class TextureAnimator : MonoBehaviour
   public string directory; // directory of textures
   public float delay = 0.0f; // delay animation by given seconds
   public bool loop = true; // if false, only play animation once
+  public float delayPerLoop = 0.0f; // wait every full loop round for given amount of time
+  private float delayPerLoop_temp = 0.0f;
 
   // internal use
   private SpriteRenderer spriteRenderer = null;
@@ -29,6 +31,9 @@ public class TextureAnimator : MonoBehaviour
     // scan given directory and load images as sprites into memory
     sprites = Resources.LoadAll<Sprite>(directory);
     spriteNum = sprites.Length;
+
+    // delay per loop only valid after first run
+    delayPerLoop_temp = 0.0f;
 
   }
 
@@ -62,6 +67,12 @@ public class TextureAnimator : MonoBehaviour
       delay -= Time.deltaTime;
     }
 
+    if (delayPerLoop_temp > 0.0f)
+    {
+      delayPerLoop_temp -= Time.deltaTime;
+      return;
+    }
+
     // draw every defined frame per second a new image
     if (timer > (1f / framesPerSec))
     {
@@ -71,6 +82,7 @@ public class TextureAnimator : MonoBehaviour
       {
         counter = 0;
         ranOnce = true;
+        delayPerLoop_temp = delayPerLoop;
       }
 
       // set image as new sprite in renderer

@@ -120,6 +120,19 @@ public class PlayerController : PhysicsObject
    ==============
    */
 
+  public void SetSetting(string name, bool value)
+  {
+    switch (name)
+    {
+
+      case "canMove": canMove = value; break;
+      case "canJump": canJump = value; break;
+      case "canMorph": canMorph = value; break;
+      default: break;
+
+    }
+  }
+
   public void setValue(string name, bool val)
   {
     switch (name)
@@ -726,6 +739,7 @@ public class PlayerController : PhysicsObject
         Debug.Log("PlayerController: Player died by entering water.");
         soundPlayer.PlayOneShot(waterSplashSound);
         StartCoroutine(respawn());
+        ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
         break;
 
       default:

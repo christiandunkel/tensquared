@@ -80,11 +80,13 @@ public class PlayerController : PhysicsObject
    ======================
    */
 
+  private GameObject parentObject;
+
   public AudioSource soundPlayer;
-  public AudioClip morphSound;
-  public AudioClip landingRectangleSound;
-  public AudioClip waterSplashSound;
-  public AudioClip walkThroughGrassSound;
+  public AudioClip morphSound,
+                   landingRectangleSound,
+                   waterSplashSound,
+                   walkThroughGrassSound;
 
   public GameObject textureContainer;
   public GameObject textureObject;
@@ -173,7 +175,10 @@ public class PlayerController : PhysicsObject
   void Awake()
   {
 
+    parentObject = gameObject.transform.parent.gameObject;
     Instance = this;
+
+    Debug.Log("Player: With parent object '" + parentObject.name + "' initialized.");
 
     // set attributes for start character state
     Attributes a = getAttributes();
@@ -686,13 +691,10 @@ public class PlayerController : PhysicsObject
   }
 
 
-  private void updateMovementSounds() {
-
-    grassWalkTimer -= Time.deltaTime;
-
-  }
-
   private float grassWalkTimer = 0.0f;
+  private void updateMovementSounds() {
+    grassWalkTimer -= Time.deltaTime;
+  }
 
   public void OnTriggerEnter2D(Collider2D col) {
 
@@ -705,6 +707,10 @@ public class PlayerController : PhysicsObject
           grassWalkTimer = 0.24f;
           soundPlayer.PlayOneShot(walkThroughGrassSound);
         }
+        break;
+
+      case "MovingPlatform":
+        //gameObject.transform.parent = col.gameObject.transform;
         break;
 
       default:
@@ -730,6 +736,23 @@ public class PlayerController : PhysicsObject
     {
       Debug.Log("PlayerController: Stepped on a piston.");
       Piston.Instance.GoUp(col.gameObject);
+    }
+
+  }
+
+  public void OnTriggerExit2D(Collider2D col)
+  {
+
+    switch (col.gameObject.tag)
+    {
+
+      case "MovingPlatform":
+        //gameObject.transform.parent = parentObject.transform;
+        break;
+
+      default:
+        break;
+
     }
 
   }

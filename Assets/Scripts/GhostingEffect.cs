@@ -6,6 +6,7 @@ public class GhostingEffect : MonoBehaviour
 {
 
   public GameObject ghost;
+  public GameObject textureContainer;
   public SpriteRenderer textureObject;
   public float delayBetweenGhosts;
   private float ghostDelaySeconds;
@@ -13,30 +14,27 @@ public class GhostingEffect : MonoBehaviour
   public float durationOfAnimation = 0.5f;
 
   // Start is called before the first frame update
-  void Start()
-  {
+  void Start() {
+
     ghostDelaySeconds = delayBetweenGhosts;
+
   }
 
   // Update is called once per frame
-  void Update()
-  {
+  void Update() {
 
-    if (makeGhost)
-    {
+    if (makeGhost) {
 
-      if (ghostDelaySeconds > 0)
-      {
+      if (ghostDelaySeconds > 0) {
         ghostDelaySeconds -= Time.deltaTime;
       }
-      else
-      {
+      else {
         // generate fading ghost object
         GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
         currentGhost.transform.SetParent(transform.parent);
         ghostDelaySeconds = delayBetweenGhosts;
-        // scale current ghost to player object
-        currentGhost.transform.localScale = this.transform.localScale;
+        // scale current ghost to texture object's scale
+        currentGhost.transform.localScale = textureContainer.transform.localScale;
         // get current sprite of player
         Sprite currentSprite = textureObject.GetComponent<SpriteRenderer>().sprite;
         currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;

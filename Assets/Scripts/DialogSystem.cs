@@ -92,8 +92,6 @@ public class DialogSystem : MonoBehaviour
 
     }
 
-    LoadDialog("lvl1_greeting");
-
   }
 
   void Update() {

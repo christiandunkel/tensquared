@@ -75,7 +75,7 @@ public class ScriptedEventsManager : MonoBehaviour
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
 
-    yield return new WaitForSeconds(6f);
+    yield return new WaitForSeconds(5.5f);
 
     DialogSystem.LoadDialog("lvl1_move");
 

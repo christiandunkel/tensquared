@@ -181,8 +181,8 @@ public class DialogSystem : MonoBehaviour
         break;
 
       case "lvl1_dont_jump_into_water":
-        text = "I wouldn't jump into the water, my little friend.";
-        text += "\nBecause that isn't water.";
+        text = "I wouldn't jump into the water if I were you.";
+        text += "\nBecause that isn't water, and it is deadly.";
         audio_path = "lvl1_dont_jump_into_water";
         iconElement.sprite = getIcon("neutral");
         break;

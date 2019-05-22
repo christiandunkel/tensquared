@@ -135,8 +135,8 @@ public class DialogSystem : MonoBehaviour
     switch (name) {
 
       case "lvl1_hello":
-        text = "Hello, my round little friend!";
-        text += "\nIf you have a little time, could you help out a friendly robot?";
+        text = "Hello, my little friend!";
+        text += "\nDo you have some time to help me out?";
         audio_path = "lvl1_hello";
         iconElement.sprite = getIcon("laughing");
         break;
@@ -149,7 +149,7 @@ public class DialogSystem : MonoBehaviour
 
       case "lvl1_wake_up":
         text = "Wake up, little friend!\n";
-        text += "It's not polite to sleep, when there is a robot in need.";
+        text += "It's not polite to sleep, when there is a robot in need!";
         audio_path = "lvl1_wake_up";
         iconElement.sprite = getIcon("angry");
         break;

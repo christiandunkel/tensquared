@@ -14,10 +14,15 @@ public class CameraShake : MonoBehaviour
     Instance = this;
   }
 
-  private float shakeAmplitude = 1.2f;
-  private float shakeFrequency = 2.0f;
+  private float shakeAmplitude = 1.2f,
+                shakeFrequency = 2.0f,
+    
+                elapsedTime = 0.0f;
 
-  private float elapsedTime = 0.0f;
+  public AudioClip earthquake_1_5_secs,
+                   earthquake_2_secs,
+                   earthquake_2_5_secs_loud,
+                   earthquake_3_secs;
 
   // Cinemachine Shake
   public CinemachineVirtualCamera VirtualCamera;
@@ -30,7 +35,38 @@ public class CameraShake : MonoBehaviour
     {
       virtualCameraNoise = VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
     }
-      
+
+  }
+
+  public void Play(float duration, float amplitude, float frequency, string sound)
+  {
+
+    Play(duration, amplitude, frequency);
+
+    switch (sound)
+    {
+
+      case "earthquake_1_5_secs":
+        PlayerController.Instance.soundPlayer.PlayOneShot(earthquake_1_5_secs);
+        break;
+
+      case "earthquake_2_secs":
+        PlayerController.Instance.soundPlayer.PlayOneShot(earthquake_2_secs);
+        break;
+
+      case "earthquake_2_5_secs_loud":
+        PlayerController.Instance.soundPlayer.PlayOneShot(earthquake_2_5_secs_loud);
+        break;
+
+      case "earthquake_3_secs":
+        PlayerController.Instance.soundPlayer.PlayOneShot(earthquake_3_secs);
+        break;
+
+      default:
+        break;
+
+    }
+    
   }
 
   public void Play(float duration, float amplitude, float frequency)

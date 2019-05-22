@@ -10,16 +10,16 @@ public class MouseCursor : MonoBehaviour
 
   public bool noParticleEffects = false;
 
-  public ParticleSystem clickEffect;
-  public ParticleSystem trailEffect;
+  public ParticleSystem clickEffect,
+                        trailEffect;
 
   public SpriteRenderer cursorImage;
 
-  private Vector2 mousePos;
-  private Vector2 lastMousePos;
+  private Vector2 mousePos,
+                  lastMousePos;
 
-  private float trailTimer = 0.0f;
-  private float timeBetweenTrailParticles = 0.1f;
+  private float trailTimer = 0.0f,
+                timeBetweenTrailParticles = 0.1f;
 
   void Start()
   {

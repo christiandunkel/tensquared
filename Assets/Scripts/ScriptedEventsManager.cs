@@ -57,13 +57,13 @@ public class ScriptedEventsManager : MonoBehaviour
 
     DialogSystem.LoadDialog("lvl1_hello");
 
-    yield return new WaitForSeconds(11f);
+    yield return new WaitForSeconds(8f);
 
     DialogSystem.LoadDialog("lvl1_asleep");
 
     yield return new WaitForSeconds(8f);
 
-    CameraShake.Instance.Play(1f, 6f, 6f);
+    CameraShake.Instance.Play(1f, 6f, 6f, "earthquake_1_5_secs");
 
     yield return new WaitForSeconds(2f);
 
@@ -71,11 +71,11 @@ public class ScriptedEventsManager : MonoBehaviour
 
     yield return new WaitForSeconds(10f);
 
-    CameraShake.Instance.Play(2f, 10f, 10f);
+    CameraShake.Instance.Play(2f, 10f, 10f, "earthquake_2_5_secs_loud");
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
 
-    yield return new WaitForSeconds(6.5f);
+    yield return new WaitForSeconds(4f);
 
     DialogSystem.LoadDialog("lvl1_move");
 

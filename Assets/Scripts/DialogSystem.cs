@@ -54,6 +54,9 @@ public class DialogSystem : MonoBehaviour
         dialogBoxPos = new Vector3(lp.x, lp.y, lp.z);
         dialogBoxPosHidden = new Vector3(lp.x, 180.0f, lp.z);
 
+        // move the box out the way before first frame (fixes 1-frame flickering bug)
+        dialogBox.transform.localPosition = dialogBoxPosHidden;
+
         dialogBox.GetComponent<CanvasGroup>().alpha = 0.0f;
 
         foreach (Transform child2 in obj.transform) {

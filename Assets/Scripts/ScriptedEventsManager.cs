@@ -61,7 +61,7 @@ public class ScriptedEventsManager : MonoBehaviour
 
     DialogSystem.LoadDialog("lvl1_asleep");
 
-    yield return new WaitForSeconds(6f);
+    yield return new WaitForSeconds(8f);
 
     CameraShake.Instance.Play(1f, 6f, 6f);
 
@@ -73,11 +73,7 @@ public class ScriptedEventsManager : MonoBehaviour
 
     CameraShake.Instance.Play(2f, 10f, 10f);
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
-    GameObject.Find("LVL1_WakeUpAnimation").SetActive(true);
-
-    yield return new WaitForSeconds(1.5f);
-
-    GameObject.Find("LVL1_WakeUpAnimation").SetActive(false);
+    GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
 
     yield return new WaitForSeconds(6.5f);
 

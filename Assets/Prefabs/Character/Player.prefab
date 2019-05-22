@@ -5022,6 +5022,7 @@ MonoBehaviour:
   waterSplashSound: {fileID: 8300000, guid: fbeb17467f311884fa11074b3ef793a5, type: 3}
   walkThroughGrassSound: {fileID: 8300000, guid: cda9b01416a0beb44b0619e47e60a7c2,
     type: 3}
+  pistonPushSound: {fileID: 0}
   textureContainer: {fileID: 7324950124256335046}
   textureObject: {fileID: 7324950124846766235}
   ghost: {fileID: 7324950124170858858}
@@ -5541,7 +5542,7 @@ Transform:
   m_GameObject: {fileID: 7324950124846766235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 7324950124256335047}
   m_RootOrder: 3

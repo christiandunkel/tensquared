@@ -57,7 +57,7 @@ public class ScriptedEventsManager : MonoBehaviour
 
     DialogSystem.LoadDialog("lvl1_hello");
 
-    yield return new WaitForSeconds(8f);
+    yield return new WaitForSeconds(11f);
 
     DialogSystem.LoadDialog("lvl1_asleep");
 
@@ -75,7 +75,7 @@ public class ScriptedEventsManager : MonoBehaviour
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
 
-    yield return new WaitForSeconds(4f);
+    yield return new WaitForSeconds(6f);
 
     DialogSystem.LoadDialog("lvl1_move");
 
@@ -100,15 +100,19 @@ public class ScriptedEventsManager : MonoBehaviour
       case "water_death":
         water_deaths++;
         if (water_deaths == 1) {
-          DialogSystem.LoadDialog("lvl1_water_death");
+          DialogSystem.LoadDialog("lvl1_not_the_smartest_circle");
         }
         else if (water_deaths == 2) {
-          DialogSystem.LoadDialog("lvl1_water_death2");
+          DialogSystem.LoadDialog("lvl1_you_dont_learn");
         }
         break;
 
       case "jump_tooltip":
         StartCoroutine(Lvl1_JumpTooltip());
+        break;
+
+      case "morph_tooltip":
+        StartCoroutine(Lvl1_MorphTooltip());
         break;
 
       default:
@@ -128,6 +132,19 @@ public class ScriptedEventsManager : MonoBehaviour
     TooltipManager.showTooltip("Jump");
 
     StopCoroutine(Lvl1_JumpTooltip());
+
+  }
+  private IEnumerator Lvl1_MorphTooltip()
+  {
+
+    DialogSystem.LoadDialog("lvl1_morph");
+
+    yield return new WaitForSeconds(7f);
+
+    LevelSettings.Instance.SetSetting("canMorph", true);
+    TooltipManager.showTooltip("MorphTriangle");
+
+    StopCoroutine(Lvl1_MorphTooltip());
 
   }
 

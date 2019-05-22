@@ -142,6 +142,7 @@ public class DialogSystem : MonoBehaviour
   {
 
     currentText = "";
+    textElement.GetComponent<TextMeshProUGUI>().SetText("");
     dialogBox.GetComponent<CanvasGroup>().alpha = 1.0f;
 
     switch (name) {
@@ -176,6 +177,37 @@ public class DialogSystem : MonoBehaviour
       case "lvl1_jump":
         text = "Little friend, are you able to jump over that thing?";
         audio_path = "lvl1_jump";
+        iconElement.sprite = getIcon("neutral");
+        break;
+
+      case "lvl1_dont_jump_into_water":
+        text = "I wouldn't jump into the water, my little friend.";
+        text += "\nBecause that isn't water.";
+        audio_path = "lvl1_dont_jump_into_water";
+        iconElement.sprite = getIcon("neutral");
+        break;
+
+      case "lvl1_not_the_smartest_circle":
+        text = "You really aren't the smartest circle out there, isn't that right?";
+        audio_path = "lvl1_not_the_smartest_circle";
+        iconElement.sprite = getIcon("annoyed");
+        break;
+
+      case "lvl1_you_dont_learn":
+        text = "You don't learn, do you?";
+        audio_path = "lvl1_you_dont_learn";
+        iconElement.sprite = getIcon("furious");
+        break;
+
+      case "lvl1_quick_compared_to_other_circles":
+        text = "I have to compliment you! Once you finally woke up, you're actually quite quick on foot, especially in comparison to other circles!";
+        audio_path = "lvl1_quick_compared_to_other_circles";
+        iconElement.sprite = getIcon("happy");
+        break;
+
+      case "lvl1_morph":
+        text = "No matter how fast you are, sometimes you just can't overcome an obstacle as a circle.";
+        audio_path = "lvl1_morph";
         iconElement.sprite = getIcon("neutral");
         break;
 
@@ -342,7 +374,7 @@ public class DialogSystem : MonoBehaviour
     audioSource.PlayOneShot(clip);
 
     // set length of audio clip + some buffer time
-    audioClipLength = clip.length + 1f;
+    audioClipLength = clip.length + 1.5f;
   }
 
 }

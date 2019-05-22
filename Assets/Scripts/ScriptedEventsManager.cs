@@ -87,6 +87,8 @@ public class ScriptedEventsManager : MonoBehaviour
 
     LevelSettings.Instance.SetSetting("canMove", true);
 
+    StopCoroutine(StartFrequenceLvl1());
+
   }
 
   private float water_deaths = 0;
@@ -105,10 +107,27 @@ public class ScriptedEventsManager : MonoBehaviour
         }
         break;
 
+      case "jump_tooltip":
+        StartCoroutine(Lvl1_JumpTooltip());
+        break;
+
       default:
         break;
 
     }
+
+  }
+  private IEnumerator Lvl1_JumpTooltip()
+  {
+
+    DialogSystem.LoadDialog("lvl1_jump");
+
+    yield return new WaitForSeconds(5f);
+
+    LevelSettings.Instance.SetSetting("canJump", true);
+    TooltipManager.showTooltip("Jump");
+
+    StopCoroutine(Lvl1_JumpTooltip());
 
   }
 

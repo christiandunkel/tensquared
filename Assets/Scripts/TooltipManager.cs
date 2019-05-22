@@ -40,8 +40,34 @@ public class TooltipManager : MonoBehaviour {
     }
 
     if (obj == null) {
-      Debug.Log("TooltipManager: Could not find tooltip with this name.");
+      Debug.Log("TooltipManager: Could not find tooltip with the name " + name);
       return;
+    }
+
+  }
+
+  public static void hideTooltip(string name)
+  {
+
+    GameObject obj = null;
+
+    foreach (GameObject o in tooltipList)
+    {
+      if (o.name == name)
+      {
+        obj = o;
+        break;
+      }
+    }
+
+    if (obj == null)
+    {
+      Debug.Log("TooltipManager: Could not find tooltip with the name " + name);
+      return;
+    }
+    else
+    {
+      obj.GetComponent<Animator>().SetBool("Visible", false);
     }
 
   }

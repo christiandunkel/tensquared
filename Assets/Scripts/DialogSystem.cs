@@ -173,6 +173,12 @@ public class DialogSystem : MonoBehaviour
         iconElement.sprite = getIcon("laughing");
         break;
 
+      case "lvl1_jump":
+        text = "Little friend, are you able to jump over that thing?";
+        audio_path = "lvl1_jump";
+        iconElement.sprite = getIcon("neutral");
+        break;
+
       default:
         Debug.Log("DialogSystem: Could not find dialog \"" + name + "\".");
         return;

@@ -110,6 +110,8 @@ public class DialogSystem : MonoBehaviour
       return;
     }
 
+    
+
     if (dialogBoxVisible && !typewriterRunning) {
 
       // close the current dialog window by clicking
@@ -117,6 +119,16 @@ public class DialogSystem : MonoBehaviour
         moveDialog = "up";
       }
 
+    }
+
+
+    if (audioClipLength > 0.0f)
+    {
+      audioClipLength -= Time.deltaTime;
+    }
+    else if (dialogBoxVisible && !typewriterRunning)
+    {
+      moveDialog = "up";
     }
 
   }
@@ -221,7 +233,7 @@ public class DialogSystem : MonoBehaviour
   private static float scrollTimeDown = 0.6f; // time for dialog box to appear / vanish
   private static float scrollTimeUp = 0.2f; // time for dialog box to appear / vanish
   private static float delayBeforeText = 0.3f; // delay before text appears on dialogbox that is already in position
-
+  
   private static void MoveDialogBox() {
 
     float divisionValue = scrollTimeUp;
@@ -280,6 +292,7 @@ public class DialogSystem : MonoBehaviour
   }
 
 
+  private static float audioClipLength = 0.0f;
 
 
   // text is still being written on screen
@@ -308,7 +321,6 @@ public class DialogSystem : MonoBehaviour
 
       // current character, that was just now added
       string thisChar = currentText.Substring(currentText.Length - 1);
-
       // add bigger delay when there is a dot (from an ellipsis)
       punctuation_match = punctuation_regex.Match(thisChar);
 
@@ -322,6 +334,9 @@ public class DialogSystem : MonoBehaviour
   private static void PlayVoice() {
     AudioClip clip = Resources.Load("Dialog/" + audio_path, typeof(AudioClip)) as AudioClip;
     audioSource.PlayOneShot(clip);
+
+    // set length of audio clip + some buffer time
+    audioClipLength = clip.length + 1f;
   }
 
 }

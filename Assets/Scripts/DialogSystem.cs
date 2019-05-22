@@ -135,27 +135,27 @@ public class DialogSystem : MonoBehaviour
         text = "Hello, my round little friend!";
         text += "\nIf you have a little time, could you help out a friendly robot?";
         audio_path = "lvl1_hello";
-        iconElement.sprite = getIcon("happy");
+        iconElement.sprite = getIcon("laughing");
         break;
 
       case "lvl1_asleep":
         text = "Is this fellow asleep perhaps?";
         audio_path = "lvl1_asleep";
-        iconElement.sprite = getIcon("");
+        iconElement.sprite = getIcon("annoyed");
         break;
 
       case "lvl1_wake_up":
         text = "Wake up, little friend!\n";
         text += "It's not polite to sleep, when there is a robot in need.";
         audio_path = "lvl1_wake_up";
-        iconElement.sprite = getIcon("");
+        iconElement.sprite = getIcon("angry");
         break;
 
       case "lvl1_move":
         text = "Finally, that's better!\n";
         text += "Now that you're awake, can you walk or roll around?";
         audio_path = "lvl1_move";
-        iconElement.sprite = getIcon("");
+        iconElement.sprite = getIcon("laughing");
         break;
 
       default:
@@ -196,8 +196,11 @@ public class DialogSystem : MonoBehaviour
       case "angry":
         return dialogIcons[6];
 
-      case "sad":
+      case "furious":
         return dialogIcons[7];
+
+      case "sad":
+        return dialogIcons[8];
 
       default:
         Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");

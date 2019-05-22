@@ -40,6 +40,9 @@ public class PlayerController : PhysicsObject
   private string state = "Circle",
                  newState = "";
 
+  private bool inDoubleJump = false; // is true, if player executed double jump and is still in air
+
+  private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
   private bool groundedInLastFrame = true;
 
   private float lastX, lastY; // last x and y position
@@ -246,7 +249,6 @@ public class PlayerController : PhysicsObject
     GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
   }
   
-  private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
   protected override void ComputeVelocity()
   {
 
@@ -275,6 +277,11 @@ public class PlayerController : PhysicsObject
       stopRollingFix();
     }
 
+    if (grounded)
+    {
+      inDoubleJump = false;
+    }
+
     // test if player is currently moving
     testForMovement();
 
@@ -301,7 +308,8 @@ public class PlayerController : PhysicsObject
               velocity.y = jumpTakeOffSpeed;
             }
             // double jump for triangle
-            else if (state == "Triangle" && velocity.y > 0f) {
+            else if (state == "Triangle" && velocity.y > 0f && !inDoubleJump) {
+              inDoubleJump = true;
               velocity.y = jumpTakeOffSpeed * 1.2f;
             }
 
@@ -450,6 +458,8 @@ public class PlayerController : PhysicsObject
 
     if (Input.GetKeyDown("" + 2) && !isChangingState && state != "Triangle")
     {
+      ScriptedEventsManager.Instance.LoadEvent(1, "morph_to_triangle");
+
       newState = "Triangle";
       GetComponent<CircleCollider2D>().enabled = false;
       GetComponent<PolygonCollider2D>().enabled = true;

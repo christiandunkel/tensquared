@@ -115,6 +115,10 @@ public class ScriptedEventsManager : MonoBehaviour
         StartCoroutine(Lvl1_MorphTooltip());
         break;
 
+      case "morph_to_triangle":
+        TooltipManager.hideTooltips();
+        break;
+
       default:
         break;
 

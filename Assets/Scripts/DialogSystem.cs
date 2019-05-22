@@ -131,12 +131,33 @@ public class DialogSystem : MonoBehaviour
 
     switch (name) {
 
-      case "lvl1_greeting":
-        text = "Who are you, my little friend?";
-        text += "\nWhat are you doing out here all by yourself?";
-        audio_path = "lvl1_greeting";
+      case "lvl1_hello":
+        text = "Hello, my round little friend!";
+        text += "\nIf you have a little time, could you help out a friendly robot?";
+        audio_path = "lvl1_hello";
         iconElement.sprite = getIcon("happy");
         break;
+
+      case "lvl1_asleep":
+        text = "Is this fellow asleep perhaps?";
+        audio_path = "lvl1_asleep";
+        iconElement.sprite = getIcon("");
+        break;
+
+      case "lvl1_wake_up":
+        text = "Wake up, little friend!\n";
+        text += "It's not polite to sleep, when there is a robot in need.";
+        audio_path = "lvl1_wake_up";
+        iconElement.sprite = getIcon("");
+        break;
+
+      case "lvl1_move":
+        text = "Finally, that's better!\n";
+        text += "Now that you're awake, can you walk or roll around?";
+        audio_path = "lvl1_move";
+        iconElement.sprite = getIcon("");
+        break;
+
       default:
         Debug.Log("DialogSystem: Could not find dialog \"" + name + "\".");
         return;
@@ -197,7 +218,12 @@ public class DialogSystem : MonoBehaviour
 
   private static void MoveDialogBox() {
 
-    float divisionValue = (moveDialog == "down" ? scrollTimeDown : scrollTimeUp);
+    float divisionValue = scrollTimeUp;
+
+    if (moveDialog == "down") {
+      divisionValue = scrollTimeDown;
+      textElement.GetComponent<TextMeshProUGUI>().SetText("");
+    }
 
     if (moveTimer < 1.0f)
     {

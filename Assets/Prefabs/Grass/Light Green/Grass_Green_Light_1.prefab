@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2142337349822097523}
   - component: {fileID: 8728466962119561810}
-  - component: {fileID: 5088947049175069167}
+  - component: {fileID: 8447898068610552697}
   m_Layer: 10
   m_Name: Grass_Green_Light_1
   m_TagString: Grass
@@ -49,7 +49,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e12ce5250a0f7ca4fa5e638a0ad20d21, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: 886c32a3525f6144b8da23db392363ff, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6199454, g: 0.8113208, b: 0.56256676, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5088947049175069167
+--- !u!95 &8447898068610552697
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

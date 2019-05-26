@@ -16,14 +16,12 @@ public class DialogSystem : MonoBehaviour
     Instance = this;
   }
 
-  // settings
-  public static bool dialogEnabled = true;
-
   // attributes
   private static Vector3 dialogBoxPos = new Vector3(0.0f, 0.0f, 0.0f),
                          dialogBoxPosHidden = new Vector3(0.0f, 0.0f, 0.0f);
 
   // elements of the dialog box
+  private static Animator animator = null;
   private static AudioSource audioSource = null;
   private static GameObject dialogBox = null;
   private static GameObject textElement = null;
@@ -32,14 +30,12 @@ public class DialogSystem : MonoBehaviour
   private static Image iconElement = null;
 
   // called before the first frame update
-  void Start()
-  {
+  void Start() {
 
     Debug.Log("DialogSystem: Loaded.");
 
     // get inner elements
-    foreach (Transform child in gameObject.transform)
-    {
+    foreach (Transform child in gameObject.transform) {
 
       GameObject obj = child.gameObject;
 
@@ -63,27 +59,13 @@ public class DialogSystem : MonoBehaviour
 
           GameObject obj2 = child2.gameObject;
 
+          // get parts of dialog system
           switch (obj2.name) {
-
-            case "Background":
-              panelElement = obj2;
-              break;
-
-            case "Text":
-              textElement = obj2;
-              break;
-
-            case "CloseSymbol":
-              closeSymbol = obj2.GetComponent<CanvasGroup>();
-              break;
-
-            case "Icon":
-              iconElement = obj2.GetComponent<Image>();
-              break;
-
-            default:
-              break;
-
+            case "Background":  panelElement = obj2; break;
+            case "Text":        textElement = obj2; break;
+            case "CloseSymbol": closeSymbol = obj2.GetComponent<CanvasGroup>(); break;
+            case "Icon":        iconElement = obj2.GetComponent<Image>(); break;
+            default: break;
           }
 
         }
@@ -99,43 +81,18 @@ public class DialogSystem : MonoBehaviour
 
   void Update() {
 
-    // dialog is disabled, don't continue
-    if (!dialogEnabled) {
-      return;
-    }
-
-    // move the dialog box in or out of the frame
-    if (moveDialog != null) {
-      MoveDialogBox();
-      return;
-    }
-
-    
-
-    if (dialogBoxVisible && !typewriterRunning) {
-
-      // close the current dialog window by clicking
-      if (Input.GetMouseButtonDown(0)) {
-        moveDialog = "up";
-      }
-
-    }
-
-
-    if (audioClipLength > 0.0f)
-    {
+    if (audioClipLength > 0.0f) {
       audioClipLength -= Time.deltaTime;
     }
-    else if (dialogBoxVisible && !typewriterRunning)
-    {
-      moveDialog = "up";
+    // close the current dialog window after voice was fully played
+    else if (dialogBoxVisible && !typewriterRunning) {
+      animator.SetBool("ShowDialog", false);
     }
 
   }
 
   // direction in which the dialog box should move
   // @"down" or "up"
-  private static string moveDialog = null;
   private static bool dialogBoxVisible = false;
 
   public static void LoadDialog(string name)
@@ -217,7 +174,7 @@ public class DialogSystem : MonoBehaviour
 
     }
 
-    moveDialog = "down";
+    animator.SetBool("ShowDialog", true);
     // little arrow symbol, indicating that you can close the dialog
     closeSymbol.alpha = 0.0f;
     dialogBoxVisible = true;
@@ -227,38 +184,18 @@ public class DialogSystem : MonoBehaviour
   private static Sprite getIcon(string name) {
 
     switch (name) {
-
-      case "neutral":
-        return dialogIcons[0];
-
-      case "happy":
-        return dialogIcons[1];
-
-      case "laughing":
-        return dialogIcons[2];
-
-      case "surprised":
-        return dialogIcons[3];
-
-      case "sleepy":
-        return dialogIcons[4];
-
-      case "annoyed":
-        return dialogIcons[5];
-
-      case "angry":
-        return dialogIcons[6];
-
-      case "furious":
-        return dialogIcons[7];
-
-      case "sad":
-        return dialogIcons[8];
+      case "neutral":   return dialogIcons[0];
+      case "happy":     return dialogIcons[1];
+      case "laughing":  return dialogIcons[2];
+      case "surprised": return dialogIcons[3];
+      case "sleepy":    return dialogIcons[4];
+      case "annoyed":   return dialogIcons[5];
+      case "angry":     return dialogIcons[6];
+      case "furious":   return dialogIcons[7];
+      case "sad":       return dialogIcons[8];
 
       default:
         Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");
-        break;
-
     }
 
     return dialogIcons[0];
@@ -271,7 +208,7 @@ public class DialogSystem : MonoBehaviour
   private static float scrollTimeDown = 0.6f; // time for dialog box to appear / vanish
   private static float scrollTimeUp = 0.2f; // time for dialog box to appear / vanish
   private static float delayBeforeText = 0.3f; // delay before text appears on dialogbox that is already in position
-  
+  /*
   private static void MoveDialogBox() {
 
     float divisionValue = scrollTimeUp;
@@ -327,7 +264,7 @@ public class DialogSystem : MonoBehaviour
 
     }
 
-  }
+  }*/
 
 
   private static float audioClipLength = 0.0f;

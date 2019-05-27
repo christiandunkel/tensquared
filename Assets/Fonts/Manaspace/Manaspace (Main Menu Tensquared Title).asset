@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-179916467461689795
+--- !u!21 &-8942345929042453076
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Manaspc SDF (High Shadows) Material
+  m_Name: Manaspace (Main Menu Tensquared Title) Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_ShaderKeywords: UNDERLAY_ON
   m_LightmapFlags: 4
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 3173563817208980851}
+        m_Texture: {fileID: 5863342382915190034}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -64,12 +64,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.272
+    - _OutlineWidth: 0.048
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
     - _ScaleRatioB: 0.6770833
-    - _ScaleRatioC: 0.38580248
+    - _ScaleRatioC: 0.5188378
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -82,10 +82,10 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 512
     - _TextureWidth: 512
-    - _UnderlayDilate: 0.46
-    - _UnderlayOffsetX: 0.68
-    - _UnderlayOffsetY: -0.66
-    - _UnderlaySoftness: 0.615
+    - _UnderlayDilate: 0.34
+    - _UnderlayOffsetX: 0.7
+    - _UnderlayOffsetY: -0.41
+    - _UnderlaySoftness: 0.265
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -96,11 +96,11 @@ Material:
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 0.77254903}
+    - _OutlineColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.8745098}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,11 +111,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Manaspace SDF (High Shadows)
+  m_Name: Manaspace (Main Menu Tensquared Title)
   m_EditorClassIdentifier: 
-  hashCode: -941054068
-  material: {fileID: -179916467461689795}
-  materialHashCode: -1689958237
+  hashCode: -2104675548
+  material: {fileID: -8942345929042453076}
+  materialHashCode: 1486058287
   m_Version: 1.1.0
   m_SourceFontFileGUID: b6d67c7dc0f4d7943a10dea735d208e7
   m_SourceFontFile_EditorRef: {fileID: 0}
@@ -127,7 +127,7 @@ MonoBehaviour:
     m_PointSize: 73
     m_Scale: 1
     m_LineHeight: 75.38818
-    m_AscentLine: 74.75
+    m_AscentLine: 54.75
     m_CapLine: 55
     m_MeanLine: 37
     m_Baseline: 0
@@ -1890,7 +1890,7 @@ MonoBehaviour:
     m_GlyphIndex: 227
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 3173563817208980851}
+  - {fileID: 5863342382915190034}
   m_AtlasTextureIndex: 0
   m_UsedGlyphRects:
   - m_X: 0
@@ -2457,13 +2457,13 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!28 &3173563817208980851
+--- !u!28 &5863342382915190034
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Manaspc SDF (High Shadows) Atlas
+  m_Name: Manaspace (Main Menu Tensquared Title) Atlas
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000

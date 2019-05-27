@@ -34,7 +34,7 @@ public class GhostingEffect : MonoBehaviour
         currentGhost.transform.SetParent(transform.parent);
         ghostDelaySeconds = delayBetweenGhosts;
         // scale current ghost to texture object's scale
-        currentGhost.transform.localScale = textureContainer.transform.localScale;
+        currentGhost.transform.localScale = new Vector3(0.57f, 0.57f, 0.57f);
         // get current sprite of player
         Sprite currentSprite = textureObject.GetComponent<SpriteRenderer>().sprite;
         currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;

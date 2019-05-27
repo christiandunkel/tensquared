@@ -194,9 +194,17 @@ public class DialogSystem : MonoBehaviour
 
   private static IEnumerator PlayDialog() {
 
+    // dialog is currently playing, break it
+    if (dialogBoxVisible) {
+      audioSource.Stop();
+      DialogSystem.Instance.StopCoroutine(PlayDialog());
+    }
+
     dialogBoxVisible = true;
     animator.SetBool("ShowDialog", true);
     yield return new WaitForSeconds(0.5f);
+
+
 
     currentText = "";
     textElement.GetComponent<TextMeshProUGUI>().SetText("");
@@ -206,13 +214,16 @@ public class DialogSystem : MonoBehaviour
     audioSource.PlayOneShot(clip);
 
     // set length of audio clip + some buffer time
-    audioClipLength = clip.length + 1.5f;
+    audioClipLength = clip.length;
 
     // delay in seconds after each character before next one is written
     delayBetweenChars = audioClipLength / text.Length;
 
+    /*yield return new WaitForSeconds(audioClipLength);*/
+
     for (int i = 1; i <= text.Length; i++) {
 
+      Debug.Log(audioSource.time);
       currentText = text.Substring(0, i);
       textElement.GetComponent<TextMeshProUGUI>().SetText(currentText);
 
@@ -223,8 +234,8 @@ public class DialogSystem : MonoBehaviour
       yield return new WaitForSeconds(delayBetweenChars);
 
     }
-    
-    yield return new WaitForSeconds(0.4f);
+
+    yield return new WaitForSeconds(3f);
     animator.SetBool("ShowDialog", false);
 
     yield return new WaitForSeconds(0.3f);

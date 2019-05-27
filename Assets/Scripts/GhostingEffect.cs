@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostingEffect : MonoBehaviour
-{
+public class GhostingEffect : MonoBehaviour {
 
-  public GameObject ghost;
-  public GameObject textureContainer;
+  public GameObject ghost, textureContainer;
   public SpriteRenderer textureObject;
-  public float delayBetweenGhosts;
-  private float ghostDelaySeconds;
-  public bool makeGhost = false;
-  public float durationOfAnimation = 0.5f;
+  private float delayBetweenGhosts = 0.1f,
+                durationOfAnimation = 0.3f,
+                ghostDelaySeconds;
+  private bool displayGhost = false;
 
   // Start is called before the first frame update
   void Start() {
-
     ghostDelaySeconds = delayBetweenGhosts;
+  }
 
+  public void SetGhosting(bool b) {
+    displayGhost = b;
   }
 
   // Update is called once per frame
   void Update() {
 
-    if (makeGhost) {
+    if (displayGhost) {
 
       if (ghostDelaySeconds > 0) {
         ghostDelaySeconds -= Time.deltaTime;
@@ -45,4 +45,5 @@ public class GhostingEffect : MonoBehaviour
     }
     
   }
+
 }

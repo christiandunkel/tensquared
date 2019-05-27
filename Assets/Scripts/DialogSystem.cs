@@ -18,7 +18,6 @@ public class DialogSystem : MonoBehaviour
 
   // read-only states of dialog box
   private static bool dialogBoxVisible = false;
-  private static bool typewriterRunning = false;
 
   // array containg all roboter icons as sprites
   private static Sprite[] dialogIcons = null;
@@ -226,11 +225,7 @@ public class DialogSystem : MonoBehaviour
       Debug.Log(audioSource.time);
       currentText = text.Substring(0, i);
       textElement.GetComponent<TextMeshProUGUI>().SetText(currentText);
-
-      if (i == text.Length) {
-        typewriterRunning = false;
-      }
-
+      
       yield return new WaitForSeconds(delayBetweenChars);
 
     }

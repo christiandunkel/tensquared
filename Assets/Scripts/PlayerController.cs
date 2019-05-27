@@ -360,8 +360,8 @@ public class PlayerController : PhysicsObject
       // ground particles when moving over ground on the x axis
       showMovementParticles(movingX && grounded ? true : false);
       
-      // ghosting effect while moving
-      ghost.makeGhost = movingX || movingY ? true : false;
+      // enable ghosting effect while moving
+      ghost.SetGhosting(movingX || movingY ? true : false);
 
       // called when changing state, to animate new texture
       if (isChangingState)

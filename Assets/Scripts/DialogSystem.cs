@@ -26,7 +26,6 @@ public class DialogSystem : MonoBehaviour
   private static GameObject dialogBox = null;
   private static GameObject textElement = null;
   private static GameObject panelElement = null;
-  private static CanvasGroup closeSymbol = null;
   private static Image iconElement = null;
 
   // called before the first frame update
@@ -63,7 +62,6 @@ public class DialogSystem : MonoBehaviour
           switch (obj2.name) {
             case "Background":  panelElement = obj2; break;
             case "Text":        textElement = obj2; break;
-            case "CloseSymbol": closeSymbol = obj2.GetComponent<CanvasGroup>(); break;
             case "Icon":        iconElement = obj2.GetComponent<Image>(); break;
             default: break;
           }
@@ -176,7 +174,6 @@ public class DialogSystem : MonoBehaviour
 
     animator.SetBool("ShowDialog", true);
     // little arrow symbol, indicating that you can close the dialog
-    closeSymbol.alpha = 0.0f;
     dialogBoxVisible = true;
 
   }
@@ -196,6 +193,7 @@ public class DialogSystem : MonoBehaviour
 
       default:
         Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");
+        break;
     }
 
     return dialogIcons[0];
@@ -203,12 +201,61 @@ public class DialogSystem : MonoBehaviour
   }
 
 
+  private static float delayBeforeText = 0.3f, // delay before text appears on dialogbox that is already in position
+                       delayAfterText = 0.3f; // delay before text appears on dialogbox that is already in position
+
+  private static float audioClipLength = 0.0f;
+
+  // text is still being written on screen
+  private static bool typewriterRunning = false;
+  private static string text = ""; // text
+  private static string audio_path = ""; // path to audio
+  private static string currentText = ""; // temporary, current progress of typewriter
+  private static float delay = 0.06f; // delay between characters
+  private static int currentChar;
+  private static Regex punctuation_regex = new Regex(@"[.!?]+");
+  private static Match punctuation_match;
+
+  private static IEnumerator ShowText()
+  {
+    for (int i = 1; i <= text.Length; i++)
+    {
+      currentText = text.Substring(0, i);
+      textElement.GetComponent<TextMeshProUGUI>().SetText(currentText);
+
+      if (i == text.Length)
+      {
+        DialogSystem.Instance.StopCoroutine(ShowText());
+        typewriterRunning = false;
+      }
+
+      // current character, that was just now added
+      string thisChar = currentText.Substring(currentText.Length - 1);
+      // add bigger delay when there is a dot (from an ellipsis)
+      punctuation_match = punctuation_regex.Match(thisChar);
+
+      yield return new WaitForSeconds(punctuation_match.Success ? delay*15 : delay);
+    }
+  }
+
+  private static void PlayVoice() {
+    AudioClip clip = Resources.Load("Dialog/" + audio_path, typeof(AudioClip)) as AudioClip;
+    audioSource.PlayOneShot(clip);
+
+    // set length of audio clip + some buffer time
+    audioClipLength = clip.length + 1.5f;
+  }
+
+
+
+
+
+  /*
   private static float generalTimer = 0.0f;
   private static float moveTimer = 0.0f;
   private static float scrollTimeDown = 0.6f; // time for dialog box to appear / vanish
   private static float scrollTimeUp = 0.2f; // time for dialog box to appear / vanish
-  private static float delayBeforeText = 0.3f; // delay before text appears on dialogbox that is already in position
-  /*
+  
   private static void MoveDialogBox() {
 
     float divisionValue = scrollTimeUp;
@@ -265,53 +312,5 @@ public class DialogSystem : MonoBehaviour
     }
 
   }*/
-
-
-  private static float audioClipLength = 0.0f;
-
-
-  // text is still being written on screen
-  private static bool typewriterRunning = false;
-  private static string text = ""; // text
-  private static string audio_path = ""; // path to audio
-  private static string currentText = ""; // temporary, current progress of typewriter
-  private static float delay = 0.06f; // delay between characters
-  private static int currentChar;
-  private static Regex punctuation_regex = new Regex(@"[.!?]+");
-  private static Match punctuation_match;
-
-  private static IEnumerator ShowText()
-  {
-    for (int i = 1; i <= text.Length; i++)
-    {
-      currentText = text.Substring(0, i);
-      textElement.GetComponent<TextMeshProUGUI>().SetText(currentText);
-
-      if (i == text.Length)
-      {
-        DialogSystem.Instance.StopCoroutine(ShowText());
-        typewriterRunning = false;
-        closeSymbol.alpha = 1.0f;
-      }
-
-      // current character, that was just now added
-      string thisChar = currentText.Substring(currentText.Length - 1);
-      // add bigger delay when there is a dot (from an ellipsis)
-      punctuation_match = punctuation_regex.Match(thisChar);
-
-      yield return new WaitForSeconds(punctuation_match.Success ? delay*15 : delay);
-    }
-  }
-
-
-
-
-  private static void PlayVoice() {
-    AudioClip clip = Resources.Load("Dialog/" + audio_path, typeof(AudioClip)) as AudioClip;
-    audioSource.PlayOneShot(clip);
-
-    // set length of audio clip + some buffer time
-    audioClipLength = clip.length + 1.5f;
-  }
 
 }

@@ -16,9 +16,12 @@ public class DialogSystem : MonoBehaviour
     Instance = this;
   }
 
-  // attributes
-  private static Vector3 dialogBoxPos = new Vector3(0.0f, 0.0f, 0.0f),
-                         dialogBoxPosHidden = new Vector3(0.0f, 0.0f, 0.0f);
+  // read-only states of dialog box
+  private static bool dialogBoxVisible = false;
+  private static bool typewriterRunning = false;
+
+  // array containg all roboter icons as sprites
+  private static Sprite[] dialogIcons = null;
 
   // elements of the dialog box
   private static Animator animator = null;
@@ -28,31 +31,24 @@ public class DialogSystem : MonoBehaviour
   private static GameObject panelElement = null;
   private static Image iconElement = null;
 
-  // called before the first frame update
+
+
   void Start() {
 
     Debug.Log("DialogSystem: Loaded.");
+
+    // load icons into sprite array
+    dialogIcons = Resources.LoadAll<Sprite>("DialogIcons/");
 
     // get inner elements
     foreach (Transform child in gameObject.transform) {
 
       GameObject obj = child.gameObject;
 
-      dialogIcons = Resources.LoadAll<Sprite>("DialogIcons/");
-
       if (obj.name == "DialogBox") {
 
         dialogBox = obj;
-
-        // get local position and hidden position of dialog box
-        Vector3 lp = dialogBox.transform.localPosition;
-        dialogBoxPos = new Vector3(lp.x, lp.y, lp.z);
-        dialogBoxPosHidden = new Vector3(lp.x, 180.0f, lp.z);
-
-        // move the box out the way before first frame (fixes 1-frame flickering bug)
-        dialogBox.transform.localPosition = dialogBoxPosHidden;
-
-        dialogBox.GetComponent<CanvasGroup>().alpha = 0.0f;
+        animator = dialogBox.GetComponent<Animator>();
 
         foreach (Transform child2 in obj.transform) {
 
@@ -77,28 +73,13 @@ public class DialogSystem : MonoBehaviour
 
   }
 
-  void Update() {
 
-    if (audioClipLength > 0.0f) {
-      audioClipLength -= Time.deltaTime;
-    }
-    // close the current dialog window after voice was fully played
-    else if (dialogBoxVisible && !typewriterRunning) {
-      animator.SetBool("ShowDialog", false);
-    }
 
-  }
 
-  // direction in which the dialog box should move
-  // @"down" or "up"
-  private static bool dialogBoxVisible = false;
+  public static void LoadDialog(string name) {
 
-  public static void LoadDialog(string name)
-  {
-
-    currentText = "";
-    textElement.GetComponent<TextMeshProUGUI>().SetText("");
-    dialogBox.GetComponent<CanvasGroup>().alpha = 1.0f;
+    DialogSystem.Instance.StopCoroutine(PlayDialog());
+    string icon = "";
 
     switch (name) {
 
@@ -106,64 +87,64 @@ public class DialogSystem : MonoBehaviour
         text = "Hello, my little friend!";
         text += "\nDo you have some time to help me out?";
         audio_path = "lvl1_hello";
-        iconElement.sprite = getIcon("laughing");
+        icon = "laughing";
         break;
 
       case "lvl1_asleep":
         text = "Is this fellow asleep perhaps?";
         audio_path = "lvl1_asleep";
-        iconElement.sprite = getIcon("annoyed");
+        icon = "annoyed";
         break;
 
       case "lvl1_wake_up":
         text = "Wake up, little friend!\n";
         text += "It's not polite to sleep, when there is a robot in need!";
         audio_path = "lvl1_wake_up";
-        iconElement.sprite = getIcon("angry");
+        icon = "angry";
         break;
 
       case "lvl1_move":
         text = "Finally, that's better!\n";
         text += "Now that you're awake, can you walk or roll around?";
         audio_path = "lvl1_move";
-        iconElement.sprite = getIcon("laughing");
+        icon = "laughing";
         break;
 
       case "lvl1_jump":
         text = "Little friend, are you able to jump over that thing?";
         audio_path = "lvl1_jump";
-        iconElement.sprite = getIcon("neutral");
+        icon = "neutral";
         break;
 
       case "lvl1_dont_jump_into_water":
         text = "I wouldn't jump into the water if I were you.";
         text += "\nBecause that isn't water, and it is deadly.";
         audio_path = "lvl1_dont_jump_into_water";
-        iconElement.sprite = getIcon("neutral");
+        icon = "neutral";
         break;
 
       case "lvl1_not_the_smartest_circle":
         text = "You really aren't the smartest circle out there, isn't that right?";
         audio_path = "lvl1_not_the_smartest_circle";
-        iconElement.sprite = getIcon("annoyed");
+        icon = "annoyed";
         break;
 
       case "lvl1_you_dont_learn":
         text = "You don't learn, do you?";
         audio_path = "lvl1_you_dont_learn";
-        iconElement.sprite = getIcon("furious");
+        icon = "furious";
         break;
 
       case "lvl1_quick_compared_to_other_circles":
         text = "I have to compliment you! Once you finally woke up, you're actually quite quick on foot, especially in comparison to other circles!";
         audio_path = "lvl1_quick_compared_to_other_circles";
-        iconElement.sprite = getIcon("happy");
+        icon = "happy";
         break;
 
       case "lvl1_morph":
         text = "No matter how fast you are, sometimes you just can't overcome an obstacle as a circle.";
         audio_path = "lvl1_morph";
-        iconElement.sprite = getIcon("neutral");
+        icon = "neutral";
         break;
 
       default:
@@ -172,12 +153,14 @@ public class DialogSystem : MonoBehaviour
 
     }
 
-    animator.SetBool("ShowDialog", true);
-    // little arrow symbol, indicating that you can close the dialog
-    dialogBoxVisible = true;
+    iconElement.sprite = getIcon(icon);
+
+    DialogSystem.Instance.StartCoroutine(PlayDialog());
 
   }
-  private static Sprite[] dialogIcons = null;
+
+
+
   private static Sprite getIcon(string name) {
 
     switch (name) {
@@ -200,117 +183,55 @@ public class DialogSystem : MonoBehaviour
 
   }
 
-
-  private static float delayBeforeText = 0.3f, // delay before text appears on dialogbox that is already in position
-                       delayAfterText = 0.3f; // delay before text appears on dialogbox that is already in position
-
+  
   private static float audioClipLength = 0.0f;
 
   // text is still being written on screen
-  private static bool typewriterRunning = false;
-  private static string text = ""; // text
-  private static string audio_path = ""; // path to audio
-  private static string currentText = ""; // temporary, current progress of typewriter
-  private static float delay = 0.06f; // delay between characters
-  private static int currentChar;
-  private static Regex punctuation_regex = new Regex(@"[.!?]+");
-  private static Match punctuation_match;
+  private static string text = "",
+          audio_path = "", // path to audio
+          currentText = ""; // temporary, current progress of typewriter
+  private static float delayBetweenChars; // calculated by audio clip and text length
 
-  private static IEnumerator ShowText()
-  {
-    for (int i = 1; i <= text.Length; i++)
-    {
-      currentText = text.Substring(0, i);
-      textElement.GetComponent<TextMeshProUGUI>().SetText(currentText);
+  private static IEnumerator PlayDialog() {
 
-      if (i == text.Length)
-      {
-        DialogSystem.Instance.StopCoroutine(ShowText());
-        typewriterRunning = false;
-      }
+    dialogBoxVisible = true;
+    animator.SetBool("ShowDialog", true);
+    yield return new WaitForSeconds(0.5f);
 
-      // current character, that was just now added
-      string thisChar = currentText.Substring(currentText.Length - 1);
-      // add bigger delay when there is a dot (from an ellipsis)
-      punctuation_match = punctuation_regex.Match(thisChar);
+    currentText = "";
+    textElement.GetComponent<TextMeshProUGUI>().SetText("");
 
-      yield return new WaitForSeconds(punctuation_match.Success ? delay*15 : delay);
-    }
-  }
-
-  private static void PlayVoice() {
+    // play roboter voice
     AudioClip clip = Resources.Load("Dialog/" + audio_path, typeof(AudioClip)) as AudioClip;
     audioSource.PlayOneShot(clip);
 
     // set length of audio clip + some buffer time
     audioClipLength = clip.length + 1.5f;
+
+    // delay in seconds after each character before next one is written
+    delayBetweenChars = audioClipLength / text.Length;
+
+    for (int i = 1; i <= text.Length; i++) {
+
+      currentText = text.Substring(0, i);
+      textElement.GetComponent<TextMeshProUGUI>().SetText(currentText);
+
+      if (i == text.Length) {
+        typewriterRunning = false;
+      }
+
+      yield return new WaitForSeconds(delayBetweenChars);
+
+    }
+    
+    yield return new WaitForSeconds(0.4f);
+    animator.SetBool("ShowDialog", false);
+
+    yield return new WaitForSeconds(0.3f);
+    textElement.GetComponent<TextMeshProUGUI>().SetText("");
+    dialogBoxVisible = false;
+    DialogSystem.Instance.StopCoroutine(PlayDialog());
+
   }
-
-
-
-
-
-  /*
-  private static float generalTimer = 0.0f;
-  private static float moveTimer = 0.0f;
-  private static float scrollTimeDown = 0.6f; // time for dialog box to appear / vanish
-  private static float scrollTimeUp = 0.2f; // time for dialog box to appear / vanish
-  
-  private static void MoveDialogBox() {
-
-    float divisionValue = scrollTimeUp;
-
-    if (moveDialog == "down") {
-      divisionValue = scrollTimeDown;
-      textElement.GetComponent<TextMeshProUGUI>().SetText("");
-    }
-
-    if (moveTimer < 1.0f)
-    {
-      // from screen position to hidden position
-      Vector3 start = dialogBoxPos;
-      Vector3 end = dialogBoxPosHidden;
-
-      // from hidden position to screen
-      if (moveDialog == "down")
-      {
-        start = dialogBoxPosHidden;
-        end = dialogBoxPos;
-        moveTimer += Time.deltaTime / divisionValue;
-        dialogBox.GetComponent<CanvasGroup>().alpha = moveTimer;
-      }
-      else
-      {
-        moveTimer += Time.deltaTime / divisionValue;
-        dialogBox.GetComponent<CanvasGroup>().alpha = 1.0f - moveTimer;
-      }
-
-      dialogBox.transform.localPosition = Vector3.Lerp(start, end, moveTimer);
-    }
-
-    generalTimer += Time.deltaTime / divisionValue;
-
-    if (
-      generalTimer >= 
-      (1.0f + delayBeforeText * divisionValue)
-    )
-    {
-      generalTimer = 0.0f;
-      moveTimer = 0.0f;
-      if (moveDialog == "down")
-      {
-        typewriterRunning = true;
-        DialogSystem.Instance.StartCoroutine(ShowText());
-        PlayVoice();
-      }
-      else
-      {
-        dialogBoxVisible = false;
-      }
-      moveDialog = null;
-
-    }
-
-  }*/
 
 }

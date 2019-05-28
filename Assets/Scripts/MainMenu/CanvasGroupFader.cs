@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanvasGroupFader : MonoBehaviour
-{
+public class CanvasGroupFader : MonoBehaviour {
+
+  public static CanvasGroupFader Instance;
+
+  void Awake() {
+    Instance = this;
+  }
 
   public CanvasGroup[] uiElements;
   public float fadeinTime = 0.3f;
@@ -102,8 +107,7 @@ public class CanvasGroupFader : MonoBehaviour
     cg.interactable = interactableEnd;
 
     // if it faded out, set as inactive
-    if (!isFadeInAnimation)
-    {
+    if (!isFadeInAnimation) {
       cg.gameObject.SetActive(false);
     }
 

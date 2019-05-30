@@ -5,25 +5,16 @@ using UnityEngine;
 public class LVL1_ShowJumpTooltip : MonoBehaviour
 {
 
-  private bool hasSeenJumpTooltip;
+  private bool hasSeenTooltip;
 
-  private void Awake()
-  {
-    hasSeenJumpTooltip = false;
+  private void Awake() {
+    hasSeenTooltip = false;
   }
 
-  private void OnTriggerEnter2D(Collider2D col)
-  {
+  private void OnTriggerEnter2D(Collider2D col) {
 
-    if (hasSeenJumpTooltip)
-    {
-      return;
-    }
-    
-    if (col.gameObject.tag == "Player")
-    {
-      // only load once
-      hasSeenJumpTooltip = true;
+    if (!hasSeenTooltip && col.gameObject.tag == "Player") {
+      hasSeenTooltip = true; // only load once
       ScriptedEventsManager.Instance.LoadEvent(1, "jump_tooltip");
     }
 

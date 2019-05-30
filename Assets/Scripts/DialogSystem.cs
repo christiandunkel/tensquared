@@ -76,102 +76,61 @@ public class DialogSystem : MonoBehaviour
 
 
   public static void LoadDialog(string name) {
-
-    DialogSystem.Instance.StopCoroutine(PlayDialog());
-    string icon = "";
+    
+    void setDialogue(string t, string a, string e) {
+      // stop previous dialogue
+      DialogSystem.Instance.StopCoroutine(PlayDialog());
+      // settings for new dialogue
+      text = t;
+      audio_path = a;
+      iconElement.sprite = getIcon(e);
+      // play it
+      DialogSystem.Instance.StartCoroutine(PlayDialog());
+    }
 
     switch (name) {
 
-      case "lvl1_hello":
-        text = "Hello, my little friend!";
-        text += "\nDo you have some time to help me out?";
-        audio_path = "lvl1_hello";
-        icon = "laughing";
-        break;
-
-      case "lvl1_asleep":
-        text = "Is this fellow asleep perhaps?";
-        audio_path = "lvl1_asleep";
-        icon = "annoyed";
-        break;
-
-      case "lvl1_move":
-        text = "Finally, that's better!\n";
-        text += "Now that you're awake, can you walk or roll around?";
-        audio_path = "lvl1_move";
-        icon = "laughing";
-        break;
-
-      case "lvl1_jump":
-        text = "Little friend, are you able to jump over that thing?";
-        audio_path = "lvl1_jump";
-        icon = "neutral";
-        break;
-
-      case "lvl1_dont_jump_into_water":
-        text = "I wouldn't jump into the water if I were you.";
-        text += "\nBecause that isn't water, and it is deadly.";
-        audio_path = "lvl1_dont_jump_into_water";
-        icon = "neutral";
-        break;
-
-      case "lvl1_not_the_smartest_circle":
-        text = "You really aren't the smartest circle out there, isn't that right?";
-        audio_path = "lvl1_not_the_smartest_circle";
-        icon = "annoyed";
-        break;
-
-      case "lvl1_you_dont_learn":
-        text = "You don't learn, do you?";
-        audio_path = "lvl1_you_dont_learn";
-        icon = "furious";
-        break;
-
-      case "lvl1_quick_compared_to_other_circles":
-        text = "I have to compliment you! Once you finally woke up, you're actually quite quick on foot, especially in comparison to other circles!";
-        audio_path = "lvl1_quick_compared_to_other_circles";
-        icon = "happy";
-        break;
-
-      case "lvl1_morph":
-        text = "No matter how fast you are, sometimes you just can't overcome an obstacle as a circle.";
-        audio_path = "lvl1_morph";
-        icon = "neutral";
-        break;
+      // level 1
+      case "lvl1_hello": setDialogue("Hello, my little friend!\nDo you have some time to help me out?", "lvl1_hello", "laughing"); break;
+      case "lvl1_asleep": setDialogue("Is this fellow asleep perhaps?", "lvl1_asleep", "annoyed"); break;
+      case "lvl1_move": setDialogue("Finally, that's better!\nNow that you're awake, can you walk or roll around?", "lvl1_move", "laughing"); break;
+      case "lvl1_jump": setDialogue("Little friend, are you able to jump over that thing?", "lvl1_jump", "neutral"); break;
+      case "lvl1_dont_jump_into_water": setDialogue("I wouldn't jump into the water if I were you.\nBecause that isn't water, and it is deadly.", "lvl1_dont_jump_into_water", "neutral"); break;
+      case "lvl1_not_the_smartest_circle": setDialogue("You really aren't the smartest circle out there, isn't that right?", "lvl1_not_the_smartest_circle", "annoyed"); break;
+      case "lvl1_quick_compared_to_other_circles": setDialogue("I have to compliment you! Once you finally woke up, you're actually quite quick on foot, especially in comparison to other circles!", "lvl1_quick_compared_to_other_circles", "happy"); break;
+      case "lvl1_morph": setDialogue("No matter how fast you are, sometimes you just can't overcome an obstacle as a circle.", "lvl1_morph", "neutral"); break;
 
       default:
         Debug.Log("DialogSystem: Could not find dialog \"" + name + "\".");
-        return;
+        break;
 
     }
-
-    iconElement.sprite = getIcon(icon);
-
-    DialogSystem.Instance.StartCoroutine(PlayDialog());
 
   }
 
 
-
+  // load an icon from array by key
   private static Sprite getIcon(string name) {
 
-    switch (name) {
-      case "neutral":   return dialogIcons[0];
-      case "happy":     return dialogIcons[1];
-      case "laughing":  return dialogIcons[2];
-      case "surprised": return dialogIcons[3];
-      case "sleepy":    return dialogIcons[4];
-      case "annoyed":   return dialogIcons[5];
-      case "angry":     return dialogIcons[6];
-      case "furious":   return dialogIcons[7];
-      case "sad":       return dialogIcons[8];
-
-      default:
-        Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");
-        break;
+    // get index of icon in sprite array by key
+    int getIndex() {
+      switch (name) {
+        case "happy":     return 1;
+        case "laughing":  return 2;
+        case "surprised": return 3;
+        case "sleepy":    return 4;
+        case "annoyed":   return 5;
+        case "angry":     return 6;
+        case "furious":   return 7;
+        case "sad":       return 8;
+        default:
+          Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");
+          break;
+      }
+      return 0; // neutral icon
     }
 
-    return dialogIcons[0];
+    return dialogIcons[getIndex()];
 
   }
 
@@ -196,8 +155,6 @@ public class DialogSystem : MonoBehaviour
     animator.SetBool("ShowDialog", true);
     yield return new WaitForSeconds(0.5f);
 
-
-
     currentText = "";
     textElement.GetComponent<TextMeshProUGUI>().SetText("");
 
@@ -214,13 +171,9 @@ public class DialogSystem : MonoBehaviour
     /*yield return new WaitForSeconds(audioClipLength);*/
 
     for (int i = 1; i <= text.Length; i++) {
-
-      Debug.Log(audioSource.time);
       currentText = text.Substring(0, i);
       textElement.GetComponent<TextMeshProUGUI>().SetText(currentText);
-      
       yield return new WaitForSeconds(delayBetweenChars);
-
     }
 
     yield return new WaitForSeconds(.4f);

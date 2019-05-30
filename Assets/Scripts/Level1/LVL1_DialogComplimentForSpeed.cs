@@ -7,23 +7,15 @@ public class LVL1_DialogComplimentForSpeed : MonoBehaviour
 
   private bool playedDialogAlready;
 
-  private void Awake()
-  {
+  private void Awake() {
     playedDialogAlready = false;
   }
 
   private void OnTriggerEnter2D(Collider2D col)
   {
 
-    if (playedDialogAlready)
-    {
-      return;
-    }
-
-    if (col.gameObject.tag == "Player")
-    {
-      // only load once
-      playedDialogAlready = true;
+    if (!playedDialogAlready && col.gameObject.tag == "Player") {
+      playedDialogAlready = true; // only load once
       DialogSystem.LoadDialog("lvl1_quick_compared_to_other_circles");
     }
 

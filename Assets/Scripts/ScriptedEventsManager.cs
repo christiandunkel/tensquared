@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScriptedEventsManager : MonoBehaviour
-{
+public class ScriptedEventsManager : MonoBehaviour {
 
   public static ScriptedEventsManager Instance;
 
   public Animator virtualCameraAnimator;
-
   public int levelID = 1;
 
   void Awake() {
@@ -31,8 +29,17 @@ public class ScriptedEventsManager : MonoBehaviour
     }
 
     switch (lvl) {
-      case 1: LoadLevel1Event(name); break;
+      case 1: LoadLevel1Event(); break;
       default: break;
+    }
+
+    void LoadLevel1Event() {
+      switch (name) {
+        case "jump_tooltip": StartCoroutine(Lvl1_JumpTooltip()); break;
+        case "morph_tooltip": StartCoroutine(Lvl1_MorphTooltip()); break;
+        case "morph_to_triangle": TooltipManager.hideTooltips(); break;
+        default: break;
+      }
     }
 
   }
@@ -57,15 +64,6 @@ public class ScriptedEventsManager : MonoBehaviour
     TooltipManager.showTooltip("Move");
     LevelSettings.Instance.SetSetting("canMove", true);
     StopCoroutine(StartFrequenceLvl1());
-  }
-
-  private void LoadLevel1Event(string name) {
-    switch (name) {
-      case "jump_tooltip": StartCoroutine(Lvl1_JumpTooltip()); break;
-      case "morph_tooltip": StartCoroutine(Lvl1_MorphTooltip()); break;
-      case "morph_to_triangle": TooltipManager.hideTooltips(); break;
-      default: break;
-    }
   }
   private IEnumerator Lvl1_JumpTooltip() {
     DialogSystem.LoadDialog("lvl1_jump");

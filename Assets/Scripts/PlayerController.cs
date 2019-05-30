@@ -32,13 +32,17 @@ public class PlayerController : PhysicsObject
   private bool canMove = false,
                canMorph = false,
                canJump = false,
-    
+
                isDead = false,
                steppedOnPiston = false;
 
   private bool isChangingState = false;
   private string state = "Circle",
                  newState = "";
+
+  public bool frozen = false;
+  private bool frozenInLastFrame = false;
+  private Vector3 frozenPos;
 
   private bool inDoubleJump = false; // is true, if player executed double jump and is still in air
 
@@ -154,9 +158,9 @@ public class PlayerController : PhysicsObject
   private Attributes getAttributes(string stateName) {
 
     // look for given name
-    foreach (Attributes a51511552 in characterAttributes) {
-      if (a51511552.name == stateName) {
-        return a51511552;
+    foreach (Attributes a_temp in characterAttributes) {
+      if (a_temp.name == stateName) {
+        return a_temp;
       }
     }
 
@@ -180,8 +184,7 @@ public class PlayerController : PhysicsObject
    ======================
    */
 
-  void Awake()
-  {
+  void Awake() {
 
     parentObject = gameObject.transform.parent.gameObject;
     Instance = this;
@@ -233,15 +236,31 @@ public class PlayerController : PhysicsObject
   // stop figure rolling away even though there is no movement
   private float rollingFixTimer = 0.0f;
   private float rollingFixTimerDefault = 0.3f;
-  private void stopRollingFix()
-  {
+  private void stopRollingFix() {
     GetComponent<Rigidbody2D>().freezeRotation = true;
     GetComponent<Rigidbody2D>().rotation = 0f;
     GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
   }
   
-  protected override void ComputeVelocity()
-  {
+  protected override void ComputeVelocity() {
+
+    if (frozen) {
+
+      if (!frozenInLastFrame) {
+        frozenPos = gameObject.transform.position;
+        ghost.SetGhosting(false);
+        gravityModifier = 0;
+        frozenInLastFrame = true;
+      }
+
+      gameObject.transform.position = frozenPos;
+
+      return;
+    }
+    else if (frozenInLastFrame) {
+      frozenInLastFrame = false;
+      gravityModifier = getAttributes(state).gravityModifier;
+    }
 
     // handle camera zooming
     if (zoomedInCameraTimer > 0.0f) {
@@ -254,22 +273,19 @@ public class PlayerController : PhysicsObject
       VirtualCameraAnimator.SetBool("ZoomedIn", false);
     }
 
-    if (loadSettings_Toggle)
-    {
+    if (loadSettings_Toggle) {
       loadSettings();
     }
 
     Vector2 move = Vector2.zero;
 
     rollingFixTimer -= Time.deltaTime;
-    if (rollingFixTimer <= 0.0f)
-    {
+    if (rollingFixTimer <= 0.0f) {
       rollingFixTimer = rollingFixTimerDefault;
       stopRollingFix();
     }
 
-    if (grounded)
-    {
+    if (grounded) {
       inDoubleJump = false;
     }
 
@@ -279,20 +295,17 @@ public class PlayerController : PhysicsObject
     if (!isDead) {
 
       // handle movement of character on x and y axis
-      if (canMove)
-      {
+      if (canMove) {
 
         move.x = Input.GetAxis("Horizontal");
-        if (move.x > 0.0f)
-        {
+        if (move.x > 0.0f) {
           rollingFixTimer = rollingFixTimerDefault;
         }
 
         if (canJump) {
 
           // jumping
-          if (Input.GetButtonDown("Jump"))
-          {
+          if (Input.GetButtonDown("Jump")) {
 
             if (grounded) {
               textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
@@ -306,10 +319,8 @@ public class PlayerController : PhysicsObject
 
           }
           
-
           // landing
-          if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.2f)
-          {
+          if (!groundedInLastFrame && grounded && secondsNotGrounded > 0.2f) {
 
             textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
 
@@ -328,8 +339,7 @@ public class PlayerController : PhysicsObject
 
         }
 
-        if (steppedOnPiston)
-        {
+        if (steppedOnPiston) {
           steppedOnPiston = false;
           velocity.y = jumpTakeOffSpeed * 2f;
         }
@@ -355,8 +365,7 @@ public class PlayerController : PhysicsObject
       ghost.SetGhosting(movingX || movingY ? true : false);
 
       // called when changing state, to animate new texture
-      if (isChangingState)
-      {
+      if (isChangingState) {
         animateState();
       }
 

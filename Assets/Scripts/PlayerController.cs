@@ -722,8 +722,6 @@ public class PlayerController : PhysicsObject
 
   public void OnTriggerEnter2D(Collider2D col) {
 
-    string colObjName = col.gameObject.name;
-
     switch (col.gameObject.tag) {
 
       case "Grass":
@@ -733,18 +731,6 @@ public class PlayerController : PhysicsObject
         }
         break;
 
-      case "MovingPlatform":
-        //gameObject.transform.parent = col.gameObject.transform;
-        break;
-
-      default:
-        break;
-
-    }
-
-    switch (colObjName)
-    {
-
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
         soundPlayer.PlayOneShot(waterSplashSound);
@@ -752,16 +738,19 @@ public class PlayerController : PhysicsObject
         ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
         break;
 
+      case "MovingPlatform":
+        //gameObject.transform.parent = col.gameObject.transform;
+        break;
+
+      case "Piston":
+        Debug.Log("PlayerController: Stepped on a piston.");
+        Piston.Instance.GoUp(col.gameObject);
+        soundPlayer.PlayOneShot(pistonPushSound);
+        break;
+
       default:
         break;
 
-    }
-
-    if (colObjName == "Piston")
-    {
-      Debug.Log("PlayerController: Stepped on a piston.");
-      Piston.Instance.GoUp(col.gameObject);
-      soundPlayer.PlayOneShot(pistonPushSound);
     }
 
   }

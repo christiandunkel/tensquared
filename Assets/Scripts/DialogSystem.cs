@@ -95,13 +95,6 @@ public class DialogSystem : MonoBehaviour
         icon = "annoyed";
         break;
 
-      case "lvl1_wake_up":
-        text = "Wake up, little friend!\n";
-        text += "It's not polite to sleep, when there is a robot in need!";
-        audio_path = "lvl1_wake_up";
-        icon = "angry";
-        break;
-
       case "lvl1_move":
         text = "Finally, that's better!\n";
         text += "Now that you're awake, can you walk or roll around?";

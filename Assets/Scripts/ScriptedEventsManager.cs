@@ -8,10 +8,16 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   public Animator virtualCameraAnimator;
   public int levelID = 1;
+  public bool playStartFrequence = true;
+  public bool playEvents = true;
 
   void Awake() {
 
     Instance = this;
+
+    if (!playStartFrequence && !playEvents) {
+      return;
+    }
 
     // start frequence of each level
     switch (levelID) {
@@ -24,7 +30,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   public void LoadEvent(int lvl, string name) {
 
     // only play events of current level
-    if (lvl != levelID) {
+    if (lvl != levelID || !playEvents) {
       return;
     }
 
@@ -49,6 +55,9 @@ public class ScriptedEventsManager : MonoBehaviour {
    * ===============
    */
   private IEnumerator StartFrequenceLvl1() {
+    LevelSettings.Instance.SetSetting("canMove", false);
+    LevelSettings.Instance.SetSetting("canJump", false);
+    LevelSettings.Instance.SetSetting("canMorph", false);
     yield return new WaitForSeconds(5.5f);
     DialogSystem.LoadDialog("lvl1_hello");
     yield return new WaitForSeconds(9.5f);

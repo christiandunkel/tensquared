@@ -115,6 +115,7 @@ public class DialogSystem : MonoBehaviour
     // get index of icon in sprite array by key
     int getIndex() {
       switch (name) {
+        case "neutral":   return 0;
         case "happy":     return 1;
         case "laughing":  return 2;
         case "surprised": return 3;
@@ -124,10 +125,10 @@ public class DialogSystem : MonoBehaviour
         case "furious":   return 7;
         case "sad":       return 8;
         default:
-          Debug.Log("DialogSystem: Given dialog item " + name + "couldn't be found. Displaying neutral icon.");
+          Debug.Log("DialogSystem: Given dialog item " + name + " couldn't be found. Displaying neutral icon.");
           break;
       }
-      return 0; // neutral icon
+      return 0;
     }
 
     return dialogIcons[getIndex()];

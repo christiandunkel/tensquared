@@ -123,28 +123,19 @@ public class PlayerController : PhysicsObject
    ==============
    */
 
-  public void SetSetting(string name, bool value)
-  {
-    switch (name)
-    {
-
-      case "canMove": canMove = value; break;
-      case "canJump": canJump = value; break;
-      case "canMorph": canMorph = value; break;
+  public void SetSetting(string name, bool value) {
+    switch (name) {
+      case "canMove":   canMove = value; break;
+      case "canJump":   canJump = value; break;
+      case "canMorph":  canMorph = value; break;
       default: break;
-
     }
   }
 
-  public void setValue(string name, bool val)
-  {
-    switch (name)
-    {
-      case "steppedOnPiston":
-        steppedOnPiston = val;
-        break;
-      default:
-        break;
+  public void setValue(string name, bool val) {
+    switch (name) {
+      case "steppedOnPiston":   steppedOnPiston = val; break;
+      default: break;
     }
   }
 
@@ -382,8 +373,7 @@ public class PlayerController : PhysicsObject
 
 
   
-  IEnumerator respawn()
-  {
+  IEnumerator respawn() {
 
     isDead = true;
     gravityModifier = 0.0f;
@@ -443,8 +433,7 @@ public class PlayerController : PhysicsObject
   public void handleMorphing()
   {
 
-    if (Input.GetKeyDown("" + 1) && !isChangingState && state != "Circle")
-    {
+    if (Input.GetKeyDown("" + 1) && !isChangingState && state != "Circle") {
       newState = "Circle";
       GetComponent<CircleCollider2D>().enabled = true;
       GetComponent<PolygonCollider2D>().enabled = false;
@@ -456,8 +445,7 @@ public class PlayerController : PhysicsObject
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 2) && !isChangingState && state != "Triangle")
-    {
+    if (Input.GetKeyDown("" + 2) && !isChangingState && state != "Triangle") {
       ScriptedEventsManager.Instance.LoadEvent(1, "morph_to_triangle");
 
       newState = "Triangle";
@@ -471,8 +459,7 @@ public class PlayerController : PhysicsObject
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 3) && !isChangingState && state != "Rectangle")
-    {
+    if (Input.GetKeyDown("" + 3) && !isChangingState && state != "Rectangle") {
       newState = "Rectangle";
       GetComponent<CircleCollider2D>().enabled = false;
       GetComponent<PolygonCollider2D>().enabled = false;
@@ -491,11 +478,9 @@ public class PlayerController : PhysicsObject
   private Sprite[] triangleToCircle;
   // the final array which will be animated
   private static Sprite[] animationArray;
-  protected void ChangeState()
-  {
+  protected void ChangeState() {
 
-    switch (state)
-    {
+    switch (state) {
       // from circle to triangle / rectangle
       case "Circle":
         assignAnimationArray(newState == "Triangle" ? triangleToCircle : rectToCircle, true);
@@ -539,8 +524,7 @@ public class PlayerController : PhysicsObject
 
 
   // create and reutrn new array with values of given array
-  private static void assignAnimationArray(Sprite[] a, bool reverse)
-  {
+  private static void assignAnimationArray(Sprite[] a, bool reverse) {
 
     animationArray = new Sprite[a.Length];
 
@@ -560,17 +544,15 @@ public class PlayerController : PhysicsObject
   private float animationDuration = 0.16f;
   private int frameCounter = 0;
   private float stateChangeTimer = 0.0f;
-  private void animateState()
-  {
+  private void animateState() {
 
     stateChangeTimer += Time.deltaTime;
 
-    if (stateChangeTimer > animationDuration / animationArray.Length)
-    {
+    if (stateChangeTimer > animationDuration / animationArray.Length) {
       stateChangeTimer = 0.0f;
 
-      if (frameCounter >= 1)
-      {
+      if (frameCounter >= 1) {
+
         // reset rotation
         Vector3 ea = textureObject.transform.eulerAngles;
         ea.z = 0.0f;
@@ -608,8 +590,7 @@ public class PlayerController : PhysicsObject
    * tests if the player is currently moving
    * sets movingX, movingY, upwards and leftwards
    */
-  protected void testForMovement()
-  {
+  protected void testForMovement() {
 
     // test if player is currently moving on x axis
     movingX = false;
@@ -653,8 +634,7 @@ public class PlayerController : PhysicsObject
   * called every frame
   * update state of "showing movement particles"
   */
-  protected void showMovementParticles(bool show)
-  {
+  protected void showMovementParticles(bool show) {
 
     ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
     ParticleSystem.MainModule ps_main = ps.main;
@@ -672,8 +652,7 @@ public class PlayerController : PhysicsObject
     }
   }
 
-  protected void playDeathParticles()
-  {
+  protected void playDeathParticles() {
 
     ParticleSystem.MainModule mainModule = deathParticles.GetComponent<ParticleSystem>().main;
 
@@ -694,8 +673,7 @@ public class PlayerController : PhysicsObject
    ===============================
    */
 
-  public void OnCollisionEnter2D(Collision2D col)
-  {
+  public void OnCollisionEnter2D(Collision2D col) {
 
     string colObjName = col.gameObject.name;
 
@@ -755,11 +733,9 @@ public class PlayerController : PhysicsObject
 
   }
 
-  public void OnTriggerExit2D(Collider2D col)
-  {
+  public void OnTriggerExit2D(Collider2D col) {
 
-    switch (col.gameObject.tag)
-    {
+    switch (col.gameObject.tag) {
 
       case "MovingPlatform":
         //gameObject.transform.parent = parentObject.transform;
@@ -774,8 +750,7 @@ public class PlayerController : PhysicsObject
 
   public void OnTriggerStay2D(Collider2D col) {
 
-    switch (col.gameObject.name)
-    {
+    switch (col.gameObject.name) {
 
       case "ZoomInCamera":
         zoomedInCameraTimer = 0.5f;

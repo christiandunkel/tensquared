@@ -54,6 +54,23 @@ public class LevelSettings : MonoBehaviour
         break;
 
       default:
+        Debug.Log("LevelSettings: Setting " + name + " couldn't be found.");
+        break;
+
+    }
+  }
+
+  public void SetSetting(string name, Vector2 pos)
+  {
+    switch (name)
+    {
+
+      case "playerSpawn":
+        playerSpawn = pos;
+        break;
+
+      default:
+        Debug.Log("LevelSettings: Setting " + name + " couldn't be found.");
         break;
 
     }

@@ -59,7 +59,7 @@ public class LevelSettings : MonoBehaviour
 
     }
   }
-
+  
   public void SetSetting(string name, Vector2 pos)
   {
     switch (name)

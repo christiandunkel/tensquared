@@ -15,7 +15,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     Instance = this;
 
-    if (!playStartFrequence && !playEvents) {
+    if (!playStartFrequence || !playEvents) {
       return;
     }
 

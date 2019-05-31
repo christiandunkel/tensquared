@@ -248,7 +248,7 @@ public class PlayerController : PhysicsObject
 
   // stop figure rolling away even though there is no movement
   private float rollingFixTimer = 0.0f;
-  private float rollingFixTimerDefault = 0.3f;
+  private float rollingFixTimerDefault = 0.05f;
   private void stopRollingFix() {
     GetComponent<Rigidbody2D>().freezeRotation = true;
     GetComponent<Rigidbody2D>().rotation = 0f;

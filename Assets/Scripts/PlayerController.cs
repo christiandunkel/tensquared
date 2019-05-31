@@ -40,9 +40,11 @@ public class PlayerController : PhysicsObject
   private string state = "Circle",
                  newState = "";
 
-  public bool frozen = false;
+  public bool setSpawnpoint = false;
+
+  public bool isFrozen = false;
   private bool frozenInLastFrame = false;
-  private Vector3 frozenPos;
+  private float frozenYPos = 0.0f;
 
   private bool inDoubleJump = false; // is true, if player executed double jump and is still in air
 
@@ -244,22 +246,20 @@ public class PlayerController : PhysicsObject
   
   protected override void ComputeVelocity() {
 
-    if (frozen) {
-
+    if (isFrozen) {
       if (!frozenInLastFrame) {
-        frozenPos = gameObject.transform.position;
         ghost.SetGhosting(false);
-        gravityModifier = 0;
         frozenInLastFrame = true;
+        frozenYPos = gameObject.transform.position.y;
       }
-
+      // hold object on the same y position
+      Vector3 frozenPos = gameObject.transform.position;
+      frozenPos.y = frozenYPos;
       gameObject.transform.position = frozenPos;
-
       return;
     }
     else if (frozenInLastFrame) {
       frozenInLastFrame = false;
-      gravityModifier = getAttributes(state).gravityModifier;
     }
 
     // handle camera zooming
@@ -384,6 +384,10 @@ public class PlayerController : PhysicsObject
   
   IEnumerator respawn() {
 
+    if (setSpawnpoint) {
+      isFrozen = true;
+    }
+    
     isDead = true;
     gravityModifier = 0.0f;
     velocity.y = 0.0f;
@@ -405,7 +409,9 @@ public class PlayerController : PhysicsObject
     yield return new WaitForSeconds(1.5f);
 
     // teleport to spawn point
-    gameObject.transform.localPosition = LevelSettings.Instance.playerSpawn;
+    Vector2 ps = LevelSettings.Instance.playerSpawn;
+    gameObject.transform.localPosition = ps;
+    frozenYPos = ps.y;
 
     SpriteRenderer sr = textureObject.GetComponent<SpriteRenderer>();
 
@@ -428,6 +434,18 @@ public class PlayerController : PhysicsObject
     maxSpeed = resA.maxSpeed;
     jumpTakeOffSpeed = resA.jumpTakeOffSpeed;
     textureObject.GetComponent<SpriteRenderer>().sprite = resA.sprite;
+
+    yield return new WaitForSeconds(1f);
+
+    if (setSpawnpoint) {
+      // come out of spawn point tube
+      float spawnPointmoveCharBy = 2.65f / 50f;
+      for (int i = 0; i < 50; i++) {
+        gameObject.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
+        yield return new WaitForSeconds(0.03f);
+      }
+      isFrozen = false;
+    }
 
     StopCoroutine(respawn());
 

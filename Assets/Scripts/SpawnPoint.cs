@@ -59,6 +59,8 @@ public class SpawnPoint : MonoBehaviour {
     
     if (!isActivated && LevelSettings.Instance.playerSpawn.x < spawnCoordinates.x) {
 
+      PlayerController.Instance.setSpawnpoint = true;
+
       // deactivate all spawn points
       GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
       foreach (GameObject sp in spawnPoints) {

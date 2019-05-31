@@ -6,8 +6,7 @@ using UnityEngine;
  * https://unity3d.com/learn/tutorials/topics/2d-game-creation/player-controller-script
  */
 
-public class PhysicsObject : MonoBehaviour
-{
+public class PhysicsObject : MonoBehaviour {
 
   public float minGroundNormalY = .65f;
 
@@ -23,40 +22,36 @@ public class PhysicsObject : MonoBehaviour
   protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
 
 
-  protected const float minMoveDistance = 0.001f;
-  protected const float shellRadius = 0.01f;
-
+  protected const float minMoveDistance = 0.001f,
+                        shellRadius = 0.01f;
 
   // reference to the 2D rigid body connected to the object
   protected Rigidbody2D rb2d;
 
-  void OnEnable()
-  {
+  void OnEnable() {
     rb2d = GetComponent<Rigidbody2D>();
   }
 
-  void Start()
-  {
+  void Start() {
     contactFilter.useTriggers = false;
     contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
     contactFilter.useLayerMask = true;
   }
 
-  void Update()
-  {
+  void Update() {
     targetVelocity = Vector2.zero;
     ComputeVelocity();
   }
 
-  protected virtual void ComputeVelocity()
-  {
-
-  }
+  protected virtual void ComputeVelocity() {}
 
   // has frequency of physics system
   // is called every fixed frame-rate frame
-  void FixedUpdate()
-  {
+  void FixedUpdate() {
+
+    if (PlayerController.Instance.isFrozen) {
+      return;
+    }
 
     velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
     velocity.x = targetVelocity.x;
@@ -64,11 +59,9 @@ public class PhysicsObject : MonoBehaviour
     grounded = false;
 
     // change in position
-    Vector2 deltaPosition = velocity * Time.deltaTime;
-
-    Vector2 moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x);
-
-    Vector2 move = moveAlongGround * deltaPosition.x;
+    Vector2 deltaPosition = velocity * Time.deltaTime,
+            moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x),
+            move = moveAlongGround * deltaPosition.x;
 
     Movement(move, false);
 
@@ -78,32 +71,26 @@ public class PhysicsObject : MonoBehaviour
 
   }
 
-  void Movement(Vector2 move, bool yMovement)
-  {
+  void Movement(Vector2 move, bool yMovement) {
 
     float distance = move.magnitude;
 
-    if (distance > minMoveDistance)
-    {
+    if (distance > minMoveDistance) {
 
       int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
       hitBufferList.Clear();
 
-      for (int i = 0; i < count; i++)
-      {
+      for (int i = 0; i < count; i++) {
         hitBufferList.Add(hitBuffer[i]);
       }
 
-      for (int i = 0; i < hitBufferList.Count; i++)
-      {
+      for (int i = 0; i < hitBufferList.Count; i++) {
 
         Vector2 currentNormal = hitBufferList[i].normal;
 
-        if (currentNormal.y > minGroundNormalY)
-        {
+        if (currentNormal.y > minGroundNormalY) {
           grounded = true;
-          if (yMovement)
-          {
+          if (yMovement) {
             groundNormal = currentNormal;
             currentNormal.x = 0;
           }
@@ -111,8 +98,7 @@ public class PhysicsObject : MonoBehaviour
 
         float projection = Vector2.Dot(velocity, currentNormal);
 
-        if (projection < 0)
-        {
+        if (projection < 0) {
           velocity = velocity - projection * currentNormal;
         }
 

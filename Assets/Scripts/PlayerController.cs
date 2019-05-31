@@ -153,6 +153,17 @@ public class PlayerController : PhysicsObject
    ==============
    */
 
+  public bool getBool(string name) {
+    switch (name) {
+      case "isDead":
+        return isDead;
+      default:
+        Debug.Log("PlayerController: Boolean of the name " + name + " couldn't be found.");
+        break;
+    }
+    return false;
+  }
+
   private Attributes getAttributes() {
     return getAttributes(state);
   }
@@ -415,10 +426,25 @@ public class PlayerController : PhysicsObject
 
     SpriteRenderer sr = textureObject.GetComponent<SpriteRenderer>();
 
-    // reset gravity modifier and set sprite visible again
+    // set sprite visible again
     Attributes a = getAttributes();
-    gravityModifier = a.gravityModifier;
     sr.sprite = a.sprite;
+
+    // handle spawn point animation
+    if (setSpawnpoint) {
+      yield return new WaitForSeconds(.2f);
+      // come out of spawn point tube
+      float spawnPointmoveCharBy = 2.65f / 50f;
+      for (int i = 0; i < 50; i++)
+      {
+        gameObject.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
+        yield return new WaitForSeconds(0.03f);
+      }
+      isFrozen = false;
+    }
+
+    // reset gravity modifier
+    gravityModifier = a.gravityModifier;
 
     isDead = false;
 
@@ -434,18 +460,6 @@ public class PlayerController : PhysicsObject
     maxSpeed = resA.maxSpeed;
     jumpTakeOffSpeed = resA.jumpTakeOffSpeed;
     textureObject.GetComponent<SpriteRenderer>().sprite = resA.sprite;
-
-    yield return new WaitForSeconds(1f);
-
-    if (setSpawnpoint) {
-      // come out of spawn point tube
-      float spawnPointmoveCharBy = 2.65f / 50f;
-      for (int i = 0; i < 50; i++) {
-        gameObject.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
-        yield return new WaitForSeconds(0.03f);
-      }
-      isFrozen = false;
-    }
 
     StopCoroutine(respawn());
 

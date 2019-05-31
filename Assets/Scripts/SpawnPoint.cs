@@ -8,7 +8,8 @@ public class SpawnPoint : MonoBehaviour {
   public bool isActivated = false,
               activeInLastFrame = false;
 
-  private GameObject textureObject, spawnPointMessageObject;
+  private SpriteRenderer textureObjectSR;
+  private GameObject spawnPointMessageObject;
   private Vector2 spawnCoordinates;
 
   void Awake() {
@@ -19,7 +20,7 @@ public class SpawnPoint : MonoBehaviour {
 
       switch (obj.name) {
         case "Texture":
-          textureObject = obj;
+          textureObjectSR = obj.GetComponent<SpriteRenderer>();
           break;
         case "SpawnPointMessage":
           spawnPointMessageObject = obj;
@@ -37,19 +38,33 @@ public class SpawnPoint : MonoBehaviour {
   }
 
   void Update() {
-    
-    // set it active
-    if (isActivated && activeInLastFrame) {
-      textureObject.GetComponent<SpriteRenderer>().sprite = activatedSprite;
-      spawnPointMessageObject.SetActive(true);
-      LevelSettings.Instance.SetSetting("playerSpawn", spawnCoordinates);
-    }
-    // set it deactive
-    else if (!isActivated && !activeInLastFrame) {
-      textureObject.GetComponent<SpriteRenderer>().sprite = deactivatedSprite;
-      spawnPointMessageObject.SetActive(false);
-    }
 
+    // while death animation, display textures in front of player
+    if (isActivated && PlayerController.Instance.getBool("isDead")) {
+      textureObjectSR.sortingOrder = 8;
+    }
+    // otherwise display player in front of textures
+    else {
+      textureObjectSR.sortingOrder = 2;
+    }
+    
+    // only change settings once every time the spawnpoint activated or deactivated
+    if (!activeInLastFrame) {
+
+      // set it active
+      if (isActivated) {
+        textureObjectSR.sprite = activatedSprite;
+        spawnPointMessageObject.SetActive(true);
+        LevelSettings.Instance.SetSetting("playerSpawn", spawnCoordinates);
+      }
+      // set it deactive
+      else {
+        textureObjectSR.sprite = deactivatedSprite;
+        spawnPointMessageObject.SetActive(false);
+      }
+
+    }
+    
     // to check if spawn point activated in this frame in next update
     activeInLastFrame = isActivated;
 

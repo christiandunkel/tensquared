@@ -319,7 +319,7 @@ public class PlayerController : PhysicsObject
           // jumping
           if (Input.GetButtonDown("Jump")) {
 
-            if (secondsNotGrounded < 0.2f && 
+            if (secondsNotGrounded < 0.13f && 
                 secondsSinceLastJump >= 0.4f) {
               textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
               velocity.y = jumpTakeOffSpeed;

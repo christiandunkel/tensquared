@@ -16,7 +16,7 @@ public class LVL1_DialogComplimentForSpeed : MonoBehaviour
 
     if (!playedDialogAlready && col.gameObject.tag == "Player") {
       playedDialogAlready = true; // only load once
-      DialogSystem.LoadDialog("lvl1_quick_compared_to_other_circles");
+      ScriptedEventsManager.Instance.LoadEvent(1, "dialog_you_are_quick");
     }
 
   }

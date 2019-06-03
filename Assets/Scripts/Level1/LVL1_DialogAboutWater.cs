@@ -15,7 +15,7 @@ public class LVL1_DialogAboutWater : MonoBehaviour
 
     if (!playedDialogAlready && col.gameObject.tag == "Player") {
       playedDialogAlready = true; // only load once
-      DialogSystem.LoadDialog("lvl1_dont_jump_into_water");
+      ScriptedEventsManager.Instance.LoadEvent(1, "dialog_about_water");
     }
 
   }

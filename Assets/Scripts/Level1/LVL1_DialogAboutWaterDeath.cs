@@ -14,7 +14,7 @@ public class LVL1_DialogAboutWaterDeath : MonoBehaviour {
 
     if (!playedDialogAlready && col.gameObject.tag == "Player") {
       playedDialogAlready = true; // only load once
-      DialogSystem.LoadDialog("lvl1_not_the_smartest_circle");
+      ScriptedEventsManager.Instance.LoadEvent(1, "dialog_about_water_death");
     }
 
   }

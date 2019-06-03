@@ -41,9 +41,22 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     void LoadLevel1Event() {
       switch (name) {
-        case "jump_tooltip": StartCoroutine(Lvl1_JumpTooltip()); break;
-        case "morph_tooltip": StartCoroutine(Lvl1_MorphTooltip()); break;
-        case "morph_to_triangle": TooltipManager.hideTooltips(); break;
+        case "hide_move_tooltip":
+          TooltipManager.hideTooltip("Move"); break;
+        case "jump_tooltip":
+          StartCoroutine(Lvl1_JumpTooltip()); break;
+        case "hide_jump_tooltip":
+          TooltipManager.hideTooltip("Jump"); break;
+        case "dialog_about_water":
+          DialogSystem.LoadDialog("lvl1_dont_jump_into_water"); break;
+        case "dialog_about_water_death":
+          DialogSystem.LoadDialog("lvl1_not_the_smartest_circle"); break;
+        case "dialog_you_are_quick":
+          DialogSystem.LoadDialog("lvl1_quick_compared_to_other_circles"); break;
+        case "morph_tooltip":
+          StartCoroutine(Lvl1_MorphTooltip()); break;
+        case "morph_to_triangle":
+          TooltipManager.hideTooltips(); break;
         default: break;
       }
     }

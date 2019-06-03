@@ -42,13 +42,13 @@ public class PlayerController : PhysicsObject
 
   public bool setSpawnpoint = false;
 
-  public bool isFrozen = false;
-  private bool frozenInLastFrame = false;
+  public bool isFrozen = false,
+              frozenInLastFrame = false;
   private float frozenYPos = 0.0f;
 
   private bool inDoubleJump = false; // is true, if player executed double jump and is still in air
-
-  private float secondsNotGrounded = 0.0f; // timer for seconds the player hadn't been grounded
+  private float secondsNotGrounded = 0f,
+                secondsSinceLastJump = 0f; // timer for seconds the player hadn't been grounded
   private bool groundedInLastFrame = true;
 
   private float lastX, lastY; // last x and y position
@@ -315,17 +315,24 @@ public class PlayerController : PhysicsObject
 
         if (canJump) {
 
+          secondsSinceLastJump += Time.fixedDeltaTime;
+
           // jumping
           if (Input.GetButtonDown("Jump")) {
 
-            if (grounded) {
+            if (secondsNotGrounded < 0.2f && 
+                secondsSinceLastJump >= 0.4f) {
               textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
               velocity.y = jumpTakeOffSpeed;
+              secondsSinceLastJump = 0f;
             }
             // double jump for triangle
-            else if (state == "Triangle" && velocity.y > 0f && !inDoubleJump) {
+            else if (state == "Triangle" && 
+                     velocity.y > 0f && 
+                     !inDoubleJump) {
               inDoubleJump = true;
               velocity.y = jumpTakeOffSpeed * 1.2f;
+              secondsSinceLastJump = 0f;
             }
 
           }

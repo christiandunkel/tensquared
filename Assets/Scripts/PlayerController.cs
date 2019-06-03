@@ -54,7 +54,6 @@ public class PlayerController : PhysicsObject
   private float lastX, lastY; // last x and y position
   private bool leftwards = false, // direction on last movement
                movingX = false,
-               upwards = false, // direction on last movement
                movingY = false;
 
 
@@ -636,7 +635,7 @@ public class PlayerController : PhysicsObject
 
   /*
    * tests if the player is currently moving
-   * sets movingX, movingY, upwards and leftwards
+   * sets movingX, movingY and leftwards
    */
   protected void testForMovement() {
 
@@ -654,7 +653,6 @@ public class PlayerController : PhysicsObject
     float currY = transform.position.y; // current
     if (System.Math.Abs(lastY - currY) > 0.1f) {
       movingY = true;
-      upwards = (lastY < currY ? true : false);
     }
     lastY = transform.position.y;
 
@@ -721,25 +719,6 @@ public class PlayerController : PhysicsObject
    ===============================
    */
 
-  public void OnCollisionEnter2D(Collision2D col) {
-
-    string colObjName = col.gameObject.name;
-
-    switch (colObjName)
-    {
-
-      case "KillZone":
-        Debug.Log("Player died by entering a kill zone.");
-        StartCoroutine(respawn());
-        break;
-
-      default:
-        break;
-
-    }
-
-  }
-
 
   private float grassWalkTimer = 0.0f;
   private void updateMovementSounds() {
@@ -762,6 +741,11 @@ public class PlayerController : PhysicsObject
         soundPlayer.PlayOneShot(waterSplashSound);
         StartCoroutine(respawn());
         ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
+        break;
+
+      case "KillZone":
+        Debug.Log("Player died by entering a kill zone.");
+        StartCoroutine(respawn());
         break;
 
       case "MovingPlatform":

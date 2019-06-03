@@ -28,7 +28,7 @@ public class GhostingEffect : MonoBehaviour {
     }
 
     if (ghostDelaySeconds > 0) {
-      ghostDelaySeconds -= Time.deltaTime;
+      ghostDelaySeconds -= Time.fixedDeltaTime;
       return;
     }
 

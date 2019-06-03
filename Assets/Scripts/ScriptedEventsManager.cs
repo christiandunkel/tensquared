@@ -58,9 +58,9 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.SetSetting("canMove", false);
     LevelSettings.Instance.SetSetting("canJump", false);
     LevelSettings.Instance.SetSetting("canMorph", false);
-    yield return new WaitForSeconds(5.5f);
+    yield return new WaitForSeconds(4f);
     DialogSystem.LoadDialog("lvl1_hello");
-    yield return new WaitForSeconds(9.5f);
+    yield return new WaitForSeconds(8f);
     DialogSystem.LoadDialog("lvl1_asleep");
     yield return new WaitForSeconds(8f);
     CameraShake.Instance.Play(2f, 10f, 10f, "earthquake_2_5_secs_loud");

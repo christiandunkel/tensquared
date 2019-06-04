@@ -73,17 +73,18 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.SetSetting("canMorph", false);
     yield return new WaitForSeconds(4f);
     DialogSystem.LoadDialog("lvl1_hello");
-    yield return new WaitForSeconds(8f);
+    yield return new WaitForSeconds(8.5f);
     DialogSystem.LoadDialog("lvl1_asleep");
-    yield return new WaitForSeconds(8f);
+    yield return new WaitForSeconds(5f);
     CameraShake.Instance.Play(2f, 10f, 10f, "earthquake_2_5_secs_loud");
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
     yield return new WaitForSeconds(5f);
     DialogSystem.LoadDialog("lvl1_move");
-    yield return new WaitForSeconds(10f);
-    virtualCameraAnimator.GetComponent<Animator>().SetTrigger("StartFrequenceOver");
+    yield return new WaitForSeconds(6f);
     TooltipManager.showTooltip("Move");
+    yield return new WaitForSeconds(1f);
+    virtualCameraAnimator.GetComponent<Animator>().SetTrigger("StartFrequenceOver");
     LevelSettings.Instance.SetSetting("canMove", true);
     StopCoroutine(StartFrequenceLvl1());
   }

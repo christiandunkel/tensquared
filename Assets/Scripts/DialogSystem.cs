@@ -149,18 +149,32 @@ public class DialogSystem : MonoBehaviour
       case "lvl1_hello":
         setDialogue("Hello, my little friend!\nDo you have some time to help me out?", "lvl1_hello", "laughing"); break;
       case "lvl1_asleep":
-        setDialogue("Is this fellow asleep perhaps?", "lvl1_asleep", "annoyed"); break;
+        setDialogue("Are you asleep perhaps?", "lvl1_asleep", "annoyed"); break;
       case "lvl1_move":
-        setDialogue("Finally, that's better!\nNow that you're awake, can you walk or roll around?", "lvl1_move", "laughing"); break;
+        setDialogue("Good, now that you're awake, can you roll over to give me a hand?", "lvl1_move", "laughing"); break;
       case "lvl1_jump":
-        setDialogue("Little friend, are you able to jump over that thing?", "lvl1_jump", "neutral"); break;
+        setDialogue("Can you jump over those blocks?", "lvl1_jump", "neutral"); break;
       case "lvl1_dont_jump_into_water":
-        setDialogue("I wouldn't jump into the water if I were you.\nBecause that isn't water, and it is deadly.", "lvl1_dont_jump_into_water", "neutral"); break;
+        setDialogue("I wouldn't jump into that lake!\nThat isn't water, and it is deadly.", "lvl1_dont_jump_into_water", "neutral"); break;
       case "lvl1_not_the_smartest_circle":
-        setDialogue("You really aren't the smartest circle out there, isn't that right?", "lvl1_not_the_smartest_circle", "annoyed"); break;
+        setDialogue("You really aren't the smartest circle out there.", "lvl1_not_the_smartest_circle", "annoyed"); break;
+      case "lvl1_its_me":
+        setDialogue("Hey, little friend! It's me! It's great that you are finally here!", "lvl1_its_me", "happy"); break;
+      case "lvl1_arms_are_further_ahead":
+        setDialogue("Now, I would appreciate it very much if you could bring me my arms! They are a little further ahead!", "lvl1_arms_are_further_ahead", "happy"); break;
       case "lvl1_quick_compared_to_other_circles":
-        setDialogue("I have to compliment you! Once you finally woke up, you're actually quite quick on foot, especially in comparison to other circles!", "lvl1_quick_compared_to_other_circles", "happy"); break;
-      case "lvl1_morph":
+        setDialogue("You're doing great! You're actually quite quick on foot, especially when compared to other circles!", "lvl1_quick_compared_to_other_circles", "happy"); break;
+      case "lvl1_pick_up_arms":
+        setDialogue("That's them! Those are my arms! Could you pick them up for me?", "lvl1_pick_up_arms", "surprised"); break;
+      case "lvl1_bring_arms_back":
+        setDialogue("Now please bring them back to me!", "lvl1_bring_arms_back", "happy"); break;
+      case "lvl1_thank_you":
+        setDialogue("Thank you! Finally I can move this rusty old body of mine!", "lvl1_thank_you", "laughing"); break;
+      case "lvl1_where_did_i_leave_my_legs":
+        setDialogue("But now... where did I leave my legs again?", "lvl1_where_did_i_leave_my_legs", "sad"); break;
+
+      // level 2
+      case "lvl2_morph":
         setDialogue("No matter how fast you are, sometimes you just can't overcome an obstacle as a circle.", "lvl1_morph", "neutral"); break;
 
       default:

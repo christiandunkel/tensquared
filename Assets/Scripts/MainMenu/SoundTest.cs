@@ -29,6 +29,9 @@ public class SoundTest : MonoBehaviour {
       soundTestMessage.SetActive(false);
       gameObject.GetComponent<CanvasGroup>().alpha = 1f;
       gameObject.GetComponent<CanvasGroup>().interactable = true;
+      musicPlayer.Stop();
+      speechPlayer.Stop();
+      soundPlayer.Stop();
       mainMenuMusicPlayer.UnPause();
     }
   }

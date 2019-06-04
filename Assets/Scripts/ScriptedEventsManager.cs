@@ -53,6 +53,8 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.LoadDialog("lvl1_not_the_smartest_circle"); break;
         case "dialog_you_are_quick":
           DialogSystem.LoadDialog("lvl1_quick_compared_to_other_circles"); break;
+        case "robot_appear_scene":
+          StartCoroutine(Lvl1_RobotAppearScene()); break;
         case "morph_tooltip":
           StartCoroutine(Lvl1_MorphTooltip()); break;
         case "morph_to_triangle":
@@ -94,6 +96,24 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.SetSetting("canJump", true);
     TooltipManager.showTooltip("Jump");
     StopCoroutine(Lvl1_JumpTooltip());
+  }
+  private IEnumerator Lvl1_RobotAppearScene() {
+    LevelSettings.Instance.SetSetting("canMove", false);
+    yield return new WaitForSeconds(.2f);
+    CameraShake.Instance.Play(.3f, 1f, 1f);
+    yield return new WaitForSeconds(1f);
+    CameraShake.Instance.Play(.5f, 2f, 2f);
+    yield return new WaitForSeconds(1.5f);
+    CameraShake.Instance.Play(.7f, 3f, 3f);
+    yield return new WaitForSeconds(.45f);
+    GameObject.Find("robot_torso_head").GetComponent<Animator>().SetTrigger("RobotAppear");
+    yield return new WaitForSeconds(2f);
+    DialogSystem.LoadDialog("lvl1_its_me");
+    yield return new WaitForSeconds(5f);
+    DialogSystem.LoadDialog("lvl1_arms_are_further_ahead");
+    yield return new WaitForSeconds(4f);
+    LevelSettings.Instance.SetSetting("canMove", true);
+    StopCoroutine(Lvl1_RobotAppearScene());
   }
   private IEnumerator Lvl1_MorphTooltip() {
     DialogSystem.LoadDialog("lvl1_morph");

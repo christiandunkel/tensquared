@@ -134,33 +134,37 @@ public class PlayerController : PhysicsObject
   private float movingThroughGrassTimer = 0f,
                 movingTimer = 0f;
 
-  public void PlaySound(string soundName) {
+  public float PlaySound(string soundName) {
+
+    AudioClip c;
 
     switch (soundName) {
 
-      case "morphSound":               characterSoundPlayer.PlayOneShot(morphSound); break;
-      case "landingRectangleSound":    characterSoundPlayer.PlayOneShot(landingRectangleSound); break;
-      case "loadingTriangleSound":     characterSoundPlayer.PlayOneShot(loadingTriangleSound); break;
-      case "jumpingTriangleSound":     characterSoundPlayer.PlayOneShot(jumpingTriangleSound); break;
-      
-      case "walkThroughGrassSound":    grassSoundPlayer.PlayOneShot(walkThroughGrassSound); break;
+      case "morphSound":               c = morphSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "landingRectangleSound":    c = landingRectangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "loadingTriangleSound":     c = loadingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "jumpingTriangleSound":     c = jumpingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
 
-      case "movingPlatformSound":      movingPlatformSoundPlayer.PlayOneShot(movingPlatformSound); break;
+      case "walkThroughGrassSound":    c = walkThroughGrassSound; grassSoundPlayer.PlayOneShot(c); return c.length;
 
-      case "waterSplashSound":         shortSoundPlayer.PlayOneShot(waterSplashSound); break;
-      case "breakingBlockSound":       shortSoundPlayer.PlayOneShot(breakingBlockSound); break;
-      case "pistonPushSound":          shortSoundPlayer.PlayOneShot(pistonPushSound); break;
-      case "activateSpawnpointSound":  shortSoundPlayer.PlayOneShot(activateSpawnpointSound); break;
-      case "respawnAtSpawnpointSound": shortSoundPlayer.PlayOneShot(respawnAtSpawnpointSound); break;
+      case "movingPlatformSound":      c = movingPlatformSound; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
 
-      case "earthquake_1_5_secs":      cameraShakeSoundPlayer.PlayOneShot(earthquake_1_5_secs); break;
-      case "earthquake_2_secs":        cameraShakeSoundPlayer.PlayOneShot(earthquake_2_secs); break;
-      case "earthquake_2_5_secs_loud": cameraShakeSoundPlayer.PlayOneShot(earthquake_2_5_secs_loud); break;
-      case "earthquake_3_secs":        cameraShakeSoundPlayer.PlayOneShot(earthquake_3_secs); break;
+      case "waterSplashSound":         c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "breakingBlockSound":       c = breakingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "pistonPushSound":          c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "activateSpawnpointSound":  c = activateSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "respawnAtSpawnpointSound": c = respawnAtSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+
+      case "earthquake_1_5_secs":      c = earthquake_1_5_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
+      case "earthquake_2_secs":        c = earthquake_2_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
+      case "earthquake_2_5_secs_loud": c = earthquake_2_5_secs_loud; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
+      case "earthquake_3_secs":        c = earthquake_3_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
 
       default: Debug.Log("PlayerController: Sound " + soundName + " wasn't found."); break;
 
     }
+
+    return 0f;
 
   }
 

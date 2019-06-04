@@ -159,7 +159,7 @@ public class DialogSystem : MonoBehaviour
       case "lvl1_not_the_smartest_circle":
         setDialogue("You really aren't the smartest circle out there.", "lvl1_not_the_smartest_circle", "annoyed"); break;
       case "lvl1_its_me":
-        setDialogue("Hey, little friend! It's me! It's great that you are finally here!", "lvl1_its_me", "happy"); break;
+        setDialogue("Hey, little friend! It's me!\nIt's great that you are finally here!", "lvl1_its_me", "happy"); break;
       case "lvl1_arms_are_further_ahead":
         setDialogue("Now, I would appreciate it very much if you could bring me my arms! They are a little further ahead!", "lvl1_arms_are_further_ahead", "happy"); break;
       case "lvl1_quick_compared_to_other_circles":

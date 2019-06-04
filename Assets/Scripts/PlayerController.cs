@@ -132,6 +132,8 @@ public class PlayerController : PhysicsObject
                    earthquake_2_5_secs_loud,
                    earthquake_3_secs;
 
+  public float movingThroughGrassTimer = 0f;
+
   public void PlaySound(string soundName) {
 
     switch (soundName) {
@@ -307,6 +309,16 @@ public class PlayerController : PhysicsObject
   
   protected override void ComputeVelocity() {
 
+    if (movingThroughGrassTimer > 0f) {
+      movingThroughGrassTimer -= Time.fixedDeltaTime;
+      if (!grassSoundPlayer.isPlaying) {
+        PlaySound("walkThroughGrassSound");
+      }
+    }
+    else {
+      grassSoundPlayer.Pause();
+    }
+
     if (isFrozen) {
       if (!frozenInLastFrame) {
         ghost.SetGhosting(false);
@@ -414,8 +426,6 @@ public class PlayerController : PhysicsObject
 
       if (canMorph) handleMorphing();
       if (isChangingState) animateState(); // called when changing state, to animate new texture
-
-      updateMovementSounds();
 
     }
 
@@ -740,22 +750,9 @@ public class PlayerController : PhysicsObject
    ===============================
    */
 
-
-  private float grassWalkTimer = 0.0f;
-  private void updateMovementSounds() {
-    grassWalkTimer -= Time.deltaTime;
-  }
-
   public void OnTriggerEnter2D(Collider2D col) {
 
     switch (col.gameObject.tag) {
-
-      case "Grass":
-        if (grassWalkTimer <= 0.0f) {
-          grassWalkTimer = 0.24f;
-          PlaySound("walkThroughGrassSound");
-        }
-        break;
 
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
@@ -808,6 +805,10 @@ public class PlayerController : PhysicsObject
 
       case "ZoomInCamera":
         zoomedInCameraTimer = 0.5f;
+        break;
+
+      case "Grass":
+        if (movingX && grounded) movingThroughGrassTimer = 0.2f;
         break;
 
       default:

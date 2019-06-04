@@ -17,8 +17,7 @@ public class PauseMenu : MonoBehaviour
 
   public GameObject pauseMenuUI;
 
-  void Start()
-  {
+  void Start() {
     // set game as non-paused on start
     CanvasGroup canvasGroup = pauseMenuUI.GetComponent<CanvasGroup>();
     canvasGroup.interactable = false;

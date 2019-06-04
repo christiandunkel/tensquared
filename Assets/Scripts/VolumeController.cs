@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+
+using UnityEngine;
 using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour {
@@ -10,6 +13,8 @@ public class VolumeController : MonoBehaviour {
   private static AudioSource[] musicSources_;
   private static AudioSource[] soundSources_;
   private static AudioSource[] speechSources_;
+
+  private static List<AudioSource> totalSources_ = new List<AudioSource>();
 
   // reference to volume slider components
   public Slider[] musicSliders;
@@ -24,8 +29,7 @@ public class VolumeController : MonoBehaviour {
   private static float soundVolume = 1f;
   private static float speechVolume = 1f;
 
-  private void Start()
-  {
+  private void Start() {
 
     Debug.Log("VolumeController: Loaded.");
 
@@ -41,43 +45,40 @@ public class VolumeController : MonoBehaviour {
     // add audio sources and sliders given in object to static private variables
 
     int counter = 0;
-    foreach (AudioSource src in musicSources)
-    {
+    foreach (AudioSource src in musicSources) {
       musicSources_[counter] = src;
+      totalSources_.Add(src);
       counter++;
     }
 
     counter = 0;
-    foreach (AudioSource src in soundSources)
-    {
+    foreach (AudioSource src in soundSources) {
       soundSources_[counter] = src;
+      totalSources_.Add(src);
       counter++;
     }
 
     counter = 0;
-    foreach (AudioSource src in speechSources)
-    {
+    foreach (AudioSource src in speechSources) {
       speechSources_[counter] = src;
+      totalSources_.Add(src);
       counter++;
     }
 
     counter = 0;
-    foreach (Slider slider in musicSliders)
-    {
+    foreach (Slider slider in musicSliders) {
       musicSliders_[counter] = slider;
       counter++;
     }
 
     counter = 0;
-    foreach (Slider slider in soundSliders)
-    {
+    foreach (Slider slider in soundSliders) {
       soundSliders_[counter] = slider;
       counter++;
     }
 
     counter = 0;
-    foreach (Slider slider in speechSliders)
-    {
+    foreach (Slider slider in speechSliders) {
       speechSliders_[counter] = slider;
       counter++;
     }
@@ -86,57 +87,70 @@ public class VolumeController : MonoBehaviour {
 
   }
 
-  // norm a value to not be smaller than 0 or larger than 1
-  private static float normValue(float val)
-  {
+  // called once per frame
+  private bool soundIsPaused = false;
+  void Update() {
 
-    if (val < 0.0f)
-    {
-      val = 0.0f;
-    }
-    else if (val > 1.0f)
-    {
-      val = 1.0f;
-    }
+    updateVolume();
 
-    return val;
+    if (!soundIsPaused && PauseMenu.Instance.isPaused) {
+      soundIsPaused = true;
+      PauseAudioSources();
+    }
+    else if (soundIsPaused && !PauseMenu.Instance.isPaused) {
+      soundIsPaused = false;
+      UnPauseAudioSources();
+    }
 
   }
 
-  public static void loadPlayerPrefs()
-  {
+  private void PauseAudioSources() {
+    foreach (AudioSource src in totalSources_) {
+      src.Pause();
+    }
+  }
+
+  private void UnPauseAudioSources() {
+    foreach (AudioSource src in totalSources_)
+    {
+      src.UnPause();
+    }
+  }
+
+  // norm a value to not be smaller than 0 or larger than 1
+  private static float normValue(float val) {
+    val = val < 0f ? 0f : val;
+    val = val > 1f ? 1f : val;
+    return val;
+  }
+
+  public static void loadPlayerPrefs() {
     
     Debug.Log("VolumeController: Loaded PlayerPrefs for volume.");
 
     // load volume data from playerprefs
 
-    if (PlayerPrefs.HasKey("music_volume"))
-    {
+    if (PlayerPrefs.HasKey("music_volume")) {
       musicVolume = PlayerPrefs.GetFloat("music_volume");
       speechVolume = normValue(musicVolume);
     }
-    else
-    {
+    else {
       PlayerPrefs.SetFloat("music_volume", musicVolume);
     }
 
-    if (PlayerPrefs.HasKey("sound_volume"))
-    {
+    if (PlayerPrefs.HasKey("sound_volume")) {
       soundVolume = PlayerPrefs.GetFloat("sound_volume");
       speechVolume = normValue(soundVolume);
     }
-    else
-    {
+    else {
       PlayerPrefs.SetFloat("sound_volume", soundVolume);
     }
 
-    if (PlayerPrefs.HasKey("speech_volume"))
-    {
+    if (PlayerPrefs.HasKey("speech_volume")) {
       speechVolume = PlayerPrefs.GetFloat("speech_volume");
       speechVolume = normValue(speechVolume);
     }
-    else
-    {
+    else {
       PlayerPrefs.SetFloat("speech_volume", speechVolume);
     }
 
@@ -146,67 +160,48 @@ public class VolumeController : MonoBehaviour {
 
 
   // set slider values in volume menu
-  public static void setSliderValues()
-  {
+  public static void setSliderValues() {
 
     Debug.Log("VolumeController: Set slider values.");
 
-    foreach (Slider s in musicSliders_)
-    {
+    foreach (Slider s in musicSliders_) {
       s.value = musicVolume;
     }
 
-    foreach (Slider s in soundSliders_)
-    {
+    foreach (Slider s in soundSliders_) {
       s.value = soundVolume;
     }
 
-    foreach (Slider s in speechSliders_)
-    {
+    foreach (Slider s in speechSliders_) {
       s.value = speechVolume;
     }
 
-
   }
 
-  // called once per frame
-  void Update() {
-
-    updateVolume();
-
-  }
-
-  public static void updateVolume()
-  {
+  public static void updateVolume() {
 
     // set volumes of all music sources equal to musicVolume given in options
-    foreach (AudioSource src in musicSources_)
-    {
+    foreach (AudioSource src in musicSources_) {
       src.volume = musicVolume;
     }
 
     // set volumes of all sound sources
-    foreach (AudioSource src in soundSources_)
-    {
+    foreach (AudioSource src in soundSources_) {
       src.volume = soundVolume;
     }
 
     // set volumes of all speech sources
-    foreach (AudioSource src in speechSources_)
-    {
+    foreach (AudioSource src in speechSources_) {
       src.volume = speechVolume;
     }
 
   }
 
-  public void SetMusicVolume(float newVolume)
-  {
+  public void SetMusicVolume(float newVolume) {
     SetMusicVolume_(newVolume);
   }
 
   public static void SetMusicVolume_(float newVolume) {
-
-    /*Debug.Log("Changed music volume to " + newVolume);//*/
 
     musicVolume = newVolume;
 
@@ -215,15 +210,11 @@ public class VolumeController : MonoBehaviour {
 
   }
 
-  public void SetSoundVolume(float newVolume)
-  {
+  public void SetSoundVolume(float newVolume) {
     SetSoundVolume_(newVolume);
   }
 
-  public static void SetSoundVolume_(float newVolume)
-  {
-
-    /*Debug.Log("Changed sound volume to " + newVolume);//*/
+  public static void SetSoundVolume_(float newVolume) {
 
     soundVolume = newVolume;
 
@@ -232,22 +223,16 @@ public class VolumeController : MonoBehaviour {
 
   }
 
-  public void SetSpeechVolume(float newVolume)
-  {
+  public void SetSpeechVolume(float newVolume) {
     SetSpeechVolume_(newVolume);
   }
 
-  public static void SetSpeechVolume_(float newVolume)
-  {
-
-    /*Debug.Log("Changed speech volume to " + newVolume);//*/
+  public static void SetSpeechVolume_(float newVolume) {
 
     speechVolume = newVolume;
 
     // save volume in player prefs
     PlayerPrefs.SetFloat("speech_volume", newVolume);
-
-    /*Debug.Log(PlayerPrefs.GetFloat("speech_volume").ToString());//*/
 
   }
 

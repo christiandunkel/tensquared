@@ -100,14 +100,16 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator Lvl1_RobotAppearScene() {
     LevelSettings.Instance.SetSetting("canMove", false);
     yield return new WaitForSeconds(.2f);
-    CameraShake.Instance.Play(.3f, 1f, 1f);
+    CameraShake.Instance.Play(.5f, 1.3f, 1.3f);
     yield return new WaitForSeconds(1f);
     CameraShake.Instance.Play(.5f, 2f, 2f);
     yield return new WaitForSeconds(1.5f);
     CameraShake.Instance.Play(.7f, 3f, 3f);
+    yield return new WaitForSeconds(.4f);
+    GameObject.Find("RobotAppearingParticles").GetComponent<ParticleSystem>().Play();
     yield return new WaitForSeconds(.45f);
-    GameObject.Find("robot_torso_head").GetComponent<Animator>().SetTrigger("RobotAppear");
-    yield return new WaitForSeconds(2f);
+    GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotAppear");
+    yield return new WaitForSeconds(2.5f);
     DialogSystem.LoadDialog("lvl1_its_me");
     yield return new WaitForSeconds(5f);
     DialogSystem.LoadDialog("lvl1_arms_are_further_ahead");

@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 45404338}
   m_Layer: 0
   m_Name: ZoomInCamera
-  m_TagString: Untagged
+  m_TagString: ZoomInCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1072,8 +1072,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualCameraAnimator: {fileID: 484407851}
   levelID: 1
-  playStartFrequence: 1
-  playEvents: 1
+  playStartFrequence: 0
+  playEvents: 0
 --- !u!1 &85090163
 GameObject:
   m_ObjectHideFlags: 0
@@ -19004,7 +19004,7 @@ GameObject:
   - component: {fileID: 1138375909}
   m_Layer: 0
   m_Name: ZoomInCamera
-  m_TagString: Untagged
+  m_TagString: ZoomInCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

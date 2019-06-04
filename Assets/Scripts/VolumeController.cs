@@ -106,8 +106,6 @@ public class VolumeController : MonoBehaviour {
   // set slider values in volume menu
   public void setSliderValues() {
 
-    Debug.Log("VolumeController: Set slider values.");
-
     foreach (Slider s in musicSliders) s.value = musicVolume;
     foreach (Slider s in soundSliders) s.value = soundVolume;
     foreach (Slider s in speechSliders) s.value = speechVolume;
@@ -115,8 +113,6 @@ public class VolumeController : MonoBehaviour {
   }
 
   public void updateVolume() {
-
-    Debug.Log("VolumeController: Update volume values.");
     
     foreach (AudioSource src in musicSources) src.volume = musicVolume;
     foreach (AudioSource src in soundSources) src.volume = soundVolume;

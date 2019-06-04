@@ -19,7 +19,8 @@ public class PlayerController : PhysicsObject
 
   public Animator cameraAnimator;
 
-  private float zoomedInCameraTimer = 0.0f;
+  private float zoomedInCameraTimer = 0f,
+                zoomedOutCameraTimer = 0f;
 
 
 
@@ -340,10 +341,22 @@ public class PlayerController : PhysicsObject
       if (!grassSoundPlayer.isPlaying) PlaySound("walkThroughGrassSound");
     }
     else grassSoundPlayer.Stop();
+
+    // handle camera zooming (inwards)
+    if (zoomedInCameraTimer > 0.0f) {
+      zoomedInCameraTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedIn")) cameraAnimator.SetBool("ZoomedIn", true);
+    }
+    else if (cameraAnimator.GetBool("ZoomedIn")) cameraAnimator.SetBool("ZoomedIn", false);
+
+    // handle camera zooming (outwards)
+    if (zoomedOutCameraTimer > 0.0f) {
+      zoomedOutCameraTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedOut")) cameraAnimator.SetBool("ZoomedOut", true);
+    }
+    else if (cameraAnimator.GetBool("ZoomedOut")) cameraAnimator.SetBool("ZoomedOut", false);
     
-
-
-
+    // handle frozen state
     if (isFrozen) {
       if (!frozenInLastFrame) {
         ghost.SetGhosting(false);
@@ -356,20 +369,9 @@ public class PlayerController : PhysicsObject
       gameObject.transform.position = frozenPos;
       return;
     }
-    else if (frozenInLastFrame) {
-      frozenInLastFrame = false;
-    }
+    else if (frozenInLastFrame) frozenInLastFrame = false;
 
-    // handle camera zooming
-    if (zoomedInCameraTimer > 0.0f) {
-      zoomedInCameraTimer -= Time.deltaTime;
-      if (!cameraAnimator.GetBool("ZoomedIn")) {
-        cameraAnimator.SetBool("ZoomedIn", true);
-      }
-    }
-    else if (cameraAnimator.GetBool("ZoomedIn")) {
-      cameraAnimator.SetBool("ZoomedIn", false);
-    }
+
 
     Vector2 move = Vector2.zero;
 
@@ -830,6 +832,10 @@ public class PlayerController : PhysicsObject
 
       case "ZoomInCamera":
         zoomedInCameraTimer = 0.5f;
+        break;
+
+      case "ZoomOutCamera":
+        zoomedOutCameraTimer = 0.5f;
         break;
 
       case "Grass":

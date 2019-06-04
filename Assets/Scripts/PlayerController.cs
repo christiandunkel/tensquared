@@ -131,8 +131,8 @@ public class PlayerController : PhysicsObject
                    earthquake_2_5_secs_loud,
                    earthquake_3_secs;
 
-  public float movingThroughGrassTimer = 0f,
-               movingTimer = 0f;
+  private float movingThroughGrassTimer = 0f,
+                movingTimer = 0f;
 
   public void PlaySound(string soundName) {
 

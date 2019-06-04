@@ -9018,6 +9018,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!82 &377732216 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2817051133095949827, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7324950124825012438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &379871890
 GameObject:
   m_ObjectHideFlags: 0
@@ -20327,6 +20333,12 @@ Transform:
   m_Father: {fileID: 1092622374}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1303730680 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7078212490772997955, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7324950124825012438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1305581414
 GameObject:
   m_ObjectHideFlags: 0
@@ -22773,6 +22785,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &1558408714 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2942595083017866334, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7324950124825012438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1559596827
 GameObject:
   m_ObjectHideFlags: 0
@@ -25415,6 +25433,12 @@ MonoBehaviour:
   - {fileID: 1860533126}
   soundSources:
   - {fileID: 1357610036}
+  - {fileID: 377732216}
+  - {fileID: 1839253544}
+  - {fileID: 1989346970}
+  - {fileID: 1303730680}
+  - {fileID: 1558408714}
+  - {fileID: 1816970515}
   speechSources:
   - {fileID: 744572028}
   musicSliders: []
@@ -25881,6 +25905,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 400, y: 5}
   m_EdgeRadius: 0
+--- !u!82 &1816970515 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7109060484041982978, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7324950124825012438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1825978661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26181,6 +26211,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &1839253544 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6927171617356316053, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7324950124825012438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1852423358
 GameObject:
   m_ObjectHideFlags: 0
@@ -27787,6 +27823,12 @@ Transform:
   m_Father: {fileID: 263004009}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1989346970 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8392604567753985684, guid: 781a989841c99fe4f901ed8c83bef8af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7324950124825012438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1994561511
 GameObject:
   m_ObjectHideFlags: 0
@@ -31628,6 +31670,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109060484041982978, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: Loop
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6999984298377816785, guid: 781a989841c99fe4f901ed8c83bef8af,
         type: 3}

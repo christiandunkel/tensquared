@@ -474,6 +474,7 @@ public class PlayerController : PhysicsObject
 
     // prevent triggering death animation multiple times
     if (!isDead) {
+      isDead = true;
       StartCoroutine(respawnCoroutine());
     }
 
@@ -485,7 +486,6 @@ public class PlayerController : PhysicsObject
       isFrozen = true;
     }
     
-    isDead = true;
     gravityModifier = 0f;
     velocity.y = 0f;
 

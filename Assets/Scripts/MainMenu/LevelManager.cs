@@ -12,43 +12,36 @@ public class LevelManager : MonoBehaviour
 
   void Awake() {
     Instance = this;
-  }
 
+    Debug.Log("LevelManager: Loaded.");
 
-
-  private static int levelsUnlocked = 1;
-  private static List<GameObject> LevelButton = new List<GameObject>();
-
-  // element containing all lvl btn gameobjects
-  public GameObject lvlsParent = null;
-  private static GameObject lvlsParent_ = null;
-
-  public void LoadLevelProgess_() {
     LoadLevelProgess();
   }
 
-  public static void LoadLevelProgess() {
+
+
+  private int levelsUnlocked = 1;
+  private List<GameObject> LevelButton = new List<GameObject>();
+
+  // element containing all lvl btn gameobjects
+  public GameObject lvlsParent = null;
+
+  public void LoadLevelProgess() {
 
     Debug.Log("LevelManager: Loaded level progress.");
 
     // get 'level button' parent container
-    lvlsParent_ = LevelManager.Instance.lvlsParent;
+    lvlsParent = LevelManager.Instance.lvlsParent;
 
     // determine current number of unlocked levels
-    if (PlayerPrefs.HasKey("lvls_unlocked"))
-    {
+    if (PlayerPrefs.HasKey("lvls_unlocked")) {
+
       levelsUnlocked = PlayerPrefs.GetInt("lvls_unlocked");
 
       // norm values if too big or too small
-      if (levelsUnlocked < 1)
-      {
-        levelsUnlocked = 1;
-      }
-      else if (levelsUnlocked > 10)
-      {
-        levelsUnlocked = 10;
-      }
-
+      levelsUnlocked = levelsUnlocked < 1 ? 1 : 
+                         (levelsUnlocked > 10 ? 10 : levelsUnlocked);
+      
     }
 
     Debug.Log("LevelManager: " + levelsUnlocked + " level(s) unlocked.");
@@ -58,7 +51,7 @@ public class LevelManager : MonoBehaviour
       // test if lvl button list is empty, and fill it if so
       if (LevelButton.Count == 0) {
         // get children (lvl buttons) using transform property
-        foreach (Transform child in lvlsParent_.transform) {
+        foreach (Transform child in lvlsParent.transform) {
           LevelButton.Add(child.gameObject);
         }
       }

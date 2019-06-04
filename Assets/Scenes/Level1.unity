@@ -10348,7 +10348,7 @@ GameObject:
   - component: {fileID: 484407850}
   - component: {fileID: 484407851}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: Virtual Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10418,11 +10418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc55cd6a18122de4ea14ff55bd46283d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  earthquake_1_5_secs: {fileID: 8300000, guid: 0e861ff60d3c1fa409b46038963c490a, type: 3}
-  earthquake_2_secs: {fileID: 8300000, guid: 7a747ff771d781a42acf0f529f36d3ff, type: 3}
-  earthquake_2_5_secs_loud: {fileID: 8300000, guid: c549347f13858fd408beaeb4bd4760d7,
-    type: 3}
-  earthquake_3_secs: {fileID: 8300000, guid: 3d2283e1b1b7487498ad7dab9f8ba865, type: 3}
   VirtualCamera: {fileID: 484407848}
 --- !u!95 &484407851
 Animator:
@@ -31574,6 +31569,11 @@ PrefabInstance:
       propertyPath: pistonPushSound
       value: 
       objectReference: {fileID: 8300000, guid: 811530dba34cf8c4a9f7cad49c4a2d28, type: 3}
+    - target: {fileID: 7324950124170858859, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: cameraAnimator
+      value: 
+      objectReference: {fileID: 484407851}
     - target: {fileID: 7324950124170858860, guid: 781a989841c99fe4f901ed8c83bef8af,
         type: 3}
       propertyPath: m_BodyType
@@ -31588,6 +31588,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324950124338566587, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324950124533894419, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054129624115441657, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959940442720220564, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360458743737048033, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710498096206774723, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101748372376554455, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 781a989841c99fe4f901ed8c83bef8af, type: 3}

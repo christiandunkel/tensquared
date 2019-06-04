@@ -17,7 +17,7 @@ public class PlayerController : PhysicsObject
    =======================
    */
 
-  public Animator VirtualCameraAnimator;
+  public Animator cameraAnimator;
 
   private float zoomedInCameraTimer = 0.0f;
 
@@ -90,21 +90,79 @@ public class PlayerController : PhysicsObject
 
   private GameObject parentObject;
 
-  public AudioSource soundPlayer;
-  public AudioClip morphSound,
-                   landingRectangleSound,
-                   waterSplashSound,
-                   walkThroughGrassSound,
-                   pistonPushSound;
-
-  public GameObject textureContainer;
-  public GameObject textureObject;
+  public GameObject textureContainer, textureObject,
+                    movementParticles, deathParticles;
 
   public GhostingEffect ghost;
 
-  public GameObject movementParticles = null;
-  public GameObject deathParticles = null;
 
+
+  /*
+   =====================
+   === SOUND EFFECTS ===
+   =====================
+   */
+
+  public AudioSource characterSoundPlayer,
+                     movementSoundPlayer,
+                     grassSoundPlayer,
+                     movingPlatformSoundPlayer,
+                     shortSoundPlayer,
+                     cameraShakeSoundPlayer;
+
+  public AudioClip morphSound,
+                   landingRectangleSound,
+                   loadingTriangleSound,
+                   jumpingTriangleSound,
+
+                   rollingCircleSound,
+                   movingRectTriSound,
+                   walkThroughGrassSound,
+
+                   movingPlatformSound,
+
+                   waterSplashSound,
+                   breakingBlockSound,
+                   pistonPushSound,
+                   activateSpawnpointSound,
+                   respawnAtSpawnpointSound,
+
+                   earthquake_1_5_secs,
+                   earthquake_2_secs,
+                   earthquake_2_5_secs_loud,
+                   earthquake_3_secs;
+
+  public void PlaySound(string soundName) {
+
+    switch (soundName) {
+
+      case "morphSound":               characterSoundPlayer.PlayOneShot(morphSound); break;
+      case "landingRectangleSound":    characterSoundPlayer.PlayOneShot(landingRectangleSound); break;
+      case "loadingTriangleSound":     characterSoundPlayer.PlayOneShot(loadingTriangleSound); break;
+      case "jumpingTriangleSound":     characterSoundPlayer.PlayOneShot(jumpingTriangleSound); break;
+
+      case "rollingCircleSound":       movementSoundPlayer.PlayOneShot(rollingCircleSound); break;
+      case "movingRectTriSound":       movementSoundPlayer.PlayOneShot(movingRectTriSound); break;
+      case "walkThroughGrassSound":    grassSoundPlayer.PlayOneShot(walkThroughGrassSound); break;
+
+      case "movingPlatformSound":      movingPlatformSoundPlayer.PlayOneShot(movingPlatformSound); break;
+
+      case "waterSplashSound":         shortSoundPlayer.PlayOneShot(waterSplashSound); break;
+      case "breakingBlockSound":       shortSoundPlayer.PlayOneShot(breakingBlockSound); break;
+      case "pistonPushSound":          shortSoundPlayer.PlayOneShot(pistonPushSound); break;
+      case "activateSpawnpointSound":  shortSoundPlayer.PlayOneShot(activateSpawnpointSound); break;
+      case "respawnAtSpawnpointSound": shortSoundPlayer.PlayOneShot(respawnAtSpawnpointSound); break;
+
+      case "earthquake_1_5_secs":      cameraShakeSoundPlayer.PlayOneShot(earthquake_1_5_secs); break;
+      case "earthquake_2_secs":        cameraShakeSoundPlayer.PlayOneShot(earthquake_2_secs); break;
+      case "earthquake_2_5_secs_loud": cameraShakeSoundPlayer.PlayOneShot(earthquake_2_5_secs_loud); break;
+      case "earthquake_3_secs":        cameraShakeSoundPlayer.PlayOneShot(earthquake_3_secs); break;
+
+      default: Debug.Log("PlayerController: Sound " + soundName + " wasn't found."); break;
+
+    }
+
+  }
 
 
   /*
@@ -204,10 +262,7 @@ public class PlayerController : PhysicsObject
     Debug.Log("Player: With parent object '" + parentObject.name + "' initialized.");
 
     // set attributes for start character state
-    Attributes a = getAttributes();
-    maxSpeed = a.maxSpeed;
-    jumpTakeOffSpeed = a.jumpTakeOffSpeed;
-    gravityModifier = a.gravityModifier;
+    resetAttributesOfState();
 
     lastX = transform.position.x;
     lastY = transform.position.y;
@@ -224,6 +279,10 @@ public class PlayerController : PhysicsObject
     rectToCircle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle");
     rectToTriangle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle");
     triangleToCircle = Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle");
+
+  }
+
+  void Start() {
 
     loadLevelSettingsIntoPlayer();
 
@@ -267,12 +326,12 @@ public class PlayerController : PhysicsObject
     // handle camera zooming
     if (zoomedInCameraTimer > 0.0f) {
       zoomedInCameraTimer -= Time.deltaTime;
-      if (!VirtualCameraAnimator.GetBool("ZoomedIn")) {
-        VirtualCameraAnimator.SetBool("ZoomedIn", true);
+      if (!cameraAnimator.GetBool("ZoomedIn")) {
+        cameraAnimator.SetBool("ZoomedIn", true);
       }
     }
-    else if (VirtualCameraAnimator.GetBool("ZoomedIn")) {
-      VirtualCameraAnimator.SetBool("ZoomedIn", false);
+    else if (cameraAnimator.GetBool("ZoomedIn")) {
+      cameraAnimator.SetBool("ZoomedIn", false);
     }
 
     Vector2 move = Vector2.zero;
@@ -329,7 +388,7 @@ public class PlayerController : PhysicsObject
             // shake on landing with rectangle
             if (state == "Rectangle") {
               CameraShake.Instance.Play(.1f, 18f, 18f);
-              soundPlayer.PlayOneShot(landingRectangleSound);
+              PlaySound("landingRectangleSound");
             }
 
           }
@@ -419,6 +478,7 @@ public class PlayerController : PhysicsObject
     // handle spawn point animation
     if (setSpawnpoint) {
       yield return new WaitForSeconds(.2f);
+      PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
       // come out of spawn point tube
       float spawnPointmoveCharBy = 2.65f / 50f;
       for (int i = 0; i < 50; i++) {
@@ -516,7 +576,7 @@ public class PlayerController : PhysicsObject
     }
 
     // play sound
-    soundPlayer.PlayOneShot(morphSound);
+    PlaySound("morphSound");
 
     // set proper lights
     circleLight.gameObject.SetActive(newState == "Circle" ? true : false);
@@ -683,30 +743,31 @@ public class PlayerController : PhysicsObject
       case "Grass":
         if (grassWalkTimer <= 0.0f) {
           grassWalkTimer = 0.24f;
-          soundPlayer.PlayOneShot(walkThroughGrassSound);
+          PlaySound("walkThroughGrassSound");
         }
         break;
 
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
-        soundPlayer.PlayOneShot(waterSplashSound);
+        PlaySound("waterSplashSound");
         StartCoroutine(respawn());
         ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
         break;
 
       case "KillZone":
-        Debug.Log("Player died by entering a kill zone.");
+        Debug.Log("PlayerController: Player died by entering a kill zone.");
         StartCoroutine(respawn());
         break;
 
       case "MovingPlatform":
+        Debug.Log("PlayerController: Stepped on a moving platform.");
         //gameObject.transform.parent = col.gameObject.transform;
         break;
 
       case "Piston":
         Debug.Log("PlayerController: Stepped on a piston.");
         Piston.Instance.GoUp(col.gameObject);
-        soundPlayer.PlayOneShot(pistonPushSound);
+        PlaySound("pistonPushSound");
         break;
 
       default:

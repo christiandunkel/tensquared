@@ -7,8 +7,7 @@ public class Piston : MonoBehaviour
 
   // singleton
   public static Piston Instance;
-  void Awake()
-  {
+  void Awake() {
     Instance = this;
     Debug.Log("Piston: Script is attached to " + this.name);
   }
@@ -19,11 +18,9 @@ public class Piston : MonoBehaviour
   public bool pistonIsPlaying = false;
   private Animator pistonAni;
 
-  public void GoUp(GameObject piston)
-  {
+  public void GoUp(GameObject piston) {
 
-    if (timer <= 0.0f)
-    {
+    if (timer <= 0.0f) {
       pistonIsPlaying = true;
       pistonAni = piston.GetComponent<Animator>();
       timer = delayBeforePush;
@@ -32,17 +29,16 @@ public class Piston : MonoBehaviour
   }
 
   // Update is called once per frame
-  void Update()
-  {
-    if (pistonIsPlaying && timer <= 0.0f)
-    {
+  void Update() {
+
+    if (pistonIsPlaying && timer <= 0.0f) {
       pistonIsPlaying = false;
       pistonAni.SetTrigger("PushUp");
       PlayerController.Instance.setValue("steppedOnPiston", true);
     }
-    else
-    {
+    else {
       timer -= Time.deltaTime;
     }
+
   }
 }

@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
-{
+public class PauseMenu : MonoBehaviour {
 
   // singleton
   public static PauseMenu Instance;
-  void Awake()
-  {
+  void Awake() {
     Instance = this;
   }
 
@@ -18,7 +17,7 @@ public class PauseMenu : MonoBehaviour
   public GameObject pauseMenuUI;
 
   void Start() {
-    // set game as non-paused on start
+    // set game as non-paused on start (hidden pause menu)
     CanvasGroup canvasGroup = pauseMenuUI.GetComponent<CanvasGroup>();
     canvasGroup.interactable = false;
     canvasGroup.alpha = 0.0f;
@@ -28,38 +27,30 @@ public class PauseMenu : MonoBehaviour
     Debug.Log("PauseMenu: Loaded.");
   }
 
-  void Update()
-  {
+  void Update() {
 
-    if (!fadingNow && Input.GetKeyDown(KeyCode.Escape))
-    {
+    if (!fadingNow && Input.GetKeyDown(KeyCode.Escape)) {
       
-      if (isPaused)
-      {
-        ResumeGame();
-      }
-      else
-      {
-        PauseGame();
-      }
+      if (isPaused) ResumeGame();
+      else PauseGame();
+
     }
 
-    if (fadingNow)
-    {
-      Fade();
-    }
+    if (fadingNow) Fade();
 
   }
 
-  public void LoadMainMenu()
-  {
+  public void LoadMainMenu() {
+
+    ResumeGame();
 
     Debug.Log("PauseMenu: Returned to main menu.");
 
-    Time.timeScale = 1.0f;
+    Time.timeScale = 1.0f; // resume game-speed
     isPaused = false;
 
-    // menu parts are already in place
+    // menu parts of main menu should be in place when returning to menu
+    // -> therefore, deactivate animations
     PositionAnimator.disabledAnimation = true;
     FadeOnStart.disableDelay = true;
 
@@ -67,79 +58,65 @@ public class PauseMenu : MonoBehaviour
 
   }
 
-  public void ResumeGame()
-  {
-
-    // resume game speed
-    Time.timeScale = 1.0f;
-
-    // vanish pause menu
-    FadeOut();
-
+  public void ResumeGame() {
+    Time.timeScale = 1.0f; // resume game-speed
+    FadeOut(); // hide pause menu
     isPaused = false;
     Debug.Log("PauseMenu: Closed.");
   }
 
-  void PauseGame()
-  {
-    // display pause menu
-    FadeIn();
-
+  void PauseGame() {
+    FadeIn(); // display pause menu
     isPaused = true;
     Debug.Log("PauseMenu: Opened.");
   }
 
 
 
-  private float fadeinTime = 0.2f;
-  private float fadeoutTime = 0.05f;
+  private float fadeTimer = 0.0f,
+                fadeinTime = 0.2f,
+                fadeoutTime = 0.05f;
 
-  private bool fadingNow = false;
-  private bool fadein = false;
-  private float fadeTimer = 0.0f;
-  private int fadeCount = 1;
+  private bool fadingNow = false,
+               fadein = false;
 
-  private void FadeIn() { fadingNow = true; fadein = true; }
-  private void FadeOut() { fadingNow = true; fadein = false; }
+  private int fadeCount = 0;
 
-  private void Fade()
-  {
+  private void FadeIn() {
+    fadingNow = true;
+    fadein = true;
+  }
+  private void FadeOut() {
+    fadingNow = true;
+    fadein = false;
+  }
+
+  private void Fade() {
 
     fadeTimer += Time.deltaTime;
 
-    if (fadeTimer > (1 / (60.0f / (fadein ? fadeinTime : fadeoutTime) ) ) )
-    {
+    if (fadeTimer > (1 / (60f / (fadein ? fadeinTime : fadeoutTime) ) ) ) {
 
-      fadeTimer = 0.0f;
+      fadeTimer = 0f;
 
       CanvasGroup canvasGroup = pauseMenuUI.GetComponent<CanvasGroup>();
 
-      if (fadein)
-      {
-        canvasGroup.alpha = (float)fadeCount / 10.0f;
-      }
-      else
-      {
-        canvasGroup.alpha = 1.0f - ((float)fadeCount / 10.0f);
-      }
+      if (fadein) canvasGroup.alpha = (float)fadeCount / 10.0f;
+      else canvasGroup.alpha = 1.0f - ((float)fadeCount / 10.0f);
 
-      if (fadeCount >= 10)
-      {
+      if (fadeCount >= 10) {
 
         fadeCount = 0;
         fadingNow = false;
 
-        if (fadein)
-        {
+        if (fadein) {
           canvasGroup.interactable = true;
-          canvasGroup.alpha = 1.0f;
-          // freeze game
-          Time.timeScale = 0.0f;
+          canvasGroup.alpha = 1f;
+          Time.timeScale = 0f; // freeze game
         }
-        else
-        {
+        else {
           canvasGroup.interactable = false;
-          canvasGroup.alpha = 0.0f;
+          canvasGroup.alpha = 0f;
         }
 
       }

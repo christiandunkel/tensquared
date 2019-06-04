@@ -111,8 +111,7 @@ public class VolumeController : MonoBehaviour {
   }
 
   private void UnPauseAudioSources() {
-    foreach (AudioSource src in totalSources_)
-    {
+    foreach (AudioSource src in totalSources_) {
       src.UnPause();
     }
   }

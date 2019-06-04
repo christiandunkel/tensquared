@@ -199,7 +199,7 @@ public class SaveLoader : MonoBehaviour
       PlayerPrefs.SetString("lvl9_timer", save.lvl9_timer);
       PlayerPrefs.SetString("lvl10_timer", save.lvl10_timer);
 
-      VolumeController.loadPlayerPrefs();
+      VolumeController.Instance.loadPlayerPrefs();
 
     }
     else
@@ -241,17 +241,14 @@ public class SaveLoader : MonoBehaviour
   public InputField exportField = null;
   public Toggle exportSettings = null;
 
-  public void LoadExportData()
-  {
+  public void LoadExportData() {
 
-    if (exportField == null)
-    {
+    if (exportField == null) {
       Debug.LogWarning("SaveLoader: No 'export field' defined.");
       return;
     }
 
-    if (exportSettings == null)
-    {
+    if (exportSettings == null) {
       Debug.LogWarning("SaveLoader: No 'export settings button'.");
       return;
     }
@@ -260,8 +257,7 @@ public class SaveLoader : MonoBehaviour
 
     string save_data = "";
 
-    if (exportSettings.isOn == true)
-    {
+    if (exportSettings.isOn == true) {
 
       Save save = new Save();
 
@@ -285,8 +281,7 @@ public class SaveLoader : MonoBehaviour
       save_data = JsonUtility.ToJson(save);
 
     }
-    else
-    {
+    else {
 
       SaveNoSettings save = new SaveNoSettings();
 

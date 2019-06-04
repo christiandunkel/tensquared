@@ -10,8 +10,7 @@ public class LevelManager : MonoBehaviour
 
   public static LevelManager Instance;
 
-  void Awake()
-  {
+  void Awake() {
     Instance = this;
   }
 
@@ -24,13 +23,11 @@ public class LevelManager : MonoBehaviour
   public GameObject lvlsParent = null;
   private static GameObject lvlsParent_ = null;
 
-  public void LoadLevelProgess_()
-  {
+  public void LoadLevelProgess_() {
     LoadLevelProgess();
   }
 
-  public static void LoadLevelProgess()
-  {
+  public static void LoadLevelProgess() {
 
     Debug.Log("LevelManager: Loaded level progress.");
 
@@ -59,46 +56,38 @@ public class LevelManager : MonoBehaviour
     try { 
 
       // test if lvl button list is empty, and fill it if so
-      if (LevelButton.Count == 0)
-      {
+      if (LevelButton.Count == 0) {
         // get children (lvl buttons) using transform property
-        foreach (Transform child in lvlsParent_.transform)
-        {
+        foreach (Transform child in lvlsParent_.transform) {
           LevelButton.Add(child.gameObject);
         }
       }
 
     }
-    catch (System.Exception e)
-    {
+    catch (System.Exception e) {
       Debug.LogWarning("LevelManager: Could not locate level buttons: " + e);
       return;
     } 
 
     int counter = 1;
-    foreach (GameObject lvl in LevelButton)
-    {
+    foreach (GameObject lvl in LevelButton) {
 
       CanvasGroup CG = lvl.GetComponent<CanvasGroup>();
 
       // disable buttons for levels not yet unlocked
-      if (counter > levelsUnlocked)
-      {
+      if (counter > levelsUnlocked) {
         CG.alpha = 0.2f; // opacity
         CG.interactable = false;
       }
       // if already unlocked, set visible again
-      else
-      {
+      else {
         CG.alpha = 1.0f; // opacity
         CG.interactable = true;
       }
 
       // set timer values
-      foreach (Transform obj in lvl.transform)
-      {
-        if (obj.name == "Timer")
-        {
+      foreach (Transform obj in lvl.transform) {
+        if (obj.name == "Timer") {
           string timer = PlayerPrefs.GetString("lvl" + counter + "_timer");
           obj.gameObject.GetComponent<TextMeshProUGUI>().text = timer;
         }

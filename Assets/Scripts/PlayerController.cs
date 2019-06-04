@@ -104,7 +104,8 @@ public class PlayerController : PhysicsObject
    */
 
   public AudioSource characterSoundPlayer,
-                     movementSoundPlayer,
+                     circleMovementSoundPlayer,
+                     rectangleMovementSoundPlayer,
                      grassSoundPlayer,
                      movingPlatformSoundPlayer,
                      shortSoundPlayer,
@@ -114,9 +115,7 @@ public class PlayerController : PhysicsObject
                    landingRectangleSound,
                    loadingTriangleSound,
                    jumpingTriangleSound,
-
-                   rollingCircleSound,
-                   movingRectTriSound,
+    
                    walkThroughGrassSound,
 
                    movingPlatformSound,
@@ -132,7 +131,8 @@ public class PlayerController : PhysicsObject
                    earthquake_2_5_secs_loud,
                    earthquake_3_secs;
 
-  public float movingThroughGrassTimer = 0f;
+  public float movingThroughGrassTimer = 0f,
+               movingTimer = 0f;
 
   public void PlaySound(string soundName) {
 
@@ -142,9 +142,7 @@ public class PlayerController : PhysicsObject
       case "landingRectangleSound":    characterSoundPlayer.PlayOneShot(landingRectangleSound); break;
       case "loadingTriangleSound":     characterSoundPlayer.PlayOneShot(loadingTriangleSound); break;
       case "jumpingTriangleSound":     characterSoundPlayer.PlayOneShot(jumpingTriangleSound); break;
-
-      case "rollingCircleSound":       movementSoundPlayer.PlayOneShot(rollingCircleSound); break;
-      case "movingRectTriSound":       movementSoundPlayer.PlayOneShot(movingRectTriSound); break;
+      
       case "walkThroughGrassSound":    grassSoundPlayer.PlayOneShot(walkThroughGrassSound); break;
 
       case "movingPlatformSound":      movingPlatformSoundPlayer.PlayOneShot(movingPlatformSound); break;
@@ -231,18 +229,13 @@ public class PlayerController : PhysicsObject
 
     // look for given name
     foreach (Attributes a_temp in characterAttributes) {
-      if (a_temp.name == stateName) {
-        return a_temp;
-      }
+      if (a_temp.name == stateName) return a_temp;
     }
 
     // if fails return attributes for current state
     Attributes a = new Attributes();
     foreach (Attributes a_temp in characterAttributes) {
-      if (a_temp.name == state) {
-        a = a_temp;
-        break;
-      }
+      if (a_temp.name == state) a = a_temp; break;
     }
     return a;
 
@@ -299,25 +292,53 @@ public class PlayerController : PhysicsObject
    */
 
   // stop figure rolling away even though there is no movement
-  private float rollingFixTimer = 0.0f;
-  private float rollingFixTimerDefault = 0.05f;
+  private float rollingFixTimer = 0.0f,
+                rollingFixTimerDefault = 0.05f;
   private void stopRollingFix() {
     GetComponent<Rigidbody2D>().freezeRotation = true;
     GetComponent<Rigidbody2D>().rotation = 0f;
     GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
   }
-  
+
+  private int timerBecauseUnityIsBeingStupid = 0;
   protected override void ComputeVelocity() {
 
-    if (movingThroughGrassTimer > 0f) {
-      movingThroughGrassTimer -= Time.fixedDeltaTime;
-      if (!grassSoundPlayer.isPlaying) {
-        PlaySound("walkThroughGrassSound");
+    // stop movement audio sources which are on loop and start playing when loading the scene
+    if (timerBecauseUnityIsBeingStupid < 500) {
+      timerBecauseUnityIsBeingStupid++;
+      circleMovementSoundPlayer.Pause();
+      rectangleMovementSoundPlayer.Pause();
+    }
+    
+
+    movingTimer = movingX && grounded ? 0.2f : movingTimer;
+
+    // general moving sounds
+    if (movingTimer > 0f) {
+      movingTimer -= Time.fixedDeltaTime;
+      if (movingX && grounded) { 
+        if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
+          circleMovementSoundPlayer.UnPause();
+          rectangleMovementSoundPlayer.Pause();
+        }
+        else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying) {
+          circleMovementSoundPlayer.Pause();
+          rectangleMovementSoundPlayer.UnPause();
+        }
       }
     }
-    else {
-      grassSoundPlayer.Pause();
+    else if (state == "Circle") circleMovementSoundPlayer.Pause();
+    else rectangleMovementSoundPlayer.Pause();
+
+    // sounds while moving through grass
+    if (movingThroughGrassTimer > 0f) {
+      movingThroughGrassTimer -= Time.fixedDeltaTime;
+      if (!grassSoundPlayer.isPlaying) PlaySound("walkThroughGrassSound");
     }
+    else grassSoundPlayer.Stop();
+    
+
+
 
     if (isFrozen) {
       if (!frozenInLastFrame) {

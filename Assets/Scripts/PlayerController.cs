@@ -438,7 +438,17 @@ public class PlayerController : PhysicsObject
 
 
 
-  IEnumerator respawn() {
+
+  void respawn() {
+
+    // prevent triggering death animation multiple times
+    if (!isDead) {
+      StartCoroutine(respawnCoroutine());
+    }
+
+  }
+
+  IEnumerator respawnCoroutine() {
 
     if (setSpawnpoint) {
       isFrozen = true;
@@ -477,8 +487,8 @@ public class PlayerController : PhysicsObject
 
     // handle spawn point animation
     if (setSpawnpoint) {
-      yield return new WaitForSeconds(.2f);
       PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
+      yield return new WaitForSeconds(.8f);
       // come out of spawn point tube
       float spawnPointmoveCharBy = 2.65f / 50f;
       for (int i = 0; i < 50; i++) {
@@ -499,7 +509,7 @@ public class PlayerController : PhysicsObject
     // reset attributes to current state
     resetAttributesOfState();
 
-    StopCoroutine(respawn());
+    StopCoroutine(respawnCoroutine());
 
   }
 
@@ -750,13 +760,13 @@ public class PlayerController : PhysicsObject
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
         PlaySound("waterSplashSound");
-        StartCoroutine(respawn());
+        respawn();
         ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
         break;
 
       case "KillZone":
         Debug.Log("PlayerController: Player died by entering a kill zone.");
-        StartCoroutine(respawn());
+        respawn();
         break;
 
       case "MovingPlatform":

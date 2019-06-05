@@ -117,6 +117,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(1.5f);
     CameraShake.Instance.Play(.7f, 3f, 3f);
     yield return new WaitForSeconds(.4f);
+    CameraShake.Instance.Play(3f, 3f, 3f, "earthquake_3_secs");
     GameObject.Find("RobotAppearingParticles").GetComponent<ParticleSystem>().Play();
     yield return new WaitForSeconds(.45f);
     GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotAppear");

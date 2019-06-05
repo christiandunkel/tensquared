@@ -165,7 +165,7 @@ public class DialogSystem : MonoBehaviour
       case "lvl1_quick_compared_to_other_circles":
         setDialogue("You're doing great! You're actually quite quick on foot, especially when compared to other circles!", "lvl1_quick_compared_to_other_circles", "happy"); break;
       case "lvl1_pick_up_arms":
-        setDialogue("That's them! Those are my arms! Could you pick them up for me?", "lvl1_pick_up_arms", "surprised"); break;
+        setDialogue("That's them! Those are my arms!\nCould you pick them up for me?", "lvl1_pick_up_arms", "surprised"); break;
       case "lvl1_bring_arms_back":
         setDialogue("Now please bring them back to me!", "lvl1_bring_arms_back", "happy"); break;
       case "lvl1_thank_you":

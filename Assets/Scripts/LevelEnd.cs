@@ -22,16 +22,21 @@ public class LevelEnd : MonoBehaviour {
     LevelSettings.Instance.SetSetting("canMove", false);
     LevelSettings.Instance.SetSetting("canMorph", false);
 
+    PauseMenu.Instance.allowOpeningPauseMenu = false;
+
     // activate next level
     if (!PlayerPrefs.HasKey("lvls_unlocked")) PlayerPrefs.SetInt("lvls_unlocked", levelID + 1);
     else if (!(levelID < PlayerPrefs.GetInt("lvls_unlocked"))) PlayerPrefs.SetInt("lvls_unlocked", levelID + 1);
 
-    CG.alpha = 0;
+    CG.alpha = 1f;
     CG.interactable = true;
 
   }
 
   public void goToNextLevel() {
+
+    CG.alpha = 0f;
+    CG.interactable = false;
 
     Debug.Log("LevelEnd: Go to next level (" + levelID + "->" + (levelID + 1) + ").");
 
@@ -40,6 +45,9 @@ public class LevelEnd : MonoBehaviour {
   }
 
   public void goToMainMenu() {
+
+    CG.alpha = 0f;
+    CG.interactable = false;
 
     Debug.Log("LevelEnd: Returned to main menu.");
 

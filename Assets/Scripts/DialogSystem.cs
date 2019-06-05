@@ -169,7 +169,7 @@ public class DialogSystem : MonoBehaviour
       case "lvl1_bring_arms_back":
         setDialogue("Now please bring them back to me!", "lvl1_bring_arms_back", "happy"); break;
       case "lvl1_thank_you":
-        setDialogue("Thank you! Finally I can move this rusty old body of mine!", "lvl1_thank_you", "laughing"); break;
+        setDialogue("Thank you!\nFinally I can move this rusty old body of mine!", "lvl1_thank_you", "laughing"); break;
       case "lvl1_where_did_i_leave_my_legs":
         setDialogue("But now... where did I leave my legs again?", "lvl1_where_did_i_leave_my_legs", "sad"); break;
 

@@ -105,7 +105,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
   private IEnumerator Lvl1_JumpTooltip() {
     DialogSystem.LoadDialog("lvl1_jump");
-    yield return new WaitForSeconds(5f);
+    yield return new WaitForSeconds(1.5f);
     LevelSettings.Instance.SetSetting("canJump", true);
     TooltipManager.showTooltip("Jump");
     StopCoroutine(Lvl1_JumpTooltip());

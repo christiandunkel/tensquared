@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour {
 
   public bool isPaused;
 
+  public bool allowOpeningPauseMenu = true;
+
   public GameObject pauseMenuUI;
 
   void Start() {
@@ -29,7 +31,7 @@ public class PauseMenu : MonoBehaviour {
 
   void Update() {
 
-    if (!fadingNow && Input.GetKeyDown(KeyCode.Escape)) {
+    if (allowOpeningPauseMenu && !fadingNow && Input.GetKeyDown(KeyCode.Escape)) {
       
       if (isPaused) ResumeGame();
       else PauseGame();

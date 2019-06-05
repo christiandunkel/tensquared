@@ -36,6 +36,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     switch (lvl) {
       case 1: LoadLevel1Event(); break;
+      case 2: LoadLevel2Event(); break;
       default: break;
     }
 
@@ -55,8 +56,14 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.LoadDialog("lvl1_quick_compared_to_other_circles"); break;
         case "robot_appear_scene":
           StartCoroutine(Lvl1_RobotAppearScene()); break;
+        default: break;
+      }
+    }
+
+    void LoadLevel2Event() {
+      switch (name) {
         case "morph_tooltip":
-          StartCoroutine(Lvl1_MorphTooltip()); break;
+          StartCoroutine(Lvl2_MorphTooltip()); break;
         case "morph_to_triangle":
           TooltipManager.hideTooltips(); break;
         default: break;
@@ -117,12 +124,17 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.SetSetting("canMove", true);
     StopCoroutine(Lvl1_RobotAppearScene());
   }
-  private IEnumerator Lvl1_MorphTooltip() {
-    DialogSystem.LoadDialog("lvl1_morph");
+
+  /* ===============
+   * === LEVEL 2 ===
+   * ===============
+   */
+  private IEnumerator Lvl2_MorphTooltip() {
+    DialogSystem.LoadDialog("lvl2_morph");
     yield return new WaitForSeconds(7f);
     LevelSettings.Instance.SetSetting("canMorph", true);
     TooltipManager.showTooltip("MorphTriangle");
-    StopCoroutine(Lvl1_MorphTooltip());
+    StopCoroutine(Lvl2_MorphTooltip());
   }
 
 }

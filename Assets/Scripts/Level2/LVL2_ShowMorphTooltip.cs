@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LVL1_ShowMorphTooltip : MonoBehaviour
-{
+public class LVL2_ShowMorphTooltip : MonoBehaviour {
 
   private bool hasSeenTooltip;
 
@@ -15,7 +14,7 @@ public class LVL1_ShowMorphTooltip : MonoBehaviour
 
     if (!hasSeenTooltip && col.gameObject.tag == "Player") {
       hasSeenTooltip = true; // only load once
-      ScriptedEventsManager.Instance.LoadEvent(1, "morph_tooltip");
+      ScriptedEventsManager.Instance.LoadEvent(2, "morph_tooltip");
     }
 
   }

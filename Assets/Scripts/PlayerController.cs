@@ -831,10 +831,12 @@ public class PlayerController : PhysicsObject
     switch (col.gameObject.tag) {
 
       case "ZoomInCamera":
+        Debug.Log("PlayerController: Entered 'camera zoom in' area.");
         zoomedInCameraTimer = 0.5f;
         break;
 
       case "ZoomOutCamera":
+        Debug.Log("PlayerController: Entered 'camera zoom out' area.");
         zoomedOutCameraTimer = 0.5f;
         break;
 

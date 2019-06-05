@@ -60,6 +60,8 @@ public class ScriptedEventsManager : MonoBehaviour {
           StartCoroutine(Lvl1_PickUpArms()); break;
         case "dialog_bring_arms_back":
           StartCoroutine(Lvl1_BringArmsBack()); break;
+        case "robot_get_arms_scene":
+          StartCoroutine(Lvl1_RobotGetArmsScene()); break;
         default: break;
       }
     }
@@ -143,6 +145,16 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(.2f);
     DialogSystem.LoadDialog("lvl1_bring_arms_back");
     StopCoroutine(Lvl1_BringArmsBack());
+  }
+  private IEnumerator Lvl1_RobotGetArmsScene() {
+    LevelSettings.Instance.SetSetting("canMove", false);
+    PlayerController.Instance.setValue("holdingItem", false);
+    yield return new WaitForSeconds(.2f);
+    DialogSystem.LoadDialog("lvl1_thank_you");
+    yield return new WaitForSeconds(6f);
+    DialogSystem.LoadDialog("lvl1_where_did_i_leave_my_legs");
+    yield return new WaitForSeconds(6f);
+    StopCoroutine(Lvl1_RobotGetArmsScene());
   }
 
 

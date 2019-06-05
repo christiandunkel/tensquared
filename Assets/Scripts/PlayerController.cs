@@ -370,8 +370,8 @@ public class PlayerController : PhysicsObject
     }
 
     // handle holding item state
-    if (holdingItem && !heldItemObject.active) heldItemObject.SetActive(true);
-    else if (!holdingItem && heldItemObject.active) heldItemObject.SetActive(false);
+    if (holdingItem && !heldItemObject.activeSelf) heldItemObject.SetActive(true);
+    else if (!holdingItem && heldItemObject.activeSelf) heldItemObject.SetActive(false);
 
     // handle frozen state
     if (isFrozen) {

@@ -69,6 +69,8 @@ public class SaveLoader : MonoBehaviour {
     PlayerPrefs.SetString("lvl9_timer", def_timer);
     PlayerPrefs.SetString("lvl10_timer", def_timer);
 
+    LevelManager.Instance.LoadLevelProgess();
+
   }
 
 

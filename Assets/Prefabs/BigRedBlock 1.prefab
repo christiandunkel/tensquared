@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1197638659772461645}
   - component: {fileID: 1197638659772461682}
   - component: {fileID: 6327493420309666561}
-  - component: {fileID: 1427692004104260122}
   m_Layer: 0
   m_Name: BigRedBlock 1
   m_TagString: Untagged
@@ -107,17 +106,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 22.007322, y: 12.68}
   m_EdgeRadius: 0
---- !u!114 &1427692004104260122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1197638659772461644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e51164b678ff62438835579a9f8f886, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowOffset: {x: 0.3, y: -0.5, z: 0}
-  material: {fileID: 2100000, guid: b54939d284ec8f54e9e54a860dadf45f, type: 2}

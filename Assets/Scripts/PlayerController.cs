@@ -135,7 +135,8 @@ public class PlayerController : PhysicsObject
                    earthquake_2_5_secs_loud,
                    earthquake_3_secs;
 
-  private float movingThroughGrassTimer = 0f,
+  private float preventMovementSoundsTimer = 0f,
+                movingThroughGrassTimer = 0f,
                 movingTimer = 0f;
 
   public float PlaySound(string soundName) {
@@ -322,16 +323,25 @@ public class PlayerController : PhysicsObject
     // general moving sounds
     if (movingTimer > 0f) {
       movingTimer -= Time.fixedDeltaTime;
-      if (movingX && grounded) { 
-        if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
-          circleMovementSoundPlayer.UnPause();
-          rectangleMovementSoundPlayer.Pause();
-        }
-        else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying) {
-          circleMovementSoundPlayer.Pause();
-          rectangleMovementSoundPlayer.UnPause();
+      if (preventMovementSoundsTimer <= 0f)
+      {
+        if (movingX && grounded)
+        {
+          if (state == "Circle" && !circleMovementSoundPlayer.isPlaying)
+          {
+            circleMovementSoundPlayer.UnPause();
+            rectangleMovementSoundPlayer.Pause();
+          }
+          else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying)
+          {
+            circleMovementSoundPlayer.Pause();
+            rectangleMovementSoundPlayer.UnPause();
+          }
         }
       }
+      else preventMovementSoundsTimer -= Time.fixedDeltaTime;
+
+
     }
     else if (state == "Circle") circleMovementSoundPlayer.Pause();
     else rectangleMovementSoundPlayer.Pause();
@@ -853,6 +863,10 @@ public class PlayerController : PhysicsObject
 
       case "ZoomOutCamera":
         zoomedOutCameraTimer = 0.5f;
+        break;
+
+      case "PreventMovementSounds":
+        preventMovementSoundsTimer = 0.2f;
         break;
 
       case "Grass":

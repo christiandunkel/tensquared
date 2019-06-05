@@ -125,7 +125,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotAppear");
     yield return new WaitForSeconds(2.5f);
     DialogSystem.LoadDialog("lvl1_its_me");
-    yield return new WaitForSeconds(6.5f);
+    yield return new WaitForSeconds(5.5f);
     DialogSystem.LoadDialog("lvl1_arms_are_further_ahead");
     yield return new WaitForSeconds(4f);
     LevelSettings.Instance.SetSetting("canMove", true);
@@ -154,6 +154,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(6f);
     DialogSystem.LoadDialog("lvl1_where_did_i_leave_my_legs");
     yield return new WaitForSeconds(6f);
+    LevelEnd.Instance.endLevel();
     StopCoroutine(Lvl1_RobotGetArmsScene());
   }
 

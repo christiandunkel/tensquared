@@ -138,11 +138,10 @@ public class ScriptedEventsManager : MonoBehaviour {
     StopCoroutine(Lvl1_PickUpArms());
   }
   private IEnumerator Lvl1_BringArmsBack() {
-    LevelSettings.Instance.SetSetting("canMove", false);
+    GameObject.Find("RoboterArms").SetActive(false);
+    PlayerController.Instance.setValue("holdingItem", true);
     yield return new WaitForSeconds(.2f);
     DialogSystem.LoadDialog("lvl1_bring_arms_back");
-    yield return new WaitForSeconds(4f);
-    LevelSettings.Instance.SetSetting("canMove", true);
     StopCoroutine(Lvl1_BringArmsBack());
   }
 

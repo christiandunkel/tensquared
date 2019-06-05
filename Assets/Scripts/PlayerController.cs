@@ -30,6 +30,8 @@ public class PlayerController : PhysicsObject
    ========================
    */
 
+  private bool holdingItem = false;
+
   private bool canMove = false,
                canMorph = false,
                canJump = false,
@@ -91,7 +93,8 @@ public class PlayerController : PhysicsObject
 
   private GameObject parentObject;
 
-  public GameObject textureContainer, textureObject,
+  public GameObject heldItemObject,
+                    textureContainer, textureObject,
                     movementParticles, deathParticles;
 
   public GhostingEffect ghost;
@@ -196,14 +199,15 @@ public class PlayerController : PhysicsObject
       case "canMove":   canMove = value; break;
       case "canJump":   canJump = value; break;
       case "canMorph":  canMorph = value; break;
-      default: break;
+      default: Debug.Log("PlayerController: Could not set value as " + name + " is not a valid setting."); break;
     }
   }
 
   public void setValue(string name, bool val) {
     switch (name) {
       case "steppedOnPiston":   steppedOnPiston = val; break;
-      default: break;
+      case "holdingItem":       holdingItem = val; break;
+      default: Debug.Log("PlayerController: Could not set value as " + name + " is not a valid value name."); break;
     }
   }
 
@@ -217,11 +221,9 @@ public class PlayerController : PhysicsObject
 
   public bool getBool(string name) {
     switch (name) {
-      case "isDead":
-        return isDead;
-      default:
-        Debug.Log("PlayerController: Boolean of the name " + name + " couldn't be found.");
-        break;
+      case "isDead": return isDead;
+      case "holdingItem": return holdingItem;
+      default: Debug.Log("PlayerController: Boolean of the name " + name + " couldn't be found."); break;
     }
     return false;
   }
@@ -315,7 +317,6 @@ public class PlayerController : PhysicsObject
       rectangleMovementSoundPlayer.Pause();
     }
     
-
     movingTimer = movingX && grounded ? 0.2f : movingTimer;
 
     // general moving sounds
@@ -367,7 +368,11 @@ public class PlayerController : PhysicsObject
       cameraAnimator.SetBool("ZoomedOut", false);
       Debug.Log("PlayerController: Left 'camera zoom out' area.");
     }
-    
+
+    // handle holding item state
+    if (holdingItem && !heldItemObject.active) heldItemObject.SetActive(true);
+    else if (!holdingItem && heldItemObject.active) heldItemObject.SetActive(false);
+
     // handle frozen state
     if (isFrozen) {
       if (!frozenInLastFrame) {

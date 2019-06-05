@@ -56,6 +56,10 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.LoadDialog("lvl1_quick_compared_to_other_circles"); break;
         case "robot_appear_scene":
           StartCoroutine(Lvl1_RobotAppearScene()); break;
+        case "dialog_pick_up_arms":
+          StartCoroutine(Lvl1_PickUpArms()); break;
+        case "dialog_bring_arms_back":
+          StartCoroutine(Lvl1_BringArmsBack()); break;
         default: break;
       }
     }
@@ -124,6 +128,23 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.SetSetting("canMove", true);
     StopCoroutine(Lvl1_RobotAppearScene());
   }
+  private IEnumerator Lvl1_PickUpArms() {
+    LevelSettings.Instance.SetSetting("canMove", false);
+    yield return new WaitForSeconds(.2f);
+    DialogSystem.LoadDialog("lvl1_pick_up_arms");
+    yield return new WaitForSeconds(4f);
+    LevelSettings.Instance.SetSetting("canMove", true);
+    StopCoroutine(Lvl1_PickUpArms());
+  }
+  private IEnumerator Lvl1_BringArmsBack() {
+    LevelSettings.Instance.SetSetting("canMove", false);
+    yield return new WaitForSeconds(.2f);
+    DialogSystem.LoadDialog("lvl1_bring_arms_back");
+    yield return new WaitForSeconds(4f);
+    LevelSettings.Instance.SetSetting("canMove", true);
+    StopCoroutine(Lvl1_BringArmsBack());
+  }
+
 
   /* ===============
    * === LEVEL 2 ===

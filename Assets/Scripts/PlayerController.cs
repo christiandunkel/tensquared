@@ -345,16 +345,28 @@ public class PlayerController : PhysicsObject
     // handle camera zooming (inwards)
     if (zoomedInCameraTimer > 0.0f) {
       zoomedInCameraTimer -= Time.fixedDeltaTime;
-      if (!cameraAnimator.GetBool("ZoomedIn")) cameraAnimator.SetBool("ZoomedIn", true);
+      if (!cameraAnimator.GetBool("ZoomedIn")) {
+        cameraAnimator.SetBool("ZoomedIn", true);
+        Debug.Log("PlayerController: Entered 'camera zoom in' area.");
+      }
     }
-    else if (cameraAnimator.GetBool("ZoomedIn")) cameraAnimator.SetBool("ZoomedIn", false);
+    else if (cameraAnimator.GetBool("ZoomedIn")) {
+      cameraAnimator.SetBool("ZoomedIn", false);
+      Debug.Log("PlayerController: Left 'camera zoom in' area.");
+    }
 
     // handle camera zooming (outwards)
     if (zoomedOutCameraTimer > 0.0f) {
       zoomedOutCameraTimer -= Time.fixedDeltaTime;
-      if (!cameraAnimator.GetBool("ZoomedOut")) cameraAnimator.SetBool("ZoomedOut", true);
+      if (!cameraAnimator.GetBool("ZoomedOut")) {
+        cameraAnimator.SetBool("ZoomedOut", true);
+        Debug.Log("PlayerController: Entered 'camera zoom out' area.");
+      }
     }
-    else if (cameraAnimator.GetBool("ZoomedOut")) cameraAnimator.SetBool("ZoomedOut", false);
+    else if (cameraAnimator.GetBool("ZoomedOut")) {
+      cameraAnimator.SetBool("ZoomedOut", false);
+      Debug.Log("PlayerController: Left 'camera zoom out' area.");
+    }
     
     // handle frozen state
     if (isFrozen) {
@@ -831,12 +843,10 @@ public class PlayerController : PhysicsObject
     switch (col.gameObject.tag) {
 
       case "ZoomInCamera":
-        Debug.Log("PlayerController: Entered 'camera zoom in' area.");
         zoomedInCameraTimer = 0.5f;
         break;
 
       case "ZoomOutCamera":
-        Debug.Log("PlayerController: Entered 'camera zoom out' area.");
         zoomedOutCameraTimer = 0.5f;
         break;
 

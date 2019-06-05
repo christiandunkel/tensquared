@@ -19,25 +19,15 @@ public class TeleportingBlock : MonoBehaviour {
   }
 
   IEnumerator cycle() {
-
     squareTexture1.SetBool("Visible", true);
-
     yield return new WaitForSeconds(timeBothAreVisible);
-
     squareTexture2.SetBool("Visible", false);
-
     yield return new WaitForSeconds(stayTime);
-
     squareTexture2.SetBool("Visible", true);
-
     yield return new WaitForSeconds(timeBothAreVisible);
-
     squareTexture1.SetBool("Visible", false);
-
     yield return new WaitForSeconds(stayTime);
-
     startCycle();
-
   }
 
 }

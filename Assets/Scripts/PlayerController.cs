@@ -161,7 +161,7 @@ public class PlayerController : PhysicsObject
       case "disappearingBlockAppear":    c = disappearingBlockAppear; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
       case "disappearingBlockDisappear": c = disappearingBlockDisappear; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
       case "movingPlatformSound":        c = movingPlatformSound; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
-        
+       
       case "waterSplashSound":           c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "breakingBlockSound":         c = breakingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "pistonPushSound":            c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
@@ -235,6 +235,22 @@ public class PlayerController : PhysicsObject
       default: Debug.LogWarning("PlayerController: Boolean of the name " + name + " couldn't be found."); break;
     }
     return false;
+  }
+
+  public float GetFloat(string name) {
+    switch (name) {
+      case "secondsNotGrounded": return secondsNotGrounded;
+      default: Debug.LogWarning("PlayerController: Float of the name " + name + " couldn't be found."); break;
+    }
+    return 0f;
+  }
+
+  public string GetString(string name) {
+    switch (name) {
+      case "state": return state;
+      default: Debug.LogWarning("PlayerController: String of the name " + name + " couldn't be found."); break;
+    }
+    return null;
   }
 
   private Attributes getAttributes() {

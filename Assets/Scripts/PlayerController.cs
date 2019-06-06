@@ -111,6 +111,8 @@ public class PlayerController : PhysicsObject
                      circleMovementSoundPlayer,
                      rectangleMovementSoundPlayer,
                      grassSoundPlayer,
+                     disappearingBlockAppearSoundPlayer,
+                     disappearingBlockDisappearSoundPlayer,
                      movingPlatformSoundPlayer,
                      shortSoundPlayer,
                      cameraShakeSoundPlayer;
@@ -159,8 +161,8 @@ public class PlayerController : PhysicsObject
 
       case "walkThroughGrassSound":      c = walkThroughGrassSound; grassSoundPlayer.PlayOneShot(c); return c.length;
 
-      case "disappearingBlockAppear":    c = disappearingBlockAppear; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
-      case "disappearingBlockDisappear": c = disappearingBlockDisappear; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
+      case "disappearingBlockAppear":    c = disappearingBlockAppear; disappearingBlockAppearSoundPlayer.PlayOneShot(c); return c.length;
+      case "disappearingBlockDisappear": c = disappearingBlockDisappear; disappearingBlockDisappearSoundPlayer.PlayOneShot(c); return c.length;
       case "movingPlatformSound":        c = movingPlatformSound; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
        
       case "waterSplashSound":           c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;

@@ -2,21 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* @basic script from 
- * https://unity3d.com/learn/tutorials/topics/2d-game-creation/player-controller-script
- */
-
 public class PhysicsObject : MonoBehaviour {
 
   public float minGroundNormalY = .65f;
 
-  // scale gravity with float value
+  // scale gravity with this value
   public float gravityModifier = 4f;
 
-  protected Vector2 velocity;
-  protected Vector2 targetVelocity;
+  protected Vector2 velocity, targetVelocity, groundNormal;
   protected bool grounded;
-  protected Vector2 groundNormal;
+
   protected ContactFilter2D contactFilter;
   protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
   protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
@@ -49,9 +44,8 @@ public class PhysicsObject : MonoBehaviour {
   // is called every fixed frame-rate frame
   void FixedUpdate() {
 
-    if (PlayerController.Instance.isFrozen) {
-      return;
-    }
+    // if player is set to frozen, don't calculate movement
+    if (PlayerController.Instance.isFrozen) return;
 
     velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
     velocity.x = targetVelocity.x;
@@ -71,7 +65,7 @@ public class PhysicsObject : MonoBehaviour {
 
   }
 
-  void Movement(Vector2 move, bool yMovement) {
+  private void Movement(Vector2 move, bool yMovement) {
 
     float distance = move.magnitude;
 

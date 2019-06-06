@@ -169,7 +169,7 @@ public class PlayerController : PhysicsObject
       case "earthquake_2_5_secs_loud": c = earthquake_2_5_secs_loud; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
       case "earthquake_3_secs":        c = earthquake_3_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
 
-      default: Debug.Log("PlayerController: Sound " + soundName + " wasn't found."); break;
+      default: Debug.LogWarning("PlayerController: Sound " + soundName + " wasn't found."); break;
 
     }
 
@@ -204,7 +204,7 @@ public class PlayerController : PhysicsObject
       case "canMove":   canMove = value; break;
       case "canJump":   canJump = value; break;
       case "canMorph":  canMorph = value; break;
-      default: Debug.Log("PlayerController: Could not set value as " + name + " is not a valid setting."); break;
+      default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid setting."); break;
     }
   }
 
@@ -212,7 +212,7 @@ public class PlayerController : PhysicsObject
     switch (name) {
       case "steppedOnPiston":   steppedOnPiston = val; break;
       case "holdingItem":       holdingItem = val; break;
-      default: Debug.Log("PlayerController: Could not set value as " + name + " is not a valid value name."); break;
+      default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid value name."); break;
     }
   }
 
@@ -228,7 +228,7 @@ public class PlayerController : PhysicsObject
     switch (name) {
       case "isDead": return isDead;
       case "holdingItem": return holdingItem;
-      default: Debug.Log("PlayerController: Boolean of the name " + name + " couldn't be found."); break;
+      default: Debug.LogWarning("PlayerController: Boolean of the name " + name + " couldn't be found."); break;
     }
     return false;
   }
@@ -461,7 +461,7 @@ public class PlayerController : PhysicsObject
                 CameraShake.Instance.Play(.1f, 18f, 18f);
                 PlaySound("landingRectangleSound");
                 break;
-              case "Triangle": PlaySound("landingCircleTriangleSound"); break;
+              case "Triangle": PlaySound("landingTriangleSound"); break;
               case "Circle": PlaySound("landingCircleSound"); break;
               default: break;
             }

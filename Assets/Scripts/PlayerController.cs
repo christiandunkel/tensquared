@@ -116,6 +116,8 @@ public class PlayerController : PhysicsObject
                      cameraShakeSoundPlayer;
 
   public AudioClip morphSound,
+                   landingCircleSound,
+                   landingTriangleSound,
                    landingRectangleSound,
                    loadingTriangleSound,
                    jumpingTriangleSound,
@@ -146,6 +148,8 @@ public class PlayerController : PhysicsObject
     switch (soundName) {
 
       case "morphSound":               c = morphSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "landingCircleSound":       c = landingCircleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "landingTriangleSound":     c = landingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "landingRectangleSound":    c = landingRectangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "loadingTriangleSound":     c = loadingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "jumpingTriangleSound":     c = jumpingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
@@ -451,10 +455,15 @@ public class PlayerController : PhysicsObject
 
             textureContainer.GetComponent<Animator>().Play("LandSquish", 0);
 
-            // shake on landing with rectangle
-            if (state == "Rectangle") {
-              CameraShake.Instance.Play(.1f, 18f, 18f);
-              PlaySound("landingRectangleSound");
+            switch (state) {
+              case "Rectangle":
+                // shake on landing with rectangle
+                CameraShake.Instance.Play(.1f, 18f, 18f);
+                PlaySound("landingRectangleSound");
+                break;
+              case "Triangle": PlaySound("landingCircleTriangleSound"); break;
+              case "Circle": PlaySound("landingCircleSound"); break;
+              default: break;
             }
 
           }

@@ -1204,8 +1204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualCameraAnimator: {fileID: 484407851}
   levelID: 1
-  playStartFrequence: 1
-  playEvents: 1
+  playStartFrequence: 0
+  playEvents: 0
 --- !u!1 &85090163
 GameObject:
   m_ObjectHideFlags: 0
@@ -17619,9 +17619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d16d85703ffae646ae9372f9fc17fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canMove: 0
-  canJump: 0
-  canMorph: 0
+  canMove: 1
+  canJump: 1
+  canMorph: 1
   worldSpawn: {x: 0, y: 0}
   playerSpawn: {x: 0, y: 0}
   playerObject: {fileID: 1863170486}
@@ -52177,6 +52177,16 @@ PrefabInstance:
       propertyPath: cameraAnimator
       value: 
       objectReference: {fileID: 484407851}
+    - target: {fileID: 7324950124170858859, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: landingCircleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fbb7bcaaf0fea5646ac3b46b5cc7885e, type: 3}
+    - target: {fileID: 7324950124170858859, guid: 781a989841c99fe4f901ed8c83bef8af,
+        type: 3}
+      propertyPath: landingTriangleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ec046c624270a5b43b0aff005f187d00, type: 3}
     - target: {fileID: 7324950124170858860, guid: 781a989841c99fe4f901ed8c83bef8af,
         type: 3}
       propertyPath: m_BodyType

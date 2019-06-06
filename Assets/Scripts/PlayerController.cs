@@ -140,6 +140,7 @@ public class PlayerController : PhysicsObject
                    earthquake_3_secs;
 
   private float preventMovementSoundsTimer = 0f,
+                movingPlatformSoundsTimer = 0f,
                 movingThroughGrassTimer = 0f,
                 movingTimer = 0f;
 
@@ -340,6 +341,7 @@ public class PlayerController : PhysicsObject
       timerBecauseUnityIsBeingStupid++;
       circleMovementSoundPlayer.Pause();
       rectangleMovementSoundPlayer.Pause();
+      movingPlatformSoundPlayer.Pause();
     }
     
     movingTimer = movingX && grounded ? 0.2f : movingTimer;
@@ -376,6 +378,13 @@ public class PlayerController : PhysicsObject
       if (!grassSoundPlayer.isPlaying) PlaySound("walkThroughGrassSound");
     }
     else grassSoundPlayer.Stop();
+
+    // sounds of moving platforms
+    if (movingPlatformSoundsTimer > 0f) {
+      movingPlatformSoundsTimer -= Time.fixedDeltaTime;
+      if (!movingPlatformSoundPlayer.isPlaying) movingPlatformSoundPlayer.UnPause();
+    }
+    else movingPlatformSoundPlayer.Pause();
 
     // handle camera zooming (inwards)
     if (zoomedInCameraTimer > 0.0f) {
@@ -900,6 +909,10 @@ public class PlayerController : PhysicsObject
 
       case "Grass":
         if (movingX && grounded) movingThroughGrassTimer = 0.2f;
+        break;
+
+      case "MovingPlatformSounds":
+        movingPlatformSoundsTimer = 0.2f;
         break;
 
       default:

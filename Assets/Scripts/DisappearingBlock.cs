@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeleportingBlock : MonoBehaviour {
+public class DisappearingBlock : MonoBehaviour {
 
   public Animator squareTexture1, squareTexture2;
 

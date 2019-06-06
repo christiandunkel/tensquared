@@ -124,6 +124,8 @@ public class PlayerController : PhysicsObject
     
                    walkThroughGrassSound,
 
+                   disappearingBlockAppear,
+                   disappearingBlockDisappear,
                    movingPlatformSound,
 
                    waterSplashSound,
@@ -147,27 +149,29 @@ public class PlayerController : PhysicsObject
 
     switch (soundName) {
 
-      case "morphSound":               c = morphSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "landingCircleSound":       c = landingCircleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "landingTriangleSound":     c = landingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "landingRectangleSound":    c = landingRectangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "loadingTriangleSound":     c = loadingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "jumpingTriangleSound":     c = jumpingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "morphSound":                 c = morphSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "landingCircleSound":         c = landingCircleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "landingTriangleSound":       c = landingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "landingRectangleSound":      c = landingRectangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "loadingTriangleSound":       c = loadingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "jumpingTriangleSound":       c = jumpingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
 
-      case "walkThroughGrassSound":    c = walkThroughGrassSound; grassSoundPlayer.PlayOneShot(c); return c.length;
+      case "walkThroughGrassSound":      c = walkThroughGrassSound; grassSoundPlayer.PlayOneShot(c); return c.length;
 
-      case "movingPlatformSound":      c = movingPlatformSound; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
+      case "disappearingBlockAppear":    c = disappearingBlockAppear; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
+      case "disappearingBlockDisappear": c = disappearingBlockDisappear; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
+      case "movingPlatformSound":        c = movingPlatformSound; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
+        
+      case "waterSplashSound":           c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "breakingBlockSound":         c = breakingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "pistonPushSound":            c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "activateSpawnpointSound":    c = activateSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "respawnAtSpawnpointSound":   c = respawnAtSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
 
-      case "waterSplashSound":         c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "breakingBlockSound":       c = breakingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "pistonPushSound":          c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "activateSpawnpointSound":  c = activateSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "respawnAtSpawnpointSound": c = respawnAtSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-
-      case "earthquake_1_5_secs":      c = earthquake_1_5_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-      case "earthquake_2_secs":        c = earthquake_2_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-      case "earthquake_2_5_secs_loud": c = earthquake_2_5_secs_loud; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-      case "earthquake_3_secs":        c = earthquake_3_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
+      case "earthquake_1_5_secs":        c = earthquake_1_5_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
+      case "earthquake_2_secs":          c = earthquake_2_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
+      case "earthquake_2_5_secs_loud":   c = earthquake_2_5_secs_loud; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
+      case "earthquake_3_secs":          c = earthquake_3_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
 
       default: Debug.LogWarning("PlayerController: Sound " + soundName + " wasn't found."); break;
 

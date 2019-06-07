@@ -149,9 +149,39 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator Lvl1_RobotGetArmsScene() {
     LevelSettings.Instance.SetSetting("canMove", false);
     PlayerController.Instance.setValue("holdingItem", false);
+
+    SpriteRenderer robotTexture = GameObject.Find("RobotFigureTexture").GetComponent<SpriteRenderer>();
+    Sprite[] robotArmsAnimation = Resources.LoadAll<Sprite>("RobotGetArmsAnimation");
+
+    for (int i = 0; i < robotArmsAnimation.Length; i++) {
+      robotTexture.sprite = robotArmsAnimation[i];
+
+      float multiplier = 1f;
+      switch (i) {
+        case 0:
+          GameObject.Find("RobotFigure").GetComponent<Animator>().SetBool("RobotStraighten", true);
+          yield return new WaitForSeconds(.5f);
+          break;
+        case 1:
+          GameObject.Find("RobotFigure").GetComponent<Animator>().SetBool("RobotStraighten", false);
+          break;
+        case 24: multiplier = 6f; break;
+        case 28: multiplier = 4f; break;
+        default: break;
+      }
+
+      yield return new WaitForSeconds(.08f * multiplier);
+    }
+
+    // last image of animation -> looks to the right at player
+
     yield return new WaitForSeconds(.2f);
     DialogSystem.LoadDialog("lvl1_thank_you");
     yield return new WaitForSeconds(6f);
+
+    // return to look straight forward at camera
+    robotTexture.sprite = robotArmsAnimation[robotArmsAnimation.Length - 2];
+    
     DialogSystem.LoadDialog("lvl1_where_did_i_leave_my_legs");
     yield return new WaitForSeconds(6f);
     LevelEnd.Instance.endLevel();

@@ -40,8 +40,7 @@ public class PhysicsObject : MonoBehaviour {
 
   protected virtual void ComputeVelocity() {}
 
-  // has frequency of physics system
-  // is called every fixed frame-rate frame
+  // has frequency of physics system; called every fixed frame-rate frame
   void FixedUpdate() {
 
     // if player is set to frozen, don't calculate movement
@@ -53,30 +52,26 @@ public class PhysicsObject : MonoBehaviour {
     grounded = false;
 
     // change in position
-    Vector2 deltaPosition = velocity * Time.deltaTime,
-            moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x),
-            move = moveAlongGround * deltaPosition.x;
+    Vector2 deltaPosition = velocity * Time.deltaTime;
 
-    Movement(move, false);
+    xMovement((new Vector2(groundNormal.y, -groundNormal.x)) * deltaPosition.x);
 
-    move = Vector2.up * deltaPosition.y;
-
-    Movement(move, true);
+    yMovement(Vector2.up * deltaPosition.y);
 
   }
 
+  private void xMovement(Vector2 move) {Movement(move, false); }
+  private void yMovement(Vector2 move) {Movement(move, true); }
   private void Movement(Vector2 move, bool yMovement) {
 
-    float distance = move.magnitude;
+    float distance = move.magnitude; // betrag vektor
 
     if (distance > minMoveDistance) {
 
       int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
       hitBufferList.Clear();
 
-      for (int i = 0; i < count; i++) {
-        hitBufferList.Add(hitBuffer[i]);
-      }
+      for (int i = 0; i < count; i++) hitBufferList.Add(hitBuffer[i]);
 
       for (int i = 0; i < hitBufferList.Count; i++) {
 
@@ -92,9 +87,7 @@ public class PhysicsObject : MonoBehaviour {
 
         float projection = Vector2.Dot(velocity, currentNormal);
 
-        if (projection < 0) {
-          velocity = velocity - projection * currentNormal;
-        }
+        if (projection < 0) velocity = velocity - projection * currentNormal;
 
         float modifiedDistance = hitBufferList[i].distance - shellRadius;
         distance = modifiedDistance < distance ? modifiedDistance : distance;
@@ -103,6 +96,7 @@ public class PhysicsObject : MonoBehaviour {
 
     }
 
+    // calculate final position of rigid body
     rb2d.position = rb2d.position + move.normalized * distance;
 
   }

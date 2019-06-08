@@ -124,6 +124,18 @@ public class PhysicsObject : MonoBehaviour {
       triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
     }
 
+    Vector2 v1 = Vector2.right, v2 = Vector2.zero;
+
+    v2.x = transform.position.x - Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+    v2.y = transform.position.y - Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+
+
+    // angle between two vectors
+    float angleMousePlayer = v1.x * v2.x + v1.y * v2.y;
+    angleMousePlayer /= (Mathf.Sqrt(Mathf.Pow(v1.x,2) + Mathf.Pow(v1.y, 2)) * Mathf.Sqrt(Mathf.Pow(v2.x, 2) + Mathf.Pow(v2.y, 2)));
+    angleMousePlayer = Mathf.Rad2Deg * Mathf.Acos(angleMousePlayer);
+    Debug.Log(angleMousePlayer);
+
     rb2d.position = pos;
 
   }

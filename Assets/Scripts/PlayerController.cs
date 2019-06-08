@@ -189,20 +189,6 @@ public class PlayerController : PhysicsObject
   }
 
 
-  /*
-   ==============
-   === LIGHTS ===
-   ==============
-   */
-
-  // lights for each of the different textures
-  public Light circleLight, triangleLight, rectangleLight;
-  // intensity is set in inspector; value is used while morphing
-  private float circleLightIntensity = 0.0f,
-                triangleLightIntensity = 0.0f,
-                rectangleLightIntensity = 0.0f;
-
-
 
   /*
    ==============
@@ -300,19 +286,48 @@ public class PlayerController : PhysicsObject
 
     lastX = transform.position.x;
     lastY = transform.position.y;
-
-    // take light intensity values from Unity inspector
-    circleLightIntensity = circleLight.intensity;
-    triangleLightIntensity = triangleLight.intensity;
-    rectangleLightIntensity = rectangleLight.intensity;
-
-    // the inner texture objects sprite renderer
-    SpriteRenderer spriteRenderer = textureObject.GetComponent<SpriteRenderer>();
-
+    
     // scan given directory and load images as sprites into memory
-    rectToCircle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle");
-    rectToTriangle = Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle");
-    triangleToCircle = Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle");
+    rectToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle"), "Rectangle", "Circle");
+    rectToTriangle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle"), "Rectangle", "Triangle");
+    triangleToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle"), "Triangle", "Circle");
+
+
+    Sprite[] AddFiles(Sprite[] arr, string fileFront, string fileEnd) {
+      Sprite[] newArr = AddFileAtFront(arr, fileFront);
+      return AddFileAtEnd(newArr, fileEnd);
+    }
+    Sprite[] AddFileAtFront(Sprite[] arr, string file) {
+      Sprite[] newArr = new Sprite[arr.Length + 1];
+      for (int i = 0; i < newArr.Length; i++) {
+        if (i == 0) {
+          switch (file) {
+            case "Circle": newArr[i] = Resources.Load<Sprite>("Morph/Final/circle_with_light"); break;
+            case "Triangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/triangle_with_light"); break;
+            case "Rectangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/rectangle_with_light"); break;
+            default: break;
+          }
+        }
+        else newArr[i] = arr[i - 1];
+      }
+      return newArr;
+    }
+
+    Sprite[] AddFileAtEnd(Sprite[] arr, string file) {
+      Sprite[] newArr = new Sprite[arr.Length + 1];
+      for (int i = 0; i < newArr.Length; i++) {
+        if (i == newArr.Length - 1) {
+          switch (file) {
+            case "Circle": newArr[i] = Resources.Load<Sprite>("Morph/Final/circle_with_light"); break;
+            case "Triangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/triangle_with_light"); break;
+            case "Rectangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/rectangle_with_light"); break;
+            default: break;
+          }
+        }
+        else newArr[i] = arr[i];
+      }
+      return newArr;
+    }
 
   }
 
@@ -542,6 +557,14 @@ public class PlayerController : PhysicsObject
     maxSpeed = resA.maxSpeed;
     jumpTakeOffSpeed = resA.jumpTakeOffSpeed;
     textureObject.GetComponent<SpriteRenderer>().sprite = resA.sprite;
+
+    // particle color for movement particles
+    ParticleSystem.MainModule mainModule = movementParticles.GetComponent<ParticleSystem>().main;
+    mainModule.startColor = resA.particleColor;
+
+    // particle color for death particles
+    mainModule = deathParticles.GetComponent<ParticleSystem>().main;
+    mainModule.startColor = resA.particleColor;
   }
 
 
@@ -664,8 +687,8 @@ public class PlayerController : PhysicsObject
 
   }
   
-  private Sprite[] rectToCircle, rectToTriangle, triangleToCircle; // sprite arrays containing morphing graphics
-  private Sprite[] animationArray; // the final array which will be animated
+  private Sprite[] rectToCircle, rectToTriangle, triangleToCircle, // sprite arrays containing morphing graphics
+                   animationArray; // the final array which will be animated
 
   protected void ChangeState() {
 
@@ -696,16 +719,19 @@ public class PlayerController : PhysicsObject
     // play sound
     PlaySound("morphSound");
 
-    // set proper lights
-    circleLight.gameObject.SetActive(newState == "Circle" ? true : false);
-    triangleLight.gameObject.SetActive(newState == "Triangle" ? true : false);
-    rectangleLight.gameObject.SetActive(newState == "Rectangle" ? true : false);
-
     // set movement variables of the character type
     Attributes a = getAttributes(newState);
     gravityModifier = a.gravityModifier;
     maxSpeed = a.maxSpeed;
     jumpTakeOffSpeed = a.jumpTakeOffSpeed;
+
+    // particle color for movement particles
+    ParticleSystem.MainModule mainModule = movementParticles.GetComponent<ParticleSystem>().main;
+    mainModule.startColor = a.particleColor;
+
+    // particle color for death particles
+    mainModule = deathParticles.GetComponent<ParticleSystem>().main;
+    mainModule.startColor = a.particleColor;
 
     // reset frame counter for state-change animation
     frameCounter = 0;
@@ -735,9 +761,6 @@ public class PlayerController : PhysicsObject
         ea.z = 0f;
         textureObject.transform.eulerAngles = ea;
 
-        circleLight.intensity = 1f;
-        triangleLight.intensity = 1f;
-        rectangleLight.intensity = 1f;
       }
 
       textureObject.GetComponent<SpriteRenderer>().sprite = animationArray[frameCounter] as Sprite;
@@ -748,9 +771,6 @@ public class PlayerController : PhysicsObject
         frameCounter = 0;
         isChangingState = false;
         state = newState;
-        circleLight.intensity = circleLightIntensity;
-        triangleLight.intensity = triangleLightIntensity;
-        rectangleLight.intensity = rectangleLightIntensity;
       }
 
       frameCounter++;

@@ -40,8 +40,7 @@ public class PlayerController : PhysicsObject
                steppedOnPiston = false;
 
   private bool isChangingState = false;
-  private string state = "Circle",
-                 newState = "";
+  private string newState; // state is defined in physics object
 
   public bool setSpawnpoint = false;
 
@@ -49,7 +48,6 @@ public class PlayerController : PhysicsObject
               frozenInLastFrame = false;
   private float frozenYPos = 0.0f;
 
-  private bool inDoubleJump = false; // is true, if player executed double jump and is still in air
   private float secondsNotGrounded = 0f,
                 secondsSinceLastJump = 0f; // timer for seconds the player hadn't been grounded
   private bool groundedInLastFrame = true;
@@ -483,16 +481,13 @@ public class PlayerController : PhysicsObject
           // jumping
           if (Input.GetButtonDown("Jump")) {
 
-            if (secondsNotGrounded < 0.13f && 
-                secondsSinceLastJump >= 0.4f) {
+            if (secondsNotGrounded < 0.13f && secondsSinceLastJump >= 0.4f) {
               textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
               velocity.y = jumpTakeOffSpeed;
               secondsSinceLastJump = 0f;
             }
             // double jump for triangle
-            else if (state == "Triangle" && 
-                     velocity.y > 0f && 
-                     !inDoubleJump) {
+            else if (state == "Triangle" && velocity.y > 0f && !inDoubleJump) {
               inDoubleJump = true;
               velocity.y = jumpTakeOffSpeed * 1.2f;
               secondsSinceLastJump = 0f;

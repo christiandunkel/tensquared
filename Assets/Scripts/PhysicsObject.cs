@@ -7,7 +7,11 @@ public class PhysicsObject : MonoBehaviour {
   public float minGroundNormalY = .65f;
 
   // scale gravity with this value
-  public float gravityModifier = 4f;
+  protected float gravityModifier = 4f;
+
+  protected string state = "Circle";
+  protected bool inDoubleJump = false; // is true, if player executed double jump and is still in air
+  protected float triangleDoubleJumpDir = 0f;
 
   protected Vector2 velocity, targetVelocity, groundNormal;
   protected bool grounded;
@@ -16,15 +20,17 @@ public class PhysicsObject : MonoBehaviour {
   protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
   protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
 
-
   protected const float minMoveDistance = 0.001f,
                         shellRadius = 0.01f;
+
+  private LineRenderer triangleLineRenderer;
 
   // reference to the 2D rigid body connected to the object
   protected Rigidbody2D rb2d;
 
   void OnEnable() {
     rb2d = GetComponent<Rigidbody2D>();
+    triangleLineRenderer = GetComponent<LineRenderer>();
   }
 
   void Start() {
@@ -54,12 +60,13 @@ public class PhysicsObject : MonoBehaviour {
     // change in position
     Vector2 deltaPosition = velocity * Time.deltaTime;
 
+    // apply normal player movement (left, right, jump)
     xMovement((new Vector2(groundNormal.y, -groundNormal.x)) * deltaPosition.x);
-
     yMovement(Vector2.up * deltaPosition.y);
 
   }
 
+  // apply movement to rigid body on 2D axes
   private void xMovement(Vector2 move) {Movement(move, false); }
   private void yMovement(Vector2 move) {Movement(move, true); }
   private void Movement(Vector2 move, bool yMovement) {
@@ -97,7 +104,27 @@ public class PhysicsObject : MonoBehaviour {
     }
 
     // calculate final position of rigid body
-    rb2d.position = rb2d.position + move.normalized * distance;
+    Vector2 pos = rb2d.position + move.normalized * distance;
+
+    // calculate position from triangle double jump
+    if (yMovement && !grounded && state == "Triangle") {
+
+      // draw line from player to mouse cursor
+      triangleLineRenderer.SetPositions(new Vector3[2] {transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) });
+
+      if (inDoubleJump) {
+        pos.x += .1f;
+
+        // reset line renderer
+        triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
+      }
+    }
+    else {
+      // reset line renderer
+      triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
+    }
+
+    rb2d.position = pos;
 
   }
 

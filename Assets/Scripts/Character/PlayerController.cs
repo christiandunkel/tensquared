@@ -466,7 +466,7 @@ public class PlayerController : PhysicsObject {
 
     // test if player is currently moving
     testForMovement();
-
+    
     if (!isDead) {
 
       // handle movement of character on x and y axis
@@ -487,12 +487,20 @@ public class PlayerController : PhysicsObject {
               textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);
               velocity.y = jumpTakeOffSpeed;
               secondsSinceLastJump = 0f;
+
+              if (state == "Triangle") {
+                PlaySound("jumpingTriangleSound");
+              }
             }
             // double jump for triangle
             else if (state == "Triangle" && velocity.y > 0f && !inDoubleJump) {
               inDoubleJump = true;
               velocity.y = jumpTakeOffSpeed * 1.2f;
               secondsSinceLastJump = 0f;
+
+              if (state == "Triangle") {
+                PlaySound("jumpingTriangleSound");
+              }
             }
 
           }

@@ -80,6 +80,10 @@ public class PhysicsObject : MonoBehaviour {
         // draw line from player to mouse cursor
         triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) });
         doubleJumpMovement = Vector2.zero;
+        /*
+        if (triangleRotationZ == 0f && state == "Triangle") {
+          PlayerController.Instance.PlaySound("loadingTriangleSound");
+        }*/
 
 
         // calculate angle in which to rotate the triangle

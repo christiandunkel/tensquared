@@ -52,9 +52,6 @@ public class PhysicsObject : MonoBehaviour {
 
   protected virtual void ComputeVelocity() {}
 
-  private float triangleRotationZ = 0f,
-                rotationTimer = 0f;
-
   // has frequency of physics system; called every fixed frame-rate frame
   void FixedUpdate() {
 
@@ -69,23 +66,37 @@ public class PhysicsObject : MonoBehaviour {
 
       if (inDoubleJump) {
 
-        if (doubleJumpMovement.x == 0f && doubleJumpMovement.y == 0f) setDoubleJumpMovement();
+        if (doubleJumpMovement.x == 0f && doubleJumpMovement.y == 0f) {
+          setDoubleJumpMovement();
+          resetTriangleRotation();
+        }
 
         // reset line renderer
         triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
-        triangleRotationZ = 0f;
 
       }
       else {
-        // draw line from player to mouse cursor
-        triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) });
-        doubleJumpMovement = Vector2.zero;
 
-        // calculate angle in which to rotate the triangle
-        float angle = getAngleMousePlayer();
+        if (velocity.y > 0f) {
 
-        // leftwards : rightwards
-        triangleRotationZ = angle < 90f ? 90f - angle : -(angle - 90f);
+          // draw line from player to mouse cursor
+          triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) });
+          doubleJumpMovement = Vector2.zero;
+
+          // calculate angle in which to rotate the triangle
+          float angle = getAngleMousePlayer();
+
+          // leftwards : rightwards
+          Vector3 newRotation = textureObject.transform.localEulerAngles;
+          newRotation.z = angle < 90f ? 90f - angle : -(angle - 90f);
+          textureObject.transform.localEulerAngles = newRotation;
+
+        }
+        else {
+          // reset line renderer
+          triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
+          resetTriangleRotation();
+        }
 
       }
 
@@ -94,44 +105,12 @@ public class PhysicsObject : MonoBehaviour {
       // reset line renderer
       triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
       doubleJumpMovement = Vector2.zero;
-      triangleRotationZ = 0f;
 
-    }
-
-    // rotate the triangle slowly towards the new rotation
-    if (state == "Triangle") {
-
-      Vector3 newRotation = textureObject.transform.localEulerAngles;
-
-      if (newRotation.z > -3f && newRotation.z > 357f) {
+      // reset rotation of triangle
+      if (textureObject.transform.localEulerAngles.z > 357f && textureObject.transform.localEulerAngles.z > 3f) {
+        Vector3 newRotation = textureObject.transform.localEulerAngles;
         newRotation.z = 0f;
         textureObject.transform.localEulerAngles = newRotation;
-      }
-      // only update triangle rotation at a fixed time interval
-      else if (rotationTimer > 0.02f) {
-        rotationTimer = 0f;
-
-
-        // get difference between the current and desired angle
-        float temp = newRotation.z > 200f ? newRotation.z - 360f : newRotation.z; // when leaning rightwards 1 degreem it starts at 360 in euler angles and goes down from there
-        float diff = Mathf.Abs(temp - triangleRotationZ);
-
-        Debug.Log(diff);
-
-        // if difference is sufficiently high, move into that direction by 1/10 of that difference
-        // == slowed movement
-        if (diff > 5) {
-          if (triangleRotationZ != 0f) diff /= 10;
-          else diff /= 2;
-        }
-        
-        newRotation.z += diff;
-
-        textureObject.transform.localEulerAngles = newRotation;
-
-      }
-      else {
-        rotationTimer += Time.fixedDeltaTime;
       }
 
     }
@@ -144,6 +123,48 @@ public class PhysicsObject : MonoBehaviour {
     // apply normal player movement (left, right, jump)
     xMovement((new Vector2(groundNormal.y, -groundNormal.x)) * deltaPosition.x);
     yMovement(Vector2.up * deltaPosition.y);
+
+  }
+
+
+  private bool playingResetTriangleRotationAnimation = false;
+  public void resetTriangleRotation() {
+
+    if (!playingResetTriangleRotationAnimation) {
+      playingResetTriangleRotationAnimation = true;
+      StopCoroutine(resetTriangleRotationCoroutine());
+      StartCoroutine(resetTriangleRotationCoroutine());
+    }
+
+  }
+
+  IEnumerator resetTriangleRotationCoroutine() {
+
+    int stepNumber = 15;
+    Vector3 startRotation = textureObject.transform.localEulerAngles;
+
+    // leftwards
+    if (startRotation.z > 269f) startRotation.z -= 360f;
+
+    float step = startRotation.z / stepNumber;
+
+    for (int i = 0; i < stepNumber; i++) {
+
+      Vector3 newRotation = startRotation;
+      newRotation.z = step * (stepNumber-i);
+      textureObject.transform.localEulerAngles = newRotation;
+
+      yield return new WaitForFixedUpdate();
+    }
+
+    Debug.Log("PhysicsObject: Reset triangle rotation.");
+
+    Vector3 nullRotation = textureObject.transform.localEulerAngles;
+    nullRotation.z = 0f;
+    textureObject.transform.localEulerAngles = nullRotation;
+
+    playingResetTriangleRotationAnimation = false;
+    StopCoroutine(resetTriangleRotationCoroutine());
 
   }
 

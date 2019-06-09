@@ -94,7 +94,7 @@ public class PlayerController : PhysicsObject {
   private GameObject parentObject;
 
   public GameObject heldItemObject,
-                    textureContainer, textureObject,
+                    textureContainer, 
                     movementParticles, deathParticles;
 
   public GhostingEffect ghost;
@@ -275,9 +275,9 @@ public class PlayerController : PhysicsObject {
    */
 
   void Awake() {
+    Instance = this;
 
     parentObject = gameObject.transform.parent.gameObject;
-    Instance = this;
 
     Debug.Log("Player: With parent object '" + parentObject.name + "' initialized.");
 

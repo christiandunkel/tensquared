@@ -25,6 +25,9 @@ public class DisappearingBlock : MonoBehaviour {
 
   private float distanceToPlayer() {
 
+    // return high value if player isn't yet initialized
+    if (PlayerController.Instance == null) return 2000f;
+
     Vector2 v1 = new Vector2(transform.position.x, 
                              transform.position.y),
             v2 = new Vector2(PlayerController.Instance.gameObject.transform.position.x, 

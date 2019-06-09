@@ -1,6 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * plays the sounds for the sound test in the options menu (inside main menu)
+ */
 
 public class SoundTest : MonoBehaviour {
 
@@ -12,17 +15,15 @@ public class SoundTest : MonoBehaviour {
   public AudioSource mainMenuMusicPlayer, musicPlayer, speechPlayer, soundPlayer;
 
   private bool soundTestIsPlaying = false;
-  public void playSoundTest() {
 
+  public void playSoundTest() {
     if (!soundTestIsPlaying) {
       soundTestIsPlaying = true;
       StartCoroutine(soundTestCoroutine());
     }
-    
   }
 
   public void stopSoundTest()  {
-
     if (soundTestIsPlaying) {
       StopCoroutine(soundTestCoroutine());
       soundTestIsPlaying = false;

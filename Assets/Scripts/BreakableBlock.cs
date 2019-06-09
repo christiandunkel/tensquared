@@ -1,6 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * powers the 'breakable block' prefab
+ */
 
 public class BreakableBlock : MonoBehaviour {
 

@@ -1,15 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DialogSystem : MonoBehaviour
-{
+/*
+ * powers the dialog boxes and roboter voice in the levels
+ */
+
+public class DialogSystem : MonoBehaviour {
 
   // singleton
-
   public static DialogSystem Instance;
 
   void Awake() {
@@ -17,7 +17,7 @@ public class DialogSystem : MonoBehaviour
     dialogQueue = new ArrayList();
   }
 
-
+  // list of dialogs to be played one after the other
   private static ArrayList dialogQueue;
 
   // read-only states of dialog box
@@ -78,8 +78,7 @@ public class DialogSystem : MonoBehaviour
 
   // adds the dialog to queue 
   // -> will be played the earliest where no other dialog is playing
-  public static void LoadDialog(string name)
-  {
+  public static void LoadDialog(string name) {
     dialogQueue.Add(name);
   }
 

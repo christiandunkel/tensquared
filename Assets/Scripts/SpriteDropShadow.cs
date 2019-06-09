@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEngine;
+
+/*
+ * generates a black, transparent version of the sprite 
+ * displayed by the attached game object as a shadow behind it
+ */
 
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class SpriteDropShadow : MonoBehaviour
-{
+public class SpriteDropShadow : MonoBehaviour {
 
   public Vector3 shadowOffset = new Vector3(0.3f, -0.3f, 0f);
   private Material shadowMaterial = null;
@@ -25,8 +26,8 @@ public class SpriteDropShadow : MonoBehaviour
     shadow.transform.localPosition = shadowOffset;
     shadow.transform.localRotation = Quaternion.identity;
 
-    SpriteRenderer sr_original = GetComponent<SpriteRenderer>();
-    SpriteRenderer sr_shadow = shadow.AddComponent<SpriteRenderer>();
+    SpriteRenderer sr_original = GetComponent<SpriteRenderer>(),
+                   sr_shadow = shadow.AddComponent<SpriteRenderer>();
 
     sr_shadow.sprite = sr_original.sprite;
     sr_shadow.material = shadowMaterial;

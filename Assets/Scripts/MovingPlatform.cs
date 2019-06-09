@@ -1,20 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+/*
+ * powers the 'moving platform' prefab
+ */
 
 public class MovingPlatform : MonoBehaviour
 {
 
-  public Transform leftPos, rightPos;
-  public Transform startPos;
+  public Transform leftPos, rightPos,
+                   startPos;
   public float speed;
 
   private Vector3 nextPos;
-  private 
 
-  // Start is called before the first frame update
-  void Start()
-  {
+  void Start() {
 
     // to calculate offset
     // (pos' are placed at borders in unity to where platform should move,
@@ -34,8 +33,7 @@ public class MovingPlatform : MonoBehaviour
   }
 
   // Update is called once per frame
-  void Update()
-  {
+  void Update()  {
 
     if (gameObject.transform.localPosition == leftPos.localPosition) {
       nextPos =  rightPos.localPosition;

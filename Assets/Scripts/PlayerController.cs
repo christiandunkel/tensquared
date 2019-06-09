@@ -1,10 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
-public class PlayerController : PhysicsObject
-{
+/*
+ * manages most of the player actions except for the physics calculations, which happen in the linked physics object
+ * is joint between other a lot of scripts and other scripts / managers
+ */
+
+public class PlayerController : PhysicsObject {
 
   // singleton
   public static PlayerController Instance;

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * powers the 'disappearing block' prefab
+ */
 
 public class DisappearingBlock : MonoBehaviour {
 

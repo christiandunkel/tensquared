@@ -1,10 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * manages the tool tips displayed throughout the levels
+ */
 
 public class TooltipManager : MonoBehaviour {
 
-
+  // singleton
   public static TooltipManager Instance;
 
   private static GameObject tooltipManager;
@@ -46,27 +49,22 @@ public class TooltipManager : MonoBehaviour {
 
   }
 
-  public static void hideTooltip(string name)
-  {
+  public static void hideTooltip(string name) {
 
     GameObject obj = null;
 
-    foreach (GameObject o in tooltipList)
-    {
-      if (o.name == name)
-      {
+    foreach (GameObject o in tooltipList) {
+      if (o.name == name) {
         obj = o;
         break;
       }
     }
 
-    if (obj == null)
-    {
+    if (obj == null) {
       Debug.Log("TooltipManager: Could not find tooltip with the name " + name);
       return;
     }
-    else
-    {
+    else {
       obj.GetComponent<Animator>().SetBool("Visible", false);
     }
 

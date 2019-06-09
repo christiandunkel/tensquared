@@ -1,6 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * powers all scripted events in the different levels
+ */
 
 public class ScriptedEventsManager : MonoBehaviour {
 
@@ -8,16 +11,15 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   public Animator virtualCameraAnimator;
   public int levelID = 1;
-  public bool playStartFrequence = true;
-  public bool playEvents = true;
+  public bool playStartFrequence = true,
+              playEvents = true;
 
   void Awake() {
 
     Instance = this;
 
-    if (!playStartFrequence || !playEvents) {
-      return;
-    }
+    // block start frequence if events or start frequence are disabled
+    if (!playStartFrequence || !playEvents) return;
 
     // start frequence of each level
     switch (levelID) {
@@ -30,9 +32,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   public void LoadEvent(int lvl, string name) {
 
     // only play events of current level
-    if (lvl != levelID || !playEvents) {
-      return;
-    }
+    if (lvl != levelID || !playEvents) return;
 
     switch (lvl) {
       case 1: LoadLevel1Event(); break;

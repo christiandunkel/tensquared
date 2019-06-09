@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
-using UnityEngine;
-using UnityEngine.SceneManagement;
+/*
+ * powers the pause menu; manages pausing and resuming the game
+ */
 
 public class PauseMenu : MonoBehaviour {
 

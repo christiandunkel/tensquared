@@ -1,35 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class General : MonoBehaviour
-{
+/*
+ * includes some general usage functions
+ */
 
-  public void disableButton(Button btn)
-  {
+public class General : MonoBehaviour {
+
+  public void disableButton(Button btn) {
     Debug.Log("General: Disabled button " + btn.name + ".");
     btn.interactable = false;
   }
 
-  public void enableButton(Button btn)
-  {
+  public void enableButton(Button btn) {
     Debug.Log("General: Enabled button " + btn.name + ".");
     btn.interactable = true;
   }
 
-  public void _loadSceneByName(string name)
-  {
-
+  public void _loadSceneByName(string name) {
     Debug.Log("General: Loaded scene " + name + ".");
-
     SceneManager.LoadScene(name);
-
   }
 
-  public void _quitGame()
-  {
+  public void _quitGame() {
 
     // close the application
     Application.Quit();

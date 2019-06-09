@@ -1,23 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Cinemachine;
-using UnityEngine.Events;
+
+/*
+ * can generate shaking effects of the camera of differing frequency, duration and amplitude
+ */
 
 public class CameraShake : MonoBehaviour
 {
 
   // singleton
   public static CameraShake Instance;
-  void Awake()
-  {
+  void Awake() {
     Instance = this;
   }
 
   private float shakeAmplitude = 1.2f,
-                shakeFrequency = 2.0f,
-    
-                elapsedTime = 0.0f;
+                shakeFrequency = 2f,
+                elapsedTime = 0f;
 
   // Cinemachine Shake
   public CinemachineVirtualCamera VirtualCamera;

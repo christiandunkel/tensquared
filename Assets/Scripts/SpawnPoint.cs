@@ -1,6 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+/*
+ * powers the 'spawnpoint' prefab
+ */
 
 public class SpawnPoint : MonoBehaviour {
 

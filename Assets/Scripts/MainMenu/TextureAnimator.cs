@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-using System.IO;
+/*
+ * loads sprites from ressources and plays them one after another 
+ * as an animation on the game object with the defined FPS
+ */
 
-public class TextureAnimator : MonoBehaviour
-{
+public class TextureAnimator : MonoBehaviour {
 
   // public variables
   public int framesPerSec = 30; 
@@ -21,9 +21,11 @@ public class TextureAnimator : MonoBehaviour
   private int spriteNum = 0;
   private bool ranOnce = false;
 
+  private float timer = 0.0f;
+  private int counter = 0;
+
   // Start is called before the first frame update
-  void Start()
-  {
+  void Start() {
 
     // this game object's sprite renderer
     spriteRenderer = gameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
@@ -37,49 +39,35 @@ public class TextureAnimator : MonoBehaviour
 
   }
 
-  private float timer = 0.0f;
-  private int counter = 0;
-
-  void Update()
-  {
+  void Update() {
 
     // stop after first runthrough, if loops are disabled
-    if (!loop && ranOnce)
-    {
-      return;
-    }
+    if (!loop && ranOnce) return;
     
     // use normal timer if delay is 0 or less than 0
-    if (delay <= 0.0f)
-    {
+    if (delay <= 0.0f) {
+
       timer += Time.deltaTime;
 
       // for beauty's sake, set negative values to 0
-      if (delay < 0.0f)
-      {
-        delay = 0.0f;
-      }
+      if (delay < 0f) delay = 0f;
 
     }
     // otherwise reduce delay timer until 0
-    else
-    {
+    else {
       delay -= Time.deltaTime;
     }
 
-    if (delayPerLoop_temp > 0.0f)
-    {
+    if (delayPerLoop_temp > 0.0f) {
       delayPerLoop_temp -= Time.deltaTime;
       return;
     }
 
     // draw every defined frame per second a new image
-    if (timer > (1f / framesPerSec))
-    {
+    if (timer > 1f / framesPerSec) {
 
       // reset to first image, when one cycle is complete
-      if (counter >= spriteNum)
-      {
+      if (counter >= spriteNum) {
         counter = 0;
         ranOnce = true;
         delayPerLoop_temp = delayPerLoop;

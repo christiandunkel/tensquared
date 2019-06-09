@@ -1,6 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * powers most of the physics calculations for the player to move
+ */
 
 public class PhysicsObject : MonoBehaviour {
 

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * powers the 'next level' menu at the end of any level
+ */
 
 public class LevelEnd : MonoBehaviour {
 
@@ -22,10 +25,8 @@ public class LevelEnd : MonoBehaviour {
 
       endMenuContainer = child.gameObject.GetComponent<CanvasGroup>();
 
-      foreach (Transform child2 in child.gameObject.transform)
-      {
-        switch (child2.gameObject.name)
-        {
+      foreach (Transform child2 in child.gameObject.transform) {
+        switch (child2.gameObject.name) {
           case "LevelCompleteAnimation": levelCompleteCG = child2.gameObject.GetComponent<CanvasGroup>(); break;
           case "NextLevelAnimation": nextLevelCG = child2.gameObject.GetComponent<CanvasGroup>(); break;
           default: break;

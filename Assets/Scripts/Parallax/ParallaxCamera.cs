@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-/* @basic script from 
- * https://answers.unity.com/questions/551808/parallax-scrolling-using-orthographic-camera.html 
+/* 
+ * attached to the camera of a level, powers parallax effect
+ * the basic script is from http://answers.unity.com/answers/564891/view.html
  */
 
 [ExecuteInEditMode]

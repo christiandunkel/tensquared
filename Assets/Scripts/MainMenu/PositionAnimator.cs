@@ -76,7 +76,7 @@ public class PositionAnimator : MonoBehaviour
 
       animateObjects.Add(obj);
 
-      /*printInformation(elem);*/
+      /*printInformation();
 
       void printInformation() {
         Debug.Log(
@@ -87,7 +87,7 @@ public class PositionAnimator : MonoBehaviour
             " after a delay of " + obj.delay + "s" +
             " over " + obj.steps + " steps."
           );
-      }
+      }*/
 
     }
 

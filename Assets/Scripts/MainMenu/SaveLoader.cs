@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 
 using UnityEngine;
 using UnityEngine.UI;
+
+/* 
+ * can import and export save data as base64-encoded, encrypted text
+ * loads given save data into player prefs
+ */
 
 public class SaveLoader : MonoBehaviour {
 

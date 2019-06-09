@@ -3,16 +3,19 @@
 using UnityEngine;
 using TMPro;
 
+/*
+ * manages the accessability of the levels (level buttons9 of the level menu (inside main menu)
+ */
+
 public class LevelManager : MonoBehaviour {
 
   // singleton
-
   public static LevelManager Instance;
 
   void Awake() {
     Instance = this;
 
-    Debug.Log("LevelManager: Loaded.");
+    Debug.Log("LevelManager: Started.");
 
     LoadLevelProgess();
   }

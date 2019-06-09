@@ -1,6 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * smoothly animates given objects to a new position in world space
+ */
 
 public class PositionAnimator : MonoBehaviour
 {
@@ -13,17 +16,15 @@ public class PositionAnimator : MonoBehaviour
   // immediately loads end positions all elements at their end positions
   public static bool disabledAnimation = false;
 
-  void Start()
-  {
+  private float timer = 0.0f;
+  private bool run = true;
 
-    if (disabledAnimation)
-    {
-      return;
-    }
+  void Start() {
+
+    if (disabledAnimation) return;
 
     // modify all elements
-    foreach (Element elem in elements)
-    {
+    foreach (Element elem in elements) {
 
       AnimateObject obj = new AnimateObject();
 
@@ -73,65 +74,53 @@ public class PositionAnimator : MonoBehaviour
       obj.leftToRight = elem.leftToRight;
       obj.downwards = elem.downwards;
 
-      /*Debug.Log(
-
-        elem.obj.name + " will move" + 
-        " from (x=" + startX + " y=" + startY + " z=" + startZ + ")" +
-        " to (x=" +   endX   + " y=" + endY   + " z=" + endZ + ")" +
-        " for the duration of " + obj.duration + "s" + 
-        " after a delay of " + obj.delay + "s" +
-        " over " + obj.steps + " steps."
-
-      );//*/
-
       animateObjects.Add(obj);
+
+      /*printInformation(elem);*/
+
+      void printInformation() {
+        Debug.Log(
+            elem.obj.name + " will move" +
+            " from (x=" + startX + " y=" + startY + " z=" + startZ + ")" +
+            " to (x=" + endX + " y=" + endY + " z=" + endZ + ")" +
+            " for the duration of " + obj.duration + "s" +
+            " after a delay of " + obj.delay + "s" +
+            " over " + obj.steps + " steps."
+          );
+      }
 
     }
 
   }
 
-  float timer = 0.0f;
-  bool run = true;
-
-  void Update()
-  {
+  void Update() {
 
     // only run if there's at least one object with more than 0 steps left
-    if (run)
-    {
-      Animate();
-    }
+    if (run) Animate();
     
   }
 
-  void Animate()
-  {
+  void Animate() {
 
     run = false;
 
     timer += Time.deltaTime;
 
-    if (animateObjects == null)
-    {
+    if (animateObjects == null) {
       Debug.Log("No objects to animate found.");
       return;
     }
 
     // go through each element and animate them
-    foreach (AnimateObject obj in animateObjects)
-    {
+    foreach (AnimateObject obj in animateObjects) {
 
       // this element is still in delay phase, try in next tick again
-      if (timer < obj.delay)
-      {
+      if (timer < obj.delay) {
         run = true;
         continue;
       }
 
-      if (obj.steps > 0)
-      {
-
-        /*Debug.Log(obj.steps + " steps left for " + obj.obj.name);//*/
+      if (obj.steps > 0) {
 
         // this element was animated, thus try running in next tick as well
         run = true;
@@ -144,16 +133,14 @@ public class PositionAnimator : MonoBehaviour
         if (obj.stepsTotal > 70) { 
 
           // make first ten steps faster
-          if ((obj.stepsTotal - obj.steps) < 31)
-          {
+          if ((obj.stepsTotal - obj.steps) < 31)  {
             translateX += (obj.translate.z * obj.steps * 9.5f / 100);
             translateY += (obj.translate.z * obj.steps * 9.5f / 100);
             translateZ += (obj.translate.z * obj.steps * 9.5f / 100);
           }
 
           // make last ten steps slower
-          if (obj.steps < 31)
-          {
+          if (obj.steps < 31) {
             int temp = obj.steps + 1 - 30;
             
             translateX -= (obj.translate.z * temp * 9.5f / 100);
@@ -179,8 +166,7 @@ public class PositionAnimator : MonoBehaviour
 
   // class used to assign values via Unity inspector
   [System.Serializable]
-  public struct Element
-  {
+  public struct Element {
 
     // attributes
     [SerializeField] public GameObject obj;
@@ -195,8 +181,7 @@ public class PositionAnimator : MonoBehaviour
   }
 
   // class generating objects used by the script
-  public class AnimateObject
-  {
+  public class AnimateObject {
 
     public GameObject obj;
     public float delay;

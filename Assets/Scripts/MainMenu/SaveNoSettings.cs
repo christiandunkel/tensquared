@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿/* 
+ * determines JSON structure of save file without settings
+ */
 
-public class SaveNoSettings
-{
+public class SaveNoSettings {
 
   public string lvls_unlocked;
   public string lvl1_timer;

@@ -1,6 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/*
+ * provides methods for buttons to toggle UI elements with the CanvasGroup component
+ * methods can enable / disable the CanvasGroup (and its children), 
+ * as well as make them fade-in or fade-out with a smooth animation
+ */
+
 public class CanvasGroupFader : MonoBehaviour {
 
   public static CanvasGroupFader Instance;
@@ -13,38 +19,32 @@ public class CanvasGroupFader : MonoBehaviour {
   public float fadeinTime = 0.3f,
                fadeoutTime = 0.1f;
 
-  public void FadeIn(GameObject obj)
-  {
+  public void FadeIn(GameObject obj) {
     CanvasGroup uiElement = obj.GetComponent<CanvasGroup>();
     StartCoroutine(FadeCanvasGroup(uiElement, 0, 1, fadeinTime, false, true, true));
   }
 
-  public void FadeIn(string name)
-  {
+  public void FadeIn(string name) {
     CanvasGroup uiElement = GameObject.Find(name).GetComponent<CanvasGroup>();
     StartCoroutine(FadeCanvasGroup(uiElement, 0, 1, fadeinTime, false, true, true));
   }
 
-  public void FadeIn(int id)
-  {
+  public void FadeIn(int id) {
     CanvasGroup uiElement = uiElements[id];
     StartCoroutine(FadeCanvasGroup(uiElement, 0, 1, fadeinTime, false, true, true));
   }
 
-  public void FadeOut(GameObject obj)
-  {
+  public void FadeOut(GameObject obj) {
     CanvasGroup uiElement = obj.GetComponent<CanvasGroup>();
     StartCoroutine(FadeCanvasGroup(uiElement, uiElement.alpha, 0, fadeoutTime, false, false, false));
   }
 
-  public void FadeOut(string name)
-  {
+  public void FadeOut(string name) {
     CanvasGroup uiElement = GameObject.Find(name).GetComponent<CanvasGroup>();
     StartCoroutine(FadeCanvasGroup(uiElement, uiElement.alpha, 0, fadeoutTime, false, false, false));
   }
 
-  public void FadeOut(int id)
-  {
+  public void FadeOut(int id) {
     CanvasGroup uiElement = uiElements[id];
     StartCoroutine(FadeCanvasGroup(uiElement, uiElement.alpha, 0, fadeoutTime, false, false, false));
   }

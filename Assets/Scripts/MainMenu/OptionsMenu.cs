@@ -1,6 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+/*
+ * simple script to manage the accessability of the options menu (inside main menu)
+ */
 
 public class OptionsMenu : MonoBehaviour {
 

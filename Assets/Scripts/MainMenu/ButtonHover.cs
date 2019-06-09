@@ -5,6 +5,7 @@
  * the actual hover effect may be defined in the animator of the game object
  */
 
+[RequireComponent(typeof(Animator))]
 public class ButtonHover : MonoBehaviour {
 
   private Animator animator = null;
@@ -16,9 +17,7 @@ public class ButtonHover : MonoBehaviour {
   private bool isHovering = false;
 
   public void Update() {
-    if (animator.GetBool("Hovering")) {
-      animator.SetBool("Hovering", isHovering);
-    }
+    animator.SetBool("Hovering", isHovering);
   }
 
   public void hoverEnter() {

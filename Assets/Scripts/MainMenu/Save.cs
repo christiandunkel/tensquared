@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿/* 
+ * determines JSON structure of save file (if settings are included)
+ */
 
-public class Save
-{
+public class Save {
 
   // settings
   public string music_volume;

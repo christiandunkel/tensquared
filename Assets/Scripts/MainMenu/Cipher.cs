@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using System;
+﻿using System;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
 using System.Linq;
 
-// @basic cipher from https://stackoverflow.com/a/10177020
-public class Cipher : MonoBehaviour
-{
+using UnityEngine;
+
+/*
+ * script to securely encrypt and decrypt a plaintext
+ * the basic script is from https://stackoverflow.com/a/10177020
+ */
+
+public class Cipher : MonoBehaviour {
 
   // keysize of the encryption algorithm in bits
   private const int Keysize = 256;
@@ -18,8 +19,7 @@ public class Cipher : MonoBehaviour
   // number of iterations for 'password bytes generation' function
   private const int DerivationIterations = 1000;
 
-  public static string Encrypt(string plainText, string passPhrase)
-  {
+  public static string Encrypt(string plainText, string passPhrase) {
 
     // salt and IV are randomly generated each time, 
     // but preprended to encrypted cipher for decryption
@@ -27,20 +27,17 @@ public class Cipher : MonoBehaviour
     var ivStringBytes = RandomEntropy();
     var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
-    using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
-    {
+    using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations)) {
       var keyBytes = password.GetBytes(Keysize / 8);
-      using (var symmetricKey = new RijndaelManaged())
-      {
+      using (var symmetricKey = new RijndaelManaged()) {
+
         symmetricKey.BlockSize = 256;
         symmetricKey.Mode = CipherMode.CBC;
         symmetricKey.Padding = PaddingMode.PKCS7;
-        using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes))
-        {
-          using (var memoryStream = new MemoryStream())
-          {
-            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-            {
+
+        using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes)) {
+          using (var memoryStream = new MemoryStream()) {
+            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write)) {
               cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
               cryptoStream.FlushFinalBlock();
               // create final bytes as concatenation of random salt, iv and cipher bytes
@@ -55,12 +52,12 @@ public class Cipher : MonoBehaviour
         }
       }
     }
+
   }
 
-  public static string Decrypt(string cipherText, string passPhrase)
-  {
-    // get complete stream of bytes that represent:
+  public static string Decrypt(string cipherText, string passPhrase) {
 
+    // get complete stream of bytes that represent:
     // [32 bytes of Salt] + [32 bytes of IV] + [n bytes of CipherText]
     var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
 
@@ -73,20 +70,17 @@ public class Cipher : MonoBehaviour
     // get actual cipher text bytes by removing the first 64 bytes from the cipherText string
     var cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip((Keysize / 8) * 2).Take(cipherTextBytesWithSaltAndIv.Length - ((Keysize / 8) * 2)).ToArray();
 
-    using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
-    {
+    using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations)) {
       var keyBytes = password.GetBytes(Keysize / 8);
-      using (var symmetricKey = new RijndaelManaged())
-      {
+      using (var symmetricKey = new RijndaelManaged()) {
+
         symmetricKey.BlockSize = 256;
         symmetricKey.Mode = CipherMode.CBC;
         symmetricKey.Padding = PaddingMode.PKCS7;
-        using (var decryptor = symmetricKey.CreateDecryptor(keyBytes, ivStringBytes))
-        {
-          using (var memoryStream = new MemoryStream(cipherTextBytes))
-          {
-            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
-            {
+
+        using (var decryptor = symmetricKey.CreateDecryptor(keyBytes, ivStringBytes)) {
+          using (var memoryStream = new MemoryStream(cipherTextBytes)) {
+            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read)) {
               var plainTextBytes = new byte[cipherTextBytes.Length];
               var decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
               memoryStream.Close();
@@ -97,17 +91,16 @@ public class Cipher : MonoBehaviour
         }
       }
     }
+
   }
 
   // generate 256 bits of random entropy
-  private static byte[] RandomEntropy()
-  {
+  private static byte[] RandomEntropy() {
 
     // 32 bites * 8 = 256 bits
     var randomBytes = new byte[Keysize / 8];
 
-    using (var rngCsp = new RNGCryptoServiceProvider())
-    {
+    using (var rngCsp = new RNGCryptoServiceProvider()) {
       // fill with cryptographically secure random bytes
       rngCsp.GetBytes(randomBytes);
     }

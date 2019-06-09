@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using UnityEngine;
 using TMPro;
 
-public class LevelManager : MonoBehaviour
-{
+public class LevelManager : MonoBehaviour {
 
   // singleton
 

@@ -1,15 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class AboutMenu : MonoBehaviour
-{
+/*
+ * script powers the animation of "scrolling down", when about menu (inside main menu) is opened,
+ * as well as the "scrolling up" animation, when the about menu is closed
+ */
 
+public class AboutMenu : MonoBehaviour {
+
+  // all objects that will be moved upwards, when scrolling down to animation menu
   public GameObject[] obj = null;
-  public GameObject[] btns = null;
-  private Vector2[] startPos = null;
 
+  // all buttons that may trigger the about menu appearing / disappearing
+  // buttons will be disabled while animation is playing
+  public GameObject[] btns = null;
+
+  private Vector2[] startPos = null;
   private float moveValue = 839.0f;
 
   void Start() {
@@ -24,57 +30,59 @@ public class AboutMenu : MonoBehaviour
 
   }
 
-  private float duration = 1.2f;
-  private float timer = 0.0f;
+
+  private int move = 0, // 0 = disabled
+                        // 1 = move down (to about menu)
+                        // 2 = move up (back to main menu)
+              lastMove = 2;
+
+  private float duration = 1.2f,
+                timer = 0.0f;
 
   void Update() {
 
-    if (move > 0) {
+    // cancel, if movement is disabled 
+    if (move <= 0) return;
 
-      // new run, disable button
-      if (timer == 0.0f) {
-        foreach (GameObject b in btns) {
-          b.GetComponent<Button>().interactable = false;
-        }
+    // new run, disable button
+    if (timer == 0.0f) {
+      foreach (GameObject b in btns) {
+        b.GetComponent<Button>().interactable = false;
+      }
+    }
+
+    timer += Time.deltaTime / duration;
+
+    int counter = 0;
+    foreach (GameObject o in obj) {
+
+      Vector2 posA = new Vector2(startPos[counter].x, startPos[counter].y + moveValue);
+
+      if (move == 1) {
+        o.transform.localPosition = Vector2.Lerp(startPos[counter], posA, timer);
+      }
+      else if (move == 2) {
+        o.transform.localPosition = Vector2.Lerp(posA, startPos[counter], timer);
       }
 
-      timer += Time.deltaTime / duration;
+      counter++;
 
-      int counter = 0;
-      foreach (GameObject o in obj) {
+    }
 
-        Vector2 posA = new Vector2(startPos[counter].x, startPos[counter].y + moveValue);
+    // end of animation
+    if (timer > duration) {
 
-        if (move == 1) {
-          o.transform.localPosition = Vector2.Lerp(startPos[counter], posA, timer);
-        }
-        else if (move == 2) {
-          o.transform.localPosition = Vector2.Lerp(posA, startPos[counter], timer);
-        }
+      move = 0;
+      timer = 0;
 
-        counter++;
-
-      }
-
-      // end of animation
-      if (timer > duration) {
-
-        move = 0;
-        timer = 0;
-
-        // enable all buttons again
-        foreach (GameObject b in btns)
-        {
-          b.GetComponent<Button>().interactable = true;
-        }
-
+      // enable all buttons again
+      foreach (GameObject b in btns) {
+        b.GetComponent<Button>().interactable = true;
       }
 
     }
-  }
 
-  private int move = 0;
-  private int lastMove = 2;
+  }
 
   public void MoveCamera() {
 

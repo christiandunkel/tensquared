@@ -1,7 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
+/*
+ * powers animation of "circle rolling into screen" in main menu
+ */
 
 public class CircleAnimation : MonoBehaviour {
 
@@ -13,39 +15,34 @@ public class CircleAnimation : MonoBehaviour {
   public GameObject image = null;
 
   // properties for circle rotation
-  public float rotationSpeed = -120.0f;
-  public float delay = 0.0f;
-  private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
+  public float rotationSpeed = -120f,
+               delay = 0f;
+  private Vector3 rotationVec = Vector3.zero;
 
   void Update() {
 
-    if ((timer > delay) && (distance < 200))
-    {
+    if (timer > delay && distance < 200) {
 
+      // additional value to slow down the circle's speed slowly
+      // the further he has rolled into the screen
       float reduceSpeed = (float) (distance * 2.1f) / 100;
 
       transform.Translate(new Vector3(4.3f - reduceSpeed, 0.0f, 0.0f));
 
-      distance += 1;
+      distance++;
       
     }
-    else
-    {
-      timer += Time.deltaTime;
-    }
+    else timer += Time.deltaTime;
 
     RotateCircle();
 
   }
 
   // rotate the child containing the circle image
-  void RotateCircle()
-  {
+  void RotateCircle() {
 
-    // update circle rotation on main menu screen
-    // and keep it in 360 degrees
-    float zRotation = Time.deltaTime * rotationSpeed;
-    zRotation %= 360;
+    // update circle rotation and keep it in 360 degrees
+    float zRotation = (Time.deltaTime * rotationSpeed) % 360;
 
     rotationVec.z = zRotation;
 

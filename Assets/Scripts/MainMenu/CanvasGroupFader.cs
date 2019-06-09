@@ -11,8 +11,8 @@ public class CanvasGroupFader : MonoBehaviour {
   }
 
   public CanvasGroup[] uiElements;
-  public float fadeinTime = 0.3f;
-  public float fadeoutTime = 0.1f;
+  public float fadeinTime = 0.3f,
+               fadeoutTime = 0.1f;
 
   public void FadeIn(GameObject obj)
   {
@@ -52,13 +52,10 @@ public class CanvasGroupFader : MonoBehaviour {
 
   // @ interactableDuring = child elements can be interacted with at start and during animation
   // @ interactableEnd = child elements can be interacted after the animation
-  public IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float lerpTime, bool interactableDuring, bool interactableEnd, bool isFadeInAnimation)
-  {
+  private IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float lerpTime, bool interactableDuring, bool interactableEnd, bool isFadeInAnimation) {
 
     float timeStartedLerping = Time.time,
-          timeSinceStarted = Time.time - timeStartedLerping,
-          percentageCompleted = timeSinceStarted / lerpTime;
-    
+          timeSinceStarted = Time.time - timeStartedLerping;
 
     // child elements interactable or not
     cg.interactable = interactableDuring;
@@ -68,16 +65,15 @@ public class CanvasGroupFader : MonoBehaviour {
           scaleY = cg.transform.localScale.y + 0.3f,
           scaleZ = cg.transform.localScale.z;
 
-    if (isFadeInAnimation)
-    {
+    if (isFadeInAnimation) {
       cg.gameObject.SetActive(true);
       cg.transform.localScale += new Vector3(scaleX, scaleY, scaleZ);
     }
 
-    while (true)
-    {
+    while (true) {
+
       timeSinceStarted = Time.time - timeStartedLerping;
-      percentageCompleted = timeSinceStarted / lerpTime;
+      float percentageCompleted = timeSinceStarted / lerpTime;
 
       // opacity
       float currentValue = Mathf.Lerp(start, end, percentageCompleted);
@@ -94,13 +90,11 @@ public class CanvasGroupFader : MonoBehaviour {
         );
       }
 
-      if (percentageCompleted >= 1)
-      {
-        break;
-      }
+      if (percentageCompleted >= 1) break;
 
       // runs at speed of update function
       yield return new WaitForEndOfFrame();
+
     }
 
     // child elements interactable afterwards
@@ -110,8 +104,6 @@ public class CanvasGroupFader : MonoBehaviour {
     if (!isFadeInAnimation) {
       cg.gameObject.SetActive(false);
     }
-
-    //Debug.Log("Fading done.");
 
   }
 

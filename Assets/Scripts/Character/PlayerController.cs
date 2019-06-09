@@ -121,7 +121,6 @@ public class PlayerController : PhysicsObject {
                    landingCircleSound,
                    landingTriangleSound,
                    landingRectangleSound,
-                   loadingTriangleSound,
                    jumpingTriangleSound,
     
                    walkThroughGrassSound,
@@ -158,7 +157,6 @@ public class PlayerController : PhysicsObject {
       case "landingCircleSound":         c = landingCircleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "landingTriangleSound":       c = landingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "landingRectangleSound":      c = landingRectangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "loadingTriangleSound":       c = loadingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "jumpingTriangleSound":       c = jumpingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
 
       case "walkThroughGrassSound":      c = walkThroughGrassSound; grassSoundPlayer.PlayOneShot(c); return c.length;
@@ -185,6 +183,25 @@ public class PlayerController : PhysicsObject {
     }
 
     return 0f;
+
+  }
+
+  public void StopSoundPlayer(string soundPlayer) {
+
+    switch (soundPlayer) {
+
+      case "characterSoundPlayer": characterSoundPlayer.Stop(); break;
+      case "circleMovementSoundPlayer": circleMovementSoundPlayer.Stop(); break;
+      case "rectangleMovementSoundPlayer": rectangleMovementSoundPlayer.Stop(); break;
+      case "grassSoundPlayer": grassSoundPlayer.Stop(); break;
+      case "disappearingBlockAppearSoundPlayer": disappearingBlockAppearSoundPlayer.Stop(); break;
+      case "disappearingBlockDisappearSoundPlayer": disappearingBlockDisappearSoundPlayer.Stop(); break;
+      case "movingPlatformSoundPlayer": movingPlatformSoundPlayer.Stop(); break;
+      case "shortSoundPlayer": shortSoundPlayer.Stop(); break;
+      case "cameraShakeSoundPlayer": cameraShakeSoundPlayer.Stop(); break;
+      default: break;
+
+    }
 
   }
 
@@ -370,19 +387,19 @@ public class PlayerController : PhysicsObject {
     // general moving sounds
     if (movingTimer > 0f) {
       movingTimer -= Time.fixedDeltaTime;
-      if (preventMovementSoundsTimer <= 0f)
-      {
-        if (movingX && grounded)
-        {
-          if (state == "Circle" && !circleMovementSoundPlayer.isPlaying)
-          {
+      if (preventMovementSoundsTimer <= 0f) {
+        if (movingX && grounded) {
+          if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
             circleMovementSoundPlayer.UnPause();
             rectangleMovementSoundPlayer.Pause();
           }
-          else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying)
-          {
+          else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying) {
             circleMovementSoundPlayer.Pause();
             rectangleMovementSoundPlayer.UnPause();
+          }
+          else if (state == "Triangle") {
+            circleMovementSoundPlayer.Pause();
+            rectangleMovementSoundPlayer.Pause();
           }
         }
       }
@@ -499,6 +516,7 @@ public class PlayerController : PhysicsObject {
               secondsSinceLastJump = 0f;
 
               if (state == "Triangle") {
+                StopSoundPlayer("characterSoundPlayer");
                 PlaySound("jumpingTriangleSound");
               }
             }

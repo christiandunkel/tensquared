@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LVL1_BringArmsBack : MonoBehaviour {
+/*
+ * simple script that triggers an event 
+ */
+
+public class LVL1_DialogComplimentForSpeed : MonoBehaviour {
 
   private bool playedDialogAlready;
 
@@ -14,7 +16,7 @@ public class LVL1_BringArmsBack : MonoBehaviour {
 
     if (!playedDialogAlready && col.gameObject.tag == "Player") {
       playedDialogAlready = true; // only load once
-      ScriptedEventsManager.Instance.LoadEvent(1, "dialog_bring_arms_back");
+      ScriptedEventsManager.Instance.LoadEvent(1, "dialog_you_are_quick");
     }
 
   }

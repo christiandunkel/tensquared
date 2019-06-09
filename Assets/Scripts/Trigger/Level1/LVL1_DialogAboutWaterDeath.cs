@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LVL1_DialogAboutWater : MonoBehaviour
-{
+/*
+ * simple script that triggers an event 
+ */
 
+public class LVL1_DialogAboutWaterDeath : MonoBehaviour {
+  
   private bool playedDialogAlready;
 
   private void Awake() {
@@ -15,7 +16,7 @@ public class LVL1_DialogAboutWater : MonoBehaviour
 
     if (!playedDialogAlready && col.gameObject.tag == "Player") {
       playedDialogAlready = true; // only load once
-      ScriptedEventsManager.Instance.LoadEvent(1, "dialog_about_water");
+      ScriptedEventsManager.Instance.LoadEvent(1, "dialog_about_water_death");
     }
 
   }

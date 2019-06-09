@@ -1,6 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+/*
+ * simple script that triggers an event 
+ */
 
 public class LVL2_ShowMorphTooltip : MonoBehaviour {
 

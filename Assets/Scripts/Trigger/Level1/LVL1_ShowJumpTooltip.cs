@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LVL1_ShowJumpTooltip : MonoBehaviour
-{
+/*
+ * simple script that triggers an event 
+ */
+
+public class LVL1_ShowJumpTooltip : MonoBehaviour {
 
   private bool hasSeenTooltip;
 

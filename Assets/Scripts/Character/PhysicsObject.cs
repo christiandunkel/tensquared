@@ -68,6 +68,7 @@ public class PhysicsObject : MonoBehaviour {
 
         if (doubleJumpMovement.x == 0f && doubleJumpMovement.y == 0f) {
           setDoubleJumpMovement();
+          textureObject.transform.parent.gameObject.GetComponent<Animator>().Play("JumpSquish");
           resetTriangleRotation();
         }
 

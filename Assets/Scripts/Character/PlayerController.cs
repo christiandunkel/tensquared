@@ -122,7 +122,8 @@ public class PlayerController : PhysicsObject {
                    landingTriangleSound,
                    landingRectangleSound,
                    jumpingTriangleSound,
-    
+                   playerDeathSound,
+
                    walkThroughGrassSound,
 
                    disappearingBlockAppear,
@@ -147,6 +148,7 @@ public class PlayerController : PhysicsObject {
                 movingThroughGrassTimer = 0f,
                 movingTimer = 0f;
 
+  // plays a sound and returns the audio clip length as a float
   public float PlaySound(string soundName) {
 
     AudioClip c;
@@ -158,6 +160,7 @@ public class PlayerController : PhysicsObject {
       case "landingTriangleSound":       c = landingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "landingRectangleSound":      c = landingRectangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
       case "jumpingTriangleSound":       c = jumpingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
+      case "playerDeathSound":           c = playerDeathSound; characterSoundPlayer.PlayOneShot(c); return c.length;
 
       case "walkThroughGrassSound":      c = walkThroughGrassSound; grassSoundPlayer.PlayOneShot(c); return c.length;
 
@@ -625,6 +628,7 @@ public class PlayerController : PhysicsObject {
     textureObject.GetComponent<SpriteRenderer>().sprite = null;
 
     playDeathParticles();
+    PlaySound("playerDeathSound");
 
     yield return new WaitForSeconds(1.5f);
 

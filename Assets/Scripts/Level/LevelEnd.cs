@@ -58,6 +58,8 @@ public class LevelEnd : MonoBehaviour {
 
   private IEnumerator endSceenAnimation() {
 
+    PlayerController.Instance.PlaySound("levelCompleteSound");
+
     for (int i = 0; i < 50; i++) {
       endMenuContainer.alpha = ((float)i) * 2f / 100f;
       yield return new WaitForSeconds(0.01f);

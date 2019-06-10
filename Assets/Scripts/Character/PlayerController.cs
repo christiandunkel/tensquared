@@ -141,7 +141,8 @@ public class PlayerController : PhysicsObject {
                    earthquake_2_5_secs_loud,
                    earthquake_3_secs,
 
-                   robotRepairSound;
+                   robotRepairSound,
+                   levelCompleteSound;
 
   private float preventMovementSoundsTimer = 0f,
                 movingPlatformSoundsTimer = 0f,
@@ -178,8 +179,9 @@ public class PlayerController : PhysicsObject {
       case "earthquake_2_secs":          c = earthquake_2_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
       case "earthquake_2_5_secs_loud":   c = earthquake_2_5_secs_loud; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
       case "earthquake_3_secs":          c = earthquake_3_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-
+        
       case "robotRepairSound":           c = robotRepairSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "levelCompleteSound":         c = levelCompleteSound; shortSoundPlayer.PlayOneShot(c); return c.length;
 
       default: Debug.LogWarning("PlayerController: Sound " + soundName + " wasn't found."); break;
 

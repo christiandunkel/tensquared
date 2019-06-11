@@ -37516,6 +37516,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 55067681}
     m_Modifications:
+    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
+        type: 3}
+      propertyPath: m_Name
+      value: Grass_Green_Light_4
+      objectReference: {fileID: 0}
     - target: {fileID: 4626641216267634910, guid: 70ca012bb34c83d4c8150169d7a0e542,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -37585,11 +37590,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 6.6839857
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
-        type: 3}
-      propertyPath: m_Name
-      value: Grass_Green_Light_4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ca012bb34c83d4c8150169d7a0e542, type: 3}
@@ -38158,6 +38158,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2137315893}
     m_Modifications:
+    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
+        type: 3}
+      propertyPath: m_Name
+      value: Grass_Green_Light_4
+      objectReference: {fileID: 0}
     - target: {fileID: 4626641216267634910, guid: 70ca012bb34c83d4c8150169d7a0e542,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38227,11 +38232,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 6.6839857
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
-        type: 3}
-      propertyPath: m_Name
-      value: Grass_Green_Light_4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ca012bb34c83d4c8150169d7a0e542, type: 3}
@@ -48689,17 +48689,17 @@ PrefabInstance:
     - target: {fileID: 8782398938159656997, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
         type: 3}
       propertyPath: canJump
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8782398938159656997, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
         type: 3}
       propertyPath: canMorph
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8782398938159656997, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
         type: 3}
       propertyPath: canMove
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8782398938576135873, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
         type: 3}
@@ -48714,7 +48714,7 @@ PrefabInstance:
     - target: {fileID: 8782398938576135873, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
         type: 3}
       propertyPath: playStartFrequence
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8782398939311056942, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
         type: 3}

@@ -180,11 +180,6 @@ public class PhysicsObject : MonoBehaviour {
       // less upwards movement the closer the cursor is to the vertical vector standing on player
       doubleJumpMovement.y = -((90f - angle) / (100f * doubleJumpReducer));
 
-      // rotate triangle leftwards
-      Vector3 currentRotation = textureObject.transform.eulerAngles;
-      currentRotation.z = -(90f - angle);
-      textureObject.transform.eulerAngles = currentRotation;
-
     }
     // rightwards
     else if (angle > 90f) {
@@ -192,11 +187,6 @@ public class PhysicsObject : MonoBehaviour {
 
       // less upwards movement the closer the cursor is to the vertical vector standing on player
       doubleJumpMovement.y = -((angle - 90f) / (100f * doubleJumpReducer));
-
-      // rotate triangle rightwards
-      Vector3 currentRotation = textureObject.transform.eulerAngles;
-      currentRotation.z = angle - 90f;
-      textureObject.transform.eulerAngles = currentRotation;
 
     }
     else {

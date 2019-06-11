@@ -95,7 +95,9 @@ public class PlayerController : PhysicsObject {
 
   public GameObject heldItemObject,
                     textureContainer, 
-                    movementParticles, deathParticles;
+                    movementParticles, 
+                    deathParticles,
+                    doubleJumpParticles;
 
   public GhostingEffect ghost;
 
@@ -519,11 +521,13 @@ public class PlayerController : PhysicsObject {
               inDoubleJump = true;
               velocity.y = jumpTakeOffSpeed * 1.2f;
               secondsSinceLastJump = 0f;
+              
+              doubleJumpParticles.SetActive(true);
+              doubleJumpParticles.GetComponent<ParticleSystem>().Play();
 
-              if (state == "Triangle") {
-                StopSoundPlayer("characterSoundPlayer");
-                PlaySound("jumpingTriangleSound");
-              }
+              StopSoundPlayer("characterSoundPlayer");
+              PlaySound("jumpingTriangleSound");
+              
             }
 
           }

@@ -76,29 +76,25 @@ public class PhysicsObject : MonoBehaviour {
         triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
 
       }
+      else if (velocity.y > 0f) {
+
+        // draw line from player to mouse cursor
+        triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) });
+        doubleJumpMovement = Vector2.zero;
+
+        // calculate angle in which to rotate the triangle
+        float angle = getAngleMousePlayer();
+
+        // leftwards : rightwards
+        Vector3 newRotation = textureObject.transform.localEulerAngles;
+        newRotation.z = angle < 90f ? 90f - angle : -(angle - 90f);
+        textureObject.transform.localEulerAngles = newRotation;
+
+      }
       else {
-
-        if (velocity.y > 0f) {
-
-          // draw line from player to mouse cursor
-          triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) });
-          doubleJumpMovement = Vector2.zero;
-
-          // calculate angle in which to rotate the triangle
-          float angle = getAngleMousePlayer();
-
-          // leftwards : rightwards
-          Vector3 newRotation = textureObject.transform.localEulerAngles;
-          newRotation.z = angle < 90f ? 90f - angle : -(angle - 90f);
-          textureObject.transform.localEulerAngles = newRotation;
-
-        }
-        else {
-          // reset line renderer
-          triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
-          resetTriangleRotation();
-        }
-
+        // reset line renderer
+        triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
+        resetTriangleRotation();
       }
 
     }
@@ -140,6 +136,8 @@ public class PhysicsObject : MonoBehaviour {
   }
 
   IEnumerator resetTriangleRotationCoroutine() {
+
+    yield return new WaitForSeconds(.3f);
 
     int stepNumber = 15;
     Vector3 startRotation = textureObject.transform.localEulerAngles;

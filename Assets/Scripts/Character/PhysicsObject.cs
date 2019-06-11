@@ -171,7 +171,7 @@ public class PhysicsObject : MonoBehaviour {
 
   private void setDoubleJumpMovement() {
 
-    float doubleJumpReducer = 6f,
+    float doubleJumpReducer = .8f,
           angle = getAngleMousePlayer();
 
     // leftwards

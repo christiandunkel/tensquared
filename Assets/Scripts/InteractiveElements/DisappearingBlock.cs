@@ -12,7 +12,7 @@ public class DisappearingBlock : MonoBehaviour {
   public float stayTime = 1.5f,
                timeBothAreVisible = .8f;
 
-  private float soundDist = 25f; // distance of player to gameobject, in which radius' sounds are playing
+  private float soundDist = 175f; // distance of player to gameobject, in which radius' sounds are playing
 
   private void Awake() {
     startCycle();
@@ -26,7 +26,7 @@ public class DisappearingBlock : MonoBehaviour {
   private float distanceToPlayer() {
 
     // return high value if player isn't yet initialized
-    if (PlayerController.Instance == null) return 2000f;
+    if (PlayerController.Instance == null) return 20000f;
 
     Vector2 v1 = new Vector2(transform.position.x, 
                              transform.position.y),

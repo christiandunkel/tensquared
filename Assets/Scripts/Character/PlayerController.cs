@@ -650,7 +650,7 @@ public class PlayerController : PhysicsObject {
       PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
       yield return new WaitForSeconds(.8f);
       // come out of spawn point tube
-      float spawnPointmoveCharBy = 2.65f / 50f;
+      float spawnPointmoveCharBy = 17.85f / 50f;
       for (int i = 0; i < 50; i++) {
         gameObject.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
         yield return new WaitForSeconds(0.03f);
@@ -845,7 +845,7 @@ public class PlayerController : PhysicsObject {
    */
   private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
   protected void rotateCircle() {
-    rotationVec.z = (Time.deltaTime * maxSpeed * (leftwards ? 25.0f : -25f)) % 360;
+    rotationVec.z = (Time.deltaTime * 15 * (leftwards ? 25.0f : -25f)) % 360;
     textureObject.transform.Rotate(rotationVec);
   }
 

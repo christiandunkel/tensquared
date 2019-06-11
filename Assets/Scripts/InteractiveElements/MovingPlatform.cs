@@ -19,7 +19,7 @@ public class MovingPlatform : MonoBehaviour
     // (pos' are placed at borders in unity to where platform should move,
     // but they actually represent the center position to where the platform will move,
     // thus you need to offset them)
-    float offset = gameObject.GetComponent<BoxCollider2D>().bounds.size.x * 3;
+    float offset = gameObject.GetComponent<BoxCollider2D>().bounds.size.x * 0.5f;
 
     Vector3 lp = leftPos.localPosition;
     leftPos.localPosition = new Vector3(lp.x + offset, lp.y, lp.z);

@@ -92,9 +92,10 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.LoadDialog("lvl1_asleep");
     yield return new WaitForSeconds(5f);
     CameraShake.Instance.Play(2f, 10f, 10f, "earthquake_2_5_secs_loud");
+    yield return new WaitForSeconds(2f);
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
-    yield return new WaitForSeconds(5f);
+    yield return new WaitForSeconds(3f);
     DialogSystem.LoadDialog("lvl1_move");
     yield return new WaitForSeconds(6f);
     TooltipManager.showTooltip("Move");
@@ -182,9 +183,18 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     // return to look straight forward at camera
     robotTexture.sprite = robotArmsAnimation[robotArmsAnimation.Length - 2];
-    
+    yield return new WaitForSeconds(.3f);
+
+    // make robot take its arms back down
+    int[] sprites = new int[5] { 28, 27, 26, 25, 24 };
+    for (int i = 0; i < sprites.Length; i++) {
+      robotTexture.sprite = robotArmsAnimation[sprites[i]];
+      yield return new WaitForSeconds(.1f);
+    }
+    yield return new WaitForSeconds(.3f);
+
     DialogSystem.LoadDialog("lvl1_where_did_i_leave_my_legs");
-    yield return new WaitForSeconds(6f);
+    yield return new WaitForSeconds(8f);
     LevelEnd.Instance.endLevel();
     StopCoroutine(Lvl1_RobotGetArmsScene());
   }

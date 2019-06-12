@@ -28,7 +28,7 @@ public class LevelTimer : MonoBehaviour {
 
   void Update() {
 
-    if (!timerIsActive || timerLockedIn) return;
+    if (!timerIsActive || timerLockedIn || PauseMenu.Instance.isPaused) return;
 
     // increase timer and display new number
     currentTimer += Time.fixedDeltaTime;

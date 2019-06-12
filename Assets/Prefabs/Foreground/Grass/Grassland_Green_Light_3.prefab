@@ -46,7 +46,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0, y: 3.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14, y: 1}
+  m_Size: {x: 92, y: 7}
   m_EdgeRadius: 0
 --- !u!1 &944486976641879396
 GameObject:
@@ -4944,6 +4944,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 894891921653412991}
     m_Modifications:
+    - target: {fileID: 4626641216267634881, guid: aa1404a6dd7886a41864d2d28188b2cd,
+        type: 3}
+      propertyPath: m_Name
+      value: Grass_Green_Light_5
+      objectReference: {fileID: 0}
     - target: {fileID: 4626641216267634910, guid: aa1404a6dd7886a41864d2d28188b2cd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5004,11 +5009,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 4626641216267634881, guid: aa1404a6dd7886a41864d2d28188b2cd,
-        type: 3}
-      propertyPath: m_Name
-      value: Grass_Green_Light_5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa1404a6dd7886a41864d2d28188b2cd, type: 3}
 --- !u!4 &6115291113893706679 stripped
@@ -5024,6 +5024,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 894891921653412991}
     m_Modifications:
+    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
+        type: 3}
+      propertyPath: m_Name
+      value: Grass_Green_Light_4
+      objectReference: {fileID: 0}
     - target: {fileID: 4626641216267634910, guid: 70ca012bb34c83d4c8150169d7a0e542,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5083,11 +5088,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
-        type: 3}
-      propertyPath: m_Name
-      value: Grass_Green_Light_4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ca012bb34c83d4c8150169d7a0e542, type: 3}
@@ -5344,6 +5344,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 894891921653412991}
     m_Modifications:
+    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
+        type: 3}
+      propertyPath: m_Name
+      value: Grass_Green_Light_4
+      objectReference: {fileID: 0}
     - target: {fileID: 4626641216267634910, guid: 70ca012bb34c83d4c8150169d7a0e542,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5403,11 +5408,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
-        type: 3}
-      propertyPath: m_Name
-      value: Grass_Green_Light_4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ca012bb34c83d4c8150169d7a0e542, type: 3}

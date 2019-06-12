@@ -35,7 +35,8 @@ public class PlayerController : PhysicsObject {
   private bool holdingItem = false;
 
   private bool canMove = false,
-               canMorph = false,
+               canMorphToRectangle = false,
+               canMorphToTriangle = false,
                canJump = false,
 
                isDead = false,
@@ -222,9 +223,10 @@ public class PlayerController : PhysicsObject {
 
   public void SetSetting(string name, bool value) {
     switch (name) {
-      case "canMove":   canMove = value; break;
-      case "canJump":   canJump = value; break;
-      case "canMorph":  canMorph = value; break;
+      case "canMove":             canMove = value; break;
+      case "canJump":             canJump = value; break;
+      case "canMorphToRectangle": canMorphToRectangle = value; break;
+      case "canMorphToTriangle":  canMorphToTriangle = value; break;
       default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid setting."); break;
     }
   }
@@ -569,7 +571,7 @@ public class PlayerController : PhysicsObject {
       showMovementParticles(movingX && grounded ? true : false);  // ground particles when moving over ground on the x axis
       ghost.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
 
-      if (canMorph) handleMorphing();
+      handleMorphing();
       if (isChangingState) animateState(); // called when changing state, to animate new texture
 
     }
@@ -580,7 +582,8 @@ public class PlayerController : PhysicsObject {
     LevelSettings settings = LevelSettings.Instance;
     canMove = settings.canMove;
     canJump = settings.canJump;
-    canMorph = settings.canMorph;
+    canMorphToRectangle = settings.canMorphToRectangle;
+    canMorphToTriangle = settings.canMorphToTriangle;
   }
 
   private void resetAttributesOfState() {
@@ -622,7 +625,8 @@ public class PlayerController : PhysicsObject {
     velocity.y = 0f;
 
     canMove = false;
-    canMorph = false;
+    canMorphToRectangle = false;
+    canMorphToTriangle = false;
     canJump = false;
 
     GetComponent<Rigidbody2D>().freezeRotation = true;
@@ -683,6 +687,10 @@ public class PlayerController : PhysicsObject {
   // changes state of player to other form
   public void handleMorphing() {
 
+    if (!(canMorphToTriangle || canMorphToRectangle)) {
+      return;
+    }
+
     void setCollider(int id) {
       GetComponent<CircleCollider2D>().enabled = (id == 1 ? true : false);
       GetComponent<PolygonCollider2D>().enabled = (id == 2 ? true : false);
@@ -698,7 +706,7 @@ public class PlayerController : PhysicsObject {
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 2) && !isChangingState && state != "Triangle") {
+    if (canMorphToTriangle && Input.GetKeyDown("" + 2) && !isChangingState && state != "Triangle") {
       ScriptedEventsManager.Instance.LoadEvent(1, "morph_to_triangle");
 
       newState = "Triangle";
@@ -709,7 +717,7 @@ public class PlayerController : PhysicsObject {
       ChangeState();
     }
 
-    if (Input.GetKeyDown("" + 3) && !isChangingState && state != "Rectangle") {
+    if (canMorphToRectangle && Input.GetKeyDown("" + 3) && !isChangingState && state != "Rectangle") {
       newState = "Rectangle";
       setCollider(3);
       GetComponent<Rigidbody2D>().freezeRotation = true;

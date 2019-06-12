@@ -15,7 +15,8 @@ public class LevelSettings : MonoBehaviour {
   // player stats
   public bool canMove = true, // if player can use input to influence movement of character
               canJump = true, // if player can jump by key
-              canMorph = true; // if player can change the form of the character
+              canMorphToTriangle = true, // if player can change the form of the character
+              canMorphToRectangle = true;
 
   // world stats
   public Vector2 worldSpawn,
@@ -45,8 +46,13 @@ public class LevelSettings : MonoBehaviour {
         PlayerController.Instance.SetSetting(name, value);
         break;
 
-      case "canMorph":
-        canMorph = value;
+      case "canMorphToTriangle":
+        canMorphToTriangle = value;
+        PlayerController.Instance.SetSetting(name, value);
+        break;
+
+      case "canMorphToRectangle":
+        canMorphToRectangle = value;
         PlayerController.Instance.SetSetting(name, value);
         break;
 

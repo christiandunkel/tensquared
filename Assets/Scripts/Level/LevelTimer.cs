@@ -20,6 +20,7 @@ public class LevelTimer : MonoBehaviour {
     if (PlayerPrefs.HasKey("lvls_unlocked") &&
         PlayerPrefs.GetInt("lvls_unlocked") > ScriptedEventsManager.Instance.levelID) {
       timerIsActive = true;
+      GetComponent<CanvasGroup>().alpha = 1f;
     }
 
 

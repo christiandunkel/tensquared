@@ -52,7 +52,8 @@ public class PlayerController : PhysicsObject {
   private float frozenYPos = 0.0f;
 
   private float secondsNotGrounded = 0f,
-                secondsSinceLastJump = 0f; // timer for seconds the player hadn't been grounded
+                secondsSinceLastJump = 0f, // timer for seconds the player hadn't been grounded
+                secondsAsRectangleFalling = 0f;
   private bool groundedInLastFrame = true;
 
   private float lastX, lastY; // last x and y position
@@ -259,6 +260,7 @@ public class PlayerController : PhysicsObject {
   public float GetFloat(string name) {
     switch (name) {
       case "secondsNotGrounded": return secondsNotGrounded;
+      case "secondsAsRectangleFalling": return secondsAsRectangleFalling;
       default: Debug.LogWarning("PlayerController: Float of the name " + name + " couldn't be found."); break;
     }
     return 0f;
@@ -557,7 +559,8 @@ public class PlayerController : PhysicsObject {
           groundedInLastFrame = grounded ? true : false;
 
           // check time sind player was last grounded
-          secondsNotGrounded = !grounded ? secondsNotGrounded + Time.deltaTime : 0.0f;
+          secondsNotGrounded = !grounded ? secondsNotGrounded + Time.deltaTime : 0f;
+          secondsAsRectangleFalling = !grounded && state == "Rectangle" ? secondsAsRectangleFalling + Time.deltaTime : 0f;
 
         }
 
@@ -646,7 +649,7 @@ public class PlayerController : PhysicsObject {
 
 
   void respawn() {
-
+     
     // prevent triggering death animation multiple times
     if (!isDead) {
       isDead = true;

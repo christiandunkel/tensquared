@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 1373021986546951879}
   - component: {fileID: 1373021986546951876}
   - component: {fileID: 1373021986546951877}
+  - component: {fileID: 6384874581298617306}
   m_Layer: 0
   m_Name: Texture
   m_TagString: Untagged
@@ -261,6 +262,25 @@ MonoBehaviour:
   delay: 0
   loop: 1
   delayPerLoop: 0
+--- !u!95 &6384874581298617306
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373021986546951875}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2c98d354f5c000f4aa163bce8ea90c80, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1373021986712342377
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +329,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisX: 0
   lastX: 0
+  thisY: 0
+  lastY: 0
   leftPos: {fileID: 1373021985783621233}
   rightPos: {fileID: 1373021985896242190}
   startPos: {fileID: 1373021985783621233}

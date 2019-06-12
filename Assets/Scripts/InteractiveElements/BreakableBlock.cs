@@ -8,7 +8,7 @@ using UnityEngine;
 public class BreakableBlock : MonoBehaviour {
 
   private Sprite[] breakingSprites;
-  private GameObject breakParticles;
+  public GameObject breakParticles;
 
   void Awake() {
 
@@ -27,7 +27,7 @@ public class BreakableBlock : MonoBehaviour {
     
     if (
       col.gameObject.tag == "Player" && 
-      PlayerController.Instance.GetFloat("secondsNotGrounded") > 1f &&
+      PlayerController.Instance.GetFloat("secondsAsRectangleFalling") > .4f &&
       PlayerController.Instance.GetString("state") == "Rectangle"
     ) {
       StartCoroutine(breakBlock());

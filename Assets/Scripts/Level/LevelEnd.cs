@@ -40,6 +40,8 @@ public class LevelEnd : MonoBehaviour {
 
     Debug.Log("LevelEnd: Reached end of level.");
 
+    LevelTimer.Instance.saveTimer();
+
     LevelSettings.Instance.SetSetting("canMove", false);
     LevelSettings.Instance.SetSetting("canMorph", false);
 

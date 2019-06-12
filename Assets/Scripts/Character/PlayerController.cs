@@ -491,7 +491,7 @@ public class PlayerController : PhysicsObject {
     if (grounded) inDoubleJump = false;
 
     // test if player is currently moving
-    testForMovement();
+    testForYMovement();
     
     if (!isDead) {
 
@@ -499,6 +499,9 @@ public class PlayerController : PhysicsObject {
       if (canMove) {
 
         move.x = Input.GetAxis("Horizontal");
+
+        // test for movement on x axis
+        testForXMovement(move);
 
         if (move.x > 0.0f) rollingFixTimer = rollingFixTimerDefault;
 
@@ -600,6 +603,43 @@ public class PlayerController : PhysicsObject {
     // particle color for death particles
     mainModule = deathParticles.GetComponent<ParticleSystem>().main;
     mainModule.startColor = resA.particleColor;
+  }
+
+
+  /*
+   * tests if the player is currently moving
+   * sets movingX, movingY and leftwards
+   */
+  private void testForXMovement(Vector2 move) {
+
+    if (move.x > 0.02f) {
+      movingX = true; leftwards = false;
+    }
+    else if (move.x < -0.02f) {
+      movingX = true; leftwards = true;
+    }
+    else movingX = false;
+
+  }
+  private void testForYMovement() {
+
+    // test if player is currently moving on Y axis
+    movingY = false;
+    float currY = transform.position.y; // current
+    if (System.Math.Abs(lastY - currY) > 0.1f) {
+      movingY = true;
+    }
+    lastY = transform.position.y;
+
+  }
+
+  /*
+   * called while moving as circle, rotates texture
+   */
+  private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
+  protected void rotateCircle() {
+    rotationVec.z = (Time.deltaTime * 15 * (leftwards ? 25.0f : -25f)) % 360;
+    textureObject.transform.Rotate(rotationVec);
   }
 
 
@@ -823,43 +863,6 @@ public class PlayerController : PhysicsObject {
 
 
 
-  /*
-   * tests if the player is currently moving
-   * sets movingX, movingY and leftwards
-   */
-  protected void testForMovement() {
-
-    // test if player is currently moving on x axis
-    movingX = false;
-    float currX = transform.position.x; // current
-    if (System.Math.Abs(lastX - currX) > 0.1f) {
-      movingX = true;
-      leftwards = (lastX > currX ? true : false);
-    }
-    lastX = transform.position.x;
-
-    // test if player is currently moving on Y axis
-    movingY = false;
-    float currY = transform.position.y; // current
-    if (System.Math.Abs(lastY - currY) > 0.1f) {
-      movingY = true;
-    }
-    lastY = transform.position.y;
-
-  }
-
-
-
-
-
-  /*
-   * called while moving as circle, rotates texture
-   */
-  private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
-  protected void rotateCircle() {
-    rotationVec.z = (Time.deltaTime * 15 * (leftwards ? 25.0f : -25f)) % 360;
-    textureObject.transform.Rotate(rotationVec);
-  }
 
 
 
@@ -983,13 +986,18 @@ public class PlayerController : PhysicsObject {
               thisY = mp.thisY,
               lastY = mp.lastY;
 
-        newPos.x += thisX > lastX ? thisX - lastX : -(lastX - thisX);
-        newPos.y += thisY > lastY ? thisY - lastY : -(lastY - thisY);
+        // player still moves a bit slower than platform -> will fall down
+        // that's what we need to offset with the following value
+        float offset = 0.002f;
+
+        newPos.x += thisX > lastX ? thisX - lastX + offset : -(lastX - thisX) - offset;
+        newPos.y += thisY > lastY ? thisY - lastY + offset : -(lastY - thisY) - offset;
         transform.position = newPos;
         break;
 
       default:
         break;
+
     }
 
   }

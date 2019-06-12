@@ -497,8 +497,9 @@ public class PlayerController : PhysicsObject {
     
     if (!isDead) {
 
+      if (!canMove) movingX = false;
       // handle movement of character on x and y axis
-      if (canMove) {
+      else {
 
         move.x = Input.GetAxis("Horizontal");
 
@@ -614,6 +615,11 @@ public class PlayerController : PhysicsObject {
    * sets movingX, movingY and leftwards
    */
   private void testForXMovement(Vector2 move) {
+
+    if (isFrozen) {
+      movingX = false;
+      return;
+    }
 
     if (move.x > 0.02f) {
       movingX = true; leftwards = false;

@@ -7,6 +7,7 @@ public class LevelTimer : MonoBehaviour {
 
   public GameObject timer;
   private bool timerIsActive = false;
+  private bool timerLockedIn = false;
   private float currentTimer = 0f; 
   private string currentTimerString = "00:00:000";
 
@@ -26,7 +27,7 @@ public class LevelTimer : MonoBehaviour {
 
   void Update() {
 
-    if (!timerIsActive) return;
+    if (!timerIsActive || timerLockedIn) return;
 
     // increase timer and display new number
     currentTimer += Time.fixedDeltaTime;
@@ -59,6 +60,8 @@ public class LevelTimer : MonoBehaviour {
   public void saveTimer() {
 
     if (!timerIsActive) return;
+
+    timerLockedIn = true;
 
     int lvlID = ScriptedEventsManager.Instance.levelID;
 

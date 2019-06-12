@@ -181,6 +181,7 @@ Transform:
   m_Children:
   - {fileID: 518621578}
   - {fileID: 2139153429}
+  - {fileID: 1509458754}
   m_Father: {fileID: 295342744}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -419,6 +420,118 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 1842526319662069798}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1509458753
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 263004009}
+    m_Modifications:
+    - target: {fileID: 1373021985348418306, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_Name
+      value: MovingPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -972.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -56.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373021986712342378, guid: ab5754e608038c0458df33150b5ff74f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab5754e608038c0458df33150b5ff74f, type: 3}
+--- !u!4 &1509458754 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1373021985348418309, guid: ab5754e608038c0458df33150b5ff74f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1509458753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1509458755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1373021986712342377, guid: ab5754e608038c0458df33150b5ff74f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1509458753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1509458756
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509458755}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 45, y: 12.39}
+  m_EdgeRadius: 0
 --- !u!82 &1558408714 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 1842526318376293932, guid: cc60f7b2d752bf243ad55150ca368d0b,

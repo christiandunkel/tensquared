@@ -4,8 +4,12 @@
  * powers the 'moving platform' prefab
  */
 
-public class MovingPlatform : MonoBehaviour
-{
+public class MovingPlatform : MonoBehaviour {
+
+  // save current and last positions
+  // in order to move the player standing on top along
+  public float thisX = 0f, lastX = 0f,
+               thisY = 0f, lastY = 0f;
 
   public Transform leftPos, rightPos,
                    startPos;
@@ -43,6 +47,11 @@ public class MovingPlatform : MonoBehaviour
     }
 
     gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, nextPos, speed * Time.deltaTime);
+
+    lastX = thisX;
+    thisX = transform.localPosition.x;
+    lastY = thisY;
+    thisY = transform.localPosition.y;
 
   }
 

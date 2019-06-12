@@ -925,30 +925,10 @@ public class PlayerController : PhysicsObject {
         respawn();
         break;
 
-      case "MovingPlatform":
-        Debug.Log("PlayerController: Stepped on a moving platform.");
-        //gameObject.transform.parent = col.gameObject.transform;
-        break;
-
       case "Piston":
         Debug.Log("PlayerController: Stepped on a piston.");
         Piston.Instance.GoUp(col.gameObject);
         PlaySound("pistonPushSound");
-        break;
-
-      default:
-        break;
-
-    }
-
-  }
-
-  public void OnTriggerExit2D(Collider2D col) {
-
-    switch (col.gameObject.tag) {
-
-      case "MovingPlatform":
-        //gameObject.transform.parent = parentObject.transform;
         break;
 
       default:
@@ -985,6 +965,31 @@ public class PlayerController : PhysicsObject {
       default:
         break;
 
+    }
+
+  }
+
+  public void OnCollisionStay2D(Collision2D col) {
+    
+    switch (col.gameObject.tag) {
+
+      // make the player move along the moving platform if standing on top
+      case "MovingPlatform":
+        Vector3 newPos = transform.position;
+
+        MovingPlatform mp = col.gameObject.GetComponent<MovingPlatform>();
+        float thisX = mp.thisX,
+              lastX = mp.lastX,
+              thisY = mp.thisY,
+              lastY = mp.lastY;
+
+        newPos.x += thisX > lastX ? thisX - lastX : -(lastX - thisX);
+        newPos.y += thisY > lastY ? thisY - lastY : -(lastY - thisY);
+        transform.position = newPos;
+        break;
+
+      default:
+        break;
     }
 
   }

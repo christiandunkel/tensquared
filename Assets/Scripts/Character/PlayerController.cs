@@ -507,7 +507,7 @@ public class PlayerController : PhysicsObject {
           secondsSinceLastJump += Time.fixedDeltaTime;
 
           // jumping
-          if (Input.GetButtonDown("Jump")) {
+          if (Input.GetKeyDown(KeyCode.Space)) {
 
             if (secondsNotGrounded < 0.13f && secondsSinceLastJump >= 0.4f) {
               textureContainer.GetComponent<Animator>().Play("JumpSquish", 0);

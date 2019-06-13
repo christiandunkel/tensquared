@@ -10,6 +10,7 @@ public class PlayerController : PhysicsObject {
 
   // singleton
   public static PlayerController Instance;
+  public static GameObject playerObject;
 
 
 
@@ -274,6 +275,14 @@ public class PlayerController : PhysicsObject {
     return null;
   }
 
+  public GameObject GetObject(string name) {
+    switch (name) {
+      case "textureObject": return textureObject;
+      default: Debug.LogWarning("PlayerController: GameObject of the name " + name + " couldn't be found."); break;
+    }
+    return null;
+  }
+
   private Attributes getAttributes() {
     return getAttributes(state);
   }
@@ -306,6 +315,7 @@ public class PlayerController : PhysicsObject {
     Instance = this;
 
     parentObject = gameObject.transform.parent.gameObject;
+    playerObject = gameObject;
 
     Debug.Log("Player: With parent object '" + parentObject.name + "' initialized.");
 
@@ -662,73 +672,81 @@ public class PlayerController : PhysicsObject {
       StartCoroutine(respawnCoroutine());
     }
 
-  }
+    IEnumerator respawnCoroutine() {
 
-  IEnumerator respawnCoroutine() {
-
-    if (setSpawnpoint) {
-      isFrozen = true;
-    }
-    
-    gravityModifier = 0f;
-    velocity.y = 0f;
-
-    canMove = false;
-    canMorphToRectangle = false;
-    canMorphToTriangle = false;
-    canJump = false;
-
-    GetComponent<Rigidbody2D>().freezeRotation = true;
-    GetComponent<Rigidbody2D>().rotation = 0f;
-    GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-
-    CameraShake.Instance.Play(.2f, 10f, 7f);
-
-    textureObject.GetComponent<SpriteRenderer>().sprite = null;
-
-    playDeathParticles();
-    PlaySound("playerDeathSound");
-
-    yield return new WaitForSeconds(1.5f);
-
-    // teleport to spawn point
-    Vector2 ps = LevelSettings.Instance.playerSpawn;
-    gameObject.transform.localPosition = ps;
-    frozenYPos = ps.y;
-
-    SpriteRenderer sr = textureObject.GetComponent<SpriteRenderer>();
-
-    // set sprite visible again
-    Attributes a = getAttributes();
-    sr.sprite = a.sprite;
-
-    // handle spawn point animation
-    if (setSpawnpoint) {
-      PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
-      yield return new WaitForSeconds(.8f);
-      // come out of spawn point tube
-      float spawnPointmoveCharBy = 17.85f / 50f;
-      for (int i = 0; i < 50; i++) {
-        gameObject.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
-        yield return new WaitForSeconds(0.03f);
+      if (setSpawnpoint) {
+        isFrozen = true;
       }
-      isFrozen = false;
+
+      gravityModifier = 0f;
+      velocity.y = 0f;
+
+      canMove = false;
+      canJump = false;
+      canMorphToRectangle = false;
+      canMorphToTriangle = false;
+
+      GetComponent<Rigidbody2D>().freezeRotation = true;
+      GetComponent<Rigidbody2D>().rotation = 0f;
+      GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+
+      CameraShake.Instance.Play(.2f, 10f, 7f);
+
+      textureObject.GetComponent<SpriteRenderer>().sprite = null;
+
+      playDeathParticles();
+      PlaySound("playerDeathSound");
+
+      yield return new WaitForSeconds(1.5f);
+
+      // teleport to spawn point
+      Vector2 ps = LevelSettings.Instance.playerSpawn;
+      gameObject.transform.localPosition = ps;
+      frozenYPos = ps.y;
+
+      SpriteRenderer sr = textureObject.GetComponent<SpriteRenderer>();
+
+      // set sprite visible again
+      Attributes a = getAttributes();
+      sr.sprite = a.sprite;
+
+      // handle spawn point animation (being pushed out of the tube)
+      if (setSpawnpoint) {
+
+        PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
+        yield return new WaitForSeconds(.8f);
+
+        // move the metallic arm holding the player out of the spawn point
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        foreach (GameObject sp in spawnPoints) {
+          SpawnPoint sp_script = sp.GetComponent<SpawnPoint>();
+          if (sp_script != null) sp_script.animateHoldingArm();
+        }
+
+        // move the player out of the spawn point
+        int steps = 50;
+        float spawnPointmoveCharBy = 19f / steps;
+        for (int i = 0; i < steps; i++) {
+          gameObject.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
+          yield return new WaitForSeconds(0.03f);
+        }
+        isFrozen = false;
+      }
+
+      // reset gravity modifier
+      gravityModifier = a.gravityModifier;
+
+      isDead = false;
+      
+      loadLevelSettingsIntoPlayer(); // reset internal settings for player, replace with level settings
+      resetAttributesOfState(); // reset attributes to current state
+      StopCoroutine(respawnCoroutine());
+
     }
 
-    // reset gravity modifier
-    gravityModifier = a.gravityModifier;
-
-    isDead = false;
-
-    // reset internal settings for player with level settings
-    loadLevelSettingsIntoPlayer();
-
-    // reset attributes to current state
-    resetAttributesOfState();
-
-    StopCoroutine(respawnCoroutine());
-
   }
+
+  
 
 
 

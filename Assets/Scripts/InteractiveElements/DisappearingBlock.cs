@@ -30,8 +30,8 @@ public class DisappearingBlock : MonoBehaviour {
 
     Vector2 v1 = new Vector2(transform.position.x, 
                              transform.position.y),
-            v2 = new Vector2(PlayerController.Instance.gameObject.transform.position.x, 
-                             PlayerController.Instance.gameObject.transform.position.y);
+            v2 = new Vector2(PlayerController.playerObject.transform.position.x, 
+                             PlayerController.playerObject.transform.position.y);
 
     Vector2 richtungsVektor = v1 - v2;
 

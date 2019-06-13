@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /*
  * powers the 'spawnpoint' prefab
@@ -6,16 +7,28 @@
 
 public class SpawnPoint : MonoBehaviour {
 
-  public Sprite activatedSprite, deactivatedSprite;
-  public bool isActivated = false,
+  // texture object at spawn point top
+  private SpriteRenderer textureObjectSR;
+  public Sprite activatedSprite, 
+                deactivatedSprite;
+  private int sortingOrderTexture;
+
+  // metallic arm pushing the player out of the spawnpoint
+  private GameObject playerHolder;
+  private SpriteRenderer playerHolderSR;
+  private int sortingOrderPlayerHolder;
+  private Vector3 playerHolderPosition;
+
+  // little floating title above spawnpoint
+  private GameObject spawnPointMessageObject;
+
+  // attributes
+  private Vector2 spawnCoordinates;
+  private bool isActivated = false,
               activeInLastFrame = false;
 
-  private SpriteRenderer textureObjectSR;
-  private GameObject spawnPointMessageObject;
-  private Vector2 spawnCoordinates;
-
   void Awake() {
-    
+
     foreach (Transform child in gameObject.transform) {
 
       GameObject obj = child.gameObject;
@@ -23,6 +36,13 @@ public class SpawnPoint : MonoBehaviour {
       switch (obj.name) {
         case "Texture":
           textureObjectSR = obj.GetComponent<SpriteRenderer>();
+          sortingOrderTexture = textureObjectSR.sortingOrder;
+          break;
+        case "PlayerHolder":
+          playerHolder = obj;
+          playerHolderPosition = obj.transform.position;
+          playerHolderSR = playerHolder.GetComponentInChildren<SpriteRenderer>();
+          sortingOrderPlayerHolder = playerHolderSR.sortingOrder;
           break;
         case "SpawnPointMessage":
           spawnPointMessageObject = obj;
@@ -42,12 +62,10 @@ public class SpawnPoint : MonoBehaviour {
   void Update() {
 
     // while death animation, display textures in front of player
+    // **resets and orderChange of playerHolder in animateHoldingArm()
     if (isActivated && PlayerController.Instance.getBool("isDead")) {
-      textureObjectSR.sortingOrder = 8;
-    }
-    // otherwise display player in front of textures
-    else {
-      textureObjectSR.sortingOrder = 2;
+      textureObjectSR.sortingOrder = PlayerController.Instance.GetObject("textureObject")
+                                     .GetComponent<SpriteRenderer>().sortingOrder + 2;
     }
     
     // only change settings once every time the spawnpoint activated or deactivated
@@ -91,8 +109,56 @@ public class SpawnPoint : MonoBehaviour {
       }
 
       isActivated = true;
+
     }
 
   }
+
+  public void animateHoldingArm() {
+
+    // run animation
+    StopCoroutine(moveOutHoldingArm());
+    StartCoroutine(moveOutHoldingArm());
+
+    // animate the metallic arm holding the player on respawn
+    IEnumerator moveOutHoldingArm() {
+
+      playerHolderSR.sortingOrder = PlayerController.Instance.GetObject("textureObject")
+                                     .GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+      int steps = 50;
+      float spawnPointmoveCharBy = 19f / steps;
+
+      // move out the holding arm
+      for (int i = 0; i < steps; i++) {
+        playerHolder.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
+        yield return new WaitForSeconds(0.03f);
+      }
+
+      yield return new WaitForSeconds(0.8f);
+
+      // move back inside much faster
+      steps /= 4;
+      spawnPointmoveCharBy *= 4f;
+
+      // move it back into the tube
+      for (int i = 0; i < steps; i++) {
+        playerHolder.transform.position -= new Vector3(spawnPointmoveCharBy, 0f, 0f);
+        yield return new WaitForSeconds(0.01f);
+      }
+
+      // if prior calculations are imprecise on Unity's side
+      // also reset position of player arm back to its fixed position
+      playerHolder.transform.position = playerHolderPosition;
+
+      textureObjectSR.sortingOrder = sortingOrderTexture;
+      playerHolderSR.sortingOrder = sortingOrderPlayerHolder;
+
+      StopCoroutine(moveOutHoldingArm());
+
+    }
+
+  }
+  
 
 }

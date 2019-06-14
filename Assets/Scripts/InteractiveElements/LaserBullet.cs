@@ -10,6 +10,9 @@ public class LaserBullet : MonoBehaviour {
   private bool hasHit = false;
   private Rigidbody2D rb2d;
 
+  // particle effects
+  public GameObject explodeParticles;
+
   void Start() {
     rb2d = GetComponent<Rigidbody2D>();
     rb2d.velocity = transform.right * speed;
@@ -39,6 +42,9 @@ public class LaserBullet : MonoBehaviour {
     GetComponent<CapsuleCollider2D>().isTrigger = true;
 
     PlayerController.Instance.PlaySound("laserBulletHit");
+
+    explodeParticles.SetActive(true);
+    explodeParticles.GetComponent<ParticleSystem>().Play(true);
 
     yield return new WaitForSeconds(.5f);
 

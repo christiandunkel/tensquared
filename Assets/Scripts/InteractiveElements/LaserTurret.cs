@@ -3,6 +3,7 @@
 public class LaserTurret : MonoBehaviour {
 
   public GameObject turret, bullet;
+  public ParticleSystem shortParticles;
 
   // distance of player to turret, in which turret becomes active
   public float distanceToPlayerNeededForActivation = 120f;
@@ -42,12 +43,12 @@ public class LaserTurret : MonoBehaviour {
     float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
     // don't rotate through the turret through the holder texture
-    if (angle > -160f && angle < -90f) {
-      angle = -160f;
+    if (angle > -152f && angle < -90f) {
+      angle = -152f;
       inShootingPosition = false;
     }
-    else if (angle < -20f && angle >= -90f) {
-      angle = -20f;
+    else if (angle < -28f && angle >= -90f) {
+      angle = -28f;
       inShootingPosition = false;
     }
     else inShootingPosition = true;
@@ -72,6 +73,7 @@ public class LaserTurret : MonoBehaviour {
   private void shootBullet() {
     Instantiate(bullet, bulletSpawnPosition.transform.position, turret.transform.rotation);
     PlayerController.Instance.PlaySound("laserTurretShot");
+    shortParticles.Play();
   }
 
   // external method to destroy a bullet object,

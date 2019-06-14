@@ -27,7 +27,7 @@ public class BreakableBlock : MonoBehaviour {
     
     if (
       col.gameObject.tag == "Player" && 
-      PlayerController.Instance.GetFloat("secondsAsRectangleFalling") > .4f &&
+      //PlayerController.Instance.GetFloat("secondsAsRectangleFalling") > .4f &&
       PlayerController.Instance.GetString("state") == "Rectangle"
     ) {
       StartCoroutine(breakBlock());
@@ -46,7 +46,8 @@ public class BreakableBlock : MonoBehaviour {
     for (int i = 0; i < breakingSprites.Length; i++) {
       GetComponent<SpriteRenderer>().sprite = breakingSprites[i];
 
-      if (i == breakingSprites.Length - 1) {
+      // spawn particles after a few ticks
+      if (i == 3) {
         breakParticles.SetActive(true);
         breakParticles.GetComponent<ParticleSystem>().Play();
       }

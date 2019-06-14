@@ -706,22 +706,21 @@ public class PlayerController : PhysicsObject {
       gameObject.transform.localPosition = ps;
       frozenYPos = ps.y;
 
-      SpriteRenderer sr = textureObject.GetComponent<SpriteRenderer>();
-
-      // set sprite visible again
+      // reset sprite to circle
+      state = "Circle";
       Attributes a = getAttributes();
-      sr.sprite = a.sprite;
+      textureObject.GetComponent<SpriteRenderer>().sprite = a.sprite;
+
+      // make sprite visible again
+      Color color = textureObject.GetComponent<SpriteRenderer>().color;
+      color.a = 1f;
+      textureObject.GetComponent<SpriteRenderer>().color = color;
 
       // handle spawn point animation (being pushed out of the tube)
       if (setSpawnpoint) {
 
-        // make sprite visible again
-        Color color = textureObject.GetComponent<SpriteRenderer>().color;
-        color.a = 1f;
-        textureObject.GetComponent<SpriteRenderer>().color = color;
-
         PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(.6f);
 
         // move the metallic arm holding the player out of the spawn point
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
@@ -740,13 +739,13 @@ public class PlayerController : PhysicsObject {
         isFrozen = false;
       }
 
-      // reset gravity modifier
-      gravityModifier = a.gravityModifier;
+      // reset attributes to circle once more
+      state = "Circle";
+      resetAttributesOfState();
 
       isDead = false;
 
       loadLevelSettingsIntoPlayer(); // reset internal settings for player, replace with level settings
-      resetAttributesOfState(); // reset attributes to current state
 
       StopCoroutine(respawn());
 

@@ -8,6 +8,7 @@ public class LaserTurret : MonoBehaviour {
   public float distanceToPlayerNeededForActivation = 120f;
 
   // shooting timer attributes
+  public GameObject bulletSpawnPosition;
   private bool inShootingPosition = true;
   public float secondsBetweenShots = 3f;
   private float timeUntilNextShot = 0f;
@@ -69,7 +70,7 @@ public class LaserTurret : MonoBehaviour {
   }
 
   private void shootBullet() {
-    Instantiate(bullet, turret.transform.position, turret.transform.rotation);
+    Instantiate(bullet, bulletSpawnPosition.transform.position, turret.transform.rotation);
     PlayerController.Instance.PlaySound("laserTurretShot");
   }
 

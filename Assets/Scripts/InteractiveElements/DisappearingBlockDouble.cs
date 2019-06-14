@@ -2,10 +2,10 @@
 using UnityEngine;
 
 /*
- * powers the 'disappearing block' prefab
+ * powers the 'disappearing block double' prefab
  */
 
-public class DisappearingBlock : MonoBehaviour {
+public class DisappearingBlockDouble : MonoBehaviour {
 
   public Animator squareTexture1, squareTexture2;
 
@@ -15,6 +15,10 @@ public class DisappearingBlock : MonoBehaviour {
   private float soundDist = 175f; // distance of player to gameobject, in which radius' sounds are playing
 
   private void Awake() {
+
+    if (stayTime < .4f) Debug.LogError("DisappearingBlockDouble: Given stayTime " + stayTime + " is too small.");
+    if (timeBothAreVisible < .4f) Debug.LogError("DisappearingBlockDouble: Given timeBothAreVisible " + timeBothAreVisible + " is too small.");
+
     startCycle();
   }
 

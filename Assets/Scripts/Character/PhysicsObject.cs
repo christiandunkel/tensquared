@@ -22,11 +22,11 @@ public class PhysicsObject : MonoBehaviour {
   protected Vector2 velocity, targetVelocity, groundNormal;
   public bool grounded;
 
-  protected ContactFilter2D contactFilter;
-  protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
-  protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
+  private ContactFilter2D contactFilter;
+  private RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
+  private List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
 
-  protected const float minMoveDistance = 0.001f,
+  private const float minMoveDistance = 0.001f,
                         shellRadius = 0.01f;
 
   private LineRenderer triangleLineRenderer;
@@ -175,7 +175,7 @@ public class PhysicsObject : MonoBehaviour {
     // leftwards
     if (angle < 90f) {
 
-      doubleJumpMovement.x = -((90f - angle) / (100f * doubleJumpReducer));
+      doubleJumpMovement.x = -((90f - angle) / (50f * doubleJumpReducer));
 
       // less upwards movement the closer the cursor is to the vertical vector standing on player
       doubleJumpMovement.y = -((90f - angle) / (100f * doubleJumpReducer));
@@ -183,7 +183,7 @@ public class PhysicsObject : MonoBehaviour {
     }
     // rightwards
     else if (angle > 90f) {
-      doubleJumpMovement.x = (angle - 90f) / (100f * doubleJumpReducer);
+      doubleJumpMovement.x = (angle - 90f) / (50f * doubleJumpReducer);
 
       // less upwards movement the closer the cursor is to the vertical vector standing on player
       doubleJumpMovement.y = -((angle - 90f) / (100f * doubleJumpReducer));
@@ -220,6 +220,9 @@ public class PhysicsObject : MonoBehaviour {
   private void yMovement(Vector2 move) {Movement(move, true); }
   private void Movement(Vector2 move, bool yMovement) {
 
+    move.x += !yMovement ? doubleJumpMovement.x : 0f;
+    move.y += yMovement ? doubleJumpMovement.y : 0f;
+
     float distance = move.magnitude; // betrag vektor
 
     if (distance > minMoveDistance) {
@@ -253,7 +256,7 @@ public class PhysicsObject : MonoBehaviour {
     }
 
     // calculate final position of rigid body
-    Vector2 pos = rb2d.position + move.normalized * distance + doubleJumpMovement;
+    Vector2 pos = rb2d.position + move.normalized * distance;
     rb2d.position = pos;
 
   }

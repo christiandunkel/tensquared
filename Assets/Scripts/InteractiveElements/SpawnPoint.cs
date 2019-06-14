@@ -15,6 +15,8 @@ public class SpawnPoint : MonoBehaviour {
 
   // metallic arm pushing the player out of the spawnpoint
   private GameObject playerHolder;
+  public Sprite playerHolderTextureOpen;
+  private Sprite playerHolderTextureClosed;
   private SpriteRenderer playerHolderSR;
   private int sortingOrderPlayerHolder;
   private Vector3 playerHolderPosition;
@@ -42,6 +44,7 @@ public class SpawnPoint : MonoBehaviour {
           playerHolder = obj;
           playerHolderPosition = obj.transform.position;
           playerHolderSR = playerHolder.GetComponentInChildren<SpriteRenderer>();
+          playerHolderTextureClosed = playerHolderSR.sprite;
           sortingOrderPlayerHolder = playerHolderSR.sortingOrder;
           break;
         case "SpawnPointMessage":
@@ -135,7 +138,11 @@ public class SpawnPoint : MonoBehaviour {
         yield return new WaitForSeconds(0.03f);
       }
 
+      playerHolderSR.sprite = playerHolderTextureOpen;
+
       yield return new WaitForSeconds(0.8f);
+
+      playerHolderSR.sprite = playerHolderTextureClosed;
 
       // move back inside much faster
       steps /= 4;

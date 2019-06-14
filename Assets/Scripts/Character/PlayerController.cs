@@ -239,10 +239,10 @@ public class PlayerController : PhysicsObject {
     }
   }
 
-  public void setValue(string name, bool val) {
+  public void setValue(string name, bool value) {
     switch (name) {
-      case "steppedOnPiston":   steppedOnPiston = val; break;
-      case "holdingItem":       holdingItem = val; break;
+      case "steppedOnPiston":   steppedOnPiston = value; break;
+      case "holdingItem":       holdingItem = value; break;
       default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid value name."); break;
     }
   }
@@ -370,10 +370,6 @@ public class PlayerController : PhysicsObject {
       }
       return newArr;
     }
-
-  }
-
-  void Start() {
 
     loadLevelSettingsIntoPlayer();
 
@@ -628,7 +624,7 @@ public class PlayerController : PhysicsObject {
    */
   private void testForXMovement(Vector2 move) {
 
-    if (isFrozen) {
+    if (isFrozen || state == "Triangle") {
       movingX = false;
       return;
     }
@@ -743,6 +739,7 @@ public class PlayerController : PhysicsObject {
 
       loadLevelSettingsIntoPlayer(); // reset internal settings for player, replace with level settings
       resetAttributesOfState(); // reset attributes to current state
+
       StopCoroutine(respawn());
 
     }
@@ -760,7 +757,7 @@ public class PlayerController : PhysicsObject {
 
   private Sprite[] rectToCircle, rectToTriangle, triangleToCircle; // sprite arrays containing morphing graphics
 
-  public void handleMorphing() {
+  private void handleMorphing() {
 
     /*
      * changes player's state to another one 
@@ -791,9 +788,6 @@ public class PlayerController : PhysicsObject {
 
     if (initiateMorphing) {
 
-      setCollider(newState);
-      resetDynamicRGB2D();
-
       // create and reutrn new array with values of given array
       void assignAnimationArray(Sprite[] spriteArray, bool reverse) {
 
@@ -817,7 +811,7 @@ public class PlayerController : PhysicsObject {
         case "Rectangle": assignAnimationArray(newState == "Circle" ? rectToCircle : rectToTriangle, false); break;
       }
 
-      // play sound
+      // play morphing sound
       PlaySound("morphSound");
 
       // set movement variables of the character type
@@ -834,7 +828,10 @@ public class PlayerController : PhysicsObject {
       mainModule = deathParticles.GetComponent<ParticleSystem>().main;
       mainModule.startColor = a.particleColor;
 
-
+      // set new state of character
+      state = newState;
+      setCollider(state);
+      resetDynamicRGB2D();
       isChangingState = true;
 
       // start morphing animation
@@ -858,18 +855,12 @@ public class PlayerController : PhysicsObject {
       }
 
       isChangingState = false;
-      state = newState;
 
       StopCoroutine(animateState());
 
     }
 
   }
-
-  
-  
-
-  
 
   private void showMovementParticles() {
 
@@ -880,7 +871,7 @@ public class PlayerController : PhysicsObject {
     bool showParticles = false;
 
     // don't show particles if not moving
-    if (movingX && grounded && state != "Triangle") {
+    if (movingX && grounded) {
       showParticles = true;
     }
 

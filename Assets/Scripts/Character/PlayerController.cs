@@ -681,6 +681,11 @@ public class PlayerController : PhysicsObject {
       canMorphToRectangle = false;
       canMorphToTriangle = false;
 
+      // make sprite invisible while respawn
+      Color color = textureObject.GetComponent<SpriteRenderer>().color;
+      color.a = 0f;
+      textureObject.GetComponent<SpriteRenderer>().color = color;
+
       resetDynamicRGB2D();
 
       // start playing death animation
@@ -690,8 +695,6 @@ public class PlayerController : PhysicsObject {
     IEnumerator respawn() {
 
       CameraShake.Instance.Play(.2f, 10f, 7f);
-
-      textureObject.GetComponent<SpriteRenderer>().sprite = null;
 
       playDeathParticles();
       PlaySound("playerDeathSound");
@@ -711,6 +714,11 @@ public class PlayerController : PhysicsObject {
 
       // handle spawn point animation (being pushed out of the tube)
       if (setSpawnpoint) {
+
+        // make sprite visible again
+        Color color = textureObject.GetComponent<SpriteRenderer>().color;
+        color.a = 1f;
+        textureObject.GetComponent<SpriteRenderer>().color = color;
 
         PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
         yield return new WaitForSeconds(.8f);

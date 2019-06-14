@@ -141,6 +141,9 @@ public class PlayerController : PhysicsObject {
                    activateSpawnpointSound,
                    respawnAtSpawnpointSound,
 
+                  laserBulletHit,
+                  laserTurretShot,
+
                    earthquake_1_5_secs,
                    earthquake_2_secs,
                    earthquake_2_5_secs_loud,
@@ -179,6 +182,9 @@ public class PlayerController : PhysicsObject {
       case "pistonPushSound":            c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "activateSpawnpointSound":    c = activateSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "respawnAtSpawnpointSound":   c = respawnAtSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+
+      case "laserBulletHit":             c = laserBulletHit; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "laserTurretShot":            c = laserTurretShot; shortSoundPlayer.PlayOneShot(c); return c.length;
 
       case "earthquake_1_5_secs":        c = earthquake_1_5_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
       case "earthquake_2_secs":          c = earthquake_2_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
@@ -664,15 +670,12 @@ public class PlayerController : PhysicsObject {
 
 
 
-  void respawn() {
-     
+  // kill the player and make him respawn
+  public void die() {
+
     // prevent triggering death animation multiple times
     if (!isDead) {
       isDead = true;
-      StartCoroutine(respawnCoroutine());
-    }
-
-    IEnumerator respawnCoroutine() {
 
       if (setSpawnpoint) {
         isFrozen = true;
@@ -689,6 +692,12 @@ public class PlayerController : PhysicsObject {
       GetComponent<Rigidbody2D>().freezeRotation = true;
       GetComponent<Rigidbody2D>().rotation = 0f;
       GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+
+      // start playing death animation
+      StartCoroutine(respawn());
+    }
+
+    IEnumerator respawn() {
 
       CameraShake.Instance.Play(.2f, 10f, 7f);
 
@@ -737,10 +746,10 @@ public class PlayerController : PhysicsObject {
       gravityModifier = a.gravityModifier;
 
       isDead = false;
-      
+
       loadLevelSettingsIntoPlayer(); // reset internal settings for player, replace with level settings
       resetAttributesOfState(); // reset attributes to current state
-      StopCoroutine(respawnCoroutine());
+      StopCoroutine(respawn());
 
     }
 
@@ -946,13 +955,13 @@ public class PlayerController : PhysicsObject {
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
         PlaySound("waterSplashSound");
-        respawn();
+        die();
         ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
         break;
 
       case "KillZone":
         Debug.Log("PlayerController: Player died by entering a kill zone.");
-        respawn();
+        die();
         break;
 
       case "Piston":

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class LevelEnd : MonoBehaviour {
 
+  // singleton
   public static LevelEnd Instance;
 
   public int levelID = 1;
@@ -56,38 +57,44 @@ public class LevelEnd : MonoBehaviour {
 
     StartCoroutine(endSceenAnimation());
 
+    IEnumerator endSceenAnimation() {
+
+      PlayerController.Instance.PlaySound("levelCompleteSound");
+
+      // fade in 'level complete' animation
+      for (int i = 0; i < 50; i++) {
+        endMenuContainer.alpha = ((float)i) * 2f / 100f;
+        yield return new WaitForSeconds(0.01f);
+      }
+      endMenuContainer.alpha = 1f;
+      endMenuContainer.interactable = true;
+      yield return new WaitForSeconds(3f);
+
+
+      // fade out 'level complete' animation
+      for (int i = 0; i < 50; i++) {
+        levelCompleteCG.alpha = 1 - (((float)i) * 2f / 100f);
+        yield return new WaitForSeconds(0.006f);
+      }
+      levelCompleteCG.alpha = 0f;
+      yield return new WaitForSeconds(.2f);
+
+
+      // fade in 'next level' menu
+      for (int i = 0; i < 50; i++) {
+        nextLevelCG.alpha = ((float)i) * 2f / 100f;
+        yield return new WaitForSeconds(0.006f);
+      }
+      nextLevelCG.alpha = 1f;
+      nextLevelCG.interactable = true;
+
+      StopCoroutine(endSceenAnimation());
+
+    }
+
   }
 
-  private IEnumerator endSceenAnimation() {
-
-    PlayerController.Instance.PlaySound("levelCompleteSound");
-
-    for (int i = 0; i < 50; i++) {
-      endMenuContainer.alpha = ((float)i) * 2f / 100f;
-      yield return new WaitForSeconds(0.01f);
-    }
-    endMenuContainer.alpha = 1f;
-    endMenuContainer.interactable = true;
-
-    yield return new WaitForSeconds(3f);
-
-    for (int i = 0; i < 50; i++) {
-      levelCompleteCG.alpha = 1 - (((float)i) * 2f / 100f);
-      yield return new WaitForSeconds(0.006f);
-    }
-    levelCompleteCG.alpha = 0f;
-
-    yield return new WaitForSeconds(.2f);
-
-    for (int i = 0; i < 50; i++) {
-      nextLevelCG.alpha = ((float)i) * 2f / 100f;
-      yield return new WaitForSeconds(0.006f);
-    }
-    nextLevelCG.alpha = 1f;
-    nextLevelCG.interactable = true;
-    StopCoroutine(endSceenAnimation());
-  }
-
+  // button that leads player to next level
   public void goToNextLevel() {
 
     CG.alpha = 0f;
@@ -99,6 +106,7 @@ public class LevelEnd : MonoBehaviour {
 
   }
 
+  // button that leads back to main menu
   public void goToMainMenu() {
 
     CG.alpha = 0f;

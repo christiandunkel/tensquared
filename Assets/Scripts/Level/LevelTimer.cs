@@ -23,7 +23,6 @@ public class LevelTimer : MonoBehaviour {
       GetComponent<CanvasGroup>().alpha = 1f;
     }
 
-
   }
 
   void Update() {
@@ -40,7 +39,7 @@ public class LevelTimer : MonoBehaviour {
 
   }
 
-  public string convertToTimerFormat() {
+  private string convertToTimerFormat() {
 
     int temp = (int) (currentTimer * 1000f);
 
@@ -57,18 +56,37 @@ public class LevelTimer : MonoBehaviour {
 
   }
 
+  private int convertStringTimerToInt(string timer) {
+
+    int seconds = 0;
+
+    timer = System.Text.RegularExpressions.Regex.Replace(timer, @":", "");
+    seconds = System.Int32.Parse(timer);
+
+    return seconds;
+
+  }
+
   // save timer value in player prefs at the end of an level
   public void saveTimer() {
 
-    if (!timerIsActive) return;
+    if (!timerIsActive) {
+      return;
+    }
 
     timerLockedIn = true;
 
     int lvlID = ScriptedEventsManager.Instance.levelID;
 
-    Debug.Log("LevelTimer: Saved timer " + currentTimerString + " for level " + lvlID + ".");
+    // get timer that's already saved in player prefs
+    int oldTimer = convertStringTimerToInt(PlayerPrefs.GetString("lvl" + lvlID + "_timer"));
 
-    PlayerPrefs.SetString("lvl" + lvlID + "_timer", currentTimerString);
+    // check if timer isn't 0 (default value), and new timer is faster/smaller than old one
+    // if so, replace old timer with new timer (currentTimer)
+    if (oldTimer == 0 || (int)(currentTimer * 1000f) < oldTimer) {
+      Debug.Log("LevelTimer: Saved timer " + currentTimerString + " for level " + lvlID + ".");
+      PlayerPrefs.SetString("lvl" + lvlID + "_timer", currentTimerString);
+    }
 
   }
 

@@ -215,7 +215,7 @@ public class PlayerController : PhysicsObject {
       case "movingPlatformSoundPlayer": movingPlatformSoundPlayer.Stop(); break;
       case "shortSoundPlayer": shortSoundPlayer.Stop(); break;
       case "cameraShakeSoundPlayer": cameraShakeSoundPlayer.Stop(); break;
-      default: break;
+      default: Debug.LogWarning("PlayerController: Sound player " + soundPlayer + " wasn't found."); break;
 
     }
 
@@ -349,7 +349,6 @@ public class PlayerController : PhysicsObject {
             case "Circle": newArr[i] = Resources.Load<Sprite>("Morph/Final/circle_with_light"); break;
             case "Triangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/triangle_with_light"); break;
             case "Rectangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/rectangle_with_light"); break;
-            default: break;
           }
         }
         else newArr[i] = arr[i - 1];
@@ -365,7 +364,6 @@ public class PlayerController : PhysicsObject {
             case "Circle": newArr[i] = Resources.Load<Sprite>("Morph/Final/circle_with_light"); break;
             case "Triangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/triangle_with_light"); break;
             case "Rectangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/rectangle_with_light"); break;
-            default: break;
           }
         }
         else newArr[i] = arr[i];
@@ -392,7 +390,7 @@ public class PlayerController : PhysicsObject {
   // stop figure rolling away even though there is no movement
   private float rollingFixTimer = 0.0f,
                 rollingFixTimerDefault = 0.05f;
-  private void stopRollingFix() {
+  private void resetDynamicRGB2D() {
     GetComponent<Rigidbody2D>().freezeRotation = true;
     GetComponent<Rigidbody2D>().rotation = 0f;
     GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
@@ -503,7 +501,7 @@ public class PlayerController : PhysicsObject {
     rollingFixTimer -= Time.deltaTime;
     if (rollingFixTimer <= 0.0f) {
       rollingFixTimer = rollingFixTimerDefault;
-      stopRollingFix();
+      resetDynamicRGB2D();
     }
 
     if (grounded) inDoubleJump = false;
@@ -569,7 +567,6 @@ public class PlayerController : PhysicsObject {
                 break;
               case "Triangle": PlaySound("landingTriangleSound"); break;
               case "Circle": PlaySound("landingCircleSound"); break;
-              default: break;
             }
 
           }
@@ -591,11 +588,10 @@ public class PlayerController : PhysicsObject {
       }
       
       if (movingX && state == "Circle") rotateCircle(); // rotate circle in the right direction     
-      showMovementParticles(movingX && grounded ? true : false);  // ground particles when moving over ground on the x axis
+      showMovementParticles();  // ground particles when moving over ground on the x axis
       ghost.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
 
       handleMorphing();
-      if (isChangingState) animateState(); // called when changing state, to animate new texture
 
     }
 
@@ -689,9 +685,7 @@ public class PlayerController : PhysicsObject {
       canMorphToRectangle = false;
       canMorphToTriangle = false;
 
-      GetComponent<Rigidbody2D>().freezeRotation = true;
-      GetComponent<Rigidbody2D>().rotation = 0f;
-      GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+      resetDynamicRGB2D();
 
       // start playing death animation
       StartCoroutine(respawn());
@@ -757,177 +751,161 @@ public class PlayerController : PhysicsObject {
 
   
 
+  private void setCollider(string state) {
+    GetComponent<CircleCollider2D>().enabled = (state == "Circle" ? true : false);
+    GetComponent<PolygonCollider2D>().enabled = (state == "Triangle" ? true : false);
+    GetComponent<BoxCollider2D>().enabled = (state == "Rectangle" ? true : false);
+  }
 
 
+  private Sprite[] rectToCircle, rectToTriangle, triangleToCircle; // sprite arrays containing morphing graphics
 
-  // changes state of player to other form
   public void handleMorphing() {
 
-    if (!(canMorphToTriangle || canMorphToRectangle)) {
-      return;
+    /*
+     * changes player's state to another one 
+     */
+
+    bool initiateMorphing = false;
+
+    if (!isChangingState) { 
+      if (Input.GetKeyDown(KeyCode.Alpha1) && state != "Circle") {
+        newState = "Circle";
+        initiateMorphing = true;
+      }
+      else if (canMorphToTriangle && Input.GetKeyDown(KeyCode.Alpha2)  && state != "Triangle") {
+        newState = "Triangle";
+        initiateMorphing = true;
+        ScriptedEventsManager.Instance.LoadEvent(2, "morph_to_triangle");
+      }
+      else if (canMorphToRectangle && Input.GetKeyDown(KeyCode.Alpha3) && state != "Rectangle") {
+        newState = "Rectangle";
+        initiateMorphing = true;
+      }
     }
 
-    void setCollider(int id) {
-      GetComponent<CircleCollider2D>().enabled = (id == 1 ? true : false);
-      GetComponent<PolygonCollider2D>().enabled = (id == 2 ? true : false);
-      GetComponent<BoxCollider2D>().enabled = (id == 3 ? true : false);
+
+
+    // the final array which will be animated
+    Sprite[] animationArray = null;
+
+    if (initiateMorphing) {
+
+      setCollider(newState);
+      resetDynamicRGB2D();
+
+      // create and reutrn new array with values of given array
+      void assignAnimationArray(Sprite[] spriteArray, bool reverse) {
+
+        animationArray = new Sprite[spriteArray.Length];
+
+        int counter = reverse ? spriteArray.Length - 1 : 0;
+
+        foreach (Sprite sprite in spriteArray) {
+          animationArray[counter] = sprite;
+          counter = reverse ? counter - 1 : counter + 1;
+        }
+
+      }
+
+      switch (state) {
+        // circle --> triangle/rectangle
+        case "Circle": assignAnimationArray(newState == "Triangle" ? triangleToCircle : rectToCircle, true); break;
+        // triangle --> circle/rectangle
+        case "Triangle": assignAnimationArray(newState == "Circle" ? triangleToCircle : rectToTriangle, newState == "Rectangle"); break;
+        // rectangle --> circle/triangle
+        case "Rectangle": assignAnimationArray(newState == "Circle" ? rectToCircle : rectToTriangle, false); break;
+      }
+
+      // play sound
+      PlaySound("morphSound");
+
+      // set movement variables of the character type
+      Attributes a = getAttributes(newState);
+      gravityModifier = a.gravityModifier;
+      maxSpeed = a.maxSpeed;
+      jumpTakeOffSpeed = a.jumpTakeOffSpeed;
+
+      // particle color for movement particles
+      ParticleSystem.MainModule mainModule = movementParticles.GetComponent<ParticleSystem>().main;
+      mainModule.startColor = a.particleColor;
+
+      // particle color for death particles
+      mainModule = deathParticles.GetComponent<ParticleSystem>().main;
+      mainModule.startColor = a.particleColor;
+
+
+      isChangingState = true;
+
+      // start morphing animation
+      StopCoroutine(animateState());
+      StartCoroutine(animateState());
+
     }
 
-    if (Input.GetKeyDown("" + 1) && !isChangingState && state != "Circle") {
-      newState = "Circle";
-      setCollider(1);
-      GetComponent<Rigidbody2D>().freezeRotation = true;
-      GetComponent<Rigidbody2D>().rotation = 0f;
-      GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-      ChangeState();
-    }
+    IEnumerator animateState() {
 
-    if (canMorphToTriangle && Input.GetKeyDown("" + 2) && !isChangingState && state != "Triangle") {
-      ScriptedEventsManager.Instance.LoadEvent(1, "morph_to_triangle");
+      // reset rotation
+      textureObject.transform.eulerAngles = Vector3.zero;
 
-      newState = "Triangle";
-      setCollider(2);
-      GetComponent<Rigidbody2D>().freezeRotation = true;
-      GetComponent<Rigidbody2D>().rotation = 0f;
-      GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
-      ChangeState();
-    }
+      float animationDuration = 0.16f;
 
-    if (canMorphToRectangle && Input.GetKeyDown("" + 3) && !isChangingState && state != "Rectangle") {
-      newState = "Rectangle";
-      setCollider(3);
-      GetComponent<Rigidbody2D>().freezeRotation = true;
-      GetComponent<Rigidbody2D>().rotation = 0f;
-      GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-      ChangeState();
+      for (int i = 0; i < animationArray.Length; i++) {
+
+        yield return new WaitForSeconds(animationDuration / animationArray.Length);
+        textureObject.GetComponent<SpriteRenderer>().sprite = animationArray[i] as Sprite;
+
+      }
+
+      isChangingState = false;
+      state = newState;
+
+      StopCoroutine(animateState());
+
     }
 
   }
+
   
-  private Sprite[] rectToCircle, rectToTriangle, triangleToCircle, // sprite arrays containing morphing graphics
-                   animationArray; // the final array which will be animated
+  
 
-  protected void ChangeState() {
+  
 
-    // create and reutrn new array with values of given array
-    void assignAnimationArray(Sprite[] spriteArray, bool reverse) {
+  private void showMovementParticles() {
 
-      animationArray = new Sprite[spriteArray.Length];
+    /*
+     * update state of "movement particles" every frame
+     */
 
-      int counter = reverse ? spriteArray.Length - 1 : 0;
+    bool showParticles = false;
 
-      foreach (Sprite sprite in spriteArray) {
-        animationArray[counter] = sprite;
-        counter = reverse ? counter - 1 : counter + 1;
-      }
-
+    // don't show particles if not moving
+    if (movingX && grounded && state != "Triangle") {
+      showParticles = true;
     }
-
-    switch (state) {
-      // circle --> triangle/rectangle
-      case "Circle": assignAnimationArray(newState == "Triangle" ? triangleToCircle : rectToCircle, true); break;
-      // triangle --> circle/rectangle
-      case "Triangle": assignAnimationArray(newState == "Circle" ? triangleToCircle : rectToTriangle, newState == "Rectangle"); break;
-      // rectangle --> circle/triangle
-      case "Rectangle": assignAnimationArray(newState == "Circle" ? rectToCircle : rectToTriangle, false); break;
-      default: break;
-    }
-
-    // play sound
-    PlaySound("morphSound");
-
-    // set movement variables of the character type
-    Attributes a = getAttributes(newState);
-    gravityModifier = a.gravityModifier;
-    maxSpeed = a.maxSpeed;
-    jumpTakeOffSpeed = a.jumpTakeOffSpeed;
-
-    // particle color for movement particles
-    ParticleSystem.MainModule mainModule = movementParticles.GetComponent<ParticleSystem>().main;
-    mainModule.startColor = a.particleColor;
-
-    // particle color for death particles
-    mainModule = deathParticles.GetComponent<ParticleSystem>().main;
-    mainModule.startColor = a.particleColor;
-
-    // reset frame counter for state-change animation
-    frameCounter = 0;
-
-    isChangingState = true;
-
-  }
-
-
-
-
-
-  private float animationDuration = 0.16f;
-  private int frameCounter = 0;
-  private float stateChangeTimer = 0f;
-  private void animateState() {
-
-    stateChangeTimer += Time.deltaTime;
-
-    if (stateChangeTimer > animationDuration / animationArray.Length) {
-      stateChangeTimer = 0f;
-
-      if (frameCounter >= 1) {
-
-        // reset rotation
-        Vector3 ea = textureObject.transform.eulerAngles;
-        ea.z = 0f;
-        textureObject.transform.eulerAngles = ea;
-
-      }
-
-      textureObject.GetComponent<SpriteRenderer>().sprite = animationArray[frameCounter] as Sprite;
-      
-      // last image -> reset
-      if (frameCounter >= animationArray.Length - 1) {
-        stateChangeTimer = 0f;
-        frameCounter = 0;
-        isChangingState = false;
-        state = newState;
-      }
-
-      frameCounter++;
-
-    }
-
-  }
-
-
-
-
-
-
-
-
-
-
-  /*
-  * called every frame
-  * update state of "showing movement particles"
-  */
-  protected void showMovementParticles(bool show) {
 
     ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
     ParticleSystem.MainModule ps_main = ps.main;
     ParticleSystem.VelocityOverLifetimeModule ps_velocity = ps.velocityOverLifetime;
 
-    if (show) {
-      ps_velocity.x = (leftwards ? 11.0f : -11.0f);
-      ps_velocity.y = 7.0f;
+    if (showParticles) {
+      ps_velocity.x = (leftwards ? 11f : -11f);
+      ps_velocity.y = 7f;
       ps_main.startLifetime = 2.7f;
     }
     else {
-      ps_velocity.x = 0.0f;
-      ps_velocity.y = 0.0f;
-      ps_main.startLifetime = 0.0f;
+      ps_velocity.x = 0f;
+      ps_velocity.y = 0f;
+      ps_main.startLifetime = 0f;
     }
+
   }
 
-  protected void playDeathParticles() {
+  private void playDeathParticles() {
+
+    /*
+     * play exploding particles on death
+     */
 
     ParticleSystem.MainModule mainModule = deathParticles.GetComponent<ParticleSystem>().main;
 
@@ -970,9 +948,6 @@ public class PlayerController : PhysicsObject {
         PlaySound("pistonPushSound");
         break;
 
-      default:
-        break;
-
     }
 
   }
@@ -1001,9 +976,6 @@ public class PlayerController : PhysicsObject {
         movingPlatformSoundsTimer = 0.2f;
         break;
 
-      default:
-        break;
-
     }
 
   }
@@ -1015,9 +987,6 @@ public class PlayerController : PhysicsObject {
       case "MovingPlatform":
         // make the player move along the moving platform if standing on top
         transform.position += col.gameObject.GetComponent<MovingPlatform>().movePlayerBy;
-        break;
-
-      default:
         break;
 
     }

@@ -46,10 +46,12 @@ public class LaserTurret : MonoBehaviour {
     if (angle > -152f && angle < -90f) {
       angle = -152f;
       inShootingPosition = false;
+      timeUntilNextShot = secondsBetweenShots;
     }
     else if (angle < -28f && angle >= -90f) {
       angle = -28f;
       inShootingPosition = false;
+      timeUntilNextShot = secondsBetweenShots;
     }
     else inShootingPosition = true;
 

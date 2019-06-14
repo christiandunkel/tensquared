@@ -1003,23 +1003,9 @@ public class PlayerController : PhysicsObject {
     
     switch (col.gameObject.tag) {
 
-      // make the player move along the moving platform if standing on top
       case "MovingPlatform":
-        Vector3 newPos = transform.position;
-
-        MovingPlatform mp = col.gameObject.GetComponent<MovingPlatform>();
-        float thisX = mp.thisX,
-              lastX = mp.lastX,
-              thisY = mp.thisY,
-              lastY = mp.lastY;
-
-        // player still moves a bit slower than platform -> will fall down
-        // that's what we need to offset with the following value
-        float offset = 0.002f;
-
-        newPos.x += thisX > lastX ? thisX - lastX + offset : -(lastX - thisX) - offset;
-        newPos.y += thisY > lastY ? thisY - lastY + offset : -(lastY - thisY) - offset;
-        transform.position = newPos;
+        // make the player move along the moving platform if standing on top
+        transform.position += col.gameObject.GetComponent<MovingPlatform>().movePlayerBy;
         break;
 
       default:

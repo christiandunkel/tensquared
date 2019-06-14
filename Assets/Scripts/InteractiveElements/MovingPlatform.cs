@@ -6,16 +6,20 @@
 
 public class MovingPlatform : MonoBehaviour {
 
-  // save current and last positions
-  // in order to move the player standing on top along
-  public float thisX = 0f, lastX = 0f,
-               thisY = 0f, lastY = 0f;
+  // save movement distance of each tick 
+  // to move the player standing on top along
+  public Vector3 movePlayerBy = Vector3.zero;
 
-  public Transform leftPos, rightPos,
-                   startPos;
-  public float speed;
-
+  // the platform moves from leftPos to rightPos, 
+  // starting at startPos, with nextPos being the next pos to move to
+  public Transform leftPos, rightPos, startPos;
   private Vector3 nextPos;
+
+  // last position of platform on y axis
+  private float lastYPos;
+
+  // how fast the platform moves
+  public float speed;
 
   void Start() {
 
@@ -39,6 +43,8 @@ public class MovingPlatform : MonoBehaviour {
   // Update is called once per frame
   void Update()  {
 
+    // if position to which to move to was reached,
+    // switch to a new position to move to
     if (gameObject.transform.localPosition == leftPos.localPosition) {
       nextPos =  rightPos.localPosition;
     }
@@ -46,12 +52,31 @@ public class MovingPlatform : MonoBehaviour {
       nextPos = leftPos.localPosition;
     }
 
-    gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, nextPos, speed * Time.deltaTime);
+    // calculate the next position relative to time and speed
+    Vector3 tempPos = Vector3.MoveTowards(gameObject.transform.localPosition, nextPos, speed * Time.deltaTime);
 
-    lastX = thisX;
-    thisX = transform.localPosition.x;
-    lastY = thisY;
-    thisY = transform.localPosition.y;
+    // calculate the position difference between old and new position
+    movePlayerBy.x = Mathf.Abs(gameObject.transform.localPosition.x - tempPos.x);
+    movePlayerBy.y = Mathf.Abs(gameObject.transform.localPosition.y - tempPos.y);
+
+    // add x and y offset since Unity position calculations seem to be a bit wonky
+    float offset = 0.03f;
+
+    // if moving leftwards, the moveBy value on x axis has to be negative
+    if (nextPos == leftPos.localPosition) {
+      movePlayerBy.x *= -1;
+      movePlayerBy.x -= offset;
+    }
+    else {
+      movePlayerBy.x += offset;
+    }
+    // if moving downwards, the moving value on y axis needs to be negated
+    if (tempPos.y < lastYPos) movePlayerBy.x *= -1;
+
+    // set platform to new position
+    gameObject.transform.localPosition = tempPos;
+
+    lastYPos = tempPos.y;
 
   }
 

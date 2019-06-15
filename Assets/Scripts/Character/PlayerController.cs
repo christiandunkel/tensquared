@@ -23,7 +23,56 @@ public class PlayerController : PhysicsObject {
   public Animator cameraAnimator;
 
   private float zoomedInCameraTimer = 0f,
-                zoomedOutCameraTimer = 0f;
+                zoomedOutCameraTimer = 0f,
+                zoomedOutCameraFarTimer = 0f;
+
+  private void handleCameraZoom() {
+
+    /*
+     * manages the zoom-in and zoom-out effect
+     * of the virtual camera following the player
+     */
+
+    // handle camera zooming (inwards)
+    if (zoomedInCameraTimer > 0f) {
+      zoomedInCameraTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedIn")) {
+        cameraAnimator.SetBool("ZoomedIn", true);
+        Debug.Log("PlayerController: Entered 'camera zoom in' area.");
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedIn")) {
+      cameraAnimator.SetBool("ZoomedIn", false);
+      Debug.Log("PlayerController: Left 'camera zoom in' area.");
+    }
+
+    // handle camera zooming (outwards)
+    if (zoomedOutCameraTimer > 0f) {
+      zoomedOutCameraTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedOut")) {
+        cameraAnimator.SetBool("ZoomedOut", true);
+        Debug.Log("PlayerController: Entered 'camera zoom out' area.");
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedOut")) {
+      cameraAnimator.SetBool("ZoomedOut", false);
+      Debug.Log("PlayerController: Left 'camera zoom out' area.");
+    }
+
+    // handle camera zooming (outwards far)
+    if (zoomedOutCameraFarTimer > 0f) {
+      zoomedOutCameraFarTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedOutFar")) {
+        cameraAnimator.SetBool("ZoomedOutFar", true);
+        Debug.Log("PlayerController: Entered 'camera zoom out far' area.");
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedOutFar")) {
+      cameraAnimator.SetBool("ZoomedOutFar", false);
+      Debug.Log("PlayerController: Left 'camera zoom out far' area.");
+    }
+
+  }
 
 
 
@@ -445,31 +494,11 @@ public class PlayerController : PhysicsObject {
     }
     else movingPlatformSoundPlayer.Pause();
 
-    // handle camera zooming (inwards)
-    if (zoomedInCameraTimer > 0.0f) {
-      zoomedInCameraTimer -= Time.fixedDeltaTime;
-      if (!cameraAnimator.GetBool("ZoomedIn")) {
-        cameraAnimator.SetBool("ZoomedIn", true);
-        Debug.Log("PlayerController: Entered 'camera zoom in' area.");
-      }
-    }
-    else if (cameraAnimator.GetBool("ZoomedIn")) {
-      cameraAnimator.SetBool("ZoomedIn", false);
-      Debug.Log("PlayerController: Left 'camera zoom in' area.");
-    }
 
-    // handle camera zooming (outwards)
-    if (zoomedOutCameraTimer > 0.0f) {
-      zoomedOutCameraTimer -= Time.fixedDeltaTime;
-      if (!cameraAnimator.GetBool("ZoomedOut")) {
-        cameraAnimator.SetBool("ZoomedOut", true);
-        Debug.Log("PlayerController: Entered 'camera zoom out' area.");
-      }
-    }
-    else if (cameraAnimator.GetBool("ZoomedOut")) {
-      cameraAnimator.SetBool("ZoomedOut", false);
-      Debug.Log("PlayerController: Left 'camera zoom out' area.");
-    }
+
+    handleCameraZoom();
+
+
 
     // handle holding item state
     if (holdingItem && !heldItemObject.activeSelf) heldItemObject.SetActive(true);
@@ -961,6 +990,10 @@ public class PlayerController : PhysicsObject {
 
       case "ZoomOutCamera":
         zoomedOutCameraTimer = 0.5f;
+        break;
+
+      case "ZoomOutCameraFar":
+        zoomedOutCameraFarTimer = 0.5f;
         break;
 
       case "PreventMovementSounds":

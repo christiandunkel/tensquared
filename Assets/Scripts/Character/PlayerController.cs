@@ -668,6 +668,7 @@ public class PlayerController : PhysicsObject {
     // prevent triggering death animation multiple times
     if (!isDead) {
       isDead = true;
+      ghost.SetGhosting(false);
 
       if (setSpawnpoint) {
         isFrozen = true;

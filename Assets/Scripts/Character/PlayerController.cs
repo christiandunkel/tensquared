@@ -383,26 +383,6 @@ public class PlayerController : PhysicsObject {
     return null;
   }
 
-  private Attributes getAttributes() {
-    return getAttributes(state);
-  }
-
-  private Attributes getAttributes(string stateName) {
-
-    // look for given name
-    foreach (Attributes a_temp in characterAttributes) {
-      if (a_temp.name == stateName) return a_temp;
-    }
-
-    // if fails return attributes for current state
-    Attributes a = new Attributes();
-    foreach (Attributes a_temp in characterAttributes) {
-      if (a_temp.name == state) a = a_temp; break;
-    }
-    return a;
-
-  }
-
 
 
   /*
@@ -431,8 +411,6 @@ public class PlayerController : PhysicsObject {
 
   protected override void UpdateBeforeVelocity() {
 
-    Debug.Log(fireSoundTimer);
-
     handleSound();
     handleCameraZoom();
     handleHoldingItem();
@@ -448,6 +426,26 @@ public class PlayerController : PhysicsObject {
       ghost.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
       handleMorphing();
     }
+
+  }
+
+  private Attributes getAttributes() {
+    return getAttributes(state);
+  }
+
+  private Attributes getAttributes(string stateName) {
+
+    // look for given name
+    foreach (Attributes a_temp in characterAttributes) {
+      if (a_temp.name == stateName) return a_temp;
+    }
+
+    // if fails return attributes for current state
+    Attributes a = new Attributes();
+    foreach (Attributes a_temp in characterAttributes) {
+      if (a_temp.name == state) a = a_temp; break;
+    }
+    return a;
 
   }
 

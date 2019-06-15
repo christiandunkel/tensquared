@@ -145,11 +145,8 @@ public class PlayerController : PhysicsObject {
 
   private GameObject parentObject;
 
-  public GameObject heldItemObject,
-                    textureContainer, 
-                    movementParticles, 
-                    deathParticles,
-                    doubleJumpParticles;
+  public GameObject heldItemObject, textureContainer, 
+                    movementParticles, deathParticles, doubleJumpParticles;
 
   public GhostingEffect ghost;
 
@@ -161,53 +158,97 @@ public class PlayerController : PhysicsObject {
    =====================
    */
 
-  public AudioSource characterSoundPlayer,
-                     circleMovementSoundPlayer,
-                     rectangleMovementSoundPlayer,
-                     grassSoundPlayer,
-                     disappearingBlockAppearSoundPlayer,
-                     disappearingBlockDisappearSoundPlayer,
-                     movingPlatformSoundPlayer,
-                     shortSoundPlayer,
-                     cameraShakeSoundPlayer;
+  public AudioSource characterSoundPlayer, circleMovementSoundPlayer, rectangleMovementSoundPlayer, grassSoundPlayer, disappearingBlockAppearSoundPlayer,
+                     disappearingBlockDisappearSoundPlayer, movingPlatformSoundPlayer, fireSoundPlayer, shortSoundPlayer, cameraShakeSoundPlayer;
 
-  public AudioClip morphSound,
-                   landingCircleSound,
-                   landingTriangleSound,
-                   landingRectangleSound,
-                   jumpingTriangleSound,
-                   playerDeathSound,
+  public AudioClip morphSound, landingCircleSound, landingTriangleSound, landingRectangleSound, jumpingTriangleSound, playerDeathSound, walkThroughGrassSound,
+                   disappearingBlockAppear, disappearingBlockDisappear, waterSplashSound, breakingBlockSound, pistonPushSound, activateSpawnpointSound, respawnAtSpawnpointSound,
+                   laserBulletHit, laserTurretShot, earthquake_1_5_secs, earthquake_2_secs, earthquake_2_5_secs_loud, earthquake_3_secs, robotRepairSound, levelCompleteSound;
 
-                   walkThroughGrassSound,
+  private float preventMovementSoundsTimer = 0f, movingPlatformSoundsTimer = 0f, fireSoundTimer = 0f, movingThroughGrassTimer = 0f, movingTimer = 0f;
 
-                   disappearingBlockAppear,
-                   disappearingBlockDisappear,
-                   movingPlatformSound,
+  private void handleSound() {
 
-                   waterSplashSound,
-                   breakingBlockSound,
-                   pistonPushSound,
-                   activateSpawnpointSound,
-                   respawnAtSpawnpointSound,
+    /*
+     * handle continuous sounds and their timer
+     */
 
-                  laserBulletHit,
-                  laserTurretShot,
+    // stop movement audio sources which are on loop and start playing when loading the scene
+    if (Time.realtimeSinceStartup < 1f) {
+      circleMovementSoundPlayer.Pause();
+      rectangleMovementSoundPlayer.Pause();
+      movingPlatformSoundPlayer.Pause();
+      fireSoundPlayer.Pause();
+    }
 
-                   earthquake_1_5_secs,
-                   earthquake_2_secs,
-                   earthquake_2_5_secs_loud,
-                   earthquake_3_secs,
+    movingTimer = movingX && grounded ? 0.2f : movingTimer;
 
-                   robotRepairSound,
-                   levelCompleteSound;
+    // general moving sounds
+    if (movingTimer > 0f) {
+      movingTimer -= Time.fixedDeltaTime;
+      if (preventMovementSoundsTimer <= 0f) {
+        if (movingX && grounded) {
+          if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
+            circleMovementSoundPlayer.UnPause();
+            rectangleMovementSoundPlayer.Pause();
+          }
+          else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying) {
+            circleMovementSoundPlayer.Pause();
+            rectangleMovementSoundPlayer.UnPause();
+          }
+          else if (state == "Triangle") {
+            circleMovementSoundPlayer.Pause();
+            rectangleMovementSoundPlayer.Pause();
+          }
+        }
+      }
+      else {
+        preventMovementSoundsTimer -= Time.fixedDeltaTime;
+      }
 
-  private float preventMovementSoundsTimer = 0f,
-                movingPlatformSoundsTimer = 0f,
-                movingThroughGrassTimer = 0f,
-                movingTimer = 0f;
+    }
+    else if (state == "Circle") {
+      circleMovementSoundPlayer.Pause();
+    }
+    else {
+      rectangleMovementSoundPlayer.Pause();
+    }
 
-  // plays a sound and returns the audio clip length as a float
+    // sounds while moving through grass
+    if (movingThroughGrassTimer > 0f) {
+      movingThroughGrassTimer -= Time.fixedDeltaTime;
+      if (!grassSoundPlayer.isPlaying) PlaySound("walkThroughGrassSound");
+    }
+    else {
+      grassSoundPlayer.Stop();
+    }
+
+    // sounds of moving platforms
+    if (movingPlatformSoundsTimer > 0f) {
+      movingPlatformSoundsTimer -= Time.fixedDeltaTime;
+      if (!movingPlatformSoundPlayer.isPlaying) movingPlatformSoundPlayer.UnPause();
+    }
+    else {
+      movingPlatformSoundPlayer.Pause();
+    }
+
+    // sounds of fire
+    if (fireSoundTimer > 0f) {
+      fireSoundTimer -= Time.fixedDeltaTime;
+      if (!fireSoundPlayer.isPlaying) fireSoundPlayer.UnPause();
+    }
+    else {
+      fireSoundPlayer.Pause();
+    }
+
+  }
+  
   public float PlaySound(string soundName) {
+
+    /*
+     * plays a sound with the related sound player
+     * returns the audio clip length as float
+     */
 
     AudioClip c;
 
@@ -224,8 +265,7 @@ public class PlayerController : PhysicsObject {
 
       case "disappearingBlockAppear":    c = disappearingBlockAppear; disappearingBlockAppearSoundPlayer.PlayOneShot(c); return c.length;
       case "disappearingBlockDisappear": c = disappearingBlockDisappear; disappearingBlockDisappearSoundPlayer.PlayOneShot(c); return c.length;
-      case "movingPlatformSound":        c = movingPlatformSound; movingPlatformSoundPlayer.PlayOneShot(c); return c.length;
-       
+
       case "waterSplashSound":           c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "breakingBlockSound":         c = breakingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "pistonPushSound":            c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
@@ -252,6 +292,10 @@ public class PlayerController : PhysicsObject {
   }
 
   public void StopSoundPlayer(string soundPlayer) {
+    
+    /*
+     * stops a defined sound player from playing
+     */
 
     switch (soundPlayer) {
 
@@ -262,6 +306,7 @@ public class PlayerController : PhysicsObject {
       case "disappearingBlockAppearSoundPlayer": disappearingBlockAppearSoundPlayer.Stop(); break;
       case "disappearingBlockDisappearSoundPlayer": disappearingBlockDisappearSoundPlayer.Stop(); break;
       case "movingPlatformSoundPlayer": movingPlatformSoundPlayer.Stop(); break;
+      case "fireSoundPlayer": fireSoundPlayer.Stop(); break;
       case "shortSoundPlayer": shortSoundPlayer.Stop(); break;
       case "cameraShakeSoundPlayer": cameraShakeSoundPlayer.Stop(); break;
       default: Debug.LogWarning("PlayerController: Sound player " + soundPlayer + " wasn't found."); break;
@@ -367,6 +412,7 @@ public class PlayerController : PhysicsObject {
    */
 
   void Awake() {
+
     Instance = this;
 
     parentObject = gameObject.transform.parent.gameObject;
@@ -374,22 +420,53 @@ public class PlayerController : PhysicsObject {
 
     Debug.Log("Player: With parent object '" + parentObject.name + "' initialized.");
 
-    // set attributes for start character state
-    resetAttributesOfState();
+    resetAttributes(); // set attributes for start character state
+    loadMorphAnimationSprites();
+    loadLevelSettingsIntoPlayer();
 
     lastX = transform.position.x;
     lastY = transform.position.y;
-    
-    // scan given directory and load images as sprites into memory
+
+  }
+
+  protected override void UpdateBeforeVelocity() {
+
+    Debug.Log(fireSoundTimer);
+
+    handleSound();
+    handleCameraZoom();
+    handleHoldingItem();
+
+  }
+
+  protected override void UpdateAfterVelocity() {
+
+    showMovementParticles();
+
+    if (!isDead) {
+      rotateCircle(); // rotate circle in the right direction     
+      ghost.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
+      handleMorphing();
+    }
+
+  }
+
+  private void loadMorphAnimationSprites() {
+
+    /*
+     * load morph animation sprites into arrays for use in morphing process
+     */
+
+    // scan given directory and load morph animation images as sprites into memory
     rectToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle"), "Rectangle", "Circle");
     rectToTriangle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle"), "Rectangle", "Triangle");
     triangleToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle"), "Triangle", "Circle");
-
 
     Sprite[] AddFiles(Sprite[] arr, string fileFront, string fileEnd) {
       Sprite[] newArr = AddFileAtFront(arr, fileFront);
       return AddFileAtEnd(newArr, fileEnd);
     }
+
     Sprite[] AddFileAtFront(Sprite[] arr, string file) {
       Sprite[] newArr = new Sprite[arr.Length + 1];
       for (int i = 0; i < newArr.Length; i++) {
@@ -420,10 +497,22 @@ public class PlayerController : PhysicsObject {
       return newArr;
     }
 
-    loadLevelSettingsIntoPlayer();
-
   }
 
+  private void handleHoldingItem() {
+
+    /*
+     * handle holding item state
+     */
+
+    if (holdingItem && !heldItemObject.activeSelf) {
+      heldItemObject.SetActive(true);
+    }
+    else if (!holdingItem && heldItemObject.activeSelf) {
+      heldItemObject.SetActive(false);
+    }
+
+  }
 
 
   /*
@@ -433,76 +522,15 @@ public class PlayerController : PhysicsObject {
    */
 
   // stop figure rolling away even though there is no movement
-  private float rollingFixTimer = 0.0f,
+  private float rollingFixTimer = 0f,
                 rollingFixTimerDefault = 0.05f;
   private void resetDynamicRGB2D() {
-    GetComponent<Rigidbody2D>().freezeRotation = true;
-    GetComponent<Rigidbody2D>().rotation = 0f;
-    GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+    rb2d.freezeRotation = true;
+    rb2d.rotation = 0f;
+    rb2d.velocity = new Vector2(0f, 0f);
   }
 
-  private int timerBecauseUnityIsBeingStupid = 0;
   protected override void ComputeVelocity() {
-
-    // stop movement audio sources which are on loop and start playing when loading the scene
-    if (timerBecauseUnityIsBeingStupid < 500) {
-      timerBecauseUnityIsBeingStupid++;
-      circleMovementSoundPlayer.Pause();
-      rectangleMovementSoundPlayer.Pause();
-      movingPlatformSoundPlayer.Pause();
-    }
-    
-    movingTimer = movingX && grounded ? 0.2f : movingTimer;
-
-    // general moving sounds
-    if (movingTimer > 0f) {
-      movingTimer -= Time.fixedDeltaTime;
-      if (preventMovementSoundsTimer <= 0f) {
-        if (movingX && grounded) {
-          if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
-            circleMovementSoundPlayer.UnPause();
-            rectangleMovementSoundPlayer.Pause();
-          }
-          else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying) {
-            circleMovementSoundPlayer.Pause();
-            rectangleMovementSoundPlayer.UnPause();
-          }
-          else if (state == "Triangle") {
-            circleMovementSoundPlayer.Pause();
-            rectangleMovementSoundPlayer.Pause();
-          }
-        }
-      }
-      else preventMovementSoundsTimer -= Time.fixedDeltaTime;
-
-
-    }
-    else if (state == "Circle") circleMovementSoundPlayer.Pause();
-    else rectangleMovementSoundPlayer.Pause();
-
-    // sounds while moving through grass
-    if (movingThroughGrassTimer > 0f) {
-      movingThroughGrassTimer -= Time.fixedDeltaTime;
-      if (!grassSoundPlayer.isPlaying) PlaySound("walkThroughGrassSound");
-    }
-    else grassSoundPlayer.Stop();
-
-    // sounds of moving platforms
-    if (movingPlatformSoundsTimer > 0f) {
-      movingPlatformSoundsTimer -= Time.fixedDeltaTime;
-      if (!movingPlatformSoundPlayer.isPlaying) movingPlatformSoundPlayer.UnPause();
-    }
-    else movingPlatformSoundPlayer.Pause();
-
-
-
-    handleCameraZoom();
-
-
-
-    // handle holding item state
-    if (holdingItem && !heldItemObject.activeSelf) heldItemObject.SetActive(true);
-    else if (!holdingItem && heldItemObject.activeSelf) heldItemObject.SetActive(false);
 
     // handle frozen state
     if (isFrozen) {
@@ -517,17 +545,17 @@ public class PlayerController : PhysicsObject {
       gameObject.transform.position = frozenPos;
       return;
     }
-    else if (frozenInLastFrame) frozenInLastFrame = false;
-
-
-
-    Vector2 move = Vector2.zero;
+    else if (frozenInLastFrame) {
+      frozenInLastFrame = false;
+    }
 
     rollingFixTimer -= Time.deltaTime;
-    if (rollingFixTimer <= 0.0f) {
+    if (rollingFixTimer <= 0f) {
       rollingFixTimer = rollingFixTimerDefault;
       resetDynamicRGB2D();
     }
+
+    Vector2 move = Vector2.zero;
 
     if (grounded) inDoubleJump = false;
 
@@ -611,12 +639,6 @@ public class PlayerController : PhysicsObject {
         targetVelocity = move * maxSpeed;
 
       }
-      
-      if (movingX && state == "Circle") rotateCircle(); // rotate circle in the right direction     
-      showMovementParticles();  // ground particles when moving over ground on the x axis
-      ghost.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
-
-      handleMorphing();
 
     }
 
@@ -630,7 +652,7 @@ public class PlayerController : PhysicsObject {
     canMorphToTriangle = settings.canMorphToTriangle;
   }
 
-  private void resetAttributesOfState() {
+  private void resetAttributes() {
     Attributes resA = getAttributes();
     gravityModifier = resA.gravityModifier;
     maxSpeed = resA.maxSpeed;
@@ -647,14 +669,17 @@ public class PlayerController : PhysicsObject {
   }
 
 
-  /*
-   * tests if the player is currently moving
-   * sets movingX, movingY and leftwards
-   */
+
   private void testForXMovement(Vector2 move) {
 
+    /*
+     * tests if the player is currently moving on the x axis 
+     * sets 'movingX' and 'leftwards'
+     */
+
+    movingX = false;
+
     if (isFrozen || state == "Triangle") {
-      movingX = false;
       return;
     }
 
@@ -664,35 +689,46 @@ public class PlayerController : PhysicsObject {
     else if (move.x < -0.02f) {
       movingX = true; leftwards = true;
     }
-    else movingX = false;
 
   }
   private void testForYMovement() {
 
-    // test if player is currently moving on Y axis
+    /*
+     * tests if the player is currently moving on the y axis 
+     * sets 'movingY'
+     */
+
     movingY = false;
-    float currY = transform.position.y; // current
-    if (System.Math.Abs(lastY - currY) > 0.1f) {
+    float currentY = transform.position.y;
+    if (System.Math.Abs(lastY - currentY) > 0.1f) {
       movingY = true;
     }
-    lastY = transform.position.y;
+    lastY = currentY;
 
   }
 
-  /*
-   * called while moving as circle, rotates texture
-   */
+
   private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
-  protected void rotateCircle() {
-    rotationVec.z = (Time.deltaTime * 15 * (leftwards ? 25.0f : -25f)) % 360;
-    textureObject.transform.Rotate(rotationVec);
+  private void rotateCircle() {
+
+    /*
+     * called while moving as circle in order to rotate circle texture
+     */
+
+    if (movingX && state == "Circle") {
+      rotationVec.z = (Time.deltaTime * 15 * (leftwards ? 25.0f : -25f)) % 360;
+      textureObject.transform.Rotate(rotationVec);
+    }
   }
 
 
 
 
-  // kill the player and make him respawn
   public void die() {
+
+    /*
+     * kill the player and play respawn animation
+     */
 
     // prevent triggering death animation multiple times
     if (!isDead) {
@@ -771,7 +807,7 @@ public class PlayerController : PhysicsObject {
 
       // reset attributes to circle once more
       state = "Circle";
-      resetAttributesOfState();
+      resetAttributes();
 
       isDead = false;
 
@@ -903,6 +939,7 @@ public class PlayerController : PhysicsObject {
 
     /*
      * update state of "movement particles" every frame
+     * (ground particles when moving over ground on the x axis)
      */
 
     bool showParticles = false;
@@ -984,6 +1021,8 @@ public class PlayerController : PhysicsObject {
 
     switch (col.gameObject.tag) {
 
+      /* Camera Zooming */
+
       case "ZoomInCamera":
         zoomedInCameraTimer = 0.5f;
         break;
@@ -996,16 +1035,22 @@ public class PlayerController : PhysicsObject {
         zoomedOutCameraFarTimer = 0.5f;
         break;
 
-      case "PreventMovementSounds":
-        preventMovementSoundsTimer = 0.2f;
-        break;
+      /* Sounds */
 
       case "Grass":
         if (movingX && grounded) movingThroughGrassTimer = 0.2f;
         break;
 
+      case "PreventMovementSounds":
+        preventMovementSoundsTimer = 0.2f;
+        break;
+
       case "MovingPlatformSounds":
         movingPlatformSoundsTimer = 0.2f;
+        break;
+
+      case "FireSounds":
+        fireSoundTimer = 0.2f;
         break;
 
     }

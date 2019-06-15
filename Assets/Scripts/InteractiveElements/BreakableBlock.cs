@@ -27,7 +27,7 @@ public class BreakableBlock : MonoBehaviour {
     
     if (
       col.gameObject.tag == "Player" && 
-      //PlayerController.Instance.GetFloat("secondsAsRectangleFalling") > .4f &&
+      PlayerController.Instance.GetFloat("secondsAsRectangleFalling") > .4f &&
       PlayerController.Instance.GetString("state") == "Rectangle"
     ) {
       StartCoroutine(breakBlock());

@@ -47,12 +47,17 @@ public class PhysicsObject : MonoBehaviour {
 
   void Update() {
     targetVelocity = Vector2.zero;
+
+    UpdateBeforeVelocity();
     ComputeVelocity();
+    UpdateAfterVelocity();
   }
 
-  protected virtual void ComputeVelocity() {}
+  protected virtual void UpdateBeforeVelocity() {}
+  protected virtual void ComputeVelocity() { }
+  protected virtual void UpdateAfterVelocity() { }
 
-  // has frequency of physics system; called every fixed frame-rate frame
+  // called every fixed frame-rate frame (frequency of physics system)
   void FixedUpdate() {
 
     // if player is set to frozen, don't calculate movement
@@ -129,43 +134,44 @@ public class PhysicsObject : MonoBehaviour {
 
     if (!playingResetTriangleRotationAnimation) {
       playingResetTriangleRotationAnimation = true;
-      StopCoroutine(resetTriangleRotationCoroutine());
       StartCoroutine(resetTriangleRotationCoroutine());
     }
 
-  }
+    IEnumerator resetTriangleRotationCoroutine() {
 
-  IEnumerator resetTriangleRotationCoroutine() {
+      yield return new WaitForSeconds(.3f);
 
-    yield return new WaitForSeconds(.3f);
+      int stepNumber = 15;
+      Vector3 startRotation = textureObject.transform.localEulerAngles;
 
-    int stepNumber = 15;
-    Vector3 startRotation = textureObject.transform.localEulerAngles;
+      // leftwards
+      if (startRotation.z > 269f) startRotation.z -= 360f;
 
-    // leftwards
-    if (startRotation.z > 269f) startRotation.z -= 360f;
+      float step = startRotation.z / stepNumber;
 
-    float step = startRotation.z / stepNumber;
+      for (int i = 0; i < stepNumber; i++) {
 
-    for (int i = 0; i < stepNumber; i++) {
+        Vector3 newRotation = startRotation;
+        newRotation.z = step * (stepNumber - i);
+        textureObject.transform.localEulerAngles = newRotation;
 
-      Vector3 newRotation = startRotation;
-      newRotation.z = step * (stepNumber-i);
-      textureObject.transform.localEulerAngles = newRotation;
+        yield return new WaitForFixedUpdate();
+      }
 
-      yield return new WaitForFixedUpdate();
+      Debug.Log("PhysicsObject: Reset triangle rotation.");
+
+      Vector3 nullRotation = textureObject.transform.localEulerAngles;
+      nullRotation.z = 0f;
+      textureObject.transform.localEulerAngles = nullRotation;
+
+      playingResetTriangleRotationAnimation = false;
+      StopCoroutine(resetTriangleRotationCoroutine());
+
     }
 
-    Debug.Log("PhysicsObject: Reset triangle rotation.");
-
-    Vector3 nullRotation = textureObject.transform.localEulerAngles;
-    nullRotation.z = 0f;
-    textureObject.transform.localEulerAngles = nullRotation;
-
-    playingResetTriangleRotationAnimation = false;
-    StopCoroutine(resetTriangleRotationCoroutine());
-
   }
+
+  
 
   private void setDoubleJumpMovement() {
 

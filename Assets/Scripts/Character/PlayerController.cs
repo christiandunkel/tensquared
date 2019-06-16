@@ -173,14 +173,6 @@ public class PlayerController : PhysicsObject {
      * handle continuous sounds and their timer
      */
 
-    // stop movement audio sources which are on loop and start playing when loading the scene
-    if (Time.realtimeSinceStartup < 1f) {
-      circleMovementSoundPlayer.Pause();
-      rectangleMovementSoundPlayer.Pause();
-      movingPlatformSoundPlayer.Pause();
-      fireSoundPlayer.Pause();
-    }
-
     movingTimer = movingX && grounded ? 0.2f : movingTimer;
 
     // general moving sounds
@@ -189,10 +181,16 @@ public class PlayerController : PhysicsObject {
       if (preventMovementSoundsTimer <= 0f) {
         if (movingX && grounded) {
           if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
+            if (!circleMovementSoundPlayer.isActiveAndEnabled) {
+              circleMovementSoundPlayer.gameObject.SetActive(true);
+            }
             circleMovementSoundPlayer.UnPause();
             rectangleMovementSoundPlayer.Pause();
           }
           else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying) {
+            if (!rectangleMovementSoundPlayer.isActiveAndEnabled) {
+              rectangleMovementSoundPlayer.gameObject.SetActive(true);
+            }
             circleMovementSoundPlayer.Pause();
             rectangleMovementSoundPlayer.UnPause();
           }
@@ -217,7 +215,12 @@ public class PlayerController : PhysicsObject {
     // sounds while moving through grass
     if (movingThroughGrassTimer > 0f) {
       movingThroughGrassTimer -= Time.fixedDeltaTime;
-      if (!grassSoundPlayer.isPlaying) PlaySound("walkThroughGrassSound");
+      if (!grassSoundPlayer.isActiveAndEnabled) {
+        grassSoundPlayer.gameObject.SetActive(true);
+      }
+      if (!grassSoundPlayer.isPlaying) {
+        PlaySound("walkThroughGrassSound");
+      }
     }
     else {
       grassSoundPlayer.Stop();
@@ -226,7 +229,12 @@ public class PlayerController : PhysicsObject {
     // sounds of moving platforms
     if (movingPlatformSoundsTimer > 0f) {
       movingPlatformSoundsTimer -= Time.fixedDeltaTime;
-      if (!movingPlatformSoundPlayer.isPlaying) movingPlatformSoundPlayer.UnPause();
+      if (!movingPlatformSoundPlayer.isActiveAndEnabled) {
+        movingPlatformSoundPlayer.gameObject.SetActive(true);
+      }
+      if (!movingPlatformSoundPlayer.isPlaying) {
+        movingPlatformSoundPlayer.UnPause();
+      }
     }
     else {
       movingPlatformSoundPlayer.Pause();
@@ -235,7 +243,12 @@ public class PlayerController : PhysicsObject {
     // sounds of fire
     if (fireSoundTimer > 0f) {
       fireSoundTimer -= Time.fixedDeltaTime;
-      if (!fireSoundPlayer.isPlaying) fireSoundPlayer.UnPause();
+      if (!fireSoundPlayer.isActiveAndEnabled) {
+        fireSoundPlayer.gameObject.SetActive(true);
+      }
+      if (!fireSoundPlayer.isPlaying) {
+        fireSoundPlayer.UnPause();
+      }
     }
     else {
       fireSoundPlayer.Pause();

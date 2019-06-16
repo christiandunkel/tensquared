@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3965387403640722295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -12.6, z: 0}
-  m_LocalScale: {x: 10.890476, y: 6.5596848, z: 3.0940585}
+  m_LocalPosition: {x: 0.1, y: -3.3, z: 0}
+  m_LocalScale: {x: 16.471846, y: 7.707629, z: 3.0940585}
   m_Children: []
   m_Father: {fileID: 3965387405121313115}
   m_RootOrder: 0
@@ -69,7 +69,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -60
   m_Sprite: {fileID: 21300000, guid: 232522d5a905eba468fe964f908cd36c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.69411767}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.37254903}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -247,8 +247,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 1
+      scalar: 28
+      minScalar: 24
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -825,7 +825,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 50
+      value: 70
       mode: 0
       spread: 0
       speed:
@@ -1401,8 +1401,8 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0.9843137}
-        key2: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 0.7137255}
+        key1: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 0.9843137}
+        key2: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 0.7137255}
         key3: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1581,7 +1581,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -1638,7 +1638,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2

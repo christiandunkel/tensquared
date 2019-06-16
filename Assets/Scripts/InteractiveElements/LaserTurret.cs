@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/*
+ * powers the 'laser turret' prefab
+ */
+
 public class LaserTurret : MonoBehaviour {
 
   public GameObject turret, bullet;

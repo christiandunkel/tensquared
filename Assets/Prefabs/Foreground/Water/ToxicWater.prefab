@@ -4770,6 +4770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9191993274994257175}
+  - component: {fileID: 4770039573283383692}
   m_Layer: 0
   m_Name: ToxicWater
   m_TagString: Water
@@ -4793,6 +4794,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4770039573283383692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9191993274994257168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d420ec4969ca841b75e117b3e78dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureObject: {fileID: 687737802456166338}
+  toxicBubble: {fileID: 6007299120356046044, guid: 9ebbe23d2fad18347947bb4df38ebed2,
+    type: 3}
+  secondsBetweenBubbles: 4
 --- !u!1001 &6447519713046152293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4914,17 +4931,17 @@ PrefabInstance:
     - target: {fileID: 9191993275024154447, guid: b0f61d826d0d91946912b1c64a04c786,
         type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9191993275024154447, guid: b0f61d826d0d91946912b1c64a04c786,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9191993275024154447, guid: b0f61d826d0d91946912b1c64a04c786,
         type: 3}
       propertyPath: ShapeModule.radius.value
-      value: 65
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 9191993275024154447, guid: b0f61d826d0d91946912b1c64a04c786,
         type: 3}
@@ -5092,6 +5109,12 @@ PrefabInstance:
 --- !u!4 &2804251812347914610 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9191993274994257175, guid: b0f61d826d0d91946912b1c64a04c786,
+    type: 3}
+  m_PrefabInstance: {fileID: 6447519713046152293}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &687737802456166338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5832553939822717863, guid: b0f61d826d0d91946912b1c64a04c786,
     type: 3}
   m_PrefabInstance: {fileID: 6447519713046152293}
   m_PrefabAsset: {fileID: 0}

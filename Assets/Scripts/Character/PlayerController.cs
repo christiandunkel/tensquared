@@ -1034,6 +1034,27 @@ public class PlayerController : PhysicsObject {
         PlaySound("pistonPushSound");
         break;
 
+      case "NoMorphForceField":
+        Debug.Log("PlayerController: Entered a 'no morph force field'.");
+        canMorphToTriangle = false;
+        canMorphToRectangle = false;
+        morphIndicator.loadMorphIndicators(false, false);
+        break;
+
+    }
+
+  }
+
+  public void OnTriggerExit2D(Collider2D col) {
+
+    switch (col.gameObject.tag) {
+
+      case "NoMorphForceField":
+        Debug.Log("PlayerController: Left a 'no morph force field'.");
+        loadLevelSettingsIntoPlayer();
+        morphIndicator.loadMorphIndicators(canMorphToTriangle, canMorphToTriangle);
+        break;
+
     }
 
   }

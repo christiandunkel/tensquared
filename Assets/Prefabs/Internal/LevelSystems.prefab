@@ -379,6 +379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f9eed9a45a59343bff222cd499ac16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon1: {fileID: 5005880531090509907}
+  border1: {fileID: 1908932523828316960}
+  text1: {fileID: 344576672347875200}
   icon2: {fileID: 7110785120794716511}
   border2: {fileID: 5157365105361123788}
   text2: {fileID: 69841409778600993}
@@ -2953,6 +2956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 1
   canJump: 1
+  canMorphToCircle: 1
   canMorphToTriangle: 1
   canMorphToRectangle: 1
   worldSpawn: {x: 0, y: 0}

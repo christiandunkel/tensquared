@@ -66,7 +66,7 @@ public class SpawnPoint : MonoBehaviour {
 
     // while death animation, display textures in front of player
     // **resets and orderChange of playerHolder in animateHoldingArm()
-    if (isActivated && PlayerController.Instance.getBool("isDead")) {
+    if (isActivated && PlayerController.Instance.GetBool("isDead")) {
       textureObjectSR.sortingOrder = PlayerController.Instance.GetObject("textureObject")
                                      .GetComponent<SpriteRenderer>().sortingOrder + 2;
     }

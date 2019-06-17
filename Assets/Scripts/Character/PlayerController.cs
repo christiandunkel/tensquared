@@ -86,8 +86,9 @@ public class PlayerController : PhysicsObject {
   private bool holdingItem = false;
 
   private bool canMove = false,
-               canMorphToRectangle = false,
+               canMorphToCircle = true,
                canMorphToTriangle = false,
+               canMorphToRectangle = false,
                canJump = false,
 
                isDead = false,
@@ -341,8 +342,9 @@ public class PlayerController : PhysicsObject {
     switch (name) {
       case "canMove":             canMove = value; break;
       case "canJump":             canJump = value; break;
-      case "canMorphToRectangle": canMorphToRectangle = value; break;
+      case "canMorphToCircle":    canMorphToCircle = value; break;
       case "canMorphToTriangle":  canMorphToTriangle = value; break;
+      case "canMorphToRectangle": canMorphToRectangle = value; break;
       default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid setting."); break;
     }
     morphIndicator.loadMorphIndicators();
@@ -364,8 +366,9 @@ public class PlayerController : PhysicsObject {
    ==============
    */
 
-  public bool getBool(string name) {
+  public bool GetBool(string name) {
     switch (name) {
+      case "canMorphToCircle": return canMorphToCircle;
       case "canMorphToTriangle": return canMorphToTriangle;
       case "canMorphToRectangle": return canMorphToRectangle;
       case "isDead": return isDead;
@@ -413,7 +416,7 @@ public class PlayerController : PhysicsObject {
     Instance = this;
 
     morphIndicator = MorphIndicator.Instance;
-    morphIndicator.loadMorphIndicators(canMorphToTriangle, canMorphToRectangle);
+    morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
 
     parentObject = gameObject.transform.parent.gameObject;
     playerObject = gameObject;
@@ -666,8 +669,9 @@ public class PlayerController : PhysicsObject {
     LevelSettings settings = LevelSettings.Instance;
     canMove = settings.canMove;
     canJump = settings.canJump;
-    canMorphToRectangle = settings.canMorphToRectangle;
+    canMorphToCircle = settings.canMorphToCircle;
     canMorphToTriangle = settings.canMorphToTriangle;
+    canMorphToRectangle = settings.canMorphToRectangle;
 
     morphIndicator.loadMorphIndicators();
   }
@@ -764,9 +768,10 @@ public class PlayerController : PhysicsObject {
 
       canMove = false;
       canJump = false;
-      canMorphToRectangle = false;
+      canMorphToCircle = false;
       canMorphToTriangle = false;
-      morphIndicator.loadMorphIndicators(false, false);
+      canMorphToRectangle = false;
+      morphIndicator.loadMorphIndicators(state, false, false, false);
 
       // make sprite invisible while respawn
       Color color = textureObject.GetComponent<SpriteRenderer>().color;
@@ -860,7 +865,7 @@ public class PlayerController : PhysicsObject {
     bool initiateMorphing = false;
 
     if (!isChangingState) { 
-      if (Input.GetKeyDown(KeyCode.Alpha1) && state != "Circle") {
+      if (canMorphToCircle && Input.GetKeyDown(KeyCode.Alpha1) && state != "Circle") {
         newState = "Circle";
         initiateMorphing = true;
       }
@@ -1036,9 +1041,10 @@ public class PlayerController : PhysicsObject {
 
       case "NoMorphForceField":
         Debug.Log("PlayerController: Entered a 'no morph force field'.");
+        canMorphToCircle = false;
         canMorphToTriangle = false;
         canMorphToRectangle = false;
-        morphIndicator.loadMorphIndicators(false, false);
+        morphIndicator.loadMorphIndicators(state, false, false, false);
         break;
 
     }
@@ -1052,7 +1058,7 @@ public class PlayerController : PhysicsObject {
       case "NoMorphForceField":
         Debug.Log("PlayerController: Left a 'no morph force field'.");
         loadLevelSettingsIntoPlayer();
-        morphIndicator.loadMorphIndicators(canMorphToTriangle, canMorphToTriangle);
+        morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
         break;
 
     }

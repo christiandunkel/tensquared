@@ -26,7 +26,7 @@ public class FloatingBlock : MonoBehaviour {
 
       if (rb2d.mass == 1f) {
         PlayerController player = PlayerController.Instance;
-        player.PlaySound("waterSplashSound");
+        player.PlaySound("waterSplashFloatingBlockSound");
         splashParticles.Play();
 
         rb2d.mass = 60f;

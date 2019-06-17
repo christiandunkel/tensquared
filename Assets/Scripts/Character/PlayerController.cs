@@ -164,7 +164,7 @@ public class PlayerController : PhysicsObject {
                      disappearingBlockDisappearSoundPlayer, movingPlatformSoundPlayer, fireSoundPlayer, shortSoundPlayer, cameraShakeSoundPlayer;
 
   public AudioClip morphSound, landingCircleSound, landingTriangleSound, landingRectangleSound, jumpingTriangleSound, playerDeathSound, walkThroughGrassSound,
-                   disappearingBlockAppear, disappearingBlockDisappear, waterSplashSound, breakingBlockSound, pistonPushSound, activateSpawnpointSound, respawnAtSpawnpointSound,
+                   disappearingBlockAppear, disappearingBlockDisappear, waterSplashSound, waterSplashFloatingBlockSound, breakingBlockSound, pistonPushSound, activateSpawnpointSound, respawnAtSpawnpointSound,
                    laserBulletHit, laserTurretShot, earthquake_1_5_secs, earthquake_2_secs, earthquake_2_5_secs_loud, earthquake_3_secs, robotRepairSound, levelCompleteSound;
 
   private float preventMovementSoundsTimer = 0f, movingPlatformSoundsTimer = 0f, fireSoundTimer = 0f, movingThroughGrassTimer = 0f, movingTimer = 0f;
@@ -282,6 +282,7 @@ public class PlayerController : PhysicsObject {
       case "disappearingBlockDisappear": c = disappearingBlockDisappear; disappearingBlockDisappearSoundPlayer.PlayOneShot(c); return c.length;
 
       case "waterSplashSound":           c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "waterSplashFloatingBlockSound": c = waterSplashFloatingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "breakingBlockSound":         c = breakingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "pistonPushSound":            c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "activateSpawnpointSound":    c = activateSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;

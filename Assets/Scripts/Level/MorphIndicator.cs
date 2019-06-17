@@ -42,36 +42,70 @@ public class MorphIndicator : MonoBehaviour {
      */
 
     if (canMorphToCircle || playerState == "Circle") {
-      icon1.alpha = 1f;
-      border1.alpha = 1f;
-      text1.alpha = 1f;
+      fadeCanvasGroup(icon1, 1f);
+      fadeCanvasGroup(border1, 1f);
+      fadeCanvasGroup(text1, 1f);
     }
     else {
-      icon1.alpha = 0.1f;
-      border1.alpha = 0f;
-      text1.alpha = 0f;
+      fadeCanvasGroup(icon1, 0.1f);
+      fadeCanvasGroup(border1, 0f);
+      fadeCanvasGroup(text1, 0f);
     }
 
     if (canMorphToTriangle || playerState == "Triangle") {
-      icon2.alpha = 1f;
-      border2.alpha = 1f;
-      text2.alpha = 1f;
+      fadeCanvasGroup(icon2, 1f);
+      fadeCanvasGroup(border2, 1f);
+      fadeCanvasGroup(text2, 1f);
     }
     else {
-      icon2.alpha = 0.1f;
-      border2.alpha = 0f;
-      text2.alpha = 0f;
+      fadeCanvasGroup(icon2, 0.1f);
+      fadeCanvasGroup(border2, 0f);
+      fadeCanvasGroup(text2, 0f);
     }
 
     if (canMorphToRectangle || playerState == "Rectangle") {
-      icon3.alpha = 1f;
-      border3.alpha = 1f;
-      text3.alpha = 1f;
+      fadeCanvasGroup(icon3, 1f);
+      fadeCanvasGroup(border3, 1f);
+      fadeCanvasGroup(text3, 1f);
     }
     else {
-      icon3.alpha = 0.1f;
-      border3.alpha = 0f;
-      text3.alpha = 0f;
+      fadeCanvasGroup(icon3, 0.1f);
+      fadeCanvasGroup(border3, 0f);
+      fadeCanvasGroup(text3, 0f);
+    }
+
+  }
+
+  private void fadeCanvasGroup(CanvasGroup thisCG, float thisNewValue) {
+
+    /*
+     * runs the fading animation of a given canvas group
+     */
+
+    // run animation
+    StartCoroutine(fadeCanvasGroupCoroutine(thisCG, thisNewValue));
+
+    IEnumerator fadeCanvasGroupCoroutine(CanvasGroup CG, float newValue) {
+
+      float duration = 0.3f;
+      int steps = 20;
+
+      // how much to fade in every step
+      float fadeBy = Mathf.Abs(CG.alpha - newValue) / steps;
+      if (newValue < CG.alpha) {
+        fadeBy *= -1;
+      }
+
+      for (int i = 0; i < 10; i++) {
+
+        CG.alpha += fadeBy;
+
+        yield return new WaitForSeconds(duration / steps);
+
+      }
+
+      CG.alpha = newValue;
+
     }
 
   }

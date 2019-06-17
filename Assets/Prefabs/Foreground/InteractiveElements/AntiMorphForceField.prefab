@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8587998766399790439}
   - component: {fileID: 8587998766399790440}
   m_Layer: 0
-  m_Name: NoMorphForceField
+  m_Name: AntiMorphForceField
   m_TagString: NoMorphForceField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -20
   m_Sprite: {fileID: 21300000, guid: 029abded1e8e1ea418055da5543c373d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6839622, g: 0.90240854, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

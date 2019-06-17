@@ -933,6 +933,8 @@ public class PlayerController : PhysicsObject {
       // play morphing sound
       PlaySound("morphSound");
 
+      loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
+
       // set movement variables of the character type
       Attributes a = getAttributes(newState);
       gravityModifier = a.gravityModifier;

@@ -12,6 +12,8 @@ public class MorphIndicator : MonoBehaviour {
   public CanvasGroup icon1, border1, text1,
                      icon2, border2, text2,
                      icon3, border3, text3;
+
+  public GameObject stateIndicator;
   
   private void Awake() {
     Instance = this;
@@ -40,6 +42,25 @@ public class MorphIndicator : MonoBehaviour {
     /*
      * set the morphing indicator according to the given parameters
      */
+
+    // tests if at least two states can be morphed into
+    if (canMorphToCircle && (canMorphToTriangle || canMorphToRectangle) ||
+        (canMorphToTriangle && canMorphToRectangle)) {
+      stateIndicator.SetActive(true);
+    }
+    else {
+      stateIndicator.SetActive(false);
+    }
+
+    switch (playerState) {
+      case "Circle":
+        stateIndicator.transform.localPosition = new Vector3(icon1.transform.localPosition.x, stateIndicator.transform.localPosition.y, stateIndicator.transform.localPosition.z); break;
+      case "Triangle":
+        stateIndicator.transform.localPosition = new Vector3(icon2.transform.localPosition.x, stateIndicator.transform.localPosition.y, stateIndicator.transform.localPosition.z); break;
+      case "Rectangle":
+        stateIndicator.transform.localPosition = new Vector3(icon3.transform.localPosition.x, stateIndicator.transform.localPosition.y, stateIndicator.transform.localPosition.z); break;
+    }
+
 
     if (canMorphToCircle || playerState == "Circle") {
       fadeCanvasGroup(icon1, 1f);

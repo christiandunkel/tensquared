@@ -10,7 +10,7 @@ public class AntiMorphForceField : MonoBehaviour {
    */
 
   private float wobbleTimer = 0f,
-                wobbleDuration = .4f;
+                wobbleDuration = .3f;
   private bool wobbleActive = false;
   private Vector3 originalScale = Vector3.zero;
 
@@ -44,15 +44,15 @@ public class AntiMorphForceField : MonoBehaviour {
 
       // first wobble
       Vector3 newScale = originalScale;
-      newScale.x += (newScale.x / 20f);
-      newScale.y += (newScale.x / 20f);
+      newScale.x += (newScale.x / 30f);
+      newScale.y += (newScale.x / 30f);
 
       int stepsExpand = 8;
       int stepsRetract = 16;
       int steps = stepsExpand + stepsRetract;
 
-      //  3 6th of the time
-      float waitFor = ((wobbleDuration / 6) * 3) / steps;
+      //  3 5th of the time
+      float waitFor = ((wobbleDuration / 5) * 3) / steps;
       float growBy = Mathf.Abs(newScale.x - originalScale.x) / stepsExpand;
       float shrinkBy = Mathf.Abs(newScale.x - originalScale.x) / stepsRetract;
 
@@ -70,15 +70,15 @@ public class AntiMorphForceField : MonoBehaviour {
 
       // second wobble
       newScale = originalScale;
-      newScale.x += (newScale.x / 40f);
-      newScale.y += (newScale.x / 40f);
+      newScale.x += (newScale.x / 50f);
+      newScale.y += (newScale.x / 50f);
 
       stepsExpand = 8;
       stepsRetract = 16;
       steps = stepsExpand + stepsRetract;
 
-      //  2 6th of the time
-      waitFor = ((wobbleDuration / 6) * 2) / steps;
+      //  2 5th of the time
+      waitFor = ((wobbleDuration / 5) * 2) / steps;
       growBy = Mathf.Abs(newScale.x - originalScale.x) / stepsExpand;
       shrinkBy = Mathf.Abs(newScale.x - originalScale.x) / stepsRetract;
 
@@ -95,32 +95,6 @@ public class AntiMorphForceField : MonoBehaviour {
       }
 
       // third wobble
-
-      // second wobble
-      newScale = originalScale;
-      newScale.x += (newScale.x / 80f);
-      newScale.y += (newScale.x / 80f);
-
-      stepsExpand = 8;
-      stepsRetract = 16;
-      steps = stepsExpand + stepsRetract;
-
-      //  1 6th of the time
-      waitFor = (wobbleDuration / 6) / steps;
-      growBy = Mathf.Abs(newScale.x - originalScale.x) / stepsExpand;
-      shrinkBy = Mathf.Abs(newScale.x - originalScale.x) / stepsRetract;
-
-      for (int i = 0; i < steps; i++) {
-
-        if (i < stepsExpand) {
-          transform.localScale += new Vector3(growBy, growBy, 0f);
-        }
-        else {
-          transform.localScale -= new Vector3(shrinkBy, shrinkBy, 0f);
-        }
-
-        yield return new WaitForSeconds(waitFor);
-      }
 
       transform.localScale = originalScale;
 

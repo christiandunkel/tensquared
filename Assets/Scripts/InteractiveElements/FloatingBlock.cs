@@ -11,14 +11,6 @@ public class FloatingBlock : MonoBehaviour {
   public ParticleSystem splashParticles;
   private float sinkInTimer = 0f;
 
-  public int type = 1;
-  /*
-   * type of floating block:
-   * 1 : small
-   * 2 : normal
-   * 3 : big
-   */
-
   void Awake() {
 
     rb2d = GetComponent<Rigidbody2D>();
@@ -37,15 +29,7 @@ public class FloatingBlock : MonoBehaviour {
         player.PlaySound("waterSplashSound");
         splashParticles.Play();
 
-        // small floating block
-        if (type == 1) {
-          switch (player.GetString("state")) {
-            case "Circle":
-            case "Triangle": rb2d.mass = 50f; break;
-            case "Rectangle": rb2d.mass = 150f; break;
-          }
-        }
-        
+        rb2d.mass = 60f;
       }
       
     }

@@ -933,8 +933,6 @@ public class PlayerController : PhysicsObject {
       // play morphing sound
       PlaySound("morphSound");
 
-      loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
-
       // set movement variables of the character type
       Attributes a = getAttributes(newState);
       gravityModifier = a.gravityModifier;
@@ -954,6 +952,8 @@ public class PlayerController : PhysicsObject {
       setCollider(state);
       resetDynamicRGB2D();
       isChangingState = true;
+
+      morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
 
       // start morphing animation
       StopCoroutine(animateState());

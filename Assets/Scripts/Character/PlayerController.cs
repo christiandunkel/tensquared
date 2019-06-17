@@ -161,13 +161,14 @@ public class PlayerController : PhysicsObject {
    */
 
   public AudioSource characterSoundPlayer, circleMovementSoundPlayer, rectangleMovementSoundPlayer, grassSoundPlayer, disappearingBlockAppearSoundPlayer,
-                     disappearingBlockDisappearSoundPlayer, movingPlatformSoundPlayer, fireSoundPlayer, shortSoundPlayer, cameraShakeSoundPlayer;
+                     disappearingBlockDisappearSoundPlayer, movingPlatformSoundPlayer, fireSoundPlayer, forceFieldSoundPlayer, shortSoundPlayer, cameraShakeSoundPlayer;
 
   public AudioClip morphSound, landingCircleSound, landingTriangleSound, landingRectangleSound, jumpingTriangleSound, playerDeathSound, walkThroughGrassSound,
                    disappearingBlockAppear, disappearingBlockDisappear, waterSplashSound, waterSplashFloatingBlockSound, breakingBlockSound, pistonPushSound, activateSpawnpointSound, respawnAtSpawnpointSound,
+                   enterForceFieldSound, exitForceFieldSound,
                    laserBulletHit, laserTurretShot, earthquake_1_5_secs, earthquake_2_secs, earthquake_2_5_secs_loud, earthquake_3_secs, robotRepairSound, levelCompleteSound;
 
-  private float preventMovementSoundsTimer = 0f, movingPlatformSoundsTimer = 0f, fireSoundTimer = 0f, movingThroughGrassTimer = 0f, movingTimer = 0f;
+  private float preventMovementSoundsTimer = 0f, movingPlatformSoundsTimer = 0f, fireSoundTimer = 0f, forceFieldSoundTimer = 0f, movingThroughGrassTimer = 0f, movingTimer = 0f;
 
   private void handleSound() {
 
@@ -256,6 +257,20 @@ public class PlayerController : PhysicsObject {
       fireSoundPlayer.Pause();
     }
 
+    // sounds of force field
+    if (forceFieldSoundTimer > 0f) {
+      forceFieldSoundTimer -= Time.fixedDeltaTime;
+      if (!forceFieldSoundPlayer.isActiveAndEnabled) {
+        forceFieldSoundPlayer.gameObject.SetActive(true);
+      }
+      if (!forceFieldSoundPlayer.isPlaying) {
+        forceFieldSoundPlayer.UnPause();
+      }
+    }
+    else {
+      forceFieldSoundPlayer.Pause();
+    }
+
   }
   
   public float PlaySound(string soundName) {
@@ -291,6 +306,9 @@ public class PlayerController : PhysicsObject {
       case "laserBulletHit":             c = laserBulletHit; shortSoundPlayer.PlayOneShot(c); return c.length;
       case "laserTurretShot":            c = laserTurretShot; shortSoundPlayer.PlayOneShot(c); return c.length;
 
+      case "enterForceFieldSound":       c = enterForceFieldSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+      case "exitForceFieldSound":        c = exitForceFieldSound; shortSoundPlayer.PlayOneShot(c); return c.length;
+
       case "earthquake_1_5_secs":        c = earthquake_1_5_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
       case "earthquake_2_secs":          c = earthquake_2_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
       case "earthquake_2_5_secs_loud":   c = earthquake_2_5_secs_loud; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
@@ -323,6 +341,7 @@ public class PlayerController : PhysicsObject {
       case "disappearingBlockDisappearSoundPlayer": disappearingBlockDisappearSoundPlayer.Stop(); break;
       case "movingPlatformSoundPlayer": movingPlatformSoundPlayer.Stop(); break;
       case "fireSoundPlayer": fireSoundPlayer.Stop(); break;
+      case "forceFieldSoundPlayer": forceFieldSoundPlayer.Stop(); break;
       case "shortSoundPlayer": shortSoundPlayer.Stop(); break;
       case "cameraShakeSoundPlayer": cameraShakeSoundPlayer.Stop(); break;
       default: Debug.LogWarning("PlayerController: Sound player " + soundPlayer + " wasn't found."); break;
@@ -1042,6 +1061,7 @@ public class PlayerController : PhysicsObject {
 
       case "NoMorphForceField":
         Debug.Log("PlayerController: Entered a 'no morph force field'.");
+        PlaySound("enterForceFieldSound");
         canMorphToCircle = false;
         canMorphToTriangle = false;
         canMorphToRectangle = false;
@@ -1059,6 +1079,7 @@ public class PlayerController : PhysicsObject {
       case "NoMorphForceField":
         Debug.Log("PlayerController: Left a 'no morph force field'.");
         loadLevelSettingsIntoPlayer();
+        PlaySound("exitForceFieldSound");
         morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
         break;
 
@@ -1100,6 +1121,10 @@ public class PlayerController : PhysicsObject {
 
       case "FireSounds":
         fireSoundTimer = 0.2f;
+        break;
+
+      case "NoMorphForceField":
+        forceFieldSoundTimer = 0.2f;
         break;
 
     }

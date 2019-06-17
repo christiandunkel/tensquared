@@ -11,6 +11,7 @@ public class PlayerController : PhysicsObject {
   // singleton
   public static PlayerController Instance;
   public static GameObject playerObject;
+  public static MorphIndicator morphIndicator;
 
 
 
@@ -344,6 +345,7 @@ public class PlayerController : PhysicsObject {
       case "canMorphToTriangle":  canMorphToTriangle = value; break;
       default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid setting."); break;
     }
+    morphIndicator.loadMorphIndicators();
   }
 
   public void setValue(string name, bool value) {
@@ -364,6 +366,8 @@ public class PlayerController : PhysicsObject {
 
   public bool getBool(string name) {
     switch (name) {
+      case "canMorphToTriangle": return canMorphToTriangle;
+      case "canMorphToRectangle": return canMorphToRectangle;
       case "isDead": return isDead;
       case "holdingItem": return holdingItem;
       default: Debug.LogWarning("PlayerController: Boolean of the name " + name + " couldn't be found."); break;
@@ -407,6 +411,9 @@ public class PlayerController : PhysicsObject {
   void Awake() {
 
     Instance = this;
+
+    morphIndicator = MorphIndicator.Instance;
+    morphIndicator.loadMorphIndicators(canMorphToTriangle, canMorphToRectangle);
 
     parentObject = gameObject.transform.parent.gameObject;
     playerObject = gameObject;
@@ -661,6 +668,8 @@ public class PlayerController : PhysicsObject {
     canJump = settings.canJump;
     canMorphToRectangle = settings.canMorphToRectangle;
     canMorphToTriangle = settings.canMorphToTriangle;
+
+    morphIndicator.loadMorphIndicators();
   }
 
   private void resetAttributes() {
@@ -757,6 +766,7 @@ public class PlayerController : PhysicsObject {
       canJump = false;
       canMorphToRectangle = false;
       canMorphToTriangle = false;
+      morphIndicator.loadMorphIndicators(false, false);
 
       // make sprite invisible while respawn
       Color color = textureObject.GetComponent<SpriteRenderer>().color;

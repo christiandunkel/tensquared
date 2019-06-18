@@ -80,7 +80,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 9
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526318115110197
 AudioSource:
@@ -664,7 +664,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526318129000462
 AudioSource:
@@ -5543,7 +5543,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526318612298953
 AudioSource:
@@ -5670,7 +5670,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526317865914313
 AudioSource:
@@ -5910,7 +5910,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526318667145694
 AudioSource:
@@ -10794,7 +10794,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526318376293932
 AudioSource:
@@ -15800,7 +15800,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526317741932220
 AudioSource:
@@ -15927,7 +15927,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 1
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1842526319351448670
 AudioSource:
@@ -16034,6 +16034,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7419809932118503189}
+  - component: {fileID: 8162584530595991891}
   m_Layer: 0
   m_Name: SoundPlayers
   m_TagString: Untagged
@@ -16052,20 +16053,79 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1842526318612298952}
-  - {fileID: 1842526319718085965}
+  - {fileID: 1842526319658804351}
+  - {fileID: 1842526319121202404}
+  - {fileID: 1842526318149233026}
+  - {fileID: 1842526318438386951}
   - {fileID: 4265400544562167195}
   - {fileID: 5756289965663406235}
-  - {fileID: 1842526318438386951}
-  - {fileID: 1842526319658804351}
+  - {fileID: 1842526318612298952}
+  - {fileID: 1842526319718085965}
   - {fileID: 1842526319072040984}
-  - {fileID: 1842526319121202404}
   - {fileID: 1842526318748580361}
-  - {fileID: 1842526318149233026}
   - {fileID: 1842526319204392599}
   m_Father: {fileID: 1842526319484236204}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8162584530595991891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7335364824366915231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 132f33d042d97b9468e24991e0fb82cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleMovementSoundPlayer: {fileID: 1842526317741932220}
+  rectangleMovementSoundPlayer: {fileID: 1842526318376293932}
+  grassSoundPlayer: {fileID: 1842526318115110197}
+  movingPlatformSoundPlayer: {fileID: 1842526318129000462}
+  fireSoundPlayer: {fileID: 4843643836550272130}
+  forceFieldSoundPlayer: {fileID: 4353282398474445898}
+  characterSoundPlayer: {fileID: 1842526318612298953}
+  shortSoundPlayer: {fileID: 1842526319351448670}
+  cameraShakeSoundPlayer: {fileID: 1842526318667145694}
+  disappearingBlockAppearSoundPlayer: {fileID: 1842526317865914313}
+  disappearingBlockDisappearSoundPlayer: {fileID: 1842526319204392596}
+  morphSound: {fileID: 8300000, guid: b78052f4a7d49394d8e0e529d6e53718, type: 3}
+  landingCircleSound: {fileID: 8300000, guid: 2f18ab7ebff033e41852afa9f5eff95c, type: 3}
+  landingTriangleSound: {fileID: 8300000, guid: ec046c624270a5b43b0aff005f187d00,
+    type: 3}
+  landingRectangleSound: {fileID: 8300000, guid: 4b4bc9897dbcc35408c08989f561b89a,
+    type: 3}
+  jumpingTriangleSound: {fileID: 8300000, guid: 4a36c7731195a2e48997bbec6dcd5e07,
+    type: 3}
+  playerDeathSound: {fileID: 8300000, guid: 5f0953f21dc4f884fa9e78003d8c04b3, type: 3}
+  walkThroughGrassSound: {fileID: 8300000, guid: cda9b01416a0beb44b0619e47e60a7c2,
+    type: 3}
+  disappearingBlockAppear: {fileID: 8300000, guid: 039883546c663054f9eeb0881097e99a,
+    type: 3}
+  disappearingBlockDisappear: {fileID: 8300000, guid: 3f313c1171fb51e4dbcb9252443b3010,
+    type: 3}
+  waterSplashSound: {fileID: 8300000, guid: fbeb17467f311884fa11074b3ef793a5, type: 3}
+  waterSplashFloatingBlockSound: {fileID: 8300000, guid: 8da042bad5e37454aa44a57977aa1299,
+    type: 3}
+  activateSpawnpointSound: {fileID: 8300000, guid: 79f70b8958c3f9d43ac3720b83a4aa90,
+    type: 3}
+  respawnAtSpawnpointSound: {fileID: 8300000, guid: f2aa560b9796e6a4990e136602e1e465,
+    type: 3}
+  laserBulletHit: {fileID: 8300000, guid: 0e4d542d1eae0f24b85bed2d1a3068e1, type: 3}
+  laserTurretShot: {fileID: 8300000, guid: bfcd3e1f99ef47d4292f6a38d756fe88, type: 3}
+  enterForceFieldSound: {fileID: 8300000, guid: 0ae286b9eca74f3469de532e25593742,
+    type: 3}
+  exitForceFieldSound: {fileID: 8300000, guid: 6e3e566d1213ad341998e0d08696e02f, type: 3}
+  earthquake_1_5_secs: {fileID: 8300000, guid: 0e861ff60d3c1fa409b46038963c490a, type: 3}
+  earthquake_2_secs: {fileID: 8300000, guid: 7a747ff771d781a42acf0f529f36d3ff, type: 3}
+  earthquake_2_5_secs_loud: {fileID: 8300000, guid: c549347f13858fd408beaeb4bd4760d7,
+    type: 3}
+  earthquake_3_secs: {fileID: 8300000, guid: 3d2283e1b1b7487498ad7dab9f8ba865, type: 3}
+  levelCompleteSound: {fileID: 8300000, guid: 20ed841fff48edb45a605b1537f62c0b, type: 3}
+  robotRepairSound: {fileID: 8300000, guid: 8e9e0c4ed9662324998bc99f80e1cd69, type: 3}
+  breakingBlockSound: {fileID: 8300000, guid: 14e6a40a0c8302f42a29170f0759c7f0, type: 3}
+  pistonPushSound: {fileID: 8300000, guid: 811530dba34cf8c4a9f7cad49c4a2d28, type: 3}
 --- !u!1 &7530603601884626224
 GameObject:
   m_ObjectHideFlags: 0
@@ -16095,7 +16155,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &4843643836550272130
 AudioSource:
@@ -16222,7 +16282,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &4353282398474445898
 AudioSource:

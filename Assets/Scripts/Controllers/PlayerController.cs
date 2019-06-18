@@ -151,204 +151,7 @@ public class PlayerController : PhysicsObject {
                     movementParticles, deathParticles, doubleJumpParticles;
 
   public GhostingEffect ghost;
-
-
-
-  /*
-   =====================
-   === SOUND EFFECTS ===
-   =====================
-   */
-
-  public AudioSource characterSoundPlayer, circleMovementSoundPlayer, rectangleMovementSoundPlayer, grassSoundPlayer, disappearingBlockAppearSoundPlayer,
-                     disappearingBlockDisappearSoundPlayer, movingPlatformSoundPlayer, fireSoundPlayer, forceFieldSoundPlayer, shortSoundPlayer, cameraShakeSoundPlayer;
-
-  public AudioClip morphSound, landingCircleSound, landingTriangleSound, landingRectangleSound, jumpingTriangleSound, playerDeathSound, walkThroughGrassSound,
-                   disappearingBlockAppear, disappearingBlockDisappear, waterSplashSound, waterSplashFloatingBlockSound, breakingBlockSound, pistonPushSound, activateSpawnpointSound, respawnAtSpawnpointSound,
-                   enterForceFieldSound, exitForceFieldSound,
-                   laserBulletHit, laserTurretShot, earthquake_1_5_secs, earthquake_2_secs, earthquake_2_5_secs_loud, earthquake_3_secs, robotRepairSound, levelCompleteSound;
-
-  private float preventMovementSoundsTimer = 0f, movingPlatformSoundsTimer = 0f, fireSoundTimer = 0f, forceFieldSoundTimer = 0f, movingThroughGrassTimer = 0f, movingTimer = 0f;
-
-  private void handleSound() {
-
-    /*
-     * handle continuous sounds and their timer
-     */
-
-    movingTimer = movingX && grounded ? 0.2f : movingTimer;
-
-    // general moving sounds
-    if (movingTimer > 0f) {
-      movingTimer -= Time.fixedDeltaTime;
-      if (preventMovementSoundsTimer <= 0f) {
-        if (movingX && grounded) {
-          if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
-            if (!circleMovementSoundPlayer.isActiveAndEnabled) {
-              circleMovementSoundPlayer.gameObject.SetActive(true);
-            }
-            circleMovementSoundPlayer.UnPause();
-            rectangleMovementSoundPlayer.Pause();
-          }
-          else if (state == "Rectangle" && !rectangleMovementSoundPlayer.isPlaying) {
-            if (!rectangleMovementSoundPlayer.isActiveAndEnabled) {
-              rectangleMovementSoundPlayer.gameObject.SetActive(true);
-            }
-            circleMovementSoundPlayer.Pause();
-            rectangleMovementSoundPlayer.UnPause();
-          }
-          else if (state == "Triangle") {
-            circleMovementSoundPlayer.Pause();
-            rectangleMovementSoundPlayer.Pause();
-          }
-        }
-      }
-      else {
-        preventMovementSoundsTimer -= Time.fixedDeltaTime;
-      }
-
-    }
-    else if (state == "Circle") {
-      circleMovementSoundPlayer.Pause();
-    }
-    else {
-      rectangleMovementSoundPlayer.Pause();
-    }
-
-    // sounds while moving through grass
-    if (movingThroughGrassTimer > 0f) {
-      movingThroughGrassTimer -= Time.fixedDeltaTime;
-      if (!grassSoundPlayer.isActiveAndEnabled) {
-        grassSoundPlayer.gameObject.SetActive(true);
-      }
-      if (!grassSoundPlayer.isPlaying) {
-        PlaySound("walkThroughGrassSound");
-      }
-    }
-    else {
-      grassSoundPlayer.Stop();
-    }
-
-    // sounds of moving platforms
-    if (movingPlatformSoundsTimer > 0f) {
-      movingPlatformSoundsTimer -= Time.fixedDeltaTime;
-      if (!movingPlatformSoundPlayer.isActiveAndEnabled) {
-        movingPlatformSoundPlayer.gameObject.SetActive(true);
-      }
-      if (!movingPlatformSoundPlayer.isPlaying) {
-        movingPlatformSoundPlayer.UnPause();
-      }
-    }
-    else {
-      movingPlatformSoundPlayer.Pause();
-    }
-
-    // sounds of fire
-    if (fireSoundTimer > 0f) {
-      fireSoundTimer -= Time.fixedDeltaTime;
-      if (!fireSoundPlayer.isActiveAndEnabled) {
-        fireSoundPlayer.gameObject.SetActive(true);
-      }
-      if (!fireSoundPlayer.isPlaying) {
-        fireSoundPlayer.UnPause();
-      }
-    }
-    else {
-      fireSoundPlayer.Pause();
-    }
-
-    // sounds of force field
-    if (forceFieldSoundTimer > 0f) {
-      forceFieldSoundTimer -= Time.fixedDeltaTime;
-      if (!forceFieldSoundPlayer.isActiveAndEnabled) {
-        forceFieldSoundPlayer.gameObject.SetActive(true);
-      }
-      if (!forceFieldSoundPlayer.isPlaying) {
-        forceFieldSoundPlayer.UnPause();
-      }
-    }
-    else {
-      forceFieldSoundPlayer.Pause();
-    }
-
-  }
-  
-  public float PlaySound(string soundName) {
-
-    /*
-     * plays a sound with the related sound player
-     * returns the audio clip length as float
-     */
-
-    AudioClip c;
-
-    switch (soundName) {
-
-      case "morphSound":                 c = morphSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "landingCircleSound":         c = landingCircleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "landingTriangleSound":       c = landingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "landingRectangleSound":      c = landingRectangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "jumpingTriangleSound":       c = jumpingTriangleSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-      case "playerDeathSound":           c = playerDeathSound; characterSoundPlayer.PlayOneShot(c); return c.length;
-
-      case "walkThroughGrassSound":      c = walkThroughGrassSound; grassSoundPlayer.PlayOneShot(c); return c.length;
-
-      case "disappearingBlockAppear":    c = disappearingBlockAppear; disappearingBlockAppearSoundPlayer.PlayOneShot(c); return c.length;
-      case "disappearingBlockDisappear": c = disappearingBlockDisappear; disappearingBlockDisappearSoundPlayer.PlayOneShot(c); return c.length;
-
-      case "waterSplashSound":           c = waterSplashSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "waterSplashFloatingBlockSound": c = waterSplashFloatingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "breakingBlockSound":         c = breakingBlockSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "pistonPushSound":            c = pistonPushSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "activateSpawnpointSound":    c = activateSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "respawnAtSpawnpointSound":   c = respawnAtSpawnpointSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-
-      case "laserBulletHit":             c = laserBulletHit; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "laserTurretShot":            c = laserTurretShot; shortSoundPlayer.PlayOneShot(c); return c.length;
-
-      case "enterForceFieldSound":       c = enterForceFieldSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "exitForceFieldSound":        c = exitForceFieldSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-
-      case "earthquake_1_5_secs":        c = earthquake_1_5_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-      case "earthquake_2_secs":          c = earthquake_2_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-      case "earthquake_2_5_secs_loud":   c = earthquake_2_5_secs_loud; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-      case "earthquake_3_secs":          c = earthquake_3_secs; cameraShakeSoundPlayer.PlayOneShot(c); return c.length;
-        
-      case "robotRepairSound":           c = robotRepairSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-      case "levelCompleteSound":         c = levelCompleteSound; shortSoundPlayer.PlayOneShot(c); return c.length;
-
-      default: Debug.LogWarning("PlayerController: Sound " + soundName + " wasn't found."); break;
-
-    }
-
-    return 0f;
-
-  }
-
-  public void StopSoundPlayer(string soundPlayer) {
-    
-    /*
-     * stops a defined sound player from playing
-     */
-
-    switch (soundPlayer) {
-
-      case "characterSoundPlayer": characterSoundPlayer.Stop(); break;
-      case "circleMovementSoundPlayer": circleMovementSoundPlayer.Stop(); break;
-      case "rectangleMovementSoundPlayer": rectangleMovementSoundPlayer.Stop(); break;
-      case "grassSoundPlayer": grassSoundPlayer.Stop(); break;
-      case "disappearingBlockAppearSoundPlayer": disappearingBlockAppearSoundPlayer.Stop(); break;
-      case "disappearingBlockDisappearSoundPlayer": disappearingBlockDisappearSoundPlayer.Stop(); break;
-      case "movingPlatformSoundPlayer": movingPlatformSoundPlayer.Stop(); break;
-      case "fireSoundPlayer": fireSoundPlayer.Stop(); break;
-      case "forceFieldSoundPlayer": forceFieldSoundPlayer.Stop(); break;
-      case "shortSoundPlayer": shortSoundPlayer.Stop(); break;
-      case "cameraShakeSoundPlayer": cameraShakeSoundPlayer.Stop(); break;
-      default: Debug.LogWarning("PlayerController: Sound player " + soundPlayer + " wasn't found."); break;
-
-    }
-
-  }
+  public SoundController soundController;
 
 
 
@@ -438,6 +241,8 @@ public class PlayerController : PhysicsObject {
     morphIndicator = MorphIndicator.Instance;
     morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
 
+    soundController = SoundController.Instance;
+
     parentObject = gameObject.transform.parent.gameObject;
     playerObject = gameObject;
 
@@ -454,7 +259,7 @@ public class PlayerController : PhysicsObject {
 
   protected override void UpdateBeforeVelocity() {
 
-    handleSound();
+    soundController.handleContinuousSound(state, movingX, grounded);
     handleCameraZoom();
     handleHoldingItem();
 
@@ -629,7 +434,7 @@ public class PlayerController : PhysicsObject {
               secondsSinceLastJump = 0f;
 
               if (state == "Triangle") {
-                PlaySound("jumpingTriangleSound");
+                soundController.PlaySound("jumpingTriangleSound");
               }
             }
             // double jump for triangle
@@ -641,8 +446,8 @@ public class PlayerController : PhysicsObject {
               doubleJumpParticles.SetActive(true);
               doubleJumpParticles.GetComponent<ParticleSystem>().Play();
 
-              StopSoundPlayer("characterSoundPlayer");
-              PlaySound("jumpingTriangleSound");
+              soundController.StopSoundPlayer("characterSoundPlayer");
+              soundController.PlaySound("jumpingTriangleSound");
               
             }
 
@@ -657,10 +462,10 @@ public class PlayerController : PhysicsObject {
               case "Rectangle":
                 // shake on landing with rectangle
                 CameraShake.Instance.Play(.1f, 18f, 18f);
-                PlaySound("landingRectangleSound");
+                soundController.PlaySound("landingRectangleSound");
                 break;
-              case "Triangle": PlaySound("landingTriangleSound"); break;
-              case "Circle": PlaySound("landingCircleSound"); break;
+              case "Triangle": soundController.PlaySound("landingTriangleSound"); break;
+              case "Circle": soundController.PlaySound("landingCircleSound"); break;
             }
 
           }
@@ -809,7 +614,7 @@ public class PlayerController : PhysicsObject {
       CameraShake.Instance.Play(.2f, 10f, 7f);
 
       playDeathParticles();
-      PlaySound("playerDeathSound");
+      soundController.PlaySound("playerDeathSound");
 
       yield return new WaitForSeconds(1.5f);
 
@@ -831,7 +636,7 @@ public class PlayerController : PhysicsObject {
       // handle spawn point animation (being pushed out of the tube)
       if (setSpawnpoint) {
 
-        PlayerController.Instance.PlaySound("respawnAtSpawnpointSound");
+        PlayerController.Instance.soundController.PlaySound("respawnAtSpawnpointSound");
         yield return new WaitForSeconds(.6f);
 
         // move the metallic arm holding the player out of the spawn point
@@ -931,7 +736,7 @@ public class PlayerController : PhysicsObject {
       }
 
       // play morphing sound
-      PlaySound("morphSound");
+      soundController.PlaySound("morphSound");
 
       // set movement variables of the character type
       Attributes a = getAttributes(newState);
@@ -1045,7 +850,7 @@ public class PlayerController : PhysicsObject {
 
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
-        PlaySound("waterSplashSound");
+        soundController.PlaySound("waterSplashSound");
         die();
         ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
         break;
@@ -1058,12 +863,12 @@ public class PlayerController : PhysicsObject {
       case "Piston":
         Debug.Log("PlayerController: Stepped on a piston.");
         Piston.Instance.GoUp(col.gameObject);
-        PlaySound("pistonPushSound");
+        soundController.PlaySound("pistonPushSound");
         break;
 
       case "NoMorphForceField":
         Debug.Log("PlayerController: Entered a 'no morph force field'.");
-        PlaySound("enterForceFieldSound");
+        soundController.PlaySound("enterForceFieldSound");
         canMorphToCircle = false;
         canMorphToTriangle = false;
         canMorphToRectangle = false;
@@ -1081,7 +886,7 @@ public class PlayerController : PhysicsObject {
       case "NoMorphForceField":
         Debug.Log("PlayerController: Left a 'no morph force field'.");
         loadLevelSettingsIntoPlayer();
-        PlaySound("exitForceFieldSound");
+        soundController.PlaySound("exitForceFieldSound");
         morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
         break;
 
@@ -1110,23 +915,25 @@ public class PlayerController : PhysicsObject {
       /* Sounds */
 
       case "Grass":
-        if (movingX && grounded) movingThroughGrassTimer = 0.2f;
+        if (movingX && grounded) {
+          soundController.setTimer("movingThroughGrassTimer", 0.2f);
+        }
         break;
 
       case "PreventMovementSounds":
-        preventMovementSoundsTimer = 0.2f;
+        soundController.setTimer("preventMovementSoundsTimer", 0.2f);
         break;
 
       case "MovingPlatformSounds":
-        movingPlatformSoundsTimer = 0.2f;
+        soundController.setTimer("movingPlatformSoundsTimer", 0.2f);
         break;
 
       case "FireSounds":
-        fireSoundTimer = 0.2f;
+        soundController.setTimer("fireSoundTimer", 0.2f);
         break;
 
       case "NoMorphForceField":
-        forceFieldSoundTimer = 0.2f;
+        soundController.setTimer("forceFieldSoundTimer", 0.2f);
         break;
 
     }

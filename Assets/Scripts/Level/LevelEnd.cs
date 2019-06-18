@@ -59,7 +59,7 @@ public class LevelEnd : MonoBehaviour {
 
     IEnumerator endSceenAnimation() {
 
-      PlayerController.Instance.PlaySound("levelCompleteSound");
+      SoundController.Instance.PlaySound("levelCompleteSound");
 
       // fade in 'level complete' animation
       for (int i = 0; i < 50; i++) {

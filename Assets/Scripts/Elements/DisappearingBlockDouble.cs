@@ -14,7 +14,11 @@ public class DisappearingBlockDouble : MonoBehaviour {
 
   private float soundDist = 175f; // distance of player to gameobject, in which radius' sounds are playing
 
+  private SoundController soundController;
+
   private void Awake() {
+
+    soundController = SoundController.Instance;
 
     if (stayTime < .4f) Debug.LogError("DisappearingBlockDouble: Given stayTime " + stayTime + " is too small.");
     if (timeBothAreVisible < .4f) Debug.LogError("DisappearingBlockDouble: Given timeBothAreVisible " + timeBothAreVisible + " is too small.");
@@ -23,6 +27,10 @@ public class DisappearingBlockDouble : MonoBehaviour {
   }
 
   private float distanceToPlayer() {
+
+    /*
+     * calculate the distance between a player and the block
+     */
 
     // return high value if player isn't yet initialized
     if (PlayerController.Instance == null) return 20000f;
@@ -43,6 +51,10 @@ public class DisappearingBlockDouble : MonoBehaviour {
 
   private void startCycle() {
 
+    /*
+     * animate appearance and disappearance of the blocks
+     */
+
     // start animation of disappearing blocks
     StopCoroutine(cycle());
     StartCoroutine(cycle());
@@ -50,22 +62,22 @@ public class DisappearingBlockDouble : MonoBehaviour {
     IEnumerator cycle() {
 
       squareTexture1.SetBool("Visible", true);
-      if (distanceToPlayer() < soundDist) PlayerController.Instance.PlaySound("disappearingBlockAppear");
+      if (distanceToPlayer() < soundDist) soundController.PlaySound("disappearingBlockAppear");
 
       yield return new WaitForSeconds(timeBothAreVisible);
 
       squareTexture2.SetBool("Visible", false);
-      if (distanceToPlayer() < soundDist) PlayerController.Instance.PlaySound("disappearingBlockDisappear");
+      if (distanceToPlayer() < soundDist) soundController.PlaySound("disappearingBlockDisappear");
 
       yield return new WaitForSeconds(stayTime);
 
       squareTexture2.SetBool("Visible", true);
-      if (distanceToPlayer() < soundDist) PlayerController.Instance.PlaySound("disappearingBlockAppear");
+      if (distanceToPlayer() < soundDist) soundController.PlaySound("disappearingBlockAppear");
 
       yield return new WaitForSeconds(timeBothAreVisible);
 
       squareTexture1.SetBool("Visible", false);
-      if (distanceToPlayer() < soundDist) PlayerController.Instance.PlaySound("disappearingBlockDisappear");
+      if (distanceToPlayer() < soundDist) soundController.PlaySound("disappearingBlockDisappear");
 
       yield return new WaitForSeconds(stayTime);
       startCycle();

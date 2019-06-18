@@ -21,6 +21,7 @@ public class CameraShake : MonoBehaviour
   // Cinemachine Shake
   public CinemachineVirtualCamera VirtualCamera;
   private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
+  private SoundController soundController;
   
   void Start() {
 
@@ -34,7 +35,7 @@ public class CameraShake : MonoBehaviour
   public void Play(float duration, float amplitude, float frequency, string sound) {
 
     Play(duration, amplitude, frequency);
-    PlayerController.Instance.PlaySound(sound);
+    soundController.PlaySound(sound);
     
   }
 

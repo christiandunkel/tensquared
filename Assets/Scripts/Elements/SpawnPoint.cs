@@ -79,7 +79,7 @@ public class SpawnPoint : MonoBehaviour {
         textureObjectSR.sprite = activatedSprite;
         spawnPointMessageObject.SetActive(true);
         LevelSettings.Instance.SetSetting("playerSpawn", spawnCoordinates);
-        PlayerController.Instance.PlaySound("activateSpawnpointSound");
+        SoundController.Instance.PlaySound("activateSpawnpointSound");
       }
       // set it deactive
       else {

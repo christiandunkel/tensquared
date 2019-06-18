@@ -8,12 +8,14 @@
 public class FloatingBlock : MonoBehaviour {
 
   private Rigidbody2D rb2d;
+  private SoundController soundController;
   public ParticleSystem splashParticles;
   private float sinkInTimer = 0f;
 
   void Awake() {
 
     rb2d = GetComponent<Rigidbody2D>();
+    soundController = SoundController.Instance;
 
   }
 
@@ -25,8 +27,7 @@ public class FloatingBlock : MonoBehaviour {
       sinkInTimer -= Time.deltaTime;
 
       if (rb2d.mass == 1f) {
-        PlayerController player = PlayerController.Instance;
-        player.PlaySound("waterSplashFloatingBlockSound");
+        soundController.PlaySound("waterSplashFloatingBlockSound");
         splashParticles.Play();
 
         rb2d.mass = 60f;

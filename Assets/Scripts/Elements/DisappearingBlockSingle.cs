@@ -50,12 +50,12 @@ public class DisappearingBlockSingle : MonoBehaviour {
     IEnumerator cycle() {
 
       squareTexture.SetBool("Visible", true);
-      if (distanceToPlayer() < soundDist) PlayerController.Instance.PlaySound("disappearingBlockAppear");
+      if (distanceToPlayer() < soundDist) SoundController.Instance.PlaySound("disappearingBlockAppear");
 
       yield return new WaitForSeconds(stayTime);
 
       squareTexture.SetBool("Visible", false);
-      if (distanceToPlayer() < soundDist) PlayerController.Instance.PlaySound("disappearingBlockDisappear");
+      if (distanceToPlayer() < soundDist) SoundController.Instance.PlaySound("disappearingBlockDisappear");
 
       yield return new WaitForSeconds(hiddenTime);
 

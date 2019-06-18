@@ -18,12 +18,16 @@ public class LaserTurret : MonoBehaviour {
   public float secondsBetweenShots = 3f;
   private float timeUntilNextShot = 0f;
 
+  private SoundController soundController;
+
   void Awake() {
-    
+
     if (secondsBetweenShots < 0.3f) {
       Debug.LogError("LaserTurret: Shot frequency of " + secondsBetweenShots  + 
                      " seconds between shots is too low.");
     }
+
+    soundController = SoundController.Instance;
 
     timeUntilNextShot = secondsBetweenShots;
 
@@ -78,7 +82,7 @@ public class LaserTurret : MonoBehaviour {
 
   private void shootBullet() {
     Instantiate(bullet, bulletSpawnPosition.transform.position, turret.transform.rotation);
-    PlayerController.Instance.PlaySound("laserTurretShot");
+    soundController.PlaySound("laserTurretShot");
     shortParticles.Play();
   }
 

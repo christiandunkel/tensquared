@@ -165,7 +165,7 @@ public class ScriptedEventsManager : MonoBehaviour {
           break;
         case 1:
           GameObject.Find("RobotFigure").GetComponent<Animator>().SetBool("RobotStraighten", false);
-          PlayerController.Instance.PlaySound("robotRepairSound");
+          SoundController.Instance.PlaySound("robotRepairSound");
           break;
         case 24: multiplier = 6f; break;
         case 28: multiplier = 4f; break;

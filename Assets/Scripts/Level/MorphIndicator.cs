@@ -26,13 +26,13 @@ public class MorphIndicator : MonoBehaviour {
      * (not level settings)
      */
 
-    PlayerController player = PlayerController.Instance;
+    PlayerManager player = PlayerManager.Instance;
 
     loadMorphIndicators(
-      player.GetString("state"),
-      player.GetBool("canMorphToCircle"),
-      player.GetBool("canMorphToTriangle"),
-      player.GetBool("canMorphToRectangle")
+      player.getString("state"),
+      player.getBool("canMorphToCircle"),
+      player.getBool("canMorphToTriangle"),
+      player.getBool("canMorphToRectangle")
     );
 
   }

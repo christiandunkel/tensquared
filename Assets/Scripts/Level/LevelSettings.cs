@@ -40,27 +40,27 @@ public class LevelSettings : MonoBehaviour {
 
       case "canMove":
         canMove = value;
-        PlayerController.Instance.SetSetting(name, value);
+        PlayerController.Instance.setSetting(name, value);
         break;
 
       case "canJump":
         canJump = value;
-        PlayerController.Instance.SetSetting(name, value);
+        PlayerController.Instance.setSetting(name, value);
         break;
 
       case "canMorphToCircle":
         canMorphToCircle = value;
-        PlayerController.Instance.SetSetting(name, value);
+        PlayerController.Instance.setSetting(name, value);
         break;
 
       case "canMorphToTriangle":
         canMorphToTriangle = value;
-        PlayerController.Instance.SetSetting(name, value);
+        PlayerController.Instance.setSetting(name, value);
         break;
 
       case "canMorphToRectangle":
         canMorphToRectangle = value;
-        PlayerController.Instance.SetSetting(name, value);
+        PlayerController.Instance.setSetting(name, value);
         break;
 
       default:

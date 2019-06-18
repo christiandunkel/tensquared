@@ -8,11 +8,6 @@ using UnityEngine;
 
 public class PlayerController : PhysicsObject {
 
-  // singleton
-  public static PlayerController Instance;
-  public static GameObject playerObject;
-  public static MorphIndicator morphIndicator;
-
 
 
   /*
@@ -20,12 +15,6 @@ public class PlayerController : PhysicsObject {
    === CAMERA CONTROLS ===
    =======================
    */
-
-  [SerializeField] private Animator cameraAnimator = null;
-
-  protected float zoomedInCameraTimer = 0f,
-                  zoomedOutCameraTimer = 0f,
-                  zoomedOutCameraFarTimer = 0f;
 
   private void handleCameraZoom() {
 
@@ -78,184 +67,26 @@ public class PlayerController : PhysicsObject {
 
 
   /*
-   ========================
-   === PLAYER VARIABLES ===
-   ========================
-   */
-
-  protected bool holdingItem = false,
-                 canMove = false,
-                 canMorphToCircle = true,
-                 canMorphToTriangle = false,
-                 canMorphToRectangle = false,
-                 canJump = false,
-                 isDead = false,
-                 steppedOnPiston = false;
-
-  private bool isChangingState = false;
-  private string newState; // state is defined in physics object
-
-  public bool setSpawnpoint = false;
-
-  public bool isFrozen = false,
-              frozenInLastFrame = false;
-  private float frozenYPos = 0.0f;
-
-  protected float secondsNotGrounded = 0f,
-                  secondsSinceLastJump = 0f, // timer for seconds the player hadn't been grounded
-                  secondsAsRectangleFalling = 0f;
-  private bool groundedInLastFrame = true;
-
-  private float lastX, lastY; // last x and y position
-  protected bool leftwards = false, // direction on last movement
-                 movingX = false,
-                 movingY = false;
-
-
-
-  /*
-   =========================
-   === PLAYER ATTRIBUTES ===
-   =========================
-   */
-
-  private float maxSpeed,
-                jumpTakeOffSpeed;
-
-  [System.Serializable]
-  public struct Attributes {
-    [SerializeField] public string name;
-    [SerializeField] public float gravityModifier;
-    [SerializeField] public float maxSpeed;
-    [SerializeField] public float jumpTakeOffSpeed;
-    [SerializeField] public Sprite sprite;
-    [SerializeField] public Color particleColor;
-  }
-
-  // saves the attributes of each character state
-  public Attributes[] characterAttributes = new Attributes[3];
-
-
-
-  /*
-   ======================
-   === PLAYER OBJECTS ===
-   ======================
-   */
-
-  private GameObject parentObject;
-
-  public GameObject heldItemObject, textureContainer, 
-                    movementParticles, deathParticles, doubleJumpParticles;
-
-  public GhostingEffect ghost;
-  public SoundController soundController;
-
-
-
-  /*
-   ==============
-   === SETTER ===
-   ==============
-   */
-
-  public void SetSetting(string name, bool value) {
-    switch (name) {
-      case "canMove":             canMove = value; break;
-      case "canJump":             canJump = value; break;
-      case "canMorphToCircle":    canMorphToCircle = value; break;
-      case "canMorphToTriangle":  canMorphToTriangle = value; break;
-      case "canMorphToRectangle": canMorphToRectangle = value; break;
-      default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid setting."); break;
-    }
-    morphIndicator.loadMorphIndicators();
-  }
-
-  public void setValue(string name, bool value) {
-    switch (name) {
-      case "steppedOnPiston":   steppedOnPiston = value; break;
-      case "holdingItem":       holdingItem = value; break;
-      default: Debug.LogWarning("PlayerController: Could not set value as " + name + " is not a valid value name."); break;
-    }
-  }
-
-
-
-  /*
-   ==============
-   === GETTER ===
-   ==============
-   */
-
-  public bool GetBool(string name) {
-    switch (name) {
-      case "canMorphToCircle": return canMorphToCircle;
-      case "canMorphToTriangle": return canMorphToTriangle;
-      case "canMorphToRectangle": return canMorphToRectangle;
-      case "isDead": return isDead;
-      case "holdingItem": return holdingItem;
-      default: Debug.LogWarning("PlayerController: Boolean of the name " + name + " couldn't be found."); break;
-    }
-    return false;
-  }
-
-  public float GetFloat(string name) {
-    switch (name) {
-      case "secondsNotGrounded": return secondsNotGrounded;
-      case "secondsAsRectangleFalling": return secondsAsRectangleFalling;
-      default: Debug.LogWarning("PlayerController: Float of the name " + name + " couldn't be found."); break;
-    }
-    return 0f;
-  }
-
-  public string GetString(string name) {
-    switch (name) {
-      case "state": return state;
-      default: Debug.LogWarning("PlayerController: String of the name " + name + " couldn't be found."); break;
-    }
-    return null;
-  }
-
-  public GameObject GetObject(string name) {
-    switch (name) {
-      case "textureObject": return textureObject;
-      default: Debug.LogWarning("PlayerController: GameObject of the name " + name + " couldn't be found."); break;
-    }
-    return null;
-  }
-
-
-
-  /*
    ======================
    === INITIALIZATION ===
    ======================
    */
 
-  void Awake() {
+  private protected override void OnAwake() {
 
-    Instance = this;
-
-    morphIndicator = MorphIndicator.Instance;
     morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
 
-    soundController = SoundController.Instance;
-
-    parentObject = gameObject.transform.parent.gameObject;
-    playerObject = gameObject;
-
-    Debug.Log("Player: With parent object '" + parentObject.name + "' initialized.");
-
     resetAttributes(); // set attributes for start character state
-    loadMorphAnimationSprites();
     loadLevelSettingsIntoPlayer();
 
     lastX = transform.position.x;
     lastY = transform.position.y;
 
+    Debug.Log("PlayerController: Initialized.");
+
   }
 
-  protected override void UpdateBeforeVelocity() {
+  private protected override void UpdateBeforeVelocity() {
 
     soundController.handleContinuousSound(state, movingX, grounded);
     handleCameraZoom();
@@ -263,82 +94,14 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  protected override void UpdateAfterVelocity() {
+  private protected override void UpdateAfterVelocity() {
 
     showMovementParticles();
 
     if (!isDead) {
       rotateCircle(); // rotate circle in the right direction     
-      ghost.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
+      ghostingEffect.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
       handleMorphing();
-    }
-
-  }
-
-  private Attributes getAttributes() {
-    return getAttributes(state);
-  }
-
-  private Attributes getAttributes(string stateName) {
-
-    // look for given name
-    foreach (Attributes a_temp in characterAttributes) {
-      if (a_temp.name == stateName) return a_temp;
-    }
-
-    // if fails return attributes for current state
-    Attributes a = new Attributes();
-    foreach (Attributes a_temp in characterAttributes) {
-      if (a_temp.name == state) a = a_temp; break;
-    }
-    return a;
-
-  }
-
-  private void loadMorphAnimationSprites() {
-
-    /*
-     * load morph animation sprites into arrays for use in morphing process
-     */
-
-    // scan given directory and load morph animation images as sprites into memory
-    rectToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle"), "Rectangle", "Circle");
-    rectToTriangle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle"), "Rectangle", "Triangle");
-    triangleToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle"), "Triangle", "Circle");
-
-    Sprite[] AddFiles(Sprite[] arr, string fileFront, string fileEnd) {
-      Sprite[] newArr = AddFileAtFront(arr, fileFront);
-      return AddFileAtEnd(newArr, fileEnd);
-    }
-
-    Sprite[] AddFileAtFront(Sprite[] arr, string file) {
-      Sprite[] newArr = new Sprite[arr.Length + 1];
-      for (int i = 0; i < newArr.Length; i++) {
-        if (i == 0) {
-          switch (file) {
-            case "Circle": newArr[i] = Resources.Load<Sprite>("Morph/Final/circle_with_light"); break;
-            case "Triangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/triangle_with_light"); break;
-            case "Rectangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/rectangle_with_light"); break;
-          }
-        }
-        else newArr[i] = arr[i - 1];
-      }
-      return newArr;
-    }
-
-    Sprite[] AddFileAtEnd(Sprite[] arr, string file) {
-      Sprite[] newArr = new Sprite[arr.Length + 1];
-      for (int i = 0; i < newArr.Length; i++) {
-        if (i == newArr.Length - 1) {
-          switch (file) {
-            case "Circle": newArr[i] = Resources.Load<Sprite>("Morph/Final/circle_with_light"); break;
-            case "Triangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/triangle_with_light"); break;
-            case "Rectangle": newArr[i] = Resources.Load<Sprite>("Morph/Final/rectangle_with_light"); break;
-          }
-        }
-        else newArr[i] = arr[i];
-      }
-      return newArr;
     }
 
   }
@@ -376,12 +139,12 @@ public class PlayerController : PhysicsObject {
     rb2d.velocity = new Vector2(0f, 0f);
   }
 
-  protected override void ComputeVelocity() {
+  private protected override void ComputeVelocity() {
 
     // handle frozen state
     if (isFrozen) {
       if (!frozenInLastFrame) {
-        ghost.SetGhosting(false);
+        ghostingEffect.SetGhosting(false);
         frozenInLastFrame = true;
         frozenYPos = gameObject.transform.position.y;
       }
@@ -501,22 +264,6 @@ public class PlayerController : PhysicsObject {
     morphIndicator.loadMorphIndicators();
   }
 
-  private void resetAttributes() {
-    Attributes resA = getAttributes();
-    gravityModifier = resA.gravityModifier;
-    maxSpeed = resA.maxSpeed;
-    jumpTakeOffSpeed = resA.jumpTakeOffSpeed;
-    textureObject.GetComponent<SpriteRenderer>().sprite = resA.sprite;
-
-    // particle color for movement particles
-    ParticleSystem.MainModule mainModule = movementParticles.GetComponent<ParticleSystem>().main;
-    mainModule.startColor = resA.particleColor;
-
-    // particle color for death particles
-    mainModule = deathParticles.GetComponent<ParticleSystem>().main;
-    mainModule.startColor = resA.particleColor;
-  }
-
 
 
   private void testForXMovement(Vector2 move) {
@@ -582,9 +329,9 @@ public class PlayerController : PhysicsObject {
     // prevent triggering death animation multiple times
     if (!isDead) {
       isDead = true;
-      ghost.SetGhosting(false);
+      ghostingEffect.SetGhosting(false);
 
-      if (setSpawnpoint) {
+      if (hasSpawnpointSet) {
         isFrozen = true;
       }
 
@@ -634,9 +381,9 @@ public class PlayerController : PhysicsObject {
       textureObject.GetComponent<SpriteRenderer>().color = color;
 
       // handle spawn point animation (being pushed out of the tube)
-      if (setSpawnpoint) {
+      if (hasSpawnpointSet) {
 
-        PlayerController.Instance.soundController.PlaySound("respawnAtSpawnpointSound");
+        soundController.PlaySound("respawnAtSpawnpointSound");
         yield return new WaitForSeconds(.6f);
 
         // move the metallic arm holding the player out of the spawn point
@@ -678,8 +425,6 @@ public class PlayerController : PhysicsObject {
     GetComponent<BoxCollider2D>().enabled = (state == "Rectangle" ? true : false);
   }
 
-
-  private Sprite[] rectToCircle, rectToTriangle, triangleToCircle; // sprite arrays containing morphing graphics
 
   private void handleMorphing() {
 

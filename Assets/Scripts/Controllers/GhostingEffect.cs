@@ -38,7 +38,7 @@ public class GhostingEffect : MonoBehaviour {
     ghostDelaySeconds = delayBetweenGhosts;
 
     // rotate ghosting game object like player texture object
-    currentGhost.transform.eulerAngles = PlayerController.Instance.textureObject.transform.eulerAngles;
+    currentGhost.transform.eulerAngles = PlayerManager.Instance.getObject("textureObject").transform.eulerAngles;
 
     // get current sprite of player and set it as ghost
     Sprite currentSprite = textureObject.GetComponent<SpriteRenderer>().sprite;

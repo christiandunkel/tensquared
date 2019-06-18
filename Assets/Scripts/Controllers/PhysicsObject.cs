@@ -1,61 +1,21 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /*
  * powers most of the physics calculations for the player to move
  */
 
-public class PhysicsObject : MonoBehaviour {
+public class PhysicsObject : PlayerManager {
 
-  public float minGroundNormalY = .65f;
-
-  // scale gravity with this value
-  protected float gravityModifier = 4f;
-
-  public GameObject textureObject;
-  protected string state = "Circle";
-
-  protected bool inDoubleJump = false; // is true, if player executed double jump and is still in air
-  protected Vector2 doubleJumpMovement = Vector2.zero;
-
-  protected Vector2 velocity, targetVelocity, groundNormal;
-  public bool grounded;
-
-  private ContactFilter2D contactFilter;
-  private RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
-  private List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
-
-  private const float minMoveDistance = 0.001f,
-                        shellRadius = 0.01f;
-
-  private LineRenderer triangleLineRenderer;
-
-  // reference to the 2D rigid body connected to the object
-  protected Rigidbody2D rb2d;
-
-  void OnEnable() {
-    rb2d = GetComponent<Rigidbody2D>();
-    triangleLineRenderer = GetComponent<LineRenderer>();
-  }
-
-  void Start() {
+  private protected override void OnStart() {
     contactFilter.useTriggers = false;
     contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
     contactFilter.useLayerMask = true;
   }
 
-  void Update() {
+  private protected override void PhysicsUpdate() {
     targetVelocity = Vector2.zero;
-
-    UpdateBeforeVelocity();
-    ComputeVelocity();
-    UpdateAfterVelocity();
   }
-
-  protected virtual void UpdateBeforeVelocity() {}
-  protected virtual void ComputeVelocity() { }
-  protected virtual void UpdateAfterVelocity() { }
 
   // called every fixed frame-rate frame (frequency of physics system)
   void FixedUpdate() {

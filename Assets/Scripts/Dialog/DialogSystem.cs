@@ -74,9 +74,6 @@ public class DialogSystem : MonoBehaviour {
               iconElement = obj2.GetComponent<Image>();
               break;
 
-            default:
-              break;
-
           }
 
         }
@@ -127,7 +124,7 @@ public class DialogSystem : MonoBehaviour {
         break;
 
       case "lvl2":
-        //DialogLevel2.getDialog(name);
+        dialog = DialogLevel2.getDialog(name);
         break;
 
     }

@@ -21,11 +21,11 @@ public class PlayerController : PhysicsObject {
    =======================
    */
 
-  public Animator cameraAnimator;
+  [SerializeField] private Animator cameraAnimator = null;
 
-  private float zoomedInCameraTimer = 0f,
-                zoomedOutCameraTimer = 0f,
-                zoomedOutCameraFarTimer = 0f;
+  protected float zoomedInCameraTimer = 0f,
+                  zoomedOutCameraTimer = 0f,
+                  zoomedOutCameraFarTimer = 0f;
 
   private void handleCameraZoom() {
 
@@ -83,16 +83,14 @@ public class PlayerController : PhysicsObject {
    ========================
    */
 
-  private bool holdingItem = false;
-
-  private bool canMove = false,
-               canMorphToCircle = true,
-               canMorphToTriangle = false,
-               canMorphToRectangle = false,
-               canJump = false,
-
-               isDead = false,
-               steppedOnPiston = false;
+  protected bool holdingItem = false,
+                 canMove = false,
+                 canMorphToCircle = true,
+                 canMorphToTriangle = false,
+                 canMorphToRectangle = false,
+                 canJump = false,
+                 isDead = false,
+                 steppedOnPiston = false;
 
   private bool isChangingState = false;
   private string newState; // state is defined in physics object
@@ -103,15 +101,15 @@ public class PlayerController : PhysicsObject {
               frozenInLastFrame = false;
   private float frozenYPos = 0.0f;
 
-  private float secondsNotGrounded = 0f,
-                secondsSinceLastJump = 0f, // timer for seconds the player hadn't been grounded
-                secondsAsRectangleFalling = 0f;
+  protected float secondsNotGrounded = 0f,
+                  secondsSinceLastJump = 0f, // timer for seconds the player hadn't been grounded
+                  secondsAsRectangleFalling = 0f;
   private bool groundedInLastFrame = true;
 
   private float lastX, lastY; // last x and y position
-  private bool leftwards = false, // direction on last movement
-               movingX = false,
-               movingY = false;
+  protected bool leftwards = false, // direction on last movement
+                 movingX = false,
+                 movingY = false;
 
 
 
@@ -361,6 +359,8 @@ public class PlayerController : PhysicsObject {
   }
 
 
+
+
   /*
    ================
    === MOVEMENT ===
@@ -490,7 +490,7 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  private void loadLevelSettingsIntoPlayer() {
+  protected void loadLevelSettingsIntoPlayer() {
     LevelSettings settings = LevelSettings.Instance;
     canMove = settings.canMove;
     canJump = settings.canJump;
@@ -838,13 +838,15 @@ public class PlayerController : PhysicsObject {
 
 
 
+
+
   /*
    ===============================
    === TRIGGERS AND COLLISIONS ===
    ===============================
    */
 
-  public void OnTriggerEnter2D(Collider2D col) {
+  void OnTriggerEnter2D(Collider2D col) {
 
     switch (col.gameObject.tag) {
 
@@ -879,7 +881,7 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  public void OnTriggerExit2D(Collider2D col) {
+  void OnTriggerExit2D(Collider2D col) {
 
     switch (col.gameObject.tag) {
 
@@ -894,7 +896,7 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  public void OnTriggerStay2D(Collider2D col) {
+  void OnTriggerStay2D(Collider2D col) {
 
     switch (col.gameObject.tag) {
 
@@ -940,8 +942,8 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  public void OnCollisionStay2D(Collision2D col) {
-    
+  void OnCollisionStay2D(Collision2D col) {
+
     switch (col.gameObject.tag) {
 
       case "MovingPlatform":

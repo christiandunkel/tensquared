@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 1842526318169571738}
   - component: {fileID: 1842526318169571741}
   - component: {fileID: 1842526318169571740}
+  - component: {fileID: 1367324169730780802}
   - component: {fileID: 1842526318169571743}
   - component: {fileID: 1842526318169571742}
   - component: {fileID: 1842526318169571729}
@@ -265,53 +266,7 @@ MonoBehaviour:
   deathParticles: {fileID: 1842526318520974529}
   doubleJumpParticles: {fileID: 1842526319276185069}
   ghost: {fileID: 1842526318169571738}
-  characterSoundPlayer: {fileID: 1842526318612298953}
-  circleMovementSoundPlayer: {fileID: 1842526317741932220}
-  rectangleMovementSoundPlayer: {fileID: 1842526318376293932}
-  grassSoundPlayer: {fileID: 1842526318115110197}
-  disappearingBlockAppearSoundPlayer: {fileID: 1842526317865914313}
-  disappearingBlockDisappearSoundPlayer: {fileID: 1842526319204392596}
-  movingPlatformSoundPlayer: {fileID: 1842526318129000462}
-  fireSoundPlayer: {fileID: 4843643836550272130}
-  forceFieldSoundPlayer: {fileID: 4353282398474445898}
-  shortSoundPlayer: {fileID: 1842526319351448670}
-  cameraShakeSoundPlayer: {fileID: 1842526318667145694}
-  morphSound: {fileID: 8300000, guid: b78052f4a7d49394d8e0e529d6e53718, type: 3}
-  landingCircleSound: {fileID: 8300000, guid: 2f18ab7ebff033e41852afa9f5eff95c, type: 3}
-  landingTriangleSound: {fileID: 8300000, guid: ec046c624270a5b43b0aff005f187d00,
-    type: 3}
-  landingRectangleSound: {fileID: 8300000, guid: 4b4bc9897dbcc35408c08989f561b89a,
-    type: 3}
-  jumpingTriangleSound: {fileID: 8300000, guid: 4a36c7731195a2e48997bbec6dcd5e07,
-    type: 3}
-  playerDeathSound: {fileID: 8300000, guid: 5f0953f21dc4f884fa9e78003d8c04b3, type: 3}
-  walkThroughGrassSound: {fileID: 8300000, guid: cda9b01416a0beb44b0619e47e60a7c2,
-    type: 3}
-  disappearingBlockAppear: {fileID: 8300000, guid: 039883546c663054f9eeb0881097e99a,
-    type: 3}
-  disappearingBlockDisappear: {fileID: 8300000, guid: 3f313c1171fb51e4dbcb9252443b3010,
-    type: 3}
-  waterSplashSound: {fileID: 8300000, guid: fbeb17467f311884fa11074b3ef793a5, type: 3}
-  waterSplashFloatingBlockSound: {fileID: 8300000, guid: 8da042bad5e37454aa44a57977aa1299,
-    type: 3}
-  breakingBlockSound: {fileID: 8300000, guid: 14e6a40a0c8302f42a29170f0759c7f0, type: 3}
-  pistonPushSound: {fileID: 8300000, guid: 811530dba34cf8c4a9f7cad49c4a2d28, type: 3}
-  activateSpawnpointSound: {fileID: 8300000, guid: 79f70b8958c3f9d43ac3720b83a4aa90,
-    type: 3}
-  respawnAtSpawnpointSound: {fileID: 8300000, guid: f2aa560b9796e6a4990e136602e1e465,
-    type: 3}
-  enterForceFieldSound: {fileID: 8300000, guid: 0ae286b9eca74f3469de532e25593742,
-    type: 3}
-  exitForceFieldSound: {fileID: 8300000, guid: 6e3e566d1213ad341998e0d08696e02f, type: 3}
-  laserBulletHit: {fileID: 8300000, guid: 0e4d542d1eae0f24b85bed2d1a3068e1, type: 3}
-  laserTurretShot: {fileID: 8300000, guid: bfcd3e1f99ef47d4292f6a38d756fe88, type: 3}
-  earthquake_1_5_secs: {fileID: 8300000, guid: 0e861ff60d3c1fa409b46038963c490a, type: 3}
-  earthquake_2_secs: {fileID: 8300000, guid: 7a747ff771d781a42acf0f529f36d3ff, type: 3}
-  earthquake_2_5_secs_loud: {fileID: 8300000, guid: c549347f13858fd408beaeb4bd4760d7,
-    type: 3}
-  earthquake_3_secs: {fileID: 8300000, guid: 3d2283e1b1b7487498ad7dab9f8ba865, type: 3}
-  robotRepairSound: {fileID: 8300000, guid: 8e9e0c4ed9662324998bc99f80e1cd69, type: 3}
-  levelCompleteSound: {fileID: 8300000, guid: 20ed841fff48edb45a605b1537f62c0b, type: 3}
+  soundController: {fileID: 0}
 --- !u!114 &1842526318169571738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +316,51 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1367324169730780802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842526318169571728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b870b179614a2ae44a4949ce8eb233ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGroundNormalY: 0.65
+  textureObject: {fileID: 0}
+  grounded: 0
+  cameraAnimator: {fileID: 0}
+  setSpawnpoint: 0
+  isFrozen: 0
+  frozenInLastFrame: 0
+  characterAttributes:
+  - name: 
+    gravityModifier: 0
+    maxSpeed: 0
+    jumpTakeOffSpeed: 0
+    sprite: {fileID: 0}
+    particleColor: {r: 0, g: 0, b: 0, a: 0}
+  - name: 
+    gravityModifier: 0
+    maxSpeed: 0
+    jumpTakeOffSpeed: 0
+    sprite: {fileID: 0}
+    particleColor: {r: 0, g: 0, b: 0, a: 0}
+  - name: 
+    gravityModifier: 0
+    maxSpeed: 0
+    jumpTakeOffSpeed: 0
+    sprite: {fileID: 0}
+    particleColor: {r: 0, g: 0, b: 0, a: 0}
+  heldItemObject: {fileID: 0}
+  textureContainer: {fileID: 0}
+  movementParticles: {fileID: 0}
+  deathParticles: {fileID: 0}
+  doubleJumpParticles: {fileID: 0}
+  ghost: {fileID: 0}
+  soundController: {fileID: 0}
 --- !u!58 &1842526318169571743
 CircleCollider2D:
   m_ObjectHideFlags: 0

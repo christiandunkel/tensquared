@@ -21,7 +21,7 @@ public class CameraShake : MonoBehaviour
   // Cinemachine Shake
   public CinemachineVirtualCamera VirtualCamera;
   private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
-  private SoundController soundController;
+  private SoundController soundController = null;
   
   void Start() {
 

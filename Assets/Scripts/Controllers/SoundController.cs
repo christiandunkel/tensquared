@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /*
  * all sound effects are controlled by this script
@@ -26,19 +24,19 @@ public class SoundController : MonoBehaviour {
    */
 
   // movement sound players
-  [SerializeField] private AudioSource circleMovementSoundPlayer;
-  [SerializeField] private AudioSource rectangleMovementSoundPlayer;
-  [SerializeField] private AudioSource grassSoundPlayer;
+  [SerializeField] private AudioSource circleMovementSoundPlayer = null;
+  [SerializeField] private AudioSource rectangleMovementSoundPlayer = null;
+  [SerializeField] private AudioSource grassSoundPlayer = null;
   // other continuous sound players
-  [SerializeField] private AudioSource movingPlatformSoundPlayer;
-  [SerializeField] private AudioSource fireSoundPlayer;
-  [SerializeField] private AudioSource forceFieldSoundPlayer;
+  [SerializeField] private AudioSource movingPlatformSoundPlayer = null;
+  [SerializeField] private AudioSource fireSoundPlayer = null;
+  [SerializeField] private AudioSource forceFieldSoundPlayer = null;
   // one time sound players
-  [SerializeField] private AudioSource characterSoundPlayer;
-  [SerializeField] private AudioSource shortSoundPlayer;
-  [SerializeField] private AudioSource cameraShakeSoundPlayer;
-  [SerializeField] private AudioSource disappearingBlockAppearSoundPlayer;
-  [SerializeField] private AudioSource disappearingBlockDisappearSoundPlayer;
+  [SerializeField] private AudioSource characterSoundPlayer = null;
+  [SerializeField] private AudioSource shortSoundPlayer = null;
+  [SerializeField] private AudioSource cameraShakeSoundPlayer = null;
+  [SerializeField] private AudioSource disappearingBlockAppearSoundPlayer = null;
+  [SerializeField] private AudioSource disappearingBlockDisappearSoundPlayer = null;
 
   public void StopSoundPlayer(string soundPlayer) {
 
@@ -279,39 +277,39 @@ public class SoundController : MonoBehaviour {
    */
 
   // character
-  [SerializeField] private AudioClip morphSound;
-  [SerializeField] private AudioClip landingCircleSound;
-  [SerializeField] private AudioClip landingTriangleSound;
-  [SerializeField] private AudioClip landingRectangleSound;
-  [SerializeField] private AudioClip jumpingTriangleSound;
-  [SerializeField] private AudioClip playerDeathSound;
-  [SerializeField] private AudioClip walkThroughGrassSound;
+  [SerializeField] private AudioClip morphSound = null;
+  [SerializeField] private AudioClip landingCircleSound = null;
+  [SerializeField] private AudioClip landingTriangleSound = null;
+  [SerializeField] private AudioClip landingRectangleSound = null;
+  [SerializeField] private AudioClip jumpingTriangleSound = null;
+  [SerializeField] private AudioClip playerDeathSound = null;
+  [SerializeField] private AudioClip walkThroughGrassSound = null;
   // disappearing block
-  [SerializeField] private AudioClip disappearingBlockAppear;
-  [SerializeField] private AudioClip disappearingBlockDisappear;
+  [SerializeField] private AudioClip disappearingBlockAppear = null;
+  [SerializeField] private AudioClip disappearingBlockDisappear = null;
   // water
-  [SerializeField] private AudioClip waterSplashSound;
-  [SerializeField] private AudioClip waterSplashFloatingBlockSound;
+  [SerializeField] private AudioClip waterSplashSound = null;
+  [SerializeField] private AudioClip waterSplashFloatingBlockSound = null;
   // spawn point
-  [SerializeField] private AudioClip activateSpawnpointSound;
-  [SerializeField] private AudioClip respawnAtSpawnpointSound;
+  [SerializeField] private AudioClip activateSpawnpointSound = null;
+  [SerializeField] private AudioClip respawnAtSpawnpointSound = null;
   // laser turret
-  [SerializeField] private AudioClip laserBulletHit;
-  [SerializeField] private AudioClip laserTurretShot;
+  [SerializeField] private AudioClip laserBulletHit = null;
+  [SerializeField] private AudioClip laserTurretShot = null;
   // force field
-  [SerializeField] private AudioClip enterForceFieldSound;
-  [SerializeField] private AudioClip exitForceFieldSound;
+  [SerializeField] private AudioClip enterForceFieldSound = null;
+  [SerializeField] private AudioClip exitForceFieldSound = null;
   // camera shake
-  [SerializeField] private AudioClip earthquake_1_5_secs;
-  [SerializeField] private AudioClip earthquake_2_secs;
-  [SerializeField] private AudioClip earthquake_2_5_secs_loud;
-  [SerializeField] private AudioClip earthquake_3_secs;
+  [SerializeField] private AudioClip earthquake_1_5_secs = null;
+  [SerializeField] private AudioClip earthquake_2_secs = null;
+  [SerializeField] private AudioClip earthquake_2_5_secs_loud = null;
+  [SerializeField] private AudioClip earthquake_3_secs = null;
   // UI
-  [SerializeField] private AudioClip levelCompleteSound;
+  [SerializeField] private AudioClip levelCompleteSound = null;
   // other
-  [SerializeField] private AudioClip robotRepairSound;
-  [SerializeField] private AudioClip breakingBlockSound;
-  [SerializeField] private AudioClip pistonPushSound;
+  [SerializeField] private AudioClip robotRepairSound = null;
+  [SerializeField] private AudioClip breakingBlockSound = null;
+  [SerializeField] private AudioClip pistonPushSound = null;
 
   public float PlaySound(string soundName) {
 

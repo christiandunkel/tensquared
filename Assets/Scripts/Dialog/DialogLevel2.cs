@@ -11,10 +11,18 @@ public class DialogLevel2 : MonoBehaviour {
       case "lvl2_no_legs_over_here":
         dialog.setText(
           "Legs? Over here? No legs? No, that's not good.",
-          "Oh, maybe there.No ? What about down there ?"
+          "Oh, maybe there.No ? What about down there?"
         );
         dialog.setAudioClip("lvl2_no_legs_over_here");
         dialog.icon = "annoyed";
+        break;
+
+      case "lvl2_aaaahh":
+        dialog.setText(
+          "Ahhhhhh..."
+        );
+        dialog.setAudioClip("lvl2_aaaahh");
+        dialog.icon = "neutral";
         break;
 
       case "lvl2_you_are_here_as_well":
@@ -72,6 +80,25 @@ public class DialogLevel2 : MonoBehaviour {
         dialog.setAudioClip("lvl2_can_you_morph_into_other_forms");
         dialog.icon = "happy";
         break;
+        
+      case "lvl2_rectangle_great":
+        dialog.setText(
+          "That's great! You can even increase your mass! Wonderful!",
+          "Although, according to my calculations...",
+          "It's scientifically impossible... probably."
+        );
+        dialog.setAudioClip("lvl2_rectangle_great");
+        dialog.icon = "surprised";
+        break;
+
+      case "lvl2_if_i_have_to_be_honest":
+        dialog.setText(
+          "If you are worrying, don't! The new look fits you quite well.", 
+          "If I have to be honest, you looked a little scrawny before."
+        );
+        dialog.setAudioClip("lvl2_if_i_have_to_be_honest");
+        dialog.icon = "happy";
+        break;
 
       case "lvl2_breakable_block":
         dialog.setText(
@@ -81,6 +108,51 @@ public class DialogLevel2 : MonoBehaviour {
         );
         dialog.setAudioClip("lvl2_breakable_block");
         dialog.icon = "neutral";
+        break;
+
+      case "lvl2_smash_right":
+        dialog.setText(
+          "Great, you smashed right through that.",
+          "I am in awe."
+        );
+        dialog.setAudioClip("lvl2_smash_right");
+        dialog.icon = "happy";
+        break;
+
+      case "lvl2_force_fields_everywhere":
+        dialog.setText(
+          "You can find those blue blobs all over the place, like litter, destroying the landscape.",
+          "At least, they sound nice. And sometimes that's all that counts, don't you think?"
+        );
+        dialog.setAudioClip("lvl2_breakable_block");
+        dialog.icon = "neutral";
+        break;
+
+      case "lvl2_thank_you_my_little_friend":
+        dialog.setText(
+          "Thank you very much, my little friend! You're a life-safer!",
+          "I will certainly repay you!"
+        );
+        dialog.setAudioClip("lvl2_thank_you_my_little_friend");
+        dialog.icon = "happy";
+        break;
+
+      case "lvl2_tea_and_cookies":
+        dialog.setText(
+          "Why don't you visit me in the future for some tea and cookies?",
+          "But don't forget to bring your scientifically impossible body with you!"
+        );
+        dialog.setAudioClip("lvl2_tea_and_cookies");
+        dialog.icon = "laughing";
+        break;
+
+      case "lvl2_where_did_you_pick_up_these_legs":
+        dialog.setText(
+          "Why don't you visit me in the future for some tea and cookies?",
+          "But don't forget to bring your scientifically impossible body with you!"
+        );
+        dialog.setAudioClip("lvl2_where_did_you_pick_up_these_legs");
+        dialog.icon = "surprised";
         break;
 
     }

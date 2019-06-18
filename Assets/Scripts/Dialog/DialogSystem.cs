@@ -96,16 +96,24 @@ public class DialogSystem : MonoBehaviour {
 
   }
 
-  // adds the dialog to queue 
-  // -> will be played the earliest where no other dialog is playing
   public static void LoadDialog(string name) {
+
+    /*
+     * add a given dialogue to the queue;
+     * it will be played the earliest 
+     * where no other dialog is playing
+     */
+
     if (!dialogQueue.Contains(name)) {
       dialogQueue.Add(name);
     }
   }
 
-  // load first dialog in queue into memory
   public static void loadDialogFromQueue() {
+
+    /*
+     * load first dialog in queue into memory
+     */
 
     // get dialog name
     string name = dialogQueue[0].ToString();
@@ -144,9 +152,13 @@ public class DialogSystem : MonoBehaviour {
     DialogSystem.Instance.StartCoroutine(playDialog());
 
   }
-
-  // load an icon from array by key
+  
   private static Sprite getDialogIcon(string iconName) {
+
+    /*
+     * returns the roboter icon with given name
+     * loads the icon from array by key
+     */
 
     // get index of icon in sprite array by key
     int getIndex() {
@@ -170,12 +182,18 @@ public class DialogSystem : MonoBehaviour {
       return 0;
     }
 
+    // return sprite at index
     return dialogIcons[getIndex()];
 
   }
-
-  // play dialog saved in 'currentDialogPlaying'
+  
   private static IEnumerator playDialog() {
+
+    /*
+     * plays dialog saved in 'currentDialogPlaying':
+     * fades the dialogue into the screen
+     * writes text, plays voice, then fades out
+     */
 
     // load robot image
     iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);

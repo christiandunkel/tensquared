@@ -2,7 +2,8 @@
 using UnityEngine;
 
 /*
- * manages the framework used by the player controller and the physics object
+ * manages the framework (variables, virtual and global methods, getter, setter)
+ * used by the player controller and the physics object
  */
 
 public class PlayerManager : MonoBehaviour {
@@ -198,19 +199,34 @@ public class PlayerManager : MonoBehaviour {
   private void loadMorphAnimationSprites() {
 
     /*
-     * load morph animation sprites into arrays for use in morphing process
+     * loads 'morph animation' sprites into arrays 
+     * for the later use in the morphing process
      */
 
     rectToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Circle"), "Rectangle", "Circle");
     rectToTriangle = AddFiles(Resources.LoadAll<Sprite>("Morph/Rectangle_to_Triangle"), "Rectangle", "Triangle");
     triangleToCircle = AddFiles(Resources.LoadAll<Sprite>("Morph/Triangle_to_Circle"), "Triangle", "Circle");
 
+
+
     Sprite[] AddFiles(Sprite[] arr, string fileFront, string fileEnd) {
+
+      /*
+       * returns all needed files in an array
+       */
+
       Sprite[] newArr = AddFileAtFront(arr, fileFront);
       return AddFileAtEnd(newArr, fileEnd);
+
     }
 
     Sprite[] AddFileAtFront(Sprite[] arr, string file) {
+
+      /*
+       * adds a file to the front of a sprite array
+       * (is sprite for original state e.g. Circle, Triangle, Rectangle)
+       */
+
       Sprite[] newArr = new Sprite[arr.Length + 1];
       for (int i = 0; i < newArr.Length; i++) {
         if (i == 0) {
@@ -232,6 +248,12 @@ public class PlayerManager : MonoBehaviour {
     }
 
     Sprite[] AddFileAtEnd(Sprite[] arr, string file) {
+
+      /*
+       * adds a file to the end of a sprite array
+       * (is sprite for final state e.g. Circle, Triangle, Rectangle)
+       */
+
       Sprite[] newArr = new Sprite[arr.Length + 1];
       for (int i = 0; i < newArr.Length; i++) {
         if (i == newArr.Length - 1) {

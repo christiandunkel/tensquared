@@ -254,6 +254,12 @@ public class PlayerController : PhysicsObject {
   }
 
   protected void loadLevelSettingsIntoPlayer() {
+
+    /*
+     * load the level settings from the 'level settings' script
+     * and replace the values of the internal variables with them
+     */
+
     LevelSettings settings = LevelSettings.Instance;
     canMove = settings.canMove;
     canJump = settings.canJump;
@@ -261,7 +267,9 @@ public class PlayerController : PhysicsObject {
     canMorphToTriangle = settings.canMorphToTriangle;
     canMorphToRectangle = settings.canMorphToRectangle;
 
+    // reload 'morph indicator' UI in case morph settings are different now
     morphIndicator.loadMorphIndicators();
+
   }
 
 

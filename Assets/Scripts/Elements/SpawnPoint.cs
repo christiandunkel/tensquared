@@ -127,7 +127,7 @@ public class SpawnPoint : MonoBehaviour {
     IEnumerator moveOutHoldingArm() {
 
       playerHolderSR.sortingOrder = PlayerManager.Instance.getObject("textureObject")
-                                     .GetComponent<SpriteRenderer>().sortingOrder + 1;
+                                    .GetComponent<SpriteRenderer>().sortingOrder + 1;
 
       int steps = 50;
       float spawnPointmoveCharBy = 19f / steps;

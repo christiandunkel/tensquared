@@ -25,6 +25,8 @@ public class CameraShake : MonoBehaviour
   
   void Start() {
 
+    soundController = SoundController.Instance;
+
     // get virtual camera noise profile
     if (VirtualCamera != null) {
       virtualCameraNoise = VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();

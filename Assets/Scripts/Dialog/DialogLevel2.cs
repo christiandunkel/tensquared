@@ -91,7 +91,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_breakable_block":
         dialog.setText(
-          "This metallic thing looks quite brittle, don't you think? Maybe letting something heavy fall on top of it from a certain distance will break it... Well, that's lucky."
+          "This metallic thing looks quite brittle, don't you think? Maybe letting something heavy fall on top of it from a certain distance will break it."
         );
         dialog.setAudioClip("lvl2_breakable_block");
         dialog.icon = "neutral";

@@ -35,7 +35,8 @@ public class LevelSettings : MonoBehaviour {
 
   }
 
-  public void SetSetting(string name, bool value) {
+  public void setSetting(string name, bool value) {
+
     switch (name) {
 
       case "canMove":
@@ -50,17 +51,17 @@ public class LevelSettings : MonoBehaviour {
 
       case "canMorphToCircle":
         canMorphToCircle = value;
-        PlayerController.Instance.setSetting(name, value);
+        PlayerManager.Instance.setSetting(name, value);
         break;
 
       case "canMorphToTriangle":
         canMorphToTriangle = value;
-        PlayerController.Instance.setSetting(name, value);
+        PlayerManager.Instance.setSetting(name, value);
         break;
 
       case "canMorphToRectangle":
         canMorphToRectangle = value;
-        PlayerController.Instance.setSetting(name, value);
+        PlayerManager.Instance.setSetting(name, value);
         break;
 
       default:
@@ -68,9 +69,10 @@ public class LevelSettings : MonoBehaviour {
         break;
 
     }
+
   }
   
-  public void SetSetting(string name, Vector2 pos) {
+  public void setSetting(string name, Vector2 pos) {
     switch (name) {
 
       case "playerSpawn":

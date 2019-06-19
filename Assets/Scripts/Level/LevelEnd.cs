@@ -43,8 +43,11 @@ public class LevelEnd : MonoBehaviour {
 
     LevelTimer.Instance.saveTimer();
 
-    LevelSettings.Instance.SetSetting("canMove", false);
-    LevelSettings.Instance.SetSetting("canMorph", false);
+    LevelSettings.Instance.setSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canJump", false);
+    LevelSettings.Instance.setSetting("canMorphToCircle", false);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", false);
+    LevelSettings.Instance.setSetting("canMorphToRectangle", false);
 
     PauseMenu.Instance.gameObject.SetActive(false);
 

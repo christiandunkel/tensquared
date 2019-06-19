@@ -24,8 +24,10 @@ public class ScriptedEventsManager : MonoBehaviour {
     // start frequence of each level
     switch (levelID) {
       case 1: StartCoroutine(StartFrequenceLvl1()); break;
-      default: break;
+      case 2: StartCoroutine(StartFrequenceLvl2()); break;
     }
+
+    Debug.Log("ScriptedEventManager: Initialised for level " + levelID + ".");
 
   }
 
@@ -68,8 +70,6 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     void LoadLevel2Event() {
       switch (name) {
-        case "morph_tooltip":
-          StartCoroutine(Lvl2_MorphTooltip()); break;
         case "morph_to_triangle":
           TooltipManager.hideTooltips(); break;
         default: break;
@@ -78,14 +78,21 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   }
 
+
+
+
+
   /* ===============
    * === LEVEL 1 ===
    * ===============
    */
+
   private IEnumerator StartFrequenceLvl1() {
-    LevelSettings.Instance.SetSetting("canMove", false);
-    LevelSettings.Instance.SetSetting("canJump", false);
-    LevelSettings.Instance.SetSetting("canMorph", false);
+    LevelSettings.Instance.setSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canJump", false);
+    LevelSettings.Instance.setSetting("canMorphToCircle", false);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", false);
+    LevelSettings.Instance.setSetting("canMorphToRectangle", false);
     yield return new WaitForSeconds(4f);
     DialogSystem.LoadDialog("lvl1_hello");
     yield return new WaitForSeconds(8.5f);
@@ -100,19 +107,19 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(6f);
     TooltipManager.showTooltip("Move");
     yield return new WaitForSeconds(1f);
-    virtualCameraAnimator.GetComponent<Animator>().SetTrigger("StartFrequenceOver");
-    LevelSettings.Instance.SetSetting("canMove", true);
+    LevelSettings.Instance.setSetting("canMove", true);
+    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     StopCoroutine(StartFrequenceLvl1());
   }
   private IEnumerator Lvl1_JumpTooltip() {
     DialogSystem.LoadDialog("lvl1_jump");
     yield return new WaitForSeconds(1.5f);
-    LevelSettings.Instance.SetSetting("canJump", true);
+    LevelSettings.Instance.setSetting("canJump", true);
     TooltipManager.showTooltip("Jump");
     StopCoroutine(Lvl1_JumpTooltip());
   }
   private IEnumerator Lvl1_RobotAppearScene() {
-    LevelSettings.Instance.SetSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canMove", false);
     yield return new WaitForSeconds(.2f);
     CameraShake.Instance.Play(.5f, 1.3f, 1.3f);
     yield return new WaitForSeconds(1f);
@@ -129,15 +136,15 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(5.5f);
     DialogSystem.LoadDialog("lvl1_arms_are_further_ahead");
     yield return new WaitForSeconds(4f);
-    LevelSettings.Instance.SetSetting("canMove", true);
+    LevelSettings.Instance.setSetting("canMove", true);
     StopCoroutine(Lvl1_RobotAppearScene());
   }
   private IEnumerator Lvl1_PickUpArms() {
-    LevelSettings.Instance.SetSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canMove", false);
     yield return new WaitForSeconds(.2f);
     DialogSystem.LoadDialog("lvl1_pick_up_arms");
     yield return new WaitForSeconds(4f);
-    LevelSettings.Instance.SetSetting("canMove", true);
+    LevelSettings.Instance.setSetting("canMove", true);
     StopCoroutine(Lvl1_PickUpArms());
   }
   private IEnumerator Lvl1_BringArmsBack() {
@@ -148,7 +155,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     StopCoroutine(Lvl1_BringArmsBack());
   }
   private IEnumerator Lvl1_RobotGetArmsScene() {
-    LevelSettings.Instance.SetSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canMove", false);
     PlayerController.Instance.setValue("holdingItem", false);
 
     SpriteRenderer robotTexture = GameObject.Find("RobotFigureTexture").GetComponent<SpriteRenderer>();
@@ -200,16 +207,47 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
 
 
+
+
+
   /* ===============
    * === LEVEL 2 ===
    * ===============
    */
-  private IEnumerator Lvl2_MorphTooltip() {
-    DialogSystem.LoadDialog("lvl2_morph");
-    yield return new WaitForSeconds(7f);
-    LevelSettings.Instance.SetSetting("canMorph", true);
+
+
+  private IEnumerator StartFrequenceLvl2() {
+    yield return new WaitForSeconds(2f);
+    DialogSystem.LoadDialog("lvl2_no_legs_over_here");
+    yield return new WaitForSeconds(13f);
+
+    GameObject robotObj = GameObject.Find("RobotFallingDown");
+    SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
+    Sprite takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
+           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025");
+
+    DialogSystem.LoadDialog("lvl2_aaaahh");
+    robotObj.GetComponent<Animator>().SetTrigger("FallDown");
+    yield return new WaitForSeconds(2.7f);
+    robotObjSR.sprite = takeArmsDown;
+    yield return new WaitForSeconds(.1f);
+    robotObjSR.sprite = armsAreDown;
+    yield return new WaitForSeconds(.1f);
+    // robot lands on ground
+    GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
+    CameraShake.Instance.Play(.5f, 14f, 14f);
+
+    yield return new WaitForSeconds(2.5f);
+    DialogSystem.LoadDialog("lvl2_you_are_here_as_well");
+    yield return new WaitForSeconds(9f);
+    DialogSystem.LoadDialog("lvl2_do_you_want_to_get_out_of_here");
+    yield return new WaitForSeconds(12f);
+
+    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
+    yield return new WaitForSeconds(2f);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", true);
     TooltipManager.showTooltip("MorphTriangle");
-    StopCoroutine(Lvl2_MorphTooltip());
+    StopCoroutine(StartFrequenceLvl2());
   }
 
 }

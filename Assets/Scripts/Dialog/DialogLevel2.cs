@@ -10,8 +10,8 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_no_legs_over_here":
         dialog.setText(
-          "Legs? Over here? No legs? No, that's not good.",
-          "Oh, maybe there.No ? What about down there?"
+          "Legs? Over here? No legs? That's not good.",
+          "Oh, maybe there. No? What about down there?"
         );
         dialog.setAudioClip("lvl2_no_legs_over_here");
         dialog.icon = "annoyed";
@@ -19,7 +19,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_aaaahh":
         dialog.setText(
-          "Ahhhhhh..."
+          "AaaAaaaAaaAaaaaAaaaAhh..."
         );
         dialog.setAudioClip("lvl2_aaaahh");
         dialog.icon = "neutral";
@@ -28,7 +28,8 @@ public class DialogLevel2 : MonoBehaviour {
       case "lvl2_you_are_here_as_well":
         dialog.setText(
           "Oh, you are here as well, little friend?",
-          "That's truly an interesting coincidence, don't you think?"
+          "That's truly an interesting coincidence...",
+          "Don't you think?"
         );
         dialog.setAudioClip("lvl2_you_are_here_as_well");
         dialog.icon = "happy";
@@ -37,7 +38,7 @@ public class DialogLevel2 : MonoBehaviour {
       case "lvl2_do_you_want_to_get_out_of_here":
         dialog.setText(
           "Do you want to get out of here, little friend?",
-          "You are a smart circle, you should be able to think of a solution!"
+          "You are a smart circle! You should be able to think of a solution!"
         );
         dialog.setAudioClip("lvl2_do_you_want_to_get_out_of_here");
         dialog.icon = "laughing";
@@ -148,8 +149,8 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_where_did_you_pick_up_these_legs":
         dialog.setText(
-          "Why don't you visit me in the future for some tea and cookies?",
-          "But don't forget to bring your scientifically impossible body with you!"
+          "But tell me my little friend, where did you pick up these legs?",
+          "They make me feel a little strange..."
         );
         dialog.setAudioClip("lvl2_where_did_you_pick_up_these_legs");
         dialog.icon = "surprised";

@@ -186,7 +186,7 @@ public class DialogSystem : MonoBehaviour {
     return dialogIcons[getIndex()];
 
   }
-  
+
   private static IEnumerator playDialog() {
 
     /*
@@ -195,9 +195,6 @@ public class DialogSystem : MonoBehaviour {
      * writes text, plays voice, then fades out
      */
 
-    // load robot image
-    iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
-
     // info on visibility of dialog
     bool dialogBoxWasVisibleOnStart = dialogBoxVisible;
     dialogBoxVisible = true;
@@ -205,9 +202,23 @@ public class DialogSystem : MonoBehaviour {
     // reset dialog
     textElement.SetText("");
 
+    if (dialogBoxWasVisibleOnStart) {
+
+      // load robot image
+      iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
+
+    }
+
     // play animation
     animator.SetBool("ShowDialog", true);
-    yield return new WaitForSeconds(dialogBoxWasVisibleOnStart ? 0.15f : 0.5f);
+    yield return new WaitForSeconds(dialogBoxWasVisibleOnStart ? 0.1f : 0.2f);
+
+    if (!dialogBoxWasVisibleOnStart) {
+
+      // load robot image
+      iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
+
+    }
 
     // play roboter voice
     audioSource.PlayOneShot(currentDialogPlaying.audioClip);
@@ -227,7 +238,7 @@ public class DialogSystem : MonoBehaviour {
 
     // fade out dialog
     animator.SetBool("ShowDialog", false);
-    yield return new WaitForSeconds(0.3f);
+    yield return new WaitForSeconds(0.2f);
 
     // reset dialog
     textElement.SetText("");

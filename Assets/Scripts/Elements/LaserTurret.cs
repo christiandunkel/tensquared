@@ -10,7 +10,7 @@ public class LaserTurret : MonoBehaviour {
   public ParticleSystem shortParticles;
 
   // distance of player to turret, in which turret becomes active
-  public float distanceToPlayerNeededForActivation = 120f;
+  public float distanceToPlayerNeededForActivation = 160f;
 
   // shooting timer attributes
   public GameObject bulletSpawnPosition;

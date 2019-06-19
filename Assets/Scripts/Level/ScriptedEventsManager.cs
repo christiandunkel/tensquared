@@ -117,6 +117,8 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.LoadDialog("lvl2_breakable_block"); break;
         case "smash_right":
           DialogSystem.LoadDialog("lvl2_smash_right"); break;
+        case "morph_force_field":
+          DialogSystem.LoadDialog("lvl2_force_fields_everywhere"); break;
       }
     }
 
@@ -177,12 +179,12 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator Lvl2_FirstMorphToTriangle() {
     TooltipManager.hideTooltips();
     yield return new WaitForSeconds(.3f);
+    TooltipManager.showTooltip("DoubleJumpTriangle");
+    yield return new WaitForSeconds(5f);
+    TooltipManager.hideTooltip("DoubleJumpTriangle");
+    yield return new WaitForSeconds(1f);
     DialogSystem.LoadDialog("lvl2_full_of_surprises");
     DialogSystem.LoadDialog("lvl2_send_blueprint_for_science");
-    yield return new WaitForSeconds(18f);
-    TooltipManager.showTooltip("DoubleJumpTriangle");
-    yield return new WaitForSeconds(4f);
-    TooltipManager.hideTooltip("DoubleJumpTriangle");
     StopCoroutine(Lvl2_FirstMorphToTriangle());
   }
   private IEnumerator LVL2_CanYouMorphIntoOtherForms() {

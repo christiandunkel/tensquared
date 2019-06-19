@@ -8,6 +8,7 @@ using UnityEngine;
 public class DisappearingBlockSingle : MonoBehaviour {
 
   public Animator squareTexture;
+  private SoundController soundController;
 
   public float stayTime = 1.5f,
                hiddenTime = 1f;
@@ -16,10 +17,27 @@ public class DisappearingBlockSingle : MonoBehaviour {
 
   private void Awake() {
 
-    if (stayTime < .4f) Debug.LogError("DisappearingBlockSingle: Given stayTime " + stayTime + " is too small.");
-    if (hiddenTime < .4f) Debug.LogError("DisappearingBlockSingle: Given hiddenTime " + hiddenTime + " is too small.");
+    if (stayTime < .4f) {
+      Debug.LogError("DisappearingBlockSingle: Given stayTime " + stayTime + " is too small.");
+    }
 
-    startCycle();
+    if (hiddenTime < .4f) {
+      Debug.LogError("DisappearingBlockSingle: Given hiddenTime " + hiddenTime + " is too small.");
+    }
+
+    // delay; start up scripted events once other scripts are ready
+    StartCoroutine(delayedAwake());
+
+    IEnumerator delayedAwake() {
+      // wait for another loop if scripts aren't ready yet
+      while (SoundController.Instance == null) {
+        yield return new WaitForSeconds(.1f);
+      }
+      soundController = SoundController.Instance;
+      startCycle();
+      StopCoroutine(delayedAwake());
+    }
+
   }
 
   private float distanceToPlayer() {
@@ -50,12 +68,16 @@ public class DisappearingBlockSingle : MonoBehaviour {
     IEnumerator cycle() {
 
       squareTexture.SetBool("Visible", true);
-      if (distanceToPlayer() < soundDist) SoundController.Instance.PlaySound("disappearingBlockAppear");
+      if (distanceToPlayer() < soundDist) {
+        soundController.PlaySound("disappearingBlockAppear");
+      }
 
       yield return new WaitForSeconds(stayTime);
 
       squareTexture.SetBool("Visible", false);
-      if (distanceToPlayer() < soundDist) SoundController.Instance.PlaySound("disappearingBlockDisappear");
+      if (distanceToPlayer() < soundDist) {
+        soundController.PlaySound("disappearingBlockDisappear");
+      }
 
       yield return new WaitForSeconds(hiddenTime);
 

@@ -99,9 +99,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_breakable_block":
         dialog.setText(
-          "This metallic thing looks quite brittle, don't you think?",
-          "Maybe letting something heavy fall on top of it from a certain distance will break it...",
-          "Well, that's lucky."
+          "This metallic thing looks quite brittle, don't you think? Maybe letting something heavy fall on top of it from a certain distance will break it... Well, that's lucky."
         );
         dialog.setAudioClip("lvl2_breakable_block");
         dialog.icon = "neutral";
@@ -118,10 +116,9 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_force_fields_everywhere":
         dialog.setText(
-          "You can find those blue blobs all over the place, like litter, destroying the landscape.",
-          "At least, they sound nice. And sometimes that's all that counts, don't you think?"
+          "You can find those blue blobs all over the place, like litter, destroying the landscape. At least, they sound nice. And sometimes that's all that counts, don't you think?"
         );
-        dialog.setAudioClip("lvl2_breakable_block");
+        dialog.setAudioClip("lvl2_force_fields_everywhere");
         dialog.icon = "neutral";
         break;
 

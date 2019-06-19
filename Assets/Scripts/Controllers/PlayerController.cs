@@ -456,6 +456,7 @@ public class PlayerController : PhysicsObject {
       else if (canMorphToRectangle && Input.GetKeyDown(KeyCode.Alpha3) && state != "Rectangle") {
         newState = "Rectangle";
         initiateMorphing = true;
+        scriptedEvents.LoadEvent(2, "rectangle_morph_praises");
       }
     }
 

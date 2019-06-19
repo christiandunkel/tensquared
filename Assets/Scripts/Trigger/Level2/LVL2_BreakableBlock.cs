@@ -4,7 +4,7 @@
  * simple script that triggers an event 
  */
 
-public class LVL2_BringMeMyLegs : MonoBehaviour {
+public class LVL2_BreakableBlock : MonoBehaviour {
 
   private bool playedDialogAlready;
 
@@ -16,7 +16,7 @@ public class LVL2_BringMeMyLegs : MonoBehaviour {
 
     if (!playedDialogAlready && col.gameObject.tag == "Player") {
       playedDialogAlready = true; // only load once
-      ScriptedEventsManager.Instance.LoadEvent(2, "bring_arms_back");
+      ScriptedEventsManager.Instance.LoadEvent(2, "breakable_block");
     }
 
   }

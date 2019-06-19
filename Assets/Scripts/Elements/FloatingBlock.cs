@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /*
  * manages the 'floating block' prefab
@@ -15,7 +16,18 @@ public class FloatingBlock : MonoBehaviour {
   void Awake() {
 
     rb2d = GetComponent<Rigidbody2D>();
-    soundController = SoundController.Instance;
+
+    // delay; start up scripted events once other scripts are ready
+    StartCoroutine(delayedAwake());
+
+    IEnumerator delayedAwake() {
+      // wait for another loop if scripts aren't ready yet
+      while (SoundController.Instance == null) {
+        yield return new WaitForSeconds(.1f);
+      }
+      soundController = SoundController.Instance;
+      StopCoroutine(delayedAwake());
+    }
 
   }
 

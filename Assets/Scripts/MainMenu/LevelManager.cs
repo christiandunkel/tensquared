@@ -40,6 +40,9 @@ public class LevelManager : MonoBehaviour {
 
       levelsUnlocked = PlayerPrefs.GetInt("lvls_unlocked");
 
+      // REMOVE AFTER PRESENTATION
+      levelsUnlocked = 3;
+
       // norm values if too big or too small
       levelsUnlocked = levelsUnlocked < 1 ? 1 : 
                          (levelsUnlocked > 10 ? 10 : levelsUnlocked);

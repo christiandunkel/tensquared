@@ -53,14 +53,23 @@ public class DialogLevel2 : MonoBehaviour {
         dialog.setAudioClip("lvl2_send_blueprint_for_science");
         dialog.icon = "happy";
         break;
-
-      case "lvl2_you_are_out_bring_me_legs":
+        
+      case "lvl2_you_are_out":
         dialog.setText(
-          "Now that you're out there, do you mind looking around for a robot leg or two?",
-          "I have misplaced mine. Even bringing me a pair of second-hand goods will do... although I will feel very sad inside."
+          "Now that you're out there...",
+          "Do you mind looking around for a robot leg or two?",
+          "I have misplaced mine."
         );
-        dialog.setAudioClip("lvl2_you_are_out_bring_me_legs");
+        dialog.setAudioClip("lvl2_you_are_out");
         dialog.icon = "neutral";
+        break;
+
+      case "lvl2_bring_me_legs":
+        dialog.setText(
+          "Even bringing me a pair of second-hand goods will do... although I will feel very sad inside."
+        );
+        dialog.setAudioClip("lvl2_bring_me_legs");
+        dialog.icon = "sad";
         break;
 
       case "lvl2_can_you_morph_into_other_forms":
@@ -74,9 +83,7 @@ public class DialogLevel2 : MonoBehaviour {
         
       case "lvl2_rectangle_great":
         dialog.setText(
-          "That's great! You can even increase your mass! Wonderful!",
-          "Although, according to my calculations...",
-          "It's scientifically impossible... probably."
+          "That's great! You can even increase your mass! Wonderful! Although, according to my calculations... It's scientifically impossible... probably."
         );
         dialog.setAudioClip("lvl2_rectangle_great");
         dialog.icon = "surprised";
@@ -84,8 +91,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_if_i_have_to_be_honest":
         dialog.setText(
-          "If you are worrying, don't! The new look fits you quite well.", 
-          "If I have to be honest, you looked a little scrawny before."
+          "If you are worrying, don't! The new look fits you quite well. If I have to be honest, you looked a little scrawny before."
         );
         dialog.setAudioClip("lvl2_if_i_have_to_be_honest");
         dialog.icon = "happy";

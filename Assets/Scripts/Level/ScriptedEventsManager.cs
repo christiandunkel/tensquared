@@ -36,10 +36,10 @@ public class ScriptedEventsManager : MonoBehaviour {
 
       // wait for another loop if scripts aren't ready yet
       while (
-        PlayerManager.Instance != null &&
-        DialogSystem.Instance != null &&
-        TooltipManager.Instance != null &&
-        SoundController.Instance != null
+        PlayerManager.Instance == null ||
+        DialogSystem.Instance == null ||
+        TooltipManager.Instance == null ||
+        SoundController.Instance == null
       ) {
         yield return new WaitForSeconds(.1f);
       }
@@ -105,8 +105,18 @@ public class ScriptedEventsManager : MonoBehaviour {
       switch (name) {
         case "morph_to_triangle":
           StartCoroutine(Lvl2_FirstMorphToTriangle()); break;
-        case "lvl2_bring_arms_back":
-          DialogSystem.LoadDialog("lvl2_you_are_out_bring_me_legs"); break;
+        case "bring_arms_back":
+          DialogSystem.LoadDialog("lvl2_you_are_out");
+          DialogSystem.LoadDialog("lvl2_bring_me_legs");
+          break;
+        case "can_you_morph_into_other_forms":
+          StartCoroutine(LVL2_CanYouMorphIntoOtherForms()); break;
+        case "rectangle_morph_praises":
+          StartCoroutine(LVL2_RectangleMorphPraises()); break;
+        case "breakable_block":
+          DialogSystem.LoadDialog("lvl2_breakable_block"); break;
+        case "smash_right":
+          DialogSystem.LoadDialog("lvl2_smash_right"); break;
       }
     }
 
@@ -129,11 +139,13 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     GameObject robotObj = GameObject.Find("RobotFallingDown");
     SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
-    Sprite takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
+    Sprite armsAreUp = Resources.Load<Sprite>("RobotGetArmsAnimation/0027"),
+           takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
            armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025"),
            armsAreDown2 = Resources.Load<Sprite>("RobotGetArmsAnimation/0024"),
            lookRight = Resources.Load<Sprite>("Other/level2_robot_look_right");
 
+    robotObjSR.sprite = armsAreUp;
     robotObj.GetComponent<Animator>().SetTrigger("FallDown");
     yield return new WaitForSeconds(.6f);
     SoundController.Instance.PlaySound("robotScreamSound");
@@ -172,6 +184,55 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(4f);
     TooltipManager.hideTooltip("DoubleJumpTriangle");
     StopCoroutine(Lvl2_FirstMorphToTriangle());
+  }
+  private IEnumerator LVL2_CanYouMorphIntoOtherForms() {
+
+    GameObject robotObj = GameObject.Find("RobotFallingDown");
+    SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
+    Sprite armsAreUp = Resources.Load<Sprite>("RobotGetArmsAnimation/0027"),
+           takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
+           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025"),
+           armsAreDown2 = Resources.Load<Sprite>("RobotGetArmsAnimation/0024"),
+           lookLeft = Resources.Load<Sprite>("Other/level2_robot_look_left");
+
+    robotObjSR.sprite = armsAreUp;
+    robotObj.GetComponent<Animator>().SetTrigger("FallDown2");
+    yield return new WaitForSeconds(.6f);
+    SoundController.Instance.PlaySound("robotScreamSound");
+    yield return new WaitForSeconds(2f);
+    robotObjSR.sprite = takeArmsDown;
+    yield return new WaitForSeconds(.1f);
+    robotObjSR.sprite = armsAreDown;
+    yield return new WaitForSeconds(.1f);
+    robotObjSR.sprite = armsAreDown2;
+    yield return new WaitForSeconds(.1f);
+    // robot lands on ground
+    GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
+    CameraShake.Instance.Play(.4f, 17f, 17f);
+
+    yield return new WaitForSeconds(1.1f);
+    robotObjSR.sprite = lookLeft;
+    yield return new WaitForSeconds(.5f);
+    DialogSystem.LoadDialog("lvl2_can_you_morph_into_other_forms");
+
+    yield return new WaitForSeconds(6.5f);
+
+    LevelSettings.Instance.setSetting("canMorphToRectangle", true);
+    TooltipManager.showTooltip("MorphRectangle");
+    StopCoroutine(LVL2_CanYouMorphIntoOtherForms());
+
+  }
+  private IEnumerator LVL2_RectangleMorphPraises() {
+
+    TooltipManager.hideTooltip("MorphRectangle");
+
+    yield return new WaitForSeconds(.5f);
+    DialogSystem.LoadDialog("lvl2_rectangle_great");
+    DialogSystem.LoadDialog("lvl2_if_i_have_to_be_honest");
+    GameObject.Find("OnlyProceedAsRectangle").SetActive(false);
+    
+    StopCoroutine(LVL2_RectangleMorphPraises());
+
   }
 
 

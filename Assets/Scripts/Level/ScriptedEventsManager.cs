@@ -177,8 +177,8 @@ public class ScriptedEventsManager : MonoBehaviour {
     StopCoroutine(StartFrequenceLvl2());
   }
   private IEnumerator Lvl2_FirstMorphToTriangle() {
-    TooltipManager.hideTooltips();
-    yield return new WaitForSeconds(.3f);
+    TooltipManager.hideTooltip("MorphTriangle");
+    yield return new WaitForSeconds(.9f);
     TooltipManager.showTooltip("DoubleJumpTriangle");
     yield return new WaitForSeconds(5f);
     TooltipManager.hideTooltip("DoubleJumpTriangle");

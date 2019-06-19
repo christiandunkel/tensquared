@@ -195,30 +195,17 @@ public class DialogSystem : MonoBehaviour {
      * writes text, plays voice, then fades out
      */
 
-    // info on visibility of dialog
-    bool dialogBoxWasVisibleOnStart = dialogBoxVisible;
     dialogBoxVisible = true;
 
     // reset dialog
     textElement.SetText("");
 
-    if (dialogBoxWasVisibleOnStart) {
-
-      // load robot image
-      iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
-
-    }
+    // load robot image
+    iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
 
     // play animation
     animator.SetBool("ShowDialog", true);
-    yield return new WaitForSeconds(dialogBoxWasVisibleOnStart ? 0.1f : 0.2f);
-
-    if (!dialogBoxWasVisibleOnStart) {
-
-      // load robot image
-      iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
-
-    }
+    yield return new WaitForSeconds(0.2f);
 
     // play roboter voice
     audioSource.PlayOneShot(currentDialogPlaying.audioClip);

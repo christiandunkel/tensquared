@@ -89,14 +89,6 @@ public class DialogLevel2 : MonoBehaviour {
         dialog.icon = "surprised";
         break;
 
-      case "lvl2_if_i_have_to_be_honest":
-        dialog.setText(
-          "If you are worrying, don't! The new look fits you quite well. If I have to be honest, you looked a little scrawny before."
-        );
-        dialog.setAudioClip("lvl2_if_i_have_to_be_honest");
-        dialog.icon = "happy";
-        break;
-
       case "lvl2_breakable_block":
         dialog.setText(
           "This metallic thing looks quite brittle, don't you think? Maybe letting something heavy fall on top of it from a certain distance will break it... Well, that's lucky."

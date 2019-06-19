@@ -118,7 +118,7 @@ public class ScriptedEventsManager : MonoBehaviour {
         case "smash_right":
           DialogSystem.LoadDialog("lvl2_smash_right"); break;
         case "morph_force_field":
-          DialogSystem.LoadDialog("lvl2_force_fields_everywhere"); break;
+          StartCoroutine(LVL2_ForceField()); break;
       }
     }
 
@@ -225,17 +225,18 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   }
   private IEnumerator LVL2_RectangleMorphPraises() {
-
     TooltipManager.hideTooltip("MorphRectangle");
-
     yield return new WaitForSeconds(.5f);
     DialogSystem.LoadDialog("lvl2_rectangle_great");
-    DialogSystem.LoadDialog("lvl2_if_i_have_to_be_honest");
     GameObject.Find("OnlyProceedAsRectangle").SetActive(false);
-    
     StopCoroutine(LVL2_RectangleMorphPraises());
-
   }
+  private IEnumerator LVL2_ForceField() {
+    yield return new WaitForSeconds(2f);
+    DialogSystem.LoadDialog("lvl2_force_fields_everywhere");
+    StopCoroutine(LVL2_ForceField());
+  }
+  
 
 
 

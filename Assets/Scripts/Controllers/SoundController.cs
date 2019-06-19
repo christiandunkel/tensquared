@@ -37,6 +37,8 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioSource cameraShakeSoundPlayer = null;
   [SerializeField] private AudioSource disappearingBlockAppearSoundPlayer = null;
   [SerializeField] private AudioSource disappearingBlockDisappearSoundPlayer = null;
+  // speech
+  [SerializeField] private AudioSource speechSoundPlayer = null;
 
   public void StopSoundPlayer(string soundPlayer) {
 
@@ -82,6 +84,13 @@ public class SoundController : MonoBehaviour {
         disappearingBlockAppearSoundPlayer.Stop(); return;
       case "disappearingBlockDisappearSoundPlayer":
         disappearingBlockDisappearSoundPlayer.Stop(); return;
+
+      /*
+       * SPEECH  
+       */
+
+      case "speechSoundPlayer":
+        speechSoundPlayer.Stop(); return;
 
     }
 
@@ -308,6 +317,7 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioClip levelCompleteSound = null;
   // other
   [SerializeField] private AudioClip robotRepairSound = null;
+  [SerializeField] private AudioClip robotScreamSound = null;
   [SerializeField] private AudioClip breakingBlockSound = null;
   [SerializeField] private AudioClip pistonPushSound = null;
 
@@ -471,6 +481,11 @@ public class SoundController : MonoBehaviour {
       case "robotRepairSound":
         c = robotRepairSound;
         shortSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      case "robotScreamSound":
+        c = robotScreamSound;
+        speechSoundPlayer.PlayOneShot(c);
         return c.length;
 
       case "breakingBlockSound":

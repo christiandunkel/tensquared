@@ -202,6 +202,9 @@ public class PlayerController : PhysicsObject {
             }
             // double jump for triangle
             else if (state == "Triangle" && velocity.y > 0f && !inDoubleJump) {
+
+              scriptedEvents.LoadEvent(2, "lvl2_double_jump_triangle");
+
               inDoubleJump = true;
               velocity.y = jumpTakeOffSpeed * 1.2f;
               secondsSinceLastJump = 0f;
@@ -450,7 +453,7 @@ public class PlayerController : PhysicsObject {
       else if (canMorphToTriangle && Input.GetKeyDown(KeyCode.Alpha2)  && state != "Triangle") {
         newState = "Triangle";
         initiateMorphing = true;
-        ScriptedEventsManager.Instance.LoadEvent(2, "morph_to_triangle");
+        scriptedEvents.LoadEvent(2, "morph_to_triangle");
       }
       else if (canMorphToRectangle && Input.GetKeyDown(KeyCode.Alpha3) && state != "Rectangle") {
         newState = "Rectangle";
@@ -607,7 +610,7 @@ public class PlayerController : PhysicsObject {
         Debug.Log("PlayerController: Player died by entering water.");
         soundController.PlaySound("waterSplashSound");
         die();
-        ScriptedEventsManager.Instance.LoadEvent(1, "water_death");
+        scriptedEvents.LoadEvent(1, "water_death");
         break;
 
       case "KillZone":

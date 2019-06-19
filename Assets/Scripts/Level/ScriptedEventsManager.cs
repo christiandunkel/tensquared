@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -14,33 +15,66 @@ public class ScriptedEventsManager : MonoBehaviour {
   public bool playStartFrequence = true,
               playEvents = true;
 
+  private List<string> eventsAlreadyRun = new List<string>();
+
   void Awake() {
 
     Instance = this;
 
-    // block start frequence if events or start frequence are disabled
-    if (!playStartFrequence || !playEvents) return;
-
-    // start frequence of each level
-    switch (levelID) {
-      case 1: StartCoroutine(StartFrequenceLvl1()); break;
-      case 2: StartCoroutine(StartFrequenceLvl2()); break;
-    }
-
     Debug.Log("ScriptedEventManager: Initialised for level " + levelID + ".");
 
+    // block start frequence if events or start frequence are disabled
+    if (!playStartFrequence || !playEvents) {
+      virtualCameraAnimator.SetTrigger("StartFrequenceOver");
+      return;
+    }
+
+    // delay; start up scripted events once other scripts are ready
+    StartCoroutine(delayedAwake());
+
+    IEnumerator delayedAwake() {
+
+      // wait for another loop if scripts aren't ready yet
+      while (
+        PlayerManager.Instance != null &&
+        DialogSystem.Instance != null &&
+        TooltipManager.Instance != null &&
+        SoundController.Instance != null
+      ) {
+        yield return new WaitForSeconds(.1f);
+      }
+
+      Debug.Log("ScriptedEventManager: Successfully loaded as all required scripts are loaded.");
+
+      // start frequence of each level
+      switch (levelID) {
+        case 1: StartCoroutine(StartFrequenceLvl1()); break;
+        case 2: StartCoroutine(StartFrequenceLvl2()); break;
+      }
+
+      StopCoroutine(delayedAwake());
+
+    }
+
   }
+
+  
 
   public void LoadEvent(int lvl, string name) {
 
     // only play events of current level
     if (lvl != levelID || !playEvents) return;
 
+    // don't play an event twice
+    if (eventsAlreadyRun.Contains(lvl + "_" + name)) return;
+
     switch (lvl) {
       case 1: LoadLevel1Event(); break;
       case 2: LoadLevel2Event(); break;
-      default: break;
     }
+
+    // add event to lists of already run events
+    eventsAlreadyRun.Add(lvl + "_" + name);
 
     void LoadLevel1Event() {
       switch (name) {
@@ -64,15 +98,17 @@ public class ScriptedEventsManager : MonoBehaviour {
           StartCoroutine(Lvl1_BringArmsBack()); break;
         case "robot_get_arms_scene":
           StartCoroutine(Lvl1_RobotGetArmsScene()); break;
-        default: break;
       }
     }
 
     void LoadLevel2Event() {
       switch (name) {
         case "morph_to_triangle":
+          StartCoroutine(Lvl2_FirstMorphToTriangle()); break;
+        case "lvl2_double_jump_triangle":
           TooltipManager.hideTooltips(); break;
-        default: break;
+        case "lvl2_bring_arms_back":
+          DialogSystem.LoadDialog("lvl2_you_are_out_bring_me_legs"); break;
       }
     }
 
@@ -219,25 +255,32 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator StartFrequenceLvl2() {
     yield return new WaitForSeconds(2f);
     DialogSystem.LoadDialog("lvl2_no_legs_over_here");
-    yield return new WaitForSeconds(13f);
+    yield return new WaitForSeconds(13.5f);
 
     GameObject robotObj = GameObject.Find("RobotFallingDown");
     SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
     Sprite takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
-           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025");
+           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025"),
+           armsAreDown2 = Resources.Load<Sprite>("RobotGetArmsAnimation/0024"),
+           lookRight = Resources.Load<Sprite>("RobotGetArmsAnimation/0029");
 
-    DialogSystem.LoadDialog("lvl2_aaaahh");
     robotObj.GetComponent<Animator>().SetTrigger("FallDown");
-    yield return new WaitForSeconds(2.7f);
+    yield return new WaitForSeconds(.6f);
+    SoundController.Instance.PlaySound("robotScreamSound");
+    yield return new WaitForSeconds(2f);
     robotObjSR.sprite = takeArmsDown;
     yield return new WaitForSeconds(.1f);
     robotObjSR.sprite = armsAreDown;
     yield return new WaitForSeconds(.1f);
+    robotObjSR.sprite = armsAreDown2;
+    yield return new WaitForSeconds(.1f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
-    CameraShake.Instance.Play(.5f, 14f, 14f);
+    CameraShake.Instance.Play(.4f, 17f, 17f);
 
-    yield return new WaitForSeconds(2.5f);
+    yield return new WaitForSeconds(1.5f);
+    robotObjSR.sprite = lookRight;
+    yield return new WaitForSeconds(1f);
     DialogSystem.LoadDialog("lvl2_you_are_here_as_well");
     yield return new WaitForSeconds(9f);
     DialogSystem.LoadDialog("lvl2_do_you_want_to_get_out_of_here");
@@ -249,5 +292,15 @@ public class ScriptedEventsManager : MonoBehaviour {
     TooltipManager.showTooltip("MorphTriangle");
     StopCoroutine(StartFrequenceLvl2());
   }
+  private IEnumerator Lvl2_FirstMorphToTriangle() {
+    TooltipManager.hideTooltips();
+    yield return new WaitForSeconds(.3f);
+    DialogSystem.LoadDialog("lvl2_full_of_surprises");
+    DialogSystem.LoadDialog("lvl2_send_blueprint_for_science");
+    yield return new WaitForSeconds(18f);
+    TooltipManager.showTooltip("DoubleJumpTriangle");
+    StopCoroutine(Lvl2_FirstMorphToTriangle());
+  }
+
 
 }

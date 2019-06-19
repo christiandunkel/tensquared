@@ -17,14 +17,6 @@ public class DialogLevel2 : MonoBehaviour {
         dialog.icon = "annoyed";
         break;
 
-      case "lvl2_aaaahh":
-        dialog.setText(
-          "AaaAaaaAaaAaaaaAaaaAhh..."
-        );
-        dialog.setAudioClip("lvl2_aaaahh");
-        dialog.icon = "neutral";
-        break;
-
       case "lvl2_you_are_here_as_well":
         dialog.setText(
           "Oh, you are here as well, little friend?",
@@ -56,8 +48,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_send_blueprint_for_science":
         dialog.setText(
-          "You truly have to sent me a blueprint of how to make one of you...",
-          "So I can tinker around a little... for science."
+          "You truly have to sent me a blueprint of how to make one of you... So I can tinker around a little... for science."
         );
         dialog.setAudioClip("lvl2_send_blueprint_for_science");
         dialog.icon = "happy";
@@ -65,9 +56,8 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_you_are_out_bring_me_legs":
         dialog.setText(
-          "Now that you out there, do you mind looking around for a robot leg or two?",
-          "I have misplaced mine.Even bringing me a pair of second-hand goods will do...",
-          "Although I will feel very sad inside..."
+          "Now that you're out there, do you mind looking around for a robot leg or two?",
+          "I have misplaced mine. Even bringing me a pair of second-hand goods will do... although I will feel very sad inside."
         );
         dialog.setAudioClip("lvl2_you_are_out_bring_me_legs");
         dialog.icon = "neutral";

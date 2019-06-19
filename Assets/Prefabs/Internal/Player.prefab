@@ -1,5 +1,132 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1076281320131726004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7333933708637072687}
+  - component: {fileID: 1643434866050637194}
+  m_Layer: 0
+  m_Name: SPEECHsoundPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7333933708637072687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076281320131726004}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7419809932118503189}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1643434866050637194
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076281320131726004}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1842526317948476639
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +318,6 @@ GameObject:
   - component: {fileID: 1842526318169571738}
   - component: {fileID: 1842526318169571741}
   - component: {fileID: 1842526318169571740}
-  - component: {fileID: 1367324169730780802}
   - component: {fileID: 1842526318169571743}
   - component: {fileID: 1842526318169571742}
   - component: {fileID: 1842526318169571729}
@@ -234,13 +360,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08305dea27edeaa4d927d4ba7e87b978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundNormalY: 0.25
   textureObject: {fileID: 1842526318279600140}
-  grounded: 0
-  cameraAnimator: {fileID: 0}
-  setSpawnpoint: 0
-  isFrozen: 0
-  frozenInLastFrame: 0
+  heldItemObject: {fileID: 1842526318798835812}
+  textureContainer: {fileID: 1842526317948476639}
+  movementParticles: {fileID: 1842526319110656652}
+  deathParticles: {fileID: 1842526318520974529}
+  doubleJumpParticles: {fileID: 1842526319276185069}
+  minGroundNormalY: 0.25
+  gravityModifier: 4
   characterAttributes:
   - name: Circle
     gravityModifier: 27
@@ -260,13 +387,7 @@ MonoBehaviour:
     jumpTakeOffSpeed: 172
     sprite: {fileID: 21300000, guid: dfb00aafce4b89d47ae0496f2a13eeb9, type: 3}
     particleColor: {r: 0.5377358, g: 0, b: 0.04161471, a: 1}
-  heldItemObject: {fileID: 1842526318798835812}
-  textureContainer: {fileID: 1842526317948476639}
-  movementParticles: {fileID: 1842526319110656652}
-  deathParticles: {fileID: 1842526318520974529}
-  doubleJumpParticles: {fileID: 1842526319276185069}
-  ghost: {fileID: 1842526318169571738}
-  soundController: {fileID: 0}
+  cameraAnimator: {fileID: 0}
 --- !u!114 &1842526318169571738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,51 +437,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1367324169730780802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1842526318169571728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b870b179614a2ae44a4949ce8eb233ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  textureObject: {fileID: 0}
-  grounded: 0
-  cameraAnimator: {fileID: 0}
-  setSpawnpoint: 0
-  isFrozen: 0
-  frozenInLastFrame: 0
-  characterAttributes:
-  - name: 
-    gravityModifier: 0
-    maxSpeed: 0
-    jumpTakeOffSpeed: 0
-    sprite: {fileID: 0}
-    particleColor: {r: 0, g: 0, b: 0, a: 0}
-  - name: 
-    gravityModifier: 0
-    maxSpeed: 0
-    jumpTakeOffSpeed: 0
-    sprite: {fileID: 0}
-    particleColor: {r: 0, g: 0, b: 0, a: 0}
-  - name: 
-    gravityModifier: 0
-    maxSpeed: 0
-    jumpTakeOffSpeed: 0
-    sprite: {fileID: 0}
-    particleColor: {r: 0, g: 0, b: 0, a: 0}
-  heldItemObject: {fileID: 0}
-  textureContainer: {fileID: 0}
-  movementParticles: {fileID: 0}
-  deathParticles: {fileID: 0}
-  doubleJumpParticles: {fileID: 0}
-  ghost: {fileID: 0}
-  soundController: {fileID: 0}
 --- !u!58 &1842526318169571743
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -16064,6 +16140,7 @@ Transform:
   - {fileID: 1842526319072040984}
   - {fileID: 1842526318748580361}
   - {fileID: 1842526319204392599}
+  - {fileID: 7333933708637072687}
   m_Father: {fileID: 1842526319484236204}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16090,6 +16167,7 @@ MonoBehaviour:
   cameraShakeSoundPlayer: {fileID: 1842526318667145694}
   disappearingBlockAppearSoundPlayer: {fileID: 1842526317865914313}
   disappearingBlockDisappearSoundPlayer: {fileID: 1842526319204392596}
+  speechSoundPlayer: {fileID: 1643434866050637194}
   morphSound: {fileID: 8300000, guid: b78052f4a7d49394d8e0e529d6e53718, type: 3}
   landingCircleSound: {fileID: 8300000, guid: 2f18ab7ebff033e41852afa9f5eff95c, type: 3}
   landingTriangleSound: {fileID: 8300000, guid: ec046c624270a5b43b0aff005f187d00,
@@ -16124,6 +16202,7 @@ MonoBehaviour:
   earthquake_3_secs: {fileID: 8300000, guid: 3d2283e1b1b7487498ad7dab9f8ba865, type: 3}
   levelCompleteSound: {fileID: 8300000, guid: 20ed841fff48edb45a605b1537f62c0b, type: 3}
   robotRepairSound: {fileID: 8300000, guid: 8e9e0c4ed9662324998bc99f80e1cd69, type: 3}
+  robotScreamSound: {fileID: 8300000, guid: 03c8f079a36f6ed4991c9e488e42fb0d, type: 3}
   breakingBlockSound: {fileID: 8300000, guid: 14e6a40a0c8302f42a29170f0759c7f0, type: 3}
   pistonPushSound: {fileID: 8300000, guid: 811530dba34cf8c4a9f7cad49c4a2d28, type: 3}
 --- !u!1 &7530603601884626224

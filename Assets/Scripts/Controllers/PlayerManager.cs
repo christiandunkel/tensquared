@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour {
   private protected static MorphIndicator morphIndicator;
   private protected static SoundController soundController;
   private protected static GhostingEffect ghostingEffect;
+  private protected static ScriptedEventsManager scriptedEvents;
 
   // game objects
   private protected GameObject parentObject;
@@ -154,6 +155,7 @@ public class PlayerManager : MonoBehaviour {
     ghostingEffect = GetComponent<GhostingEffect>();
     soundController = SoundController.Instance;
     morphIndicator = MorphIndicator.Instance;
+    scriptedEvents = ScriptedEventsManager.Instance;
 
     // initialize physic components
     rb2d = GetComponent<Rigidbody2D>();

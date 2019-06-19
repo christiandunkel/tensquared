@@ -16,7 +16,7 @@ public class LVL2_SmashedRight : MonoBehaviour {
 
     if (!playedDialogAlready && col.gameObject.tag == "Player") {
       playedDialogAlready = true; // only load once
-      ScriptedEventsManager.Instance.LoadEvent(2, "smashed_right");
+      ScriptedEventsManager.Instance.LoadEvent(2, "smash_right");
     }
 
   }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /*
  * powers the 'laser turret' prefab
@@ -27,9 +28,19 @@ public class LaserTurret : MonoBehaviour {
                      " seconds between shots is too low.");
     }
 
-    soundController = SoundController.Instance;
-
     timeUntilNextShot = secondsBetweenShots;
+
+    // delay; start up scripted events once other scripts are ready
+    StartCoroutine(delayedAwake());
+
+    IEnumerator delayedAwake() {
+      // wait for another loop if scripts aren't ready yet
+      while (SoundController.Instance == null) {
+        yield return new WaitForSeconds(.1f);
+      }
+      soundController = SoundController.Instance;
+      StopCoroutine(delayedAwake());
+    }
 
   }
 

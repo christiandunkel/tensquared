@@ -21014,6 +21014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1550016315}
   - component: {fileID: 1550016316}
+  - component: {fileID: 1550016317}
   m_Layer: 0
   m_Name: DialogBringMeMyLegs
   m_TagString: Untagged
@@ -21061,6 +21062,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 200, y: 350}
   m_EdgeRadius: 0
+--- !u!114 &1550016317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550016314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65f4aebdf1be1a488b558d3598d39d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1557047502
 PrefabInstance:
   m_ObjectHideFlags: 0

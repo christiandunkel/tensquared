@@ -105,13 +105,73 @@ public class ScriptedEventsManager : MonoBehaviour {
       switch (name) {
         case "morph_to_triangle":
           StartCoroutine(Lvl2_FirstMorphToTriangle()); break;
-        case "lvl2_double_jump_triangle":
-          TooltipManager.hideTooltips(); break;
         case "lvl2_bring_arms_back":
           DialogSystem.LoadDialog("lvl2_you_are_out_bring_me_legs"); break;
       }
     }
 
+  }
+
+
+
+
+
+  /* ===============
+   * === LEVEL 2 ===
+   * ===============
+   */
+
+
+  private IEnumerator StartFrequenceLvl2() {
+    yield return new WaitForSeconds(2f);
+    DialogSystem.LoadDialog("lvl2_no_legs_over_here");
+    yield return new WaitForSeconds(13.5f);
+
+    GameObject robotObj = GameObject.Find("RobotFallingDown");
+    SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
+    Sprite takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
+           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025"),
+           armsAreDown2 = Resources.Load<Sprite>("RobotGetArmsAnimation/0024"),
+           lookRight = Resources.Load<Sprite>("Other/level2_robot_look_right");
+
+    robotObj.GetComponent<Animator>().SetTrigger("FallDown");
+    yield return new WaitForSeconds(.6f);
+    SoundController.Instance.PlaySound("robotScreamSound");
+    yield return new WaitForSeconds(2f);
+    robotObjSR.sprite = takeArmsDown;
+    yield return new WaitForSeconds(.1f);
+    robotObjSR.sprite = armsAreDown;
+    yield return new WaitForSeconds(.1f);
+    robotObjSR.sprite = armsAreDown2;
+    yield return new WaitForSeconds(.1f);
+    // robot lands on ground
+    GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
+    CameraShake.Instance.Play(.4f, 17f, 17f);
+
+    yield return new WaitForSeconds(1.5f);
+    robotObjSR.sprite = lookRight;
+    yield return new WaitForSeconds(1f);
+    DialogSystem.LoadDialog("lvl2_you_are_here_as_well");
+    yield return new WaitForSeconds(9f);
+    DialogSystem.LoadDialog("lvl2_do_you_want_to_get_out_of_here");
+    yield return new WaitForSeconds(12f);
+
+    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
+    yield return new WaitForSeconds(2f);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", true);
+    TooltipManager.showTooltip("MorphTriangle");
+    StopCoroutine(StartFrequenceLvl2());
+  }
+  private IEnumerator Lvl2_FirstMorphToTriangle() {
+    TooltipManager.hideTooltips();
+    yield return new WaitForSeconds(.3f);
+    DialogSystem.LoadDialog("lvl2_full_of_surprises");
+    DialogSystem.LoadDialog("lvl2_send_blueprint_for_science");
+    yield return new WaitForSeconds(18f);
+    TooltipManager.showTooltip("DoubleJumpTriangle");
+    yield return new WaitForSeconds(4f);
+    TooltipManager.hideTooltip("DoubleJumpTriangle");
+    StopCoroutine(Lvl2_FirstMorphToTriangle());
   }
 
 
@@ -240,66 +300,6 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(8f);
     LevelEnd.Instance.endLevel();
     StopCoroutine(Lvl1_RobotGetArmsScene());
-  }
-
-
-
-
-
-  /* ===============
-   * === LEVEL 2 ===
-   * ===============
-   */
-
-
-  private IEnumerator StartFrequenceLvl2() {
-    yield return new WaitForSeconds(2f);
-    DialogSystem.LoadDialog("lvl2_no_legs_over_here");
-    yield return new WaitForSeconds(13.5f);
-
-    GameObject robotObj = GameObject.Find("RobotFallingDown");
-    SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
-    Sprite takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
-           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025"),
-           armsAreDown2 = Resources.Load<Sprite>("RobotGetArmsAnimation/0024"),
-           lookRight = Resources.Load<Sprite>("RobotGetArmsAnimation/0029");
-
-    robotObj.GetComponent<Animator>().SetTrigger("FallDown");
-    yield return new WaitForSeconds(.6f);
-    SoundController.Instance.PlaySound("robotScreamSound");
-    yield return new WaitForSeconds(2f);
-    robotObjSR.sprite = takeArmsDown;
-    yield return new WaitForSeconds(.1f);
-    robotObjSR.sprite = armsAreDown;
-    yield return new WaitForSeconds(.1f);
-    robotObjSR.sprite = armsAreDown2;
-    yield return new WaitForSeconds(.1f);
-    // robot lands on ground
-    GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
-    CameraShake.Instance.Play(.4f, 17f, 17f);
-
-    yield return new WaitForSeconds(1.5f);
-    robotObjSR.sprite = lookRight;
-    yield return new WaitForSeconds(1f);
-    DialogSystem.LoadDialog("lvl2_you_are_here_as_well");
-    yield return new WaitForSeconds(9f);
-    DialogSystem.LoadDialog("lvl2_do_you_want_to_get_out_of_here");
-    yield return new WaitForSeconds(12f);
-
-    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
-    yield return new WaitForSeconds(2f);
-    LevelSettings.Instance.setSetting("canMorphToTriangle", true);
-    TooltipManager.showTooltip("MorphTriangle");
-    StopCoroutine(StartFrequenceLvl2());
-  }
-  private IEnumerator Lvl2_FirstMorphToTriangle() {
-    TooltipManager.hideTooltips();
-    yield return new WaitForSeconds(.3f);
-    DialogSystem.LoadDialog("lvl2_full_of_surprises");
-    DialogSystem.LoadDialog("lvl2_send_blueprint_for_science");
-    yield return new WaitForSeconds(18f);
-    TooltipManager.showTooltip("DoubleJumpTriangle");
-    StopCoroutine(Lvl2_FirstMorphToTriangle());
   }
 
 

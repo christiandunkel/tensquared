@@ -203,8 +203,6 @@ public class PlayerController : PhysicsObject {
             // double jump for triangle
             else if (state == "Triangle" && velocity.y > 0f && !inDoubleJump) {
 
-              scriptedEvents.LoadEvent(2, "lvl2_double_jump_triangle");
-
               inDoubleJump = true;
               velocity.y = jumpTakeOffSpeed * 1.2f;
               secondsSinceLastJump = 0f;

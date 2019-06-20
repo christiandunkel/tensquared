@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour {
 
 
   private int levelsUnlocked = 1;
+  private int maxLevelsUnlockable = 10; // max numbers of level unlockable regardless of 'levelsUnlocked'
   private List<GameObject> LevelButton = new List<GameObject>();
 
   // element containing all lvl btn gameobjects
@@ -41,7 +42,7 @@ public class LevelManager : MonoBehaviour {
       levelsUnlocked = PlayerPrefs.GetInt("lvls_unlocked");
 
       // REMOVE AFTER PRESENTATION
-      levelsUnlocked = 3;
+      levelsUnlocked = levelsUnlocked > maxLevelsUnlockable ? maxLevelsUnlockable : levelsUnlocked;
 
       // norm values if too big or too small
       levelsUnlocked = levelsUnlocked < 1 ? 1 : 

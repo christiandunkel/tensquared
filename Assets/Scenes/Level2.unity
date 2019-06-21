@@ -31211,9 +31211,9 @@ Transform:
   - {fileID: 245392865}
   - {fileID: 1763746084}
   - {fileID: 1493407456}
-  - {fileID: 648287506}
-  - {fileID: 1961551327}
   - {fileID: 1894085665}
+  - {fileID: 1961551327}
+  - {fileID: 648287506}
   - {fileID: 2132094214}
   - {fileID: 196354753}
   m_Father: {fileID: 1818198519}
@@ -42720,6 +42720,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782398939110035959, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1912306586}
+    - target: {fileID: 8782398939110035959, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -972344685
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782398939110035959, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954722677857891343, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d,
+        type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10ca7ad93afdfdd4eaaa3b9ee952fc0d, type: 3}

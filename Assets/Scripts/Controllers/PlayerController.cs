@@ -88,6 +88,10 @@ public class PlayerController : PhysicsObject {
 
   private protected override void UpdateBeforeVelocity() {
 
+    /*
+     * called before velocity is calculate
+     */
+
     soundController.handleContinuousSound(state, movingX, grounded);
     handleCameraZoom();
     handleHoldingItem();
@@ -95,6 +99,10 @@ public class PlayerController : PhysicsObject {
   }
 
   private protected override void UpdateAfterVelocity() {
+
+    /*
+     * called after velocity is updated
+     */
 
     showMovementParticles();
 
@@ -134,12 +142,22 @@ public class PlayerController : PhysicsObject {
   private float rollingFixTimer = 0f,
                 rollingFixTimerDefault = 0.05f;
   private void resetDynamicRGB2D() {
+
+    /*
+     * reset attributes of dynamic rigid body
+     */
+
     rb2d.freezeRotation = true;
     rb2d.rotation = 0f;
     rb2d.velocity = new Vector2(0f, 0f);
   }
 
   private protected override void ComputeVelocity() {
+
+    /*
+     * calculate velocity for player under consideration
+     * of his current state, settings and attributes
+     */
 
     // handle frozen state
     if (isFrozen) {
@@ -429,6 +447,12 @@ public class PlayerController : PhysicsObject {
   
 
   private void setCollider(string state) {
+
+    /*
+     * set the right 2D collider depending
+     * on the player's current state
+     */
+
     GetComponent<CircleCollider2D>().enabled = (state == "Circle" ? true : false);
     GetComponent<PolygonCollider2D>().enabled = (state == "Triangle" ? true : false);
     GetComponent<BoxCollider2D>().enabled = (state == "Rectangle" ? true : false);

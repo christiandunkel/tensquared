@@ -146,6 +146,10 @@ public class PlayerManager : MonoBehaviour {
 
   void Awake() {
 
+    /*
+     * initialise important components for framework
+     */
+
     // initialize markers to important objects
     playerObject = gameObject;
     parentObject = gameObject.transform.parent.gameObject;
@@ -181,8 +185,16 @@ public class PlayerManager : MonoBehaviour {
     UpdateAfterVelocity();
   }
 
+  void FixedUpdate() {
+    OnFixedUpdate();
+  }
+
+  // initialisation
   private protected virtual void OnStart() { }
   private protected virtual void OnAwake() { }
+  // fixed update
+  private protected virtual void OnFixedUpdate() { }
+  // update
   private protected virtual void PhysicsUpdate() { }
   private protected virtual void UpdateBeforeVelocity() { }
   private protected virtual void ComputeVelocity() { }

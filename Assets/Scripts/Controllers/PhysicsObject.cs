@@ -13,12 +13,21 @@ public class PhysicsObject : PlayerManager {
     contactFilter.useLayerMask = true;
   }
 
+
+
   private protected override void PhysicsUpdate() {
     targetVelocity = Vector2.zero;
   }
 
-  // called every fixed frame-rate frame (frequency of physics system)
-  void FixedUpdate() {
+
+
+  private protected override void OnFixedUpdate() {
+
+    /*
+     * manage the physics of the player
+     * method is called every fixed frame-rate frame
+     * (with the frequency of the physics system)
+     */
 
     // if player is set to frozen, don't calculate movement
     if (PlayerController.Instance.isFrozen) return;
@@ -89,8 +98,14 @@ public class PhysicsObject : PlayerManager {
   }
 
 
+
   private bool playingResetTriangleRotationAnimation = false;
   public void resetTriangleRotation() {
+
+    /*
+     * reset texture's rotation back to normal
+     * (when it was changed for double jump on triangle)
+     */
 
     if (!playingResetTriangleRotationAnimation) {
       playingResetTriangleRotationAnimation = true;
@@ -135,6 +150,11 @@ public class PhysicsObject : PlayerManager {
 
   private void setDoubleJumpMovement() {
 
+    /*
+     * calculates the velocity for double jump
+     * and saves it inside vector2 'doubleJumpMovement'
+     */
+
     float doubleJumpReducer = .8f,
           angle = getAngleMousePlayer();
 
@@ -160,8 +180,15 @@ public class PhysicsObject : PlayerManager {
     }
 
   }
-  // returns angle between null vector and the vector spanning between cursor and player
+
+
+
   private float getAngleMousePlayer() {
+
+    /*
+     *  returns angle between null vector and 
+     *  the vector spanning between cursor and player
+     */
 
     Vector2 mouseCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -180,11 +207,16 @@ public class PhysicsObject : PlayerManager {
     return angleMousePlayer;
 
   }
+  
 
-  // apply movement to rigid body on 2D axes
+  
   private void xMovement(Vector2 move) {Movement(move, false); }
   private void yMovement(Vector2 move) {Movement(move, true); }
   private void Movement(Vector2 move, bool yMovement) {
+
+    /*
+     * apply velocity to rigid body on 2D axes
+     */
 
     move.x += !yMovement ? doubleJumpMovement.x : 0f;
     move.y += yMovement ? doubleJumpMovement.y : 0f;

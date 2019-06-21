@@ -37,13 +37,24 @@ public class DialogSystem : MonoBehaviour {
   private static Image iconElement = null;
 
   // audio visualization
-  private static LineRenderer voiceLineRenderer;
+  private static LineRenderer[] voiceLineRenderers;
 
 
 
   void Start() {
 
     Debug.Log("DialogSystem: Loaded.");
+
+
+    // load audio visualisation objects
+    GameObject[] lr_objs = GameObject.FindGameObjectsWithTag("VoiceLineRenderer");
+    voiceLineRenderers = new LineRenderer[lr_objs.Length];
+    int counter = 0;
+    foreach (GameObject obj in lr_objs) {
+      voiceLineRenderers[counter] = obj.GetComponent<LineRenderer>();
+      counter++;
+    }
+    
 
     // load icons into sprite array
     dialogIcons = Resources.LoadAll<Sprite>("DialogIcons/");
@@ -85,10 +96,6 @@ public class DialogSystem : MonoBehaviour {
       else if (obj.name == "DialogAudioSource") {
         audioSource = obj.GetComponent<AudioSource>();
       }
-      // audio visualisation
-      else if (obj.name == "VoiceLineRenderer") {
-        voiceLineRenderer = obj.GetComponent<LineRenderer>();
-      }
 
     }
 
@@ -104,11 +111,15 @@ public class DialogSystem : MonoBehaviour {
     }
 
     if (dialogBoxVisible) {
-      voiceLineRenderer.gameObject.SetActive(true);
+      foreach (LineRenderer lr in voiceLineRenderers) {
+        lr.gameObject.SetActive(true);
+      }
       visualizeVoice();
     }
     else {
-      voiceLineRenderer.gameObject.SetActive(false);
+      foreach (LineRenderer lr in voiceLineRenderers) {
+        lr.gameObject.SetActive(false);
+      }
     }
 
   }
@@ -263,22 +274,26 @@ public class DialogSystem : MonoBehaviour {
 
   private static void visualizeVoice() {
 
-    int dataPoints = 512;
+    int dataPoints = 64;
     float[] samples = new float[dataPoints];
 
     audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
 
-    float posX = voiceLineRenderer.transform.position.x;
-    float posY = voiceLineRenderer.transform.position.y;
+    foreach (LineRenderer lr in voiceLineRenderers) {
 
-    Vector3[] points = new Vector3[dataPoints];
-    for (int i = 0; i < dataPoints; i++) {
-      points[i] = Vector3.zero;
-      points[i].x = posX + i / 3;
-      points[i].y = posY + (samples[i] * 500);
+      float posX = lr.transform.position.x;
+      float posY = lr.transform.position.y;
+
+      Vector3[] points = new Vector3[dataPoints];
+      for (int i = 0; i < dataPoints; i++) {
+        points[i] = Vector3.zero;
+        points[i].x = posX + i / 2;
+        points[i].y = posY + (samples[i] * 50);
+      }
+
+      lr.SetPositions(points);
+
     }
-
-    voiceLineRenderer.SetPositions(points);
 
   }
 

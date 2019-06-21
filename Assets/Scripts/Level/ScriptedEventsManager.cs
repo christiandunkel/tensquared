@@ -292,6 +292,8 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(.45f);
     GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotAppear");
     yield return new WaitForSeconds(2.5f);
+    GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotStraighten");
+    yield return new WaitForSeconds(.45f);
     DialogSystem.LoadDialog("lvl1_its_me");
     yield return new WaitForSeconds(5.5f);
     DialogSystem.LoadDialog("lvl1_arms_are_further_ahead");
@@ -327,11 +329,9 @@ public class ScriptedEventsManager : MonoBehaviour {
       float multiplier = 1f;
       switch (i) {
         case 0:
-          GameObject.Find("RobotFigure").GetComponent<Animator>().SetBool("RobotStraighten", true);
-          yield return new WaitForSeconds(.5f);
+          yield return new WaitForSeconds(.2f);
           break;
         case 1:
-          GameObject.Find("RobotFigure").GetComponent<Animator>().SetBool("RobotStraighten", false);
           SoundController.Instance.PlaySound("robotRepairSound");
           break;
         case 24: multiplier = 6f; break;

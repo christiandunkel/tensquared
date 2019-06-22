@@ -141,7 +141,6 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
-    Sprite lookRight = Resources.Load<Sprite>("Other/level2_robot_look_right");
 
     robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", true);
     yield return new WaitForSeconds(.6f);
@@ -152,10 +151,11 @@ public class ScriptedEventsManager : MonoBehaviour {
     CameraShake.Instance.Play(.4f, 17f, 17f);
 
     yield return new WaitForSeconds(1.5f);
-    robotObjectTexture.GetComponent<SpriteRenderer>().sprite = lookRight;
+    robotObjectTexture.GetComponent<Animator>().SetBool("LookRight", true);
     yield return new WaitForSeconds(1f);
     DialogSystem.LoadDialog("lvl2_you_are_here_as_well");
     yield return new WaitForSeconds(9f);
+    robotObjectTexture.GetComponent<Animator>().SetBool("LookRight", false);
     DialogSystem.LoadDialog("lvl2_do_you_want_to_get_out_of_here");
     yield return new WaitForSeconds(12f);
 
@@ -180,7 +180,6 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
-    Sprite lookLeft = Resources.Load<Sprite>("Other/level2_robot_look_left");
 
     robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", false);
     yield return new WaitForSeconds(.2f);
@@ -194,9 +193,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
     CameraShake.Instance.Play(.4f, 17f, 17f);
 
-    yield return new WaitForSeconds(1.1f);
-    robotObjectTexture.GetComponent<SpriteRenderer>().sprite = lookLeft;
-    yield return new WaitForSeconds(.5f);
+    yield return new WaitForSeconds(1.65f);
     DialogSystem.LoadDialog("lvl2_can_you_morph_into_other_forms");
 
     yield return new WaitForSeconds(6.5f);

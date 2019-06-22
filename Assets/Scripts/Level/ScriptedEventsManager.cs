@@ -143,7 +143,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
     Sprite lookRight = Resources.Load<Sprite>("Other/level2_robot_look_right");
 
-    robotObjectTexture.GetComponent<Animator>().SetTrigger("FallDown");
+    robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", true);
     yield return new WaitForSeconds(.6f);
     SoundController.Instance.PlaySound("robotScreamSound");
     yield return new WaitForSeconds(2.3f);
@@ -182,8 +182,12 @@ public class ScriptedEventsManager : MonoBehaviour {
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
     Sprite lookLeft = Resources.Load<Sprite>("Other/level2_robot_look_left");
 
+    robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", false);
+    yield return new WaitForSeconds(.2f);
+    robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", true);
+    yield return new WaitForSeconds(.2f);
     robotObject.transform.position = new Vector2(611f, 189.2f);
-    yield return new WaitForSeconds(.6f);
+    yield return new WaitForSeconds(.4f);
     SoundController.Instance.PlaySound("robotScreamSound");
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground

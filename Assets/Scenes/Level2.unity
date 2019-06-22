@@ -5599,7 +5599,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2012008912}
-  - {fileID: 1538359888}
+  - {fileID: 974518971}
   - {fileID: 1405798912}
   - {fileID: 1818198519}
   - {fileID: 982972115}
@@ -17454,6 +17454,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 968071366}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &974518970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 974518971}
+  m_Layer: 0
+  m_Name: RobotFallingDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &974518971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974518970}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1424.5, y: 4.5, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children:
+  - {fileID: 1538359888}
+  m_Father: {fileID: 263004009}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &982972114
 GameObject:
   m_ObjectHideFlags: 0
@@ -32168,7 +32199,7 @@ GameObject:
   - component: {fileID: 1538359889}
   - component: {fileID: 1538359891}
   m_Layer: 0
-  m_Name: RobotFallingDown
+  m_Name: RobotFallingDownTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32182,13 +32213,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538359887}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1431.3, y: 4.5, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1417639846}
   - {fileID: 210579202}
-  m_Father: {fileID: 263004009}
-  m_RootOrder: 1
+  m_Father: {fileID: 974518971}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1538359889
 SpriteRenderer:
@@ -32227,7 +32258,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 412b114c76e0d16409805e817992a66c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df9f6360946be74489c0bd4230c701b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -139,31 +139,20 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.LoadDialog("lvl2_no_legs_over_here");
     yield return new WaitForSeconds(13.5f);
 
-    GameObject robotObj = GameObject.Find("RobotFallingDown");
-    SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
-    Sprite armsAreUp = Resources.Load<Sprite>("RobotGetArmsAnimation/0027"),
-           takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
-           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025"),
-           armsAreDown2 = Resources.Load<Sprite>("RobotGetArmsAnimation/0024"),
-           lookRight = Resources.Load<Sprite>("Other/level2_robot_look_right");
+    GameObject robotObject = GameObject.Find("RobotFallingDown");
+    GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
+    Sprite lookRight = Resources.Load<Sprite>("Other/level2_robot_look_right");
 
-    robotObjSR.sprite = armsAreUp;
-    robotObj.GetComponent<Animator>().SetTrigger("FallDown");
+    robotObjectTexture.GetComponent<Animator>().SetTrigger("FallDown");
     yield return new WaitForSeconds(.6f);
     SoundController.Instance.PlaySound("robotScreamSound");
-    yield return new WaitForSeconds(2f);
-    robotObjSR.sprite = takeArmsDown;
-    yield return new WaitForSeconds(.1f);
-    robotObjSR.sprite = armsAreDown;
-    yield return new WaitForSeconds(.1f);
-    robotObjSR.sprite = armsAreDown2;
-    yield return new WaitForSeconds(.1f);
+    yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
     CameraShake.Instance.Play(.4f, 17f, 17f);
 
     yield return new WaitForSeconds(1.5f);
-    robotObjSR.sprite = lookRight;
+    robotObjectTexture.GetComponent<SpriteRenderer>().sprite = lookRight;
     yield return new WaitForSeconds(1f);
     DialogSystem.LoadDialog("lvl2_you_are_here_as_well");
     yield return new WaitForSeconds(9f);
@@ -189,31 +178,20 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
   private IEnumerator LVL2_CanYouMorphIntoOtherForms() {
 
-    GameObject robotObj = GameObject.Find("RobotFallingDown");
-    SpriteRenderer robotObjSR = robotObj.GetComponent<SpriteRenderer>();
-    Sprite armsAreUp = Resources.Load<Sprite>("RobotGetArmsAnimation/0027"),
-           takeArmsDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0026"),
-           armsAreDown = Resources.Load<Sprite>("RobotGetArmsAnimation/0025"),
-           armsAreDown2 = Resources.Load<Sprite>("RobotGetArmsAnimation/0024"),
-           lookLeft = Resources.Load<Sprite>("Other/level2_robot_look_left");
+    GameObject robotObject = GameObject.Find("RobotFallingDown");
+    GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
+    Sprite lookLeft = Resources.Load<Sprite>("Other/level2_robot_look_left");
 
-    robotObjSR.sprite = armsAreUp;
-    robotObj.GetComponent<Animator>().SetTrigger("FallDown2");
+    robotObject.transform.position = new Vector2(611f, 189.2f);
     yield return new WaitForSeconds(.6f);
     SoundController.Instance.PlaySound("robotScreamSound");
-    yield return new WaitForSeconds(2f);
-    robotObjSR.sprite = takeArmsDown;
-    yield return new WaitForSeconds(.1f);
-    robotObjSR.sprite = armsAreDown;
-    yield return new WaitForSeconds(.1f);
-    robotObjSR.sprite = armsAreDown2;
-    yield return new WaitForSeconds(.1f);
+    yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
     CameraShake.Instance.Play(.4f, 17f, 17f);
 
     yield return new WaitForSeconds(1.1f);
-    robotObjSR.sprite = lookLeft;
+    robotObjectTexture.GetComponent<SpriteRenderer>().sprite = lookLeft;
     yield return new WaitForSeconds(.5f);
     DialogSystem.LoadDialog("lvl2_can_you_morph_into_other_forms");
 

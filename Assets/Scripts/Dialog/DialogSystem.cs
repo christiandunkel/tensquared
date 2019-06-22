@@ -287,8 +287,13 @@ public class DialogSystem : MonoBehaviour {
       Vector3[] points = new Vector3[dataPoints];
       for (int i = 0; i < dataPoints; i++) {
         points[i] = Vector3.zero;
-        points[i].x = posX + i / 2;
+        points[i].x = posX + (i / 1.3f);
         points[i].y = posY + (samples[i] * 50);
+
+        // hard max-height of each point = 2f over y position of line renderer
+        if (Mathf.Abs(posY - points[i].y) > 2f) {
+          points[i].y = posY + 2f;
+        }
       }
 
       lr.SetPositions(points);

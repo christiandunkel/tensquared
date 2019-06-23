@@ -110,16 +110,20 @@ public class DialogSystem : MonoBehaviour {
       loadDialogFromQueue();
     }
 
-    if (dialogBoxVisible) {
-      foreach (LineRenderer lr in voiceLineRenderers) {
-        lr.gameObject.SetActive(true);
+    if (voiceLineRenderers.Length > 0) {
+
+      if (dialogBoxVisible) {
+        foreach (LineRenderer lr in voiceLineRenderers) {
+          lr.gameObject.SetActive(true);
+        }
+        visualizeVoice();
       }
-      visualizeVoice();
-    }
-    else {
-      foreach (LineRenderer lr in voiceLineRenderers) {
-        lr.gameObject.SetActive(false);
+      else {
+        foreach (LineRenderer lr in voiceLineRenderers) {
+          lr.gameObject.SetActive(false);
+        }
       }
+
     }
 
   }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /*
  * script managing the global settings for every level
@@ -27,11 +28,35 @@ public class LevelSettings : MonoBehaviour {
   // objects
   public GameObject playerObject;
 
+  // ground prefab colliders 
+  // if false, ground prefabs won't use their inbuilt colliders,
+  // so custom colliders can be set and used for every level
+  public bool enableGroundColliders;
+
+
+
   private void Start() {
 
     // set spawn points at beginning to location of player object on entry in level
     worldSpawn = playerObject.transform.localPosition;
     playerSpawn = playerObject.transform.localPosition;
+
+    if (enableGroundColliders) {
+
+      GameObject[] groundPrefabs = GameObject.FindGameObjectsWithTag("GroundPrefab");
+
+      // go through all placed ground prefabs 
+      // and get all of their (and their childrens) box collider components
+      foreach (GameObject prefab in groundPrefabs) {
+
+        BoxCollider2D[] childColliders = prefab.GetComponentsInChildren<BoxCollider2D>();
+        foreach (BoxCollider2D col in childColliders) {
+          col.enabled = true;
+        }
+
+      }
+
+    }
 
   }
 

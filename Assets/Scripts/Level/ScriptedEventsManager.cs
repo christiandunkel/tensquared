@@ -215,7 +215,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     StopCoroutine(LVL2_RectangleMorphPraises());
   }
   private IEnumerator LVL2_ForceField() {
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(.8f);
     DialogSystem.LoadDialog("lvl2_force_fields_everywhere");
     StopCoroutine(LVL2_ForceField());
   }

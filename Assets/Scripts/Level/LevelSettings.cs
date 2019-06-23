@@ -13,6 +13,9 @@ public class LevelSettings : MonoBehaviour {
     Instance = this;
   }
 
+  // id of level scene
+  public int levelID = 1;
+
   // player stats
   public bool canMove = true, // if player can use input to influence movement of character
               canJump = true, // if player can jump by key
@@ -36,6 +39,8 @@ public class LevelSettings : MonoBehaviour {
 
 
   private void Start() {
+
+    Debug.Log("LevelSettings: Initialised level " + levelID + ".");
 
     // set spawn points at beginning to location of player object on entry in level
     worldSpawn = playerObject.transform.localPosition;

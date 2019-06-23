@@ -11,7 +11,6 @@ public class ScriptedEventsManager : MonoBehaviour {
   public static ScriptedEventsManager Instance;
 
   public Animator virtualCameraAnimator;
-  public int levelID = 1;
   public bool playStartFrequence = true,
               playEvents = true;
 
@@ -21,7 +20,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     Instance = this;
 
-    Debug.Log("ScriptedEventManager: Initialised for level " + levelID + ".");
+    Debug.Log("ScriptedEventManager: Initialised.");
 
     // block start frequence if events or start frequence are disabled
     if (!playStartFrequence || !playEvents) {
@@ -47,7 +46,7 @@ public class ScriptedEventsManager : MonoBehaviour {
       Debug.Log("ScriptedEventManager: Successfully loaded as all required scripts are loaded.");
 
       // start frequence of each level
-      switch (levelID) {
+      switch (LevelSettings.Instance.levelID) {
         case 1: StartCoroutine(StartFrequenceLvl1()); break;
         case 2: StartCoroutine(StartFrequenceLvl2()); break;
       }
@@ -63,7 +62,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   public void LoadEvent(int lvl, string name) {
 
     // only play events of current level
-    if (lvl != levelID || !playEvents) return;
+    if (lvl != LevelSettings.Instance.levelID || !playEvents) return;
 
     // don't play an event twice
     if (eventsAlreadyRun.Contains(lvl + "_" + name)) return;

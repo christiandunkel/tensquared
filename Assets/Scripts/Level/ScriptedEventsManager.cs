@@ -136,6 +136,9 @@ public class ScriptedEventsManager : MonoBehaviour {
 
 
   private IEnumerator StartFrequenceLvl2() {
+    LevelSettings.Instance.setSetting("canMorphToCircle", true);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", false);
+    LevelSettings.Instance.setSetting("canMorphToRectangle", false);
     yield return new WaitForSeconds(2f);
     DialogSystem.LoadDialog("lvl2_no_legs_over_here");
     yield return new WaitForSeconds(13.5f);

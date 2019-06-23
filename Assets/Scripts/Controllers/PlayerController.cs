@@ -92,6 +92,10 @@ public class PlayerController : PhysicsObject {
      * called before velocity is calculate
      */
 
+    if (!isDead && Input.GetKeyDown(KeyCode.Alpha0)) {
+      die();
+    }
+
     soundController.handleContinuousSound(state, movingX, grounded);
     handleCameraZoom();
     handleHoldingItem();

@@ -220,6 +220,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator LVL2_PickUpArms() {
     GameObject.Find("RobotLegs").SetActive(false);
     PlayerManager.Instance.setValue("holdingItem", true);
+    yield return new WaitForSeconds(.1f);
     StopCoroutine(LVL2_PickUpArms());
   }
 

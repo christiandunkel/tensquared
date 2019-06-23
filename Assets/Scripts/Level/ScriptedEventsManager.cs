@@ -117,6 +117,8 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.LoadDialog("lvl2_breakable_block"); break;
         case "smash_right":
           DialogSystem.LoadDialog("lvl2_smash_right"); break;
+        case "pick_up_arms":
+          StartCoroutine(LVL2_PickUpArms()); break;
         case "morph_force_field":
           StartCoroutine(LVL2_ForceField()); break;
       }
@@ -215,7 +217,12 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.LoadDialog("lvl2_force_fields_everywhere");
     StopCoroutine(LVL2_ForceField());
   }
-  
+  private IEnumerator LVL2_PickUpArms() {
+    GameObject.Find("RobotLegs").SetActive(false);
+    PlayerManager.Instance.setValue("holdingItem", true);
+    StopCoroutine(LVL2_PickUpArms());
+  }
+
 
 
 
@@ -297,7 +304,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
   private IEnumerator Lvl1_RobotGetArmsScene() {
     LevelSettings.Instance.setSetting("canMove", false);
-    PlayerController.Instance.setValue("holdingItem", false);
+    PlayerManager.Instance.setValue("holdingItem", false);
 
     SpriteRenderer robotTexture = GameObject.Find("RobotFigureTexture").GetComponent<SpriteRenderer>();
     Sprite[] robotArmsAnimation = Resources.LoadAll<Sprite>("RobotGetArmsAnimation");

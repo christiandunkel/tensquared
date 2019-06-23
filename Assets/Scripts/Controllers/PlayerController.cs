@@ -109,7 +109,14 @@ public class PlayerController : PhysicsObject {
     if (!isDead) {
       rotateCircle(); // rotate circle in the right direction     
       ghostingEffect.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
-      handleMorphing();
+
+      // only allow morph a little time after start up, 
+      // to give any level settings that still need to be initialized correctly time
+      // (for example if set through starting frequence in scripted event manager)
+      if (Time.time > .6f) {
+        handleMorphing();
+      }
+      
     }
 
   }

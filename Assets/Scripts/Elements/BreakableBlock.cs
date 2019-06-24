@@ -7,28 +7,41 @@ using UnityEngine;
 
 public class BreakableBlock : MonoBehaviour {
 
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  // attributes
   private Sprite[] breakingSprites;
-  public GameObject breakParticles;
 
-  void Awake() {
+  // internal objects
+  [SerializeField] private GameObject breakParticles = null;
 
-    foreach (Transform child in transform.parent.gameObject.transform) {
-      switch (child.gameObject.name) {
-        case "BreakParticles": breakParticles = child.gameObject; break;
-        default: break;
-      }
-    }
 
+
+
+
+  /*
+   * ==================
+   * === INTERNAL ===
+   * ==================
+   */
+
+  private void Awake() {
+
+    // load sprites powering the animation of the block breaking
     breakingSprites = Resources.LoadAll<Sprite>("BreakableBlock");
 
   }
 
   private void OnTriggerEnter2D(Collider2D col) {
     
+    // if player falls on top of the block as rectangle from a certain height
     if (
       col.gameObject.tag == "Player" && 
-      PlayerManager.Instance.getFloat("secondsAsRectangleFalling") > .52f &&
-      PlayerManager.Instance.getString("state") == "Rectangle"
+      PlayerManager.Instance.getFloat("secondsAsRectangleFalling") > .52f
     ) {
       StartCoroutine(breakBlock());
     }
@@ -36,6 +49,11 @@ public class BreakableBlock : MonoBehaviour {
   }
 
   private IEnumerator breakBlock() {
+
+    /*
+     * plays an animation of the block breaking,
+     * with it finally disappearing at the end
+     */
 
     GetComponent<Animator>().SetTrigger("BreakBlock");
 

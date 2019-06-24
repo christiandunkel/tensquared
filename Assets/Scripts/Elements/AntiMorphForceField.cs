@@ -1,18 +1,33 @@
 ﻿using System.Collections;
-
 using UnityEngine;
+
+/*
+ * powers the wobbling effect of the anti morph force field
+ * when a player enters
+ */
 
 public class AntiMorphForceField : MonoBehaviour {
 
   /*
-   * powers the wobbling effect of the anti morph force field
-   * when a player enters
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
-  private float wobbleTimer = 0f,
-                wobbleDuration = .3f;
+  private float wobbleTimer = 0f;
+  private float wobbleDuration = .3f;
   private bool wobbleActive = false;
   private Vector3 originalScale = Vector3.zero;
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
 
   void Awake() {
     originalScale = transform.localScale;
@@ -35,24 +50,47 @@ public class AntiMorphForceField : MonoBehaviour {
 
   }
 
+  void OnTriggerEnter2D(Collider2D col) {
+
+    if (col.gameObject.tag == "Player") {
+      wobbleTimer = 1.0f;
+    }
+
+  }
+
+  void OnTriggerExit2D(Collider2D col) {
+
+    if (col.gameObject.tag == "Player") {
+      wobbleTimer = 1.0f;
+    }
+
+  }
+
   private void wobbleForceField() {
+
+    /*
+     * plays a small wobbling animation of the force field
+     */
 
     StopCoroutine(wobble());
     StartCoroutine(wobble());
 
     IEnumerator wobble() {
 
-      // first wobble
+      /* first wobble */
+
+      // calculate a new scale for the increase of force field
       Vector3 newScale = originalScale;
       newScale.x += (newScale.x / 30f);
       newScale.y += (newScale.x / 30f);
 
+      // total steps used when expanding and rectracting 
+      // the force field (scale) while playing the wobbling effect
       int stepsExpand = 8;
       int stepsRetract = 16;
       int steps = stepsExpand + stepsRetract;
 
-      //  3 5th of the time
-      float waitFor = ((wobbleDuration / 5) * 3) / steps;
+      float waitFor = ((wobbleDuration / 5) * 3) / steps; // 3 5th of the time
       float growBy = Mathf.Abs(newScale.x - originalScale.x) / stepsExpand;
       float shrinkBy = Mathf.Abs(newScale.x - originalScale.x) / stepsRetract;
 
@@ -68,7 +106,8 @@ public class AntiMorphForceField : MonoBehaviour {
         yield return new WaitForSeconds(waitFor);
       }
 
-      // second wobble
+      /* second wobble */
+
       newScale = originalScale;
       newScale.x += (newScale.x / 50f);
       newScale.y += (newScale.x / 50f);
@@ -77,8 +116,7 @@ public class AntiMorphForceField : MonoBehaviour {
       stepsRetract = 16;
       steps = stepsExpand + stepsRetract;
 
-      //  2 5th of the time
-      waitFor = ((wobbleDuration / 5) * 2) / steps;
+      waitFor = ((wobbleDuration / 5) * 2) / steps; // 2 5th of the time
       growBy = Mathf.Abs(newScale.x - originalScale.x) / stepsExpand;
       shrinkBy = Mathf.Abs(newScale.x - originalScale.x) / stepsRetract;
 
@@ -94,28 +132,13 @@ public class AntiMorphForceField : MonoBehaviour {
         yield return new WaitForSeconds(waitFor);
       }
 
-      // third wobble
 
+
+      // return to original scale at the end
       transform.localScale = originalScale;
 
       StopCoroutine(wobble());
 
-    }
-
-  }
-
-  void OnTriggerEnter2D(Collider2D col) {
-    
-    if (col.gameObject.tag == "Player") {
-      wobbleTimer = 1.0f;
-    }
-
-  }
-
-  void OnTriggerExit2D(Collider2D col) {
-
-    if (col.gameObject.tag == "Player") {
-      wobbleTimer = 1.0f;
     }
 
   }

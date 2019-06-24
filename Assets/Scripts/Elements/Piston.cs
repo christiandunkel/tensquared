@@ -6,34 +6,89 @@
 
 public class Piston : MonoBehaviour {
 
-  // singleton
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static Piston Instance;
+
   void Awake() {
     Instance = this;
   }
 
-  private const float delayBeforePush = 0.2f;
 
-  private float timer = 0.0f;
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  // components
+  private Animator animator;
+
+  // attributes
   public bool pistonIsPlaying = false;
-  private Animator pistonAni;
+  private const float delayBeforePush = 0.2f;
+  private float timer = 0f;
 
-  public void GoUp(GameObject piston) {
 
-    if (timer <= 0.0f) {
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public static void activate(GameObject piston) {
+
+    /*
+     * activates the given piston object
+     */
+
+    piston.GetComponent<Piston>().activate();
+
+  }
+
+  public void activate() {
+
+    /*
+     * activates the current piston instance
+     */
+
+    if (timer <= 0f) {
       pistonIsPlaying = true;
-      pistonAni = piston.GetComponent<Animator>();
       timer = delayBeforePush;
     }
-    
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  void Start() {
+    animator = GetComponent<Animator>();
   }
 
   void Update() {
 
-    if (pistonIsPlaying && timer <= 0.0f) {
+    if (pistonIsPlaying && timer <= 0f) {
       pistonIsPlaying = false;
-      pistonAni.SetTrigger("PushUp");
-      PlayerController.Instance.setValue("steppedOnPiston", true);
+      animator.SetTrigger("PushUp");
+      PlayerManager.Instance.setValue("steppedOnPiston", true);
     }
     else {
       timer -= Time.deltaTime;

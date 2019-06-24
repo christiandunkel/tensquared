@@ -658,7 +658,7 @@ public class PlayerController : PhysicsObject {
 
       case "Piston":
         Debug.Log("PlayerController: Stepped on a piston.");
-        Piston.Instance.GoUp(col.gameObject);
+        Piston.activate(col.gameObject);
         soundController.playSound("pistonPushSound");
         break;
 

@@ -400,9 +400,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefcd61a94e472f4796aff0cd45599e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ghost: {fileID: 3073112644976609894, guid: 9832e2d1b9f2cb34eaed2748e3428ffa, type: 3}
-  textureContainer: {fileID: 1842526317948476639}
-  textureObject: {fileID: 1842526318279600138}
+  ghostPrefab: {fileID: 3073112644976609894, guid: 9832e2d1b9f2cb34eaed2748e3428ffa,
+    type: 3}
+  textureObject: {fileID: 1842526318279600140}
+  textureObjectSR: {fileID: 1842526318279600138}
 --- !u!114 &1842526318169571741
 MonoBehaviour:
   m_ObjectHideFlags: 0

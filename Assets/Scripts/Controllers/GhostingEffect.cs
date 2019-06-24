@@ -14,11 +14,11 @@ public class GhostingEffect : MonoBehaviour {
    */
 
   // ghost prefab
-  [SerializeField] private GameObject ghost = null;
+  [SerializeField] private GameObject ghostPrefab = null;
 
   // player's texture
-  [SerializeField] private GameObject textureContainer = null;
-  [SerializeField] private SpriteRenderer textureObject = null;
+  [SerializeField] private GameObject textureObject = null;
+  [SerializeField] private SpriteRenderer textureObjectSR = null;
 
   // settings and attributes
   private float delayBetweenGhosts = 0.1f;
@@ -66,14 +66,14 @@ public class GhostingEffect : MonoBehaviour {
      */
 
     // generate fading ghost object
-    GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
+    GameObject currentGhost = Instantiate(ghostPrefab, transform.position, transform.rotation);
     currentGhost.transform.SetParent(transform.parent);
 
     // rotate ghosting game object like player texture object
-    currentGhost.transform.eulerAngles = PlayerManager.Instance.getObject("textureObject").transform.eulerAngles;
+    currentGhost.transform.eulerAngles = textureObject.transform.eulerAngles;
 
     // get current sprite of player and set it as ghost
-    Sprite currentSprite = textureObject.GetComponent<SpriteRenderer>().sprite;
+    Sprite currentSprite = textureObjectSR.sprite;
     currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;
 
     // destroy the new ghost object after the fade-out animation

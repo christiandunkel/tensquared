@@ -20,9 +20,9 @@ public class VolumeController : MonoBehaviour {
   public Slider[] speechSliders;
 
   // default volume values without player pref
-  private static float musicVolume = 1f,
-                       soundVolume = 1f,
-                       speechVolume = 1f;
+  private static float musicVolume = 1f;
+  private static float soundVolume = 1f;
+  private static float speechVolume = 1f;
 
   private void Awake() {
 
@@ -36,7 +36,7 @@ public class VolumeController : MonoBehaviour {
 
   // called once per frame
   private bool soundIsPaused = false;
-  void Update() {
+  private void Update() {
 
     updateVolume();
 

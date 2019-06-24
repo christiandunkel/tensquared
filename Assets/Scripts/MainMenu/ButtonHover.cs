@@ -10,7 +10,7 @@ public class ButtonHover : MonoBehaviour {
 
   private Animator animator = null;
 
-  void Start() {
+  private void Start() {
     animator = gameObject.GetComponent<Animator>();
   }
 

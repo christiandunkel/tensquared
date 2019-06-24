@@ -16,7 +16,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private List<string> eventsAlreadyRun = new List<string>();
 
-  void Awake() {
+  private void Awake() {
 
     Instance = this;
 

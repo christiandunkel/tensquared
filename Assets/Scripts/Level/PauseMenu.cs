@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour {
 
   // singleton
   public static PauseMenu Instance;
-  void Awake() {
+  private void Awake() {
     Instance = this;
   }
 
@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour {
 
   public GameObject pauseMenuUI;
 
-  void Start() {
+  private void Start() {
     // set game as non-paused on start (hidden pause menu)
     CanvasGroup canvasGroup = pauseMenuUI.GetComponent<CanvasGroup>();
     canvasGroup.interactable = false;
@@ -29,7 +29,7 @@ public class PauseMenu : MonoBehaviour {
     Debug.Log("PauseMenu: Loaded.");
   }
 
-  void Update() {
+  private void Update() {
 
     if (allowOpeningPauseMenu && !fadingNow && Input.GetKeyDown(KeyCode.Escape)) {
       

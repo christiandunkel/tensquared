@@ -18,7 +18,7 @@ public class SpriteDropShadow : MonoBehaviour {
     shadowMaterial = Resources.Load<Material>("Materials/ShadowMaterial");
   }
 
-  void Start()  {
+  private void Start()  {
 
     shadow = new GameObject("Shadow");
     shadow.transform.parent = transform;

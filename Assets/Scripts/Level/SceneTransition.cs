@@ -8,23 +8,54 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour {
 
-  // singleton
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
   public static SceneTransition Instance;
-  void Awake() {
+
+  private void Awake() {
     Instance = this;
   }
 
+
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
   public Animator animator;
+  private bool sceneTransitionPlaying = false;
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
 
   public void LoadScene(string name) {
-    StartCoroutine(PlaySceneTransition(name));
-  }
 
-  IEnumerator PlaySceneTransition(string name) {
+    if (!sceneTransitionPlaying) {
+      sceneTransitionPlaying = true;
+      StartCoroutine(PlaySceneTransition());
+    }
 
-    animator.SetTrigger("End");
-    yield return new WaitForSeconds(1.5f);
-    SceneManager.LoadScene(name);
+    IEnumerator PlaySceneTransition() {
+
+      animator.SetTrigger("End");
+      yield return new WaitForSeconds(1.5f);
+      SceneManager.LoadScene(name);
+
+    }
 
   }
 

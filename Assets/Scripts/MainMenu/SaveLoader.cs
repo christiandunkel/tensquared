@@ -16,7 +16,7 @@ public class SaveLoader : MonoBehaviour {
   // default value / format of timer
   private string def_timer = "00:00:000";
 
-  void Start() {
+  private void Start() {
 
     SetDefaultValues();
 

@@ -18,7 +18,7 @@ public class DialogSystem : MonoBehaviour {
 
   public static DialogSystem Instance;
 
-  void Awake() {
+  private void Awake() {
     Instance = this;
     dialogQueue = new ArrayList();
   }
@@ -76,7 +76,7 @@ public class DialogSystem : MonoBehaviour {
    * ======================
    */
 
-  void Start() {
+  private void Start() {
 
     Debug.Log("DialogSystem: Loaded.");
 
@@ -170,7 +170,7 @@ public class DialogSystem : MonoBehaviour {
    * ================
    */
 
-  void Update() {
+  private void Update() {
 
     // if dialogue is in queue and none playing, play it
     if (!dialogBoxVisible && dialogQueue.Count > 0) {

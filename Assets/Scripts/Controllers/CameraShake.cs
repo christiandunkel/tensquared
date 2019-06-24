@@ -17,7 +17,7 @@ public class CameraShake : MonoBehaviour {
 
   public static CameraShake Instance;
 
-  void Awake() {
+  private void Awake() {
     Instance = this;
   }
 
@@ -87,7 +87,7 @@ public class CameraShake : MonoBehaviour {
    * ================
    */
 
-  void Start() {
+  private void Start() {
 
     soundController = SoundController.Instance;
 
@@ -98,7 +98,7 @@ public class CameraShake : MonoBehaviour {
 
   }
 
-  void Update() {
+  private void Update() {
 
     // if required components are defined, generate shaking
     if (VirtualCamera != null && virtualCameraNoise != null) {

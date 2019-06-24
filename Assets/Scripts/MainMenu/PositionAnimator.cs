@@ -19,7 +19,7 @@ public class PositionAnimator : MonoBehaviour
   private float timer = 0.0f;
   private bool run = true;
 
-  void Start() {
+  private void Start() {
 
     if (disabledAnimation) return;
 
@@ -76,31 +76,18 @@ public class PositionAnimator : MonoBehaviour
 
       animateObjects.Add(obj);
 
-      /*printInformation();
-
-      void printInformation() {
-        Debug.Log(
-            elem.obj.name + " will move" +
-            " from (x=" + startX + " y=" + startY + " z=" + startZ + ")" +
-            " to (x=" + endX + " y=" + endY + " z=" + endZ + ")" +
-            " for the duration of " + obj.duration + "s" +
-            " after a delay of " + obj.delay + "s" +
-            " over " + obj.steps + " steps."
-          );
-      }*/
-
     }
 
   }
 
-  void Update() {
+  private void Update() {
 
     // only run if there's at least one object with more than 0 steps left
     if (run) Animate();
     
   }
 
-  void Animate() {
+  private void Animate() {
 
     run = false;
 

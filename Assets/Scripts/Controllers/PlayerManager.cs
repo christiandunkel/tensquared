@@ -144,7 +144,7 @@ public class PlayerManager : MonoBehaviour {
    * =========================
    */
 
-  void Awake() {
+  private void Awake() {
 
     /*
      * initialise important components for framework
@@ -174,18 +174,18 @@ public class PlayerManager : MonoBehaviour {
 
   }
 
-  void Start() {
+  private void Start() {
     OnStart();
   }
 
-  void Update() {
+  private void Update() {
     PhysicsUpdate();
     UpdateBeforeVelocity();
     ComputeVelocity();
     UpdateAfterVelocity();
   }
 
-  void FixedUpdate() {
+  private void FixedUpdate() {
     OnFixedUpdate();
   }
 

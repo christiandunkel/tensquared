@@ -29,11 +29,11 @@ public class AntiMorphForceField : MonoBehaviour {
    * ================
    */
 
-  void Awake() {
+  private void Awake() {
     originalScale = transform.localScale;
   }
 
-  void Update() {
+  private void Update() {
     
     if (wobbleTimer > 0f) {
       wobbleTimer -= Time.fixedDeltaTime;
@@ -50,7 +50,7 @@ public class AntiMorphForceField : MonoBehaviour {
 
   }
 
-  void OnTriggerEnter2D(Collider2D col) {
+  private void OnTriggerEnter2D(Collider2D col) {
 
     if (col.gameObject.tag == "Player") {
       wobbleTimer = 1.0f;
@@ -58,7 +58,7 @@ public class AntiMorphForceField : MonoBehaviour {
 
   }
 
-  void OnTriggerExit2D(Collider2D col) {
+  private void OnTriggerExit2D(Collider2D col) {
 
     if (col.gameObject.tag == "Player") {
       wobbleTimer = 1.0f;

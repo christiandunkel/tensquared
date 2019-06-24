@@ -11,7 +11,7 @@ public class LevelTimer : MonoBehaviour {
   private float currentTimer = 0f; 
   private string currentTimerString = "00:00:000";
 
-  void Awake() {
+  private void Awake() {
 
     Instance = this;
 
@@ -25,7 +25,7 @@ public class LevelTimer : MonoBehaviour {
 
   }
 
-  void Update() {
+  private void Update() {
 
     if (!timerIsActive || timerLockedIn || PauseMenu.Instance.isPaused) return;
 

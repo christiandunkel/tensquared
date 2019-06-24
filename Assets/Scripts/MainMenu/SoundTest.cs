@@ -37,7 +37,7 @@ public class SoundTest : MonoBehaviour {
     }
   }
 
-  IEnumerator soundTestCoroutine() {
+  private IEnumerator soundTestCoroutine() {
 
     Debug.Log("SoundTest: Started sound test.");
 

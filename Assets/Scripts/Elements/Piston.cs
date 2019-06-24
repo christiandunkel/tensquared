@@ -79,11 +79,11 @@ public class Piston : MonoBehaviour {
    * ================
    */
 
-  void Start() {
+  private void Start() {
     animator = GetComponent<Animator>();
   }
 
-  void Update() {
+  private void Update() {
 
     if (pistonIsPlaying && timer <= 0f) {
       pistonIsPlaying = false;

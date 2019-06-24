@@ -25,7 +25,7 @@ public class TextureAnimator : MonoBehaviour {
   private int counter = 0;
 
   // Start is called before the first frame update
-  void Start() {
+  private void Start() {
 
     // this game object's sprite renderer
     spriteRenderer = gameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
@@ -39,7 +39,7 @@ public class TextureAnimator : MonoBehaviour {
 
   }
 
-  void Update() {
+  private void Update() {
 
     // stop after first runthrough, if loops are disabled
     if (!loop && ranOnce) return;

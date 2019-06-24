@@ -150,8 +150,9 @@ public class PlayerController : PhysicsObject {
    */
 
   // stop figure rolling away even though there is no movement
-  private float rollingFixTimer = 0f,
-                rollingFixTimerDefault = 0.05f;
+  private float rollingFixTimer = 0f;
+  private float rollingFixTimerDefault = 0.05f;
+
   private void resetDynamicRGB2D() {
 
     /*
@@ -329,6 +330,9 @@ public class PlayerController : PhysicsObject {
     }
 
   }
+
+
+
   private void testForYMovement() {
 
     /*
@@ -640,7 +644,7 @@ public class PlayerController : PhysicsObject {
    ===============================
    */
 
-  void OnTriggerEnter2D(Collider2D col) {
+  private void OnTriggerEnter2D(Collider2D col) {
 
     switch (col.gameObject.tag) {
 
@@ -676,7 +680,7 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  void OnTriggerExit2D(Collider2D col) {
+  private void OnTriggerExit2D(Collider2D col) {
 
     switch (col.gameObject.tag) {
 
@@ -691,7 +695,7 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  void OnTriggerStay2D(Collider2D col) {
+  private void OnTriggerStay2D(Collider2D col) {
 
     switch (col.gameObject.tag) {
 
@@ -737,7 +741,7 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  void OnCollisionStay2D(Collision2D col) {
+  private void OnCollisionStay2D(Collision2D col) {
 
     switch (col.gameObject.tag) {
 

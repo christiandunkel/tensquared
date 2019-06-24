@@ -11,7 +11,7 @@ public class CanvasGroupFader : MonoBehaviour {
 
   public static CanvasGroupFader Instance;
 
-  void Awake() {
+  private void Awake() {
     Instance = this;
   }
 

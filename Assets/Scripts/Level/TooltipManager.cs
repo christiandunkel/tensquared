@@ -13,7 +13,7 @@ public class TooltipManager : MonoBehaviour {
   private static GameObject tooltipManager;
   private static List<GameObject> tooltipList;
 
-  void Awake() {
+  private void Awake() {
 
     Instance = this;
 

@@ -22,7 +22,7 @@ public class ToxicWater : MonoBehaviour {
 
   private bool spawnToxicBubbles = true;
 
-  void Awake() {
+  private void Awake() {
     bubbleSpawnTimer = secondsBetweenBubbles;
 
     float offset = 20f;
@@ -37,7 +37,7 @@ public class ToxicWater : MonoBehaviour {
     
   }
 
-  void Update() {
+  private void Update() {
 
     if (!spawnToxicBubbles) return;
 
@@ -54,7 +54,7 @@ public class ToxicWater : MonoBehaviour {
 
   }
 
-  bool playerIsInRange() {
+  private bool playerIsInRange() {
 
     float validRadius = 180f;
 
@@ -62,7 +62,7 @@ public class ToxicWater : MonoBehaviour {
 
   }
 
-  IEnumerator spawnBubble() {
+  private IEnumerator spawnBubble() {
 
     Vector3 spawnPos = Vector3.zero;
 

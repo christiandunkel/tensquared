@@ -21,13 +21,13 @@ public class MouseCursor : MonoBehaviour {
   private float trailTimer = 0.0f,
                 timeBetweenTrailParticles = 0.1f;
 
-  void Start() {
+  private void Start() {
     Cursor.visible = false;
     animator = gameObject.GetComponent<Animator>();
     trailTimer = timeBetweenTrailParticles;
   }
 
-  void Update() {
+  private void Update() {
 
     bool pauseMenuExists = PauseMenu.Instance != null;
 

@@ -14,7 +14,7 @@ public class ScrollingBackground : MonoBehaviour {
   private float scrollBy, // calculated with width and scrollPercentage
                 startPosX, counter;
 
-  void Start() {
+  private void Start() {
 
     RectTransform rt = (RectTransform)transform;
     float width = rt.rect.width;
@@ -27,8 +27,8 @@ public class ScrollingBackground : MonoBehaviour {
 
   }
 
-  
-  void Update() {
+
+  private void Update() {
 
     // current x position of element
     counter += 1f;

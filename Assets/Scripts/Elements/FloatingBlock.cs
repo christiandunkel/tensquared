@@ -13,7 +13,7 @@ public class FloatingBlock : MonoBehaviour {
   public ParticleSystem splashParticles;
   private float sinkInTimer = 0f;
 
-  void Awake() {
+  private void Awake() {
 
     rb2d = GetComponent<Rigidbody2D>();
 
@@ -31,7 +31,7 @@ public class FloatingBlock : MonoBehaviour {
 
   }
 
-  void Update() {
+  private void Update() {
     
     // sink the floating block further into water
     // when player lands on it
@@ -51,7 +51,7 @@ public class FloatingBlock : MonoBehaviour {
 
   }
 
-  void OnCollisionStay2D(Collision2D col) {
+  private void OnCollisionStay2D(Collision2D col) {
 
     if (col.gameObject.tag == "Player") {
       sinkInTimer = 1f;

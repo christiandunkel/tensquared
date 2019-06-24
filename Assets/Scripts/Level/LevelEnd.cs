@@ -14,7 +14,7 @@ public class LevelEnd : MonoBehaviour {
 
   private CanvasGroup CG, endMenuContainer, levelCompleteCG, nextLevelCG;
 
-  void Awake() {
+  private void Awake() {
 
     Instance = this;
     CG = gameObject.GetComponent<CanvasGroup>();

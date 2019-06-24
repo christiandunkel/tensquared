@@ -27,7 +27,7 @@ public class Bomberling : MonoBehaviour {
   private bool isRunning = false;
   private bool runningLeftwards = false;
 
-  void Awake() {
+  private void Awake() {
 
     // get player object
     playerObject = PlayerManager.Instance.gameObject;
@@ -40,7 +40,7 @@ public class Bomberling : MonoBehaviour {
 
   }
 
-  void Update() {
+  private void Update() {
 
     if (isDead || isRunning) return;
 
@@ -53,7 +53,7 @@ public class Bomberling : MonoBehaviour {
 
   }
 
-  float distanceToPlayer() {
+  private float distanceToPlayer() {
 
     /*
      * calculates the distance between this instance of a bomberling and the player
@@ -63,7 +63,7 @@ public class Bomberling : MonoBehaviour {
 
   }
 
-  void startRunning() {
+  private void startRunning() {
 
     /*
      * Bomberling starts running into the direction where the player is
@@ -99,7 +99,7 @@ public class Bomberling : MonoBehaviour {
 
   }
 
-  void selfDestruct() {
+  private void selfDestruct() {
 
     /*
      * manages the process of the bomberling exploding and dying
@@ -135,7 +135,7 @@ public class Bomberling : MonoBehaviour {
 
   }
 
-  void OnCollisionEnter2D(Collision2D col) {
+  private void OnCollisionEnter2D(Collision2D col) {
 
     if (isDead) return;
     
@@ -149,7 +149,7 @@ public class Bomberling : MonoBehaviour {
 
   }
 
-  void OnCollisionStay2D(Collision2D col) {
+  private void OnCollisionStay2D(Collision2D col) {
 
     if (isDead) return;
 

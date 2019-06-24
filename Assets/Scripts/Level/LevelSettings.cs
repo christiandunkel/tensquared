@@ -9,7 +9,7 @@ public class LevelSettings : MonoBehaviour {
 
   // singleton
   public static LevelSettings Instance;
-  void Awake() {
+  private void Awake() {
     Instance = this;
   }
 

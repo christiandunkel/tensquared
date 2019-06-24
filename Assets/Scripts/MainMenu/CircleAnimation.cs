@@ -18,7 +18,7 @@ public class CircleAnimation : MonoBehaviour {
                delay = 0f;
   private Vector3 rotationVec = Vector3.zero;
 
-  void Update() {
+  private void Update() {
 
     if (timer > delay && distance < 200) {
 
@@ -38,7 +38,7 @@ public class CircleAnimation : MonoBehaviour {
   }
 
   // rotate the child containing the circle image
-  void RotateCircle() {
+  private void RotateCircle() {
 
     // update circle rotation and keep it in 360 degrees
     float zRotation = (Time.deltaTime * rotationSpeed) % 360;

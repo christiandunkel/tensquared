@@ -21,7 +21,7 @@ public class MovingPlatform : MonoBehaviour {
   // how fast the platform moves
   public float speed;
 
-  void Start() {
+  private void Start() {
 
     // to calculate offset
     // (pos' are placed at borders in unity to where platform should move,
@@ -41,7 +41,7 @@ public class MovingPlatform : MonoBehaviour {
   }
 
   // Update is called once per frame
-  void Update()  {
+  private void Update()  {
 
     // if position to which to move to was reached,
     // switch to a new position to move to

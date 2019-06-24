@@ -12,11 +12,11 @@ public class ParallaxCamera : MonoBehaviour {
   public ParallaxCameraDelegate onCameraTranslate;
   private float oldPosition;
 
-  void Start() {
+  private void Start() {
     oldPosition = transform.position.x;
   }
 
-  void Update() {
+  private void Update() {
     if (transform.position.x != oldPosition) {
       if (onCameraTranslate != null) {
         float delta = oldPosition - transform.position.x;

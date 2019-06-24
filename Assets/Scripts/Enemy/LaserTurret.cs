@@ -21,7 +21,7 @@ public class LaserTurret : MonoBehaviour {
 
   private SoundController soundController;
 
-  void Awake() {
+  private void Awake() {
 
     if (secondsBetweenShots < 0.3f) {
       Debug.LogError("LaserTurret: Shot frequency of " + secondsBetweenShots  + 

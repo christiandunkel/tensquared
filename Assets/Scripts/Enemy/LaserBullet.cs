@@ -13,12 +13,12 @@ public class LaserBullet : MonoBehaviour {
   // particle effects
   public GameObject explodeParticles;
 
-  void Start() {
+  private void Start() {
     rb2d = GetComponent<Rigidbody2D>();
     rb2d.velocity = transform.right * speed;
   }
 
-  void Update() {
+  private void Update() {
     secondsBeforeVanishing -= Time.fixedDeltaTime;
   }
 

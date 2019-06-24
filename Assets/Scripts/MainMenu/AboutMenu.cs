@@ -18,7 +18,7 @@ public class AboutMenu : MonoBehaviour {
   private Vector2[] startPos = null;
   private float moveValue = 839.0f;
 
-  void Start() {
+  private void Start() {
 
     startPos = new Vector2[obj.Length];
 
@@ -39,7 +39,7 @@ public class AboutMenu : MonoBehaviour {
   private float duration = 1.2f,
                 timer = 0.0f;
 
-  void Update() {
+  private void Update() {
 
     // cancel, if movement is disabled 
     if (move <= 0) return;

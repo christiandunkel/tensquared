@@ -7,11 +7,14 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour {
 
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
   // texture object at spawn point top
   private SpriteRenderer textureObjectSR;
-  public Sprite activatedSprite, 
-                deactivatedSprite;
-  private int sortingOrderTexture;
 
   // metallic arm pushing the player out of the spawnpoint
   private GameObject playerHolder;
@@ -24,104 +27,43 @@ public class SpawnPoint : MonoBehaviour {
   // little floating title above spawnpoint
   private GameObject spawnPointMessageObject;
 
+
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  // top texture of spawnpoint 
+  [SerializeField] private Sprite activatedSprite = null;
+  [SerializeField] private Sprite deactivatedSprite = null;
+  private int sortingOrderTexture;
+
   // attributes
   private Vector2 spawnCoordinates;
-  private bool isActivated = false,
-              activeInLastFrame = false;
+  private bool isActivated = false;
+  private bool activeInLastFrame = false;
 
-  void Awake() {
 
-    foreach (Transform child in gameObject.transform) {
 
-      GameObject obj = child.gameObject;
 
-      switch (obj.name) {
-        case "Texture":
-          textureObjectSR = obj.GetComponent<SpriteRenderer>();
-          sortingOrderTexture = textureObjectSR.sortingOrder;
-          break;
-        case "PlayerHolder":
-          playerHolder = obj;
-          playerHolderPosition = obj.transform.position;
-          playerHolderSR = playerHolder.GetComponentInChildren<SpriteRenderer>();
-          playerHolderTextureClosed = playerHolderSR.sprite;
-          sortingOrderPlayerHolder = playerHolderSR.sortingOrder;
-          break;
-        case "SpawnPointMessage":
-          spawnPointMessageObject = obj;
-          spawnPointMessageObject.SetActive(false);
-          break;
-        case "SpawnPointCoordinates":
-          spawnCoordinates = obj.transform.position;
-          break;
-        default:
-          break;
-      }
 
-    }
-
-  }
-
-  void Update() {
-
-    // while death animation, display textures in front of player
-    // **resets and orderChange of playerHolder in animateHoldingArm()
-    if (isActivated && PlayerManager.Instance.getBool("isDead")) {
-      textureObjectSR.sortingOrder = PlayerManager.Instance.getObject("textureObject")
-                                     .GetComponent<SpriteRenderer>().sortingOrder + 2;
-    }
-    
-    // only change settings once every time the spawnpoint activated or deactivated
-    if (!activeInLastFrame) {
-
-      // set it active
-      if (isActivated) {
-        textureObjectSR.sprite = activatedSprite;
-        spawnPointMessageObject.SetActive(true);
-        LevelSettings.Instance.setSetting("playerSpawn", spawnCoordinates);
-        SoundController.Instance.playSound("activateSpawnpointSound");
-      }
-      // set it deactive
-      else {
-        textureObjectSR.sprite = deactivatedSprite;
-        spawnPointMessageObject.SetActive(false);
-      }
-
-    }
-    
-    // to check if spawn point activated in this frame in next update
-    activeInLastFrame = isActivated;
-
-  }
-
-  private void OnTriggerEnter2D(Collider2D collision) {
-    
-    if (!isActivated && LevelSettings.Instance.playerSpawn.x < spawnCoordinates.x) {
-
-      PlayerController.Instance.setValue("hasSpawnpointSet", true);
-
-      // deactivate all spawn points
-      GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-      foreach (GameObject sp in spawnPoints) {
-        if (sp != gameObject) {
-          SpawnPoint sp_script = sp.GetComponent<SpawnPoint>();
-          if (sp_script != null) {
-            sp_script.isActivated = false;
-          }
-        }
-      }
-
-      isActivated = true;
-
-    }
-
-  }
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
 
   public void animateHoldingArm() {
 
     // run animation
     StopCoroutine(moveOutHoldingArm());
     StartCoroutine(moveOutHoldingArm());
+
+
 
     // animate the metallic arm holding the player on respawn
     IEnumerator moveOutHoldingArm() {
@@ -166,6 +108,107 @@ public class SpawnPoint : MonoBehaviour {
     }
 
   }
-  
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  private void Awake() {
+
+    // get inner objects contained in spawn point
+    foreach (Transform child in gameObject.transform) {
+
+      GameObject obj = child.gameObject;
+
+      switch (obj.name) {
+
+        case "Texture":
+          textureObjectSR = obj.GetComponent<SpriteRenderer>();
+          sortingOrderTexture = textureObjectSR.sortingOrder;
+          break;
+
+        case "PlayerHolder":
+          playerHolder = obj;
+          playerHolderPosition = obj.transform.position;
+          playerHolderSR = playerHolder.GetComponentInChildren<SpriteRenderer>();
+          playerHolderTextureClosed = playerHolderSR.sprite;
+          sortingOrderPlayerHolder = playerHolderSR.sortingOrder;
+          break;
+
+        case "SpawnPointMessage":
+          spawnPointMessageObject = obj;
+          spawnPointMessageObject.SetActive(false);
+          break;
+
+        case "SpawnPointCoordinates":
+          spawnCoordinates = obj.transform.position;
+          break;
+
+      }
+
+    }
+
+  }
+
+  private void Update() {
+
+    // while death animation, display textures in front of player
+    // **resets and orderChange of playerHolder in animateHoldingArm()
+    if (isActivated && PlayerManager.Instance.getBool("isDead")) {
+      textureObjectSR.sortingOrder = PlayerManager.Instance.getObject("textureObject")
+                                     .GetComponent<SpriteRenderer>().sortingOrder + 2;
+    }
+    
+    // only change settings once every time the spawnpoint activated or deactivated
+    if (!activeInLastFrame) {
+
+      // activate it
+      if (isActivated) {
+        textureObjectSR.sprite = activatedSprite;
+        spawnPointMessageObject.SetActive(true);
+        LevelSettings.Instance.setSetting("playerSpawn", spawnCoordinates);
+        SoundController.Instance.playSound("activateSpawnpointSound");
+      }
+      // deactivate it
+      else {
+        textureObjectSR.sprite = deactivatedSprite;
+        spawnPointMessageObject.SetActive(false);
+      }
+
+    }
+    
+    // to check if spawn point activated in this frame in next update
+    activeInLastFrame = isActivated;
+
+  }
+
+  private void OnTriggerEnter2D(Collider2D collision) {
+    
+    if (!isActivated && LevelSettings.Instance.playerSpawn.x < spawnCoordinates.x) {
+
+      PlayerController.Instance.setValue("hasSpawnpointSet", true);
+
+      // deactivate all spawn points
+      GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+      foreach (GameObject sp in spawnPoints) {
+        if (sp != gameObject) {
+          SpawnPoint sp_script = sp.GetComponent<SpawnPoint>();
+          if (sp_script != null) {
+            sp_script.isActivated = false;
+          }
+        }
+      }
+
+      isActivated = true;
+
+    }
+
+  }
 
 }

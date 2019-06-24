@@ -20,7 +20,7 @@ public class FadeOnStart : MonoBehaviour {
   // amount of steps
   private int stepCurr = 0, stepsTotal;
 
-  void Start() {
+  private void Start() {
 
     gameObject.GetComponent<CanvasGroup>().alpha = !fadeOut ? 0.0f : 1.0f;
     gameObject.GetComponent<CanvasGroup>().interactable = delay <= 0.5f || !fadeOut ? false : true;
@@ -34,7 +34,7 @@ public class FadeOnStart : MonoBehaviour {
   private bool fadeIsRunning = true;
   private float timer = 0.0f;
 
-  void Update() {
+  private void Update() {
 
     // power fade-in over loop
     if (fadeIsRunning) FadeElement();
@@ -42,7 +42,7 @@ public class FadeOnStart : MonoBehaviour {
   }
 
   // power fading effect over time
-  void FadeElement() {
+  private void FadeElement() {
 
     timer += Time.fixedDeltaTime;
 

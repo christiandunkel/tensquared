@@ -84,11 +84,11 @@ public class ScriptedEventsManager : MonoBehaviour {
         case "hide_jump_tooltip":
           TooltipManager.hideTooltip("Jump"); break;
         case "dialog_about_water":
-          DialogSystem.LoadDialog("lvl1_dont_jump_into_water"); break;
+          DialogSystem.loadDialog("lvl1_dont_jump_into_water"); break;
         case "dialog_about_water_death":
-          DialogSystem.LoadDialog("lvl1_not_the_smartest_circle"); break;
+          DialogSystem.loadDialog("lvl1_not_the_smartest_circle"); break;
         case "dialog_you_are_quick":
-          DialogSystem.LoadDialog("lvl1_quick_compared_to_other_circles"); break;
+          DialogSystem.loadDialog("lvl1_quick_compared_to_other_circles"); break;
         case "robot_appear_scene":
           StartCoroutine(Lvl1_RobotAppearScene()); break;
         case "dialog_pick_up_arms":
@@ -105,17 +105,17 @@ public class ScriptedEventsManager : MonoBehaviour {
         case "morph_to_triangle":
           StartCoroutine(Lvl2_FirstMorphToTriangle()); break;
         case "bring_arms_back":
-          DialogSystem.LoadDialog("lvl2_you_are_out");
-          DialogSystem.LoadDialog("lvl2_bring_me_legs");
+          DialogSystem.loadDialog("lvl2_you_are_out");
+          DialogSystem.loadDialog("lvl2_bring_me_legs");
           break;
         case "can_you_morph_into_other_forms":
           StartCoroutine(LVL2_CanYouMorphIntoOtherForms()); break;
         case "rectangle_morph_praises":
           StartCoroutine(LVL2_RectangleMorphPraises()); break;
         case "breakable_block":
-          DialogSystem.LoadDialog("lvl2_breakable_block"); break;
+          DialogSystem.loadDialog("lvl2_breakable_block"); break;
         case "smash_right":
-          DialogSystem.LoadDialog("lvl2_smash_right"); break;
+          DialogSystem.loadDialog("lvl2_smash_right"); break;
         case "pick_up_arms":
           StartCoroutine(LVL2_PickUpArms()); break;
         case "morph_force_field":
@@ -140,7 +140,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
     yield return new WaitForSeconds(2f);
-    DialogSystem.LoadDialog("lvl2_no_legs_over_here");
+    DialogSystem.loadDialog("lvl2_no_legs_over_here");
     yield return new WaitForSeconds(13.5f);
 
     GameObject robotObject = GameObject.Find("RobotFallingDown");
@@ -157,10 +157,10 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(1.5f);
     robotObjectTexture.GetComponent<Animator>().SetBool("LookRight", true);
     yield return new WaitForSeconds(1f);
-    DialogSystem.LoadDialog("lvl2_you_are_here_as_well");
+    DialogSystem.loadDialog("lvl2_you_are_here_as_well");
     yield return new WaitForSeconds(9f);
     robotObjectTexture.GetComponent<Animator>().SetBool("LookRight", false);
-    DialogSystem.LoadDialog("lvl2_do_you_want_to_get_out_of_here");
+    DialogSystem.loadDialog("lvl2_do_you_want_to_get_out_of_here");
     yield return new WaitForSeconds(12f);
 
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
@@ -176,8 +176,8 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(5f);
     TooltipManager.hideTooltip("DoubleJumpTriangle");
     yield return new WaitForSeconds(1f);
-    DialogSystem.LoadDialog("lvl2_full_of_surprises");
-    DialogSystem.LoadDialog("lvl2_send_blueprint_for_science");
+    DialogSystem.loadDialog("lvl2_full_of_surprises");
+    DialogSystem.loadDialog("lvl2_send_blueprint_for_science");
     StopCoroutine(Lvl2_FirstMorphToTriangle());
   }
   private IEnumerator LVL2_CanYouMorphIntoOtherForms() {
@@ -198,7 +198,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     CameraShake.Instance.play(.4f, 17f, 17f);
 
     yield return new WaitForSeconds(1.65f);
-    DialogSystem.LoadDialog("lvl2_can_you_morph_into_other_forms");
+    DialogSystem.loadDialog("lvl2_can_you_morph_into_other_forms");
 
     yield return new WaitForSeconds(6.5f);
 
@@ -210,13 +210,13 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator LVL2_RectangleMorphPraises() {
     TooltipManager.hideTooltip("MorphRectangle");
     yield return new WaitForSeconds(.5f);
-    DialogSystem.LoadDialog("lvl2_rectangle_great");
+    DialogSystem.loadDialog("lvl2_rectangle_great");
     GameObject.Find("OnlyProceedAsRectangle").SetActive(false);
     StopCoroutine(LVL2_RectangleMorphPraises());
   }
   private IEnumerator LVL2_ForceField() {
     yield return new WaitForSeconds(.8f);
-    DialogSystem.LoadDialog("lvl2_force_fields_everywhere");
+    DialogSystem.loadDialog("lvl2_force_fields_everywhere");
     StopCoroutine(LVL2_ForceField());
   }
   private IEnumerator LVL2_PickUpArms() {
@@ -243,16 +243,16 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
     yield return new WaitForSeconds(4f);
-    DialogSystem.LoadDialog("lvl1_hello");
+    DialogSystem.loadDialog("lvl1_hello");
     yield return new WaitForSeconds(8.5f);
-    DialogSystem.LoadDialog("lvl1_asleep");
+    DialogSystem.loadDialog("lvl1_asleep");
     yield return new WaitForSeconds(5f);
     CameraShake.Instance.play(2f, 10f, 10f, "earthquake_2_5_secs_loud");
     yield return new WaitForSeconds(2f);
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
     yield return new WaitForSeconds(3f);
-    DialogSystem.LoadDialog("lvl1_move");
+    DialogSystem.loadDialog("lvl1_move");
     yield return new WaitForSeconds(6f);
     TooltipManager.showTooltip("Move");
     yield return new WaitForSeconds(1f);
@@ -261,7 +261,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     StopCoroutine(StartFrequenceLvl1());
   }
   private IEnumerator Lvl1_JumpTooltip() {
-    DialogSystem.LoadDialog("lvl1_jump");
+    DialogSystem.loadDialog("lvl1_jump");
     yield return new WaitForSeconds(1.5f);
     LevelSettings.Instance.setSetting("canJump", true);
     TooltipManager.showTooltip("Jump");
@@ -283,9 +283,9 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(2.5f);
     GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotStraighten");
     yield return new WaitForSeconds(.45f);
-    DialogSystem.LoadDialog("lvl1_its_me");
+    DialogSystem.loadDialog("lvl1_its_me");
     yield return new WaitForSeconds(5.5f);
-    DialogSystem.LoadDialog("lvl1_arms_are_further_ahead");
+    DialogSystem.loadDialog("lvl1_arms_are_further_ahead");
     yield return new WaitForSeconds(4f);
     LevelSettings.Instance.setSetting("canMove", true);
     StopCoroutine(Lvl1_RobotAppearScene());
@@ -293,7 +293,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator Lvl1_PickUpArms() {
     LevelSettings.Instance.setSetting("canMove", false);
     yield return new WaitForSeconds(.2f);
-    DialogSystem.LoadDialog("lvl1_pick_up_arms");
+    DialogSystem.loadDialog("lvl1_pick_up_arms");
     yield return new WaitForSeconds(4f);
     LevelSettings.Instance.setSetting("canMove", true);
     StopCoroutine(Lvl1_PickUpArms());
@@ -302,7 +302,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     GameObject.Find("RoboterArms").SetActive(false);
     PlayerController.Instance.setValue("holdingItem", true);
     yield return new WaitForSeconds(.2f);
-    DialogSystem.LoadDialog("lvl1_bring_arms_back");
+    DialogSystem.loadDialog("lvl1_bring_arms_back");
     StopCoroutine(Lvl1_BringArmsBack());
   }
   private IEnumerator Lvl1_RobotGetArmsScene() {
@@ -334,7 +334,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     // last image of animation -> looks to the right at player
 
     yield return new WaitForSeconds(.2f);
-    DialogSystem.LoadDialog("lvl1_thank_you");
+    DialogSystem.loadDialog("lvl1_thank_you");
     yield return new WaitForSeconds(6f);
 
     // return to look straight forward at camera
@@ -349,7 +349,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     }
     yield return new WaitForSeconds(.3f);
 
-    DialogSystem.LoadDialog("lvl1_where_did_i_leave_my_legs");
+    DialogSystem.loadDialog("lvl1_where_did_i_leave_my_legs");
     yield return new WaitForSeconds(8f);
     LevelEnd.Instance.endLevel();
     StopCoroutine(Lvl1_RobotGetArmsScene());

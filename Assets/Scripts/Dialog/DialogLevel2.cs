@@ -1,8 +1,16 @@
 ﻿using UnityEngine;
 
+/*
+ * manages all dialog options for level 2
+ */
+
 public class DialogLevel2 : MonoBehaviour {
 
   public static Dialog getDialog(string name) {
+
+    /*
+     * returns a dialog object with the attributes for the name
+     */
 
     Dialog dialog = new Dialog();
 

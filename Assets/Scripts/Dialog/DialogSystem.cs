@@ -10,7 +10,12 @@ using TMPro;
 
 public class DialogSystem : MonoBehaviour {
 
-  // singleton
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static DialogSystem Instance;
 
   void Awake() {
@@ -18,12 +23,15 @@ public class DialogSystem : MonoBehaviour {
     dialogQueue = new ArrayList();
   }
 
-  // list of dialogs to be played one after the other
-  private static ArrayList dialogQueue;
-  private static Dialog currentDialogPlaying;
 
-  // read-only states of dialog box
-  private static bool dialogBoxVisible = false;
+
+
+
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
 
   // array containg all roboter icons as sprites
   private static Sprite[] dialogIcons = null;
@@ -40,6 +48,33 @@ public class DialogSystem : MonoBehaviour {
   private static LineRenderer[] voiceLineRenderers;
 
 
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  // list of dialogs to be played one after the other
+  private static ArrayList dialogQueue;
+  private static Dialog currentDialogPlaying;
+
+  // read-only states of dialog box
+  private static bool dialogBoxVisible = false;
+
+
+
+
+
+
+
+  /*
+   * ======================
+   * === INITIALISATION ===
+   * ======================
+   */
 
   void Start() {
 
@@ -103,6 +138,38 @@ public class DialogSystem : MonoBehaviour {
 
 
 
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public static void loadDialog(string name) {
+
+    /*
+     * add a given dialogue to the queue;
+     * it will be played the earliest 
+     * where no other dialog is playing
+     */
+
+    if (!dialogQueue.Contains(name)) {
+      dialogQueue.Add(name);
+    }
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   void Update() {
 
     // if dialogue is in queue and none playing, play it
@@ -128,24 +195,7 @@ public class DialogSystem : MonoBehaviour {
 
   }
 
-
-
-  public static void LoadDialog(string name) {
-
-    /*
-     * add a given dialogue to the queue;
-     * it will be played the earliest 
-     * where no other dialog is playing
-     */
-
-    if (!dialogQueue.Contains(name)) {
-      dialogQueue.Add(name);
-    }
-  }
-
-
-
-  public static void loadDialogFromQueue() {
+  private static void loadDialogFromQueue() {
 
     /*
      * load first dialog in queue into memory
@@ -187,6 +237,55 @@ public class DialogSystem : MonoBehaviour {
     currentDialogPlaying = dialog;
     DialogSystem.Instance.StartCoroutine(playDialog());
 
+
+
+    IEnumerator playDialog() {
+
+      /*
+       * plays dialog saved in 'currentDialogPlaying':
+       * fades the dialogue into the screen
+       * writes text, plays voice, then fades out
+       */
+
+      dialogBoxVisible = true;
+
+      // reset dialog
+      textElement.SetText("");
+
+      // load robot image
+      iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
+
+      // play animation
+      animator.SetBool("ShowDialog", true);
+      yield return new WaitForSeconds(0.2f);
+
+      // play roboter voice
+      audioSource.PlayOneShot(currentDialogPlaying.audioClip);
+
+      // animate text
+      string currentText = "";
+      for (int i = 1; i <= currentDialogPlaying.textLength; i++) {
+        currentText = currentDialogPlaying.text.Substring(0, i);
+        textElement.SetText(currentText + "_");
+        yield return new WaitForSeconds(.01f);
+      }
+      textElement.SetText(currentText); // remove '_' at the end
+
+      // wait for complete audio clip length + some padding
+      // (minus the time already waited while writing the dialog)
+      yield return new WaitForSeconds(.4f + currentDialogPlaying.audioClipLength - (currentDialogPlaying.textLength * .01f));
+
+      // fade out dialog
+      animator.SetBool("ShowDialog", false);
+      yield return new WaitForSeconds(0.2f);
+
+      // reset dialog
+      textElement.SetText("");
+      dialogBoxVisible = false;
+      DialogSystem.Instance.StopCoroutine(playDialog());
+
+    }
+
   }
   
 
@@ -227,56 +326,12 @@ public class DialogSystem : MonoBehaviour {
 
 
 
-  private static IEnumerator playDialog() {
+  private static void visualizeVoice() {
 
     /*
-     * plays dialog saved in 'currentDialogPlaying':
-     * fades the dialogue into the screen
-     * writes text, plays voice, then fades out
+     * takes all defined line renderers and applies the frequency data values,
+     * extracted from the dialog audio clip, to the line as points
      */
-
-    dialogBoxVisible = true;
-
-    // reset dialog
-    textElement.SetText("");
-
-    // load robot image
-    iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
-
-    // play animation
-    animator.SetBool("ShowDialog", true);
-    yield return new WaitForSeconds(0.2f);
-
-    // play roboter voice
-    audioSource.PlayOneShot(currentDialogPlaying.audioClip);
-
-    // animate text
-    string currentText = "";
-    for (int i = 1; i <= currentDialogPlaying.textLength; i++) {
-      currentText = currentDialogPlaying.text.Substring(0, i);
-      textElement.SetText(currentText + "_");
-      yield return new WaitForSeconds(.01f);
-    }
-    textElement.SetText(currentText); // remove '_' at the end
-
-    // wait for complete audio clip length + some padding
-    // (minus the time already waited while writing the dialog)
-    yield return new WaitForSeconds(.4f + currentDialogPlaying.audioClipLength - (currentDialogPlaying.textLength * .01f));
-
-    // fade out dialog
-    animator.SetBool("ShowDialog", false);
-    yield return new WaitForSeconds(0.2f);
-
-    // reset dialog
-    textElement.SetText("");
-    dialogBoxVisible = false;
-    DialogSystem.Instance.StopCoroutine(playDialog());
-
-  }
-
-
-
-  private static void visualizeVoice() {
 
     int dataPoints = 64;
     float[] samples = new float[dataPoints];

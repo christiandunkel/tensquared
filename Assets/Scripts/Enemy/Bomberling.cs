@@ -35,7 +35,8 @@ public class Bomberling : MonoBehaviour {
     // get components
     rb2d = GetComponent<Rigidbody2D>();
     boxCollider = GetComponent<BoxCollider2D>();
-    boxColliderSizeHalf = boxCollider.size.x / 2f;
+    float boxColliderOffset = 3f;
+    boxColliderSizeHalf = boxCollider.size.x / 2f + boxColliderOffset;
 
   }
 
@@ -118,10 +119,11 @@ public class Bomberling : MonoBehaviour {
       rb2d.velocity = Vector2.zero;
       rb2d.freezeRotation = true;
       rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-      CameraShake.Instance.Play(.5f, 9f, 9f);
+      CameraShake.Instance.Play(.45f, 18f, 18f);
       dyingParticles.SetActive(true);
       dyingParticles.GetComponent<ParticleSystem>().Play();
-      yield return new WaitForSeconds(.5f);
+      yield return new WaitForSeconds(.6f);
+      CameraShake.Instance.Play(.2f, 50f, 50f);
       deathParticles.SetActive(true);
       deathParticles.GetComponent<ParticleSystem>().Play();
       yield return new WaitForSeconds(.1f);

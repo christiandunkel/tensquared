@@ -7,11 +7,13 @@ using UnityEngine;
 
 public class Bomberling : MonoBehaviour {
 
-  // internal objects
-  private GameObject textureObject;
-
   // external objects
   private GameObject playerObject;
+
+  // internal objects
+  [SerializeField] private GameObject textureObject;
+  [SerializeField] private GameObject dyingParticles;
+  [SerializeField] private GameObject deathParticles;
 
   // components
   private Rigidbody2D rb2d;
@@ -29,15 +31,6 @@ public class Bomberling : MonoBehaviour {
 
     // get player object
     playerObject = PlayerManager.Instance.gameObject;
-  
-    // get child elements
-    foreach (Transform child in gameObject.transform) {
-      switch (child.gameObject.name) {
-        case "Texture":
-          textureObject = child.gameObject;
-          break;
-      }
-    }
 
     // get components
     rb2d = GetComponent<Rigidbody2D>();
@@ -85,23 +78,23 @@ public class Bomberling : MonoBehaviour {
 
     StartCoroutine(run());
 
-  }
+    IEnumerator run() {
 
-  IEnumerator run() {
+      /*
+       * move bomberling until he collides with something and dies
+       */
 
-    /*
-     * move bomberling until he collides with something and dies
-     */
+      while (!isDead && isRunning) {
+        yield return new WaitForSeconds(.05f);
+        Vector2 moveBy = Vector3.zero;
+        moveBy.x = movementSpeed;
+        if (runningLeftwards) moveBy.x *= -1;
+        rb2d.velocity += moveBy;
+      }
 
-    while (!isDead && isRunning) {
-      yield return new WaitForSeconds(.05f);
-      Vector2 moveBy = Vector3.zero;
-      moveBy.x = movementSpeed;
-      if (runningLeftwards) moveBy.x *= -1;
-      rb2d.velocity += moveBy;
+      StopCoroutine(run());
+
     }
-
-    StopCoroutine(run());
 
   }
 
@@ -123,8 +116,15 @@ public class Bomberling : MonoBehaviour {
       // stop walking animation and make sprite invisible
       textureObject.GetComponent<Animator>().SetTrigger("StopRunning");
       rb2d.velocity = Vector2.zero;
+      rb2d.freezeRotation = true;
       rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-      yield return new WaitForSeconds(.2f);
+      CameraShake.Instance.Play(.5f, 9f, 9f);
+      dyingParticles.SetActive(true);
+      dyingParticles.GetComponent<ParticleSystem>().Play();
+      yield return new WaitForSeconds(.5f);
+      deathParticles.SetActive(true);
+      deathParticles.GetComponent<ParticleSystem>().Play();
+      yield return new WaitForSeconds(.1f);
       textureObject.GetComponent<SpriteRenderer>().sprite = null;
 
       StopCoroutine(deathProcess());

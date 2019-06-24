@@ -152,7 +152,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
-    CameraShake.Instance.Play(.4f, 17f, 17f);
+    CameraShake.Instance.play(.4f, 17f, 17f);
 
     yield return new WaitForSeconds(1.5f);
     robotObjectTexture.GetComponent<Animator>().SetBool("LookRight", true);
@@ -195,7 +195,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
-    CameraShake.Instance.Play(.4f, 17f, 17f);
+    CameraShake.Instance.play(.4f, 17f, 17f);
 
     yield return new WaitForSeconds(1.65f);
     DialogSystem.LoadDialog("lvl2_can_you_morph_into_other_forms");
@@ -247,7 +247,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(8.5f);
     DialogSystem.LoadDialog("lvl1_asleep");
     yield return new WaitForSeconds(5f);
-    CameraShake.Instance.Play(2f, 10f, 10f, "earthquake_2_5_secs_loud");
+    CameraShake.Instance.play(2f, 10f, 10f, "earthquake_2_5_secs_loud");
     yield return new WaitForSeconds(2f);
     GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
@@ -270,13 +270,13 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator Lvl1_RobotAppearScene() {
     LevelSettings.Instance.setSetting("canMove", false);
     yield return new WaitForSeconds(.2f);
-    CameraShake.Instance.Play(.5f, 1.3f, 1.3f);
+    CameraShake.Instance.play(.5f, 2f, 2f);
     yield return new WaitForSeconds(1f);
-    CameraShake.Instance.Play(.5f, 2f, 2f);
+    CameraShake.Instance.play(.5f, 3f, 3f);
     yield return new WaitForSeconds(1.5f);
-    CameraShake.Instance.Play(.7f, 3f, 3f);
+    CameraShake.Instance.play(.7f, 5f, 5f);
     yield return new WaitForSeconds(.4f);
-    CameraShake.Instance.Play(3f, 3f, 3f, "earthquake_3_secs");
+    CameraShake.Instance.play(3f, 10f, 10f, "earthquake_3_secs");
     GameObject.Find("RobotAppearingParticles").GetComponent<ParticleSystem>().Play();
     yield return new WaitForSeconds(.45f);
     GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotAppear");

@@ -13,9 +13,14 @@ public class Bomberling : MonoBehaviour {
   // external objects
   private GameObject playerObject;
 
+  // components
+  private Rigidbody2D rb2d;
+  private BoxCollider2D boxCollider;
+  private float boxColliderSizeHalf;
+
   // settings and attributes
   public float radiusOfActivation = 150f;
-  public float movementSpeed = 4f;
+  public float movementSpeed = 2.5f;
   private bool isDead = false;
   private bool isRunning = false;
   private bool runningLeftwards = false;
@@ -33,6 +38,11 @@ public class Bomberling : MonoBehaviour {
           break;
       }
     }
+
+    // get components
+    rb2d = GetComponent<Rigidbody2D>();
+    boxCollider = GetComponent<BoxCollider2D>();
+    boxColliderSizeHalf = boxCollider.size.x / 2f;
 
   }
 
@@ -85,10 +95,10 @@ public class Bomberling : MonoBehaviour {
 
     while (!isDead && isRunning) {
       yield return new WaitForSeconds(.05f);
-      Vector3 moveBy = Vector3.zero;
+      Vector2 moveBy = Vector3.zero;
       moveBy.x = movementSpeed;
       if (runningLeftwards) moveBy.x *= -1;
-      transform.position += moveBy;
+      rb2d.velocity += moveBy;
     }
 
     StopCoroutine(run());
@@ -112,6 +122,8 @@ public class Bomberling : MonoBehaviour {
 
       // stop walking animation and make sprite invisible
       textureObject.GetComponent<Animator>().SetTrigger("StopRunning");
+      rb2d.velocity = Vector2.zero;
+      rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
       yield return new WaitForSeconds(.2f);
       textureObject.GetComponent<SpriteRenderer>().sprite = null;
 
@@ -130,13 +142,24 @@ public class Bomberling : MonoBehaviour {
       PlayerManager.Instance.die();
       // destroy itself
       selfDestruct();
+      return;
     }
 
-    // don't do anything, if collision is from non-player collider
-    // that touches the player from below, only activate on hitting walls
-    if (col.gameObject.transform.position.y > transform.position.y) {
+  }
 
-      // TODO: proper detection for colliders to the left and right
+  void OnCollisionStay2D(Collision2D col) {
+
+    if (isDead) return;
+
+    // get right and left border point of collider
+    Vector2 leftColliderPos = transform.position;
+    leftColliderPos.x -= boxColliderSizeHalf;
+    Vector2 rightColliderPos = transform.position;
+    rightColliderPos.x += boxColliderSizeHalf;
+
+    // check if bomberling ran into (inside) a collider
+    if (col.collider.bounds.Contains(leftColliderPos) ||
+        col.collider.bounds.Contains(rightColliderPos)) {
 
       selfDestruct();
 

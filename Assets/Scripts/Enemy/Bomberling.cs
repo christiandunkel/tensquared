@@ -11,9 +11,9 @@ public class Bomberling : MonoBehaviour {
   private GameObject playerObject;
 
   // internal objects
-  [SerializeField] private GameObject textureObject;
-  [SerializeField] private GameObject dyingParticles;
-  [SerializeField] private GameObject deathParticles;
+  [SerializeField] private GameObject textureObject = null;
+  [SerializeField] private GameObject dyingParticles = null;
+  [SerializeField] private GameObject deathParticles = null;
 
   // components
   private Rigidbody2D rb2d;

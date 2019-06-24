@@ -112,7 +112,7 @@ public class PlayerController : PhysicsObject {
 
     if (!isDead) {
       rotateCircle(); // rotate circle in the right direction     
-      ghostingEffect.SetGhosting(movingX || movingY ? true : false); // enable ghosting effect while moving
+      ghostingEffect.set(movingX || movingY ? true : false); // enable ghosting effect while moving
 
       // only allow morph a little time after start up, 
       // to give any level settings that still need to be initialized correctly time
@@ -173,7 +173,7 @@ public class PlayerController : PhysicsObject {
     // handle frozen state
     if (isFrozen) {
       if (!frozenInLastFrame) {
-        ghostingEffect.SetGhosting(false);
+        ghostingEffect.disable();
         frozenInLastFrame = true;
         frozenYPos = gameObject.transform.position.y;
       }
@@ -367,7 +367,7 @@ public class PlayerController : PhysicsObject {
     // prevent triggering death animation multiple times
     if (!isDead) {
       isDead = true;
-      ghostingEffect.SetGhosting(false);
+      ghostingEffect.disable();
 
       if (hasSpawnpointSet) {
         isFrozen = true;

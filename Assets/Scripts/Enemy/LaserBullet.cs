@@ -41,7 +41,7 @@ public class LaserBullet : MonoBehaviour {
     GetComponent<SpriteRenderer>().sprite = null;
     GetComponent<CapsuleCollider2D>().isTrigger = true;
 
-    SoundController.Instance.PlaySound("laserBulletHit");
+    SoundController.Instance.playSound("laserBulletHit");
 
     explodeParticles.SetActive(true);
     explodeParticles.GetComponent<ParticleSystem>().Play(true);

@@ -37,7 +37,7 @@ public class CameraShake : MonoBehaviour
   public void Play(float duration, float amplitude, float frequency, string sound) {
 
     Play(duration, amplitude, frequency);
-    soundController.PlaySound(sound);
+    soundController.playSound(sound);
     
   }
 

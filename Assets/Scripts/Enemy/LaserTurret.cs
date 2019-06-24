@@ -93,7 +93,7 @@ public class LaserTurret : MonoBehaviour {
 
   private void shootBullet() {
     Instantiate(bullet, bulletSpawnPosition.transform.position, turret.transform.rotation);
-    soundController.PlaySound("laserTurretShot");
+    soundController.playSound("laserTurretShot");
     shortParticles.Play();
   }
 

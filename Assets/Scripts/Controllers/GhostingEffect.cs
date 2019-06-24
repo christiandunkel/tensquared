@@ -142,4 +142,31 @@ public class GhostingEffect : MonoBehaviour {
 
   }
 
+  public float getFloat(string name) {
+
+    /*
+     * returns the float value of the given name
+     */
+
+    switch (name) {
+
+      case "delayBetweenGhosts":
+        return delayBetweenGhosts;
+
+      case "durationOfAnimation":
+        return durationOfAnimation;
+
+      case "ghostDelaySeconds":
+        return ghostDelaySeconds;
+
+      default:
+        Debug.LogWarning("GhostingEffect: Could not find variable of the name " + name + ".");
+        break;
+
+    }
+
+    return 0f;
+
+  }
+
 }

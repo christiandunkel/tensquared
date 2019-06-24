@@ -148,7 +148,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", true);
     yield return new WaitForSeconds(.6f);
-    SoundController.Instance.PlaySound("robotScreamSound");
+    SoundController.Instance.playSound("robotScreamSound");
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
@@ -191,7 +191,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(.2f);
     robotObject.transform.position = new Vector2(611f, 189.2f);
     yield return new WaitForSeconds(.4f);
-    SoundController.Instance.PlaySound("robotScreamSound");
+    SoundController.Instance.playSound("robotScreamSound");
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
@@ -321,7 +321,7 @@ public class ScriptedEventsManager : MonoBehaviour {
           yield return new WaitForSeconds(.2f);
           break;
         case 1:
-          SoundController.Instance.PlaySound("robotRepairSound");
+          SoundController.Instance.playSound("robotRepairSound");
           break;
         case 24: multiplier = 6f; break;
         case 28: multiplier = 4f; break;

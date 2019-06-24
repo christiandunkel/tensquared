@@ -226,7 +226,7 @@ public class PlayerController : PhysicsObject {
               secondsSinceLastJump = 0f;
 
               if (state == "Triangle") {
-                soundController.PlaySound("jumpingTriangleSound");
+                soundController.playSound("jumpingTriangleSound");
               }
             }
             // double jump for triangle
@@ -239,8 +239,8 @@ public class PlayerController : PhysicsObject {
               doubleJumpParticles.SetActive(true);
               doubleJumpParticles.GetComponent<ParticleSystem>().Play();
 
-              soundController.StopSoundPlayer("characterSoundPlayer");
-              soundController.PlaySound("jumpingTriangleSound");
+              soundController.stopSoundPlayer("characterSoundPlayer");
+              soundController.playSound("jumpingTriangleSound");
               
             }
 
@@ -255,10 +255,14 @@ public class PlayerController : PhysicsObject {
               case "Rectangle":
                 // shake on landing with rectangle
                 CameraShake.Instance.Play(.1f, 18f, 18f);
-                soundController.PlaySound("landingRectangleSound");
+                soundController.playSound("landingRectangleSound");
                 break;
-              case "Triangle": soundController.PlaySound("landingTriangleSound"); break;
-              case "Circle": soundController.PlaySound("landingCircleSound"); break;
+              case "Triangle":
+                soundController.playSound("landingTriangleSound");
+                break;
+              case "Circle":
+                soundController.playSound("landingCircleSound");
+                break;
             }
 
           }
@@ -399,7 +403,7 @@ public class PlayerController : PhysicsObject {
       CameraShake.Instance.Play(.2f, 10f, 7f);
 
       playDeathParticles();
-      soundController.PlaySound("playerDeathSound");
+      soundController.playSound("playerDeathSound");
 
       yield return new WaitForSeconds(1.5f);
 
@@ -421,7 +425,7 @@ public class PlayerController : PhysicsObject {
       // handle spawn point animation (being pushed out of the tube)
       if (hasSpawnpointSet) {
 
-        soundController.PlaySound("respawnAtSpawnpointSound");
+        soundController.playSound("respawnAtSpawnpointSound");
         yield return new WaitForSeconds(.6f);
 
         // move the metallic arm holding the player out of the spawn point
@@ -526,7 +530,7 @@ public class PlayerController : PhysicsObject {
       }
 
       // play morphing sound
-      soundController.PlaySound("morphSound");
+      soundController.playSound("morphSound");
 
       // set movement variables of the character type
       Attributes a = getAttributes(newState);
@@ -642,7 +646,7 @@ public class PlayerController : PhysicsObject {
 
       case "Water":
         Debug.Log("PlayerController: Player died by entering water.");
-        soundController.PlaySound("waterSplashSound");
+        soundController.playSound("waterSplashSound");
         die();
         scriptedEvents.LoadEvent(1, "water_death");
         break;
@@ -655,12 +659,12 @@ public class PlayerController : PhysicsObject {
       case "Piston":
         Debug.Log("PlayerController: Stepped on a piston.");
         Piston.Instance.GoUp(col.gameObject);
-        soundController.PlaySound("pistonPushSound");
+        soundController.playSound("pistonPushSound");
         break;
 
       case "NoMorphForceField":
         Debug.Log("PlayerController: Entered a 'no morph force field'.");
-        soundController.PlaySound("enterForceFieldSound");
+        soundController.playSound("enterForceFieldSound");
         canMorphToCircle = false;
         canMorphToTriangle = false;
         canMorphToRectangle = false;
@@ -679,7 +683,7 @@ public class PlayerController : PhysicsObject {
       case "NoMorphForceField":
         Debug.Log("PlayerController: Left a 'no morph force field'.");
         loadLevelSettingsIntoPlayer();
-        soundController.PlaySound("exitForceFieldSound");
+        soundController.playSound("exitForceFieldSound");
         morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
         break;
 

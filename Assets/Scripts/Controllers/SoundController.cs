@@ -6,7 +6,12 @@
 
 public class SoundController : MonoBehaviour {
 
-  // singleton
+  /* 
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static SoundController Instance;
 
   private void Awake() {
@@ -18,29 +23,35 @@ public class SoundController : MonoBehaviour {
 
 
   /* 
-   * ======================================
-   * === GENERAL SOUND PLAYER MANAGMENT ===
-   * ======================================
+   * =====================
+   * === SOUND PLAYERs ===
+   * =====================
    */
 
   // movement sound players
   [SerializeField] private AudioSource circleMovementSoundPlayer = null;
   [SerializeField] private AudioSource rectangleMovementSoundPlayer = null;
   [SerializeField] private AudioSource grassSoundPlayer = null;
+
   // other continuous sound players
   [SerializeField] private AudioSource movingPlatformSoundPlayer = null;
   [SerializeField] private AudioSource fireSoundPlayer = null;
   [SerializeField] private AudioSource forceFieldSoundPlayer = null;
+
   // one time sound players
   [SerializeField] private AudioSource characterSoundPlayer = null;
   [SerializeField] private AudioSource shortSoundPlayer = null;
   [SerializeField] private AudioSource cameraShakeSoundPlayer = null;
   [SerializeField] private AudioSource disappearingBlockAppearSoundPlayer = null;
   [SerializeField] private AudioSource disappearingBlockDisappearSoundPlayer = null;
-  // speech
+
+  // speech sound players
   [SerializeField] private AudioSource speechSoundPlayer = null;
 
-  public void StopSoundPlayer(string soundPlayer) {
+
+
+
+  public void stopSoundPlayer(string soundPlayer) {
 
     /*
      * stops a defined sound player from playing
@@ -48,53 +59,67 @@ public class SoundController : MonoBehaviour {
 
     switch (soundPlayer) {
 
-      /*
-       * MOVEMENT SOUND PLAYERS
-       */
+      /* MOVEMENT SOUND PLAYERS */
 
       case "circleMovementSoundPlayer":
-        circleMovementSoundPlayer.Stop(); return;
-      case "rectangleMovementSoundPlayer":
-        rectangleMovementSoundPlayer.Stop(); return;
-      case "grassSoundPlayer":
-        grassSoundPlayer.Stop(); return;
+        circleMovementSoundPlayer.Stop();
+        break;
 
-      /*
-       * OTHER CONTINUOUS SOUND PLAYERS
-       */
+      case "rectangleMovementSoundPlayer":
+        rectangleMovementSoundPlayer.Stop();
+        break;
+
+      case "grassSoundPlayer":
+        grassSoundPlayer.Stop();
+        break;
+
+      /* OTHER CONTINUOUS SOUND PLAYERS */
 
       case "movingPlatformSoundPlayer":
-        movingPlatformSoundPlayer.Stop(); return;
-      case "fireSoundPlayer":
-        fireSoundPlayer.Stop(); return;
-      case "forceFieldSoundPlayer":
-        forceFieldSoundPlayer.Stop(); return;
+        movingPlatformSoundPlayer.Stop();
+        break;
 
-      /*
-       * ONE TIME SOUND PLAYERS
-       */
+      case "fireSoundPlayer":
+        fireSoundPlayer.Stop();
+        break;
+
+      case "forceFieldSoundPlayer":
+        forceFieldSoundPlayer.Stop();
+        break;
+
+      /* ONE TIME SOUND PLAYERS */
 
       case "characterSoundPlayer":
-        characterSoundPlayer.Stop(); return;
-      case "shortSoundPlayer":
-        shortSoundPlayer.Stop(); return;
-      case "cameraShakeSoundPlayer":
-        cameraShakeSoundPlayer.Stop(); return;
-      case "disappearingBlockAppearSoundPlayer":
-        disappearingBlockAppearSoundPlayer.Stop(); return;
-      case "disappearingBlockDisappearSoundPlayer":
-        disappearingBlockDisappearSoundPlayer.Stop(); return;
+        characterSoundPlayer.Stop();
+        break;
 
-      /*
-       * SPEECH  
-       */
+      case "shortSoundPlayer":
+        shortSoundPlayer.Stop();
+        break;
+
+      case "cameraShakeSoundPlayer":
+        cameraShakeSoundPlayer.Stop();
+        break;
+
+      case "disappearingBlockAppearSoundPlayer":
+        disappearingBlockAppearSoundPlayer.Stop();
+        break;
+
+      case "disappearingBlockDisappearSoundPlayer":
+        disappearingBlockDisappearSoundPlayer.Stop();
+        break;
+
+      /* SPEECH */
 
       case "speechSoundPlayer":
-        speechSoundPlayer.Stop(); return;
+        speechSoundPlayer.Stop();
+        break;
+
+      default:
+        Debug.LogWarning("PlayerController: Sound player " + soundPlayer + " wasn't found.");
+        break;
 
     }
-
-    Debug.LogWarning("PlayerController: Sound player " + soundPlayer + " wasn't found.");
 
   }
 
@@ -108,12 +133,14 @@ public class SoundController : MonoBehaviour {
    * ================================
    */
 
-  private float movingTimer = 0f,
-                movingThroughGrassTimer = 0f,
-                preventMovementSoundsTimer = 0f, 
-                movingPlatformSoundsTimer = 0f, 
-                fireSoundTimer = 0f, 
-                forceFieldSoundTimer = 0f;
+  // timers used to determine if a 
+  // continuous sound should be playing or not
+  private float movingTimer = 0f;
+  private float movingThroughGrassTimer = 0f;
+  private float preventMovementSoundsTimer = 0f;
+  private float movingPlatformSoundsTimer = 0f;
+  private float fireSoundTimer = 0f;
+  private float forceFieldSoundTimer = 0f;
 
   public void setTimer(string name, float value) {
 
@@ -123,24 +150,31 @@ public class SoundController : MonoBehaviour {
      */
 
     switch (name) {
+
       case "movingTimer":
         movingTimer = value;
         break;
+
       case "movingThroughGrassTimer":
         movingThroughGrassTimer = value;
         break;
+
       case "preventMovementSoundsTimer":
         preventMovementSoundsTimer = value;
         break;
+
       case "movingPlatformSoundsTimer":
         movingPlatformSoundsTimer = value;
         break;
+
       case "fireSoundTimer":
         fireSoundTimer = value;
         break;
+
       case "forceFieldSoundTimer":
         forceFieldSoundTimer = value;
         break;
+
     }
 
   }
@@ -152,9 +186,6 @@ public class SoundController : MonoBehaviour {
      */
 
     movingTimer = movingX && grounded ? 0.2f : movingTimer;
-
-
-
 
     // general moving sounds
     if (movingTimer > 0f) {
@@ -205,7 +236,7 @@ public class SoundController : MonoBehaviour {
       }
       // unpause, if not playing
       if (!grassSoundPlayer.isPlaying) {
-        PlaySound("walkThroughGrassSound");
+        playSound("walkThroughGrassSound");
       }
 
     }
@@ -280,9 +311,9 @@ public class SoundController : MonoBehaviour {
 
 
   /* 
-   * =============================
-   * === AUDIO CLIP MANAGEMENT ===
-   * =============================
+   * ===================
+   * === AUDIO CLIPS ===
+   * ===================
    */
 
   // character
@@ -293,35 +324,43 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioClip jumpingTriangleSound = null;
   [SerializeField] private AudioClip playerDeathSound = null;
   [SerializeField] private AudioClip walkThroughGrassSound = null;
+
   // disappearing block
   [SerializeField] private AudioClip disappearingBlockAppear = null;
   [SerializeField] private AudioClip disappearingBlockDisappear = null;
+
   // water
   [SerializeField] private AudioClip waterSplashSound = null;
   [SerializeField] private AudioClip waterSplashFloatingBlockSound = null;
+
   // spawn point
   [SerializeField] private AudioClip activateSpawnpointSound = null;
   [SerializeField] private AudioClip respawnAtSpawnpointSound = null;
+
   // laser turret
   [SerializeField] private AudioClip laserBulletHit = null;
   [SerializeField] private AudioClip laserTurretShot = null;
+
   // force field
   [SerializeField] private AudioClip enterForceFieldSound = null;
   [SerializeField] private AudioClip exitForceFieldSound = null;
+
   // camera shake
   [SerializeField] private AudioClip earthquake_1_5_secs = null;
   [SerializeField] private AudioClip earthquake_2_secs = null;
   [SerializeField] private AudioClip earthquake_2_5_secs_loud = null;
   [SerializeField] private AudioClip earthquake_3_secs = null;
+
   // UI
   [SerializeField] private AudioClip levelCompleteSound = null;
+
   // other
   [SerializeField] private AudioClip robotRepairSound = null;
   [SerializeField] private AudioClip robotScreamSound = null;
   [SerializeField] private AudioClip breakingBlockSound = null;
   [SerializeField] private AudioClip pistonPushSound = null;
 
-  public float PlaySound(string soundName) {
+  public float playSound(string soundName) {
 
     /*
      * plays a sound with the related sound player

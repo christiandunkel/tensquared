@@ -41,7 +41,7 @@ public class BreakableBlock : MonoBehaviour {
 
     yield return new WaitForSeconds(.2f);
 
-    SoundController.Instance.PlaySound("breakingBlockSound");
+    SoundController.Instance.playSound("breakingBlockSound");
 
     for (int i = 0; i < breakingSprites.Length; i++) {
       GetComponent<SpriteRenderer>().sprite = breakingSprites[i];

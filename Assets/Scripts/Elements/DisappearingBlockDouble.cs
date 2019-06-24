@@ -78,28 +78,28 @@ public class DisappearingBlockDouble : MonoBehaviour {
 
       squareTexture1.SetBool("Visible", true);
       if (distanceToPlayer() < soundDist) {
-        soundController.PlaySound("disappearingBlockAppear");
+        soundController.playSound("disappearingBlockAppear");
       }
 
       yield return new WaitForSeconds(timeBothAreVisible);
 
       squareTexture2.SetBool("Visible", false);
       if (distanceToPlayer() < soundDist) {
-        soundController.PlaySound("disappearingBlockDisappear");
+        soundController.playSound("disappearingBlockDisappear");
       }
 
       yield return new WaitForSeconds(stayTime);
 
       squareTexture2.SetBool("Visible", true);
       if (distanceToPlayer() < soundDist) {
-        soundController.PlaySound("disappearingBlockAppear");
+        soundController.playSound("disappearingBlockAppear");
       }
 
       yield return new WaitForSeconds(timeBothAreVisible);
 
       squareTexture1.SetBool("Visible", false);
       if (distanceToPlayer() < soundDist) {
-        soundController.PlaySound("disappearingBlockDisappear");
+        soundController.playSound("disappearingBlockDisappear");
       }
 
       yield return new WaitForSeconds(stayTime);

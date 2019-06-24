@@ -39,9 +39,8 @@ public class FloatingBlock : MonoBehaviour {
       sinkInTimer -= Time.deltaTime;
 
       if (rb2d.mass == 1f) {
-        soundController.PlaySound("waterSplashFloatingBlockSound");
+        soundController.playSound("waterSplashFloatingBlockSound");
         splashParticles.Play();
-
         rb2d.mass = 60f;
       }
       

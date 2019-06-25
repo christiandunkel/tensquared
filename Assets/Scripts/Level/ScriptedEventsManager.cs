@@ -120,6 +120,8 @@ public class ScriptedEventsManager : MonoBehaviour {
           StartCoroutine(LVL2_PickUpArms()); break;
         case "morph_force_field":
           StartCoroutine(LVL2_ForceField()); break;
+        case "receive_arms":
+          StartCoroutine(LVL2_ReceiveArms()); break;
       }
     }
 
@@ -224,6 +226,30 @@ public class ScriptedEventsManager : MonoBehaviour {
     PlayerManager.Instance.setValue("holdingItem", true);
     yield return new WaitForSeconds(.1f);
     StopCoroutine(LVL2_PickUpArms());
+  }
+  private IEnumerator LVL2_ReceiveArms() {
+
+    GameObject robotObject = GameObject.Find("RobotFallingDown");
+    GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
+
+    robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", false);
+    yield return new WaitForSeconds(.2f);
+    robotObjectTexture.GetComponent<Animator>().SetBool("FallDown", true);
+    yield return new WaitForSeconds(.2f);
+    robotObject.transform.position = new Vector2(3900f, 248f);
+    yield return new WaitForSeconds(.4f);
+    SoundController.Instance.playSound("robotScreamSound");
+    yield return new WaitForSeconds(2.3f);
+    // robot lands on ground
+    GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
+    CameraShake.Instance.play(.4f, 17f, 17f);
+
+    yield return new WaitForSeconds(1.5f);
+
+
+    PlayerManager.Instance.setValue("holdingItem", false);
+    yield return new WaitForSeconds(.1f);
+    StopCoroutine(LVL2_ReceiveArms());
   }
 
 

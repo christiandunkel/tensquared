@@ -229,6 +229,12 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
   private IEnumerator LVL2_ReceiveArms() {
 
+    LevelSettings.Instance.setSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canJump", false);
+    LevelSettings.Instance.setSetting("canMorphToCircle", false);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", false);
+    LevelSettings.Instance.setSetting("canMorphToRectangle", false);
+
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
 
@@ -243,12 +249,37 @@ public class ScriptedEventsManager : MonoBehaviour {
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
     CameraShake.Instance.play(.4f, 17f, 17f);
-
     yield return new WaitForSeconds(1.5f);
 
+    SpriteRenderer getLegsObjectSR = GameObject.Find("RobotAttachingLegsTexture").GetComponent<SpriteRenderer>();
+    SpriteRenderer standUpObjectSR = GameObject.Find("RobotStandUpTexture").GetComponent<SpriteRenderer>();
+    Sprite[] getLegsSprites = Resources.LoadAll<Sprite>("RobotGetLegsAnimation");
+    int spriteNum = getLegsSprites.Length;
 
+    // remove legs from player
     PlayerManager.Instance.setValue("holdingItem", false);
-    yield return new WaitForSeconds(.1f);
+
+    // hide 'fallen down' robot
+    robotObjectTexture.SetActive(false);
+
+    // play 'attaching legs' animation
+    for (int i = 0; i < spriteNum; i++) {
+      if (i < 32) {
+        if (i == 28) {
+          yield return new WaitForSeconds(.4f);
+        }
+        getLegsObjectSR.sprite = getLegsSprites[i];
+      }
+      else {
+        if (i == 32) {
+          yield return new WaitForSeconds(.3f);
+          getLegsObjectSR.sprite = null;
+        }
+        standUpObjectSR.sprite = getLegsSprites[i];
+      }
+      yield return new WaitForSeconds(.08f);
+    }
+
     StopCoroutine(LVL2_ReceiveArms());
   }
 

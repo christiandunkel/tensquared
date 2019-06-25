@@ -46,8 +46,9 @@ public class ClosingDoor : MonoBehaviour {
   // in how many steps the animation should happen
   private int animationSteps = 15;
   private float timeBetweenEachStep = 0.015f;
-
-  
+  // difference in position on x axis
+  // from player object to this instance of a door
+  private float xDistanceToPlayer = 0f;
 
 
 
@@ -80,9 +81,7 @@ public class ClosingDoor : MonoBehaviour {
 
     if (isMoving) return;
 
-    // difference in position on x axis
-    // from player object to this instance of a door
-    float xDistanceToPlayer = playerObject.transform.position.x - transform.position.x;
+    xDistanceToPlayer = playerObject.transform.position.x - transform.position.x;
 
     // door is open, when player is on the left of it
     if (isLeftDoor) {
@@ -125,7 +124,9 @@ public class ClosingDoor : MonoBehaviour {
     doorObjectCollider.size = doorSize;
     doorObject.transform.position = doorPos;
 
-    SoundController.Instance.playSound("closingDoorSound");
+    if (xDistanceToPlayer < 150f) {
+      SoundController.Instance.playSound("closingDoorSound");
+    }
 
     // start animation
     StartCoroutine(animate());
@@ -162,7 +163,10 @@ public class ClosingDoor : MonoBehaviour {
     isOpen = false;
     isClosed = true;
 
-    SoundController.Instance.playSound("closingDoorSound");
+    if (xDistanceToPlayer < 150f) {
+      SoundController.Instance.playSound("closingDoorSound");
+    }
+    
 
     // start animation
     StartCoroutine(animate());

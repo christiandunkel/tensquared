@@ -653,7 +653,7 @@ public class PlayerController : PhysicsObject {
         canMorphToCircle = false;
         canMorphToTriangle = false;
         canMorphToRectangle = false;
-        morphIndicator.loadMorphIndicators(state, false, false, false, false);
+        morphIndicator.loadMorphIndicators(state, true, false, false, false);
         scriptedEvents.LoadEvent(2, "morph_force_field");
         break;
 

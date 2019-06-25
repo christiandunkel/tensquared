@@ -172,7 +172,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(12f);
 
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(.3f);
     LevelSettings.Instance.setSetting("canMorphToTriangle", true);
     TooltipManager.showTooltip("MorphTriangle");
     StopCoroutine(StartFrequenceLvl2());
@@ -181,9 +181,9 @@ public class ScriptedEventsManager : MonoBehaviour {
     TooltipManager.hideTooltip("MorphTriangle");
     yield return new WaitForSeconds(.9f);
     TooltipManager.showTooltip("DoubleJumpTriangle");
-    yield return new WaitForSeconds(5f);
+    yield return new WaitForSeconds(3f);
     TooltipManager.hideTooltip("DoubleJumpTriangle");
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(.5f);
     DialogSystem.loadDialog("lvl2_full_of_surprises");
     StopCoroutine(Lvl2_FirstMorphToTriangle());
   }

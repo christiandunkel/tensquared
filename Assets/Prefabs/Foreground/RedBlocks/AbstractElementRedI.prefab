@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3720375591138334871}
   m_Layer: 0
-  m_Name: AbstractElementRedU
+  m_Name: AbstractElementRedI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3720375592335142908}
   - component: {fileID: 3720375592335142910}
-  - component: {fileID: 3720375592335142898}
+  - component: {fileID: 484152199094469}
   m_Layer: 0
   m_Name: Texture
   m_TagString: Untagged
@@ -100,7 +100,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 16
-  m_Sprite: {fileID: 21300000, guid: 5fe78be39b9b5f14480fa457a5458ad4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83d11ef02ae04e14c87132b9ba343395, type: 3}
   m_Color: {r: 0.41960788, g: 0.18823531, b: 0.19215688, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,8 +111,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &3720375592335142898
-PolygonCollider2D:
+--- !u!61 &484152199094469
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -128,19 +128,12 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 15, y: 15}
+    oldSize: {x: 2.82, y: 14.86}
     newSize: {x: 22.007322, y: 12.68}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 5.49, y: 7.5}
-      - {x: 5.49, y: -5.582}
-      - {x: -5.04, y: -5.582}
-      - {x: -5.04, y: 1.172}
-      - {x: -7.5, y: 1.172}
-      - {x: -7.5, y: -7.5}
-      - {x: 7.5, y: -7.5}
-      - {x: 7.5, y: 7.5}
+  serializedVersion: 2
+  m_Size: {x: 2.82, y: 14.86}
+  m_EdgeRadius: 0

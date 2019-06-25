@@ -357,6 +357,7 @@ public class SoundController : MonoBehaviour {
   // other
   [SerializeField] private AudioClip robotRepairSound = null;
   [SerializeField] private AudioClip robotScreamSound = null;
+  [SerializeField] private AudioClip robotElectricDefect = null;
   [SerializeField] private AudioClip breakingBlockSound = null;
   [SerializeField] private AudioClip pistonPushSound = null;
   [SerializeField] private AudioClip closingDoorSound = null;
@@ -525,6 +526,11 @@ public class SoundController : MonoBehaviour {
 
       case "robotScreamSound":
         c = robotScreamSound;
+        speechSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      case "robotElectricDefect":
+        c = robotElectricDefect;
         speechSoundPlayer.PlayOneShot(c);
         return c.length;
 

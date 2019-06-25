@@ -287,7 +287,9 @@ public class ScriptedEventsManager : MonoBehaviour {
           getLegsObjectSR.sprite = null;
         }
         else if (i == 39) {
-          yield return new WaitForSeconds(1f);
+          yield return new WaitForSeconds(.8f);
+          SoundController.Instance.playSound("robotElectricDefect");
+          yield return new WaitForSeconds(.2f);
         }
         standUpObjectSR.sprite = getLegsSprites[i];
       }

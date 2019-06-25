@@ -17,16 +17,16 @@ public class LevelSettings : MonoBehaviour {
   public int levelID = 1;
 
   // player stats
-  public bool canMove = true, // if player can use input to influence movement of character
-              canJump = true, // if player can jump by key
-
-              canMorphToCircle = true, // if player can change the form of the character
-              canMorphToTriangle = true,
-              canMorphToRectangle = true;
+  public bool canMove = true; // if player can use input to influence movement of character
+  public bool canJump = true; // if player can jump by key
+  public bool canSelfDestruct = true; // can use button '0' to self-destruct
+  public bool canMorphToCircle = true; // if player can change the form of the character
+  public bool canMorphToTriangle = true;
+  public bool canMorphToRectangle = true;
 
   // world stats
-  public Vector2 worldSpawn,
-                 playerSpawn;
+  public Vector2 worldSpawn;
+  public Vector2 playerSpawn;
 
   // objects
   public GameObject playerObject;
@@ -71,12 +71,17 @@ public class LevelSettings : MonoBehaviour {
 
       case "canMove":
         canMove = value;
-        PlayerController.Instance.setSetting(name, value);
+        PlayerManager.Instance.setSetting(name, value);
         break;
 
       case "canJump":
         canJump = value;
-        PlayerController.Instance.setSetting(name, value);
+        PlayerManager.Instance.setSetting(name, value);
+        break;
+
+      case "canSelfDestruct":
+        canSelfDestruct = value;
+        PlayerManager.Instance.setSetting(name, value);
         break;
 
       case "canMorphToCircle":
@@ -103,6 +108,7 @@ public class LevelSettings : MonoBehaviour {
   }
   
   public void setSetting(string name, Vector2 pos) {
+
     switch (name) {
 
       case "playerSpawn":
@@ -114,6 +120,7 @@ public class LevelSettings : MonoBehaviour {
         break;
 
     }
+
   }
 
 }

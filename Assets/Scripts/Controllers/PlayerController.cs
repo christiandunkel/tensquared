@@ -74,7 +74,7 @@ public class PlayerController : PhysicsObject {
 
   private protected override void OnAwake() {
 
-    morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
+    morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
 
     resetAttributes(); // set attributes for start character state
     loadLevelSettingsIntoPlayer();
@@ -92,7 +92,7 @@ public class PlayerController : PhysicsObject {
      * called before velocity is calculate
      */
 
-    if (!isDead && Input.GetKeyDown(KeyCode.Alpha0)) {
+    if (!isDead && canSelfDestruct && Input.GetKeyDown(KeyCode.Alpha0)) {
       die();
     }
 
@@ -288,25 +288,6 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  protected void loadLevelSettingsIntoPlayer() {
-
-    /*
-     * load the level settings from the 'level settings' script
-     * and replace the values of the internal variables with them
-     */
-
-    LevelSettings settings = LevelSettings.Instance;
-    canMove = settings.canMove;
-    canJump = settings.canJump;
-    canMorphToCircle = settings.canMorphToCircle;
-    canMorphToTriangle = settings.canMorphToTriangle;
-    canMorphToRectangle = settings.canMorphToRectangle;
-
-    // reload 'morph indicator' UI in case morph settings are different now
-    morphIndicator.loadMorphIndicators();
-
-  }
-
 
 
   private void testForXMovement(Vector2 move) {
@@ -389,7 +370,7 @@ public class PlayerController : PhysicsObject {
       canMorphToCircle = false;
       canMorphToTriangle = false;
       canMorphToRectangle = false;
-      morphIndicator.loadMorphIndicators(state, false, false, false);
+      morphIndicator.loadMorphIndicators(state, false, false, false, false);
 
       // make sprite invisible while respawn
       Color color = textureObject.GetComponent<SpriteRenderer>().color;
@@ -556,7 +537,7 @@ public class PlayerController : PhysicsObject {
       resetDynamicRGB2D();
       isChangingState = true;
 
-      morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
+      morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
 
       // start morphing animation
       StopCoroutine(animateState());
@@ -672,7 +653,7 @@ public class PlayerController : PhysicsObject {
         canMorphToCircle = false;
         canMorphToTriangle = false;
         canMorphToRectangle = false;
-        morphIndicator.loadMorphIndicators(state, false, false, false);
+        morphIndicator.loadMorphIndicators(state, false, false, false, false);
         scriptedEvents.LoadEvent(2, "morph_force_field");
         break;
 
@@ -688,7 +669,7 @@ public class PlayerController : PhysicsObject {
         Debug.Log("PlayerController: Left a 'no morph force field'.");
         loadLevelSettingsIntoPlayer();
         soundController.playSound("exitForceFieldSound");
-        morphIndicator.loadMorphIndicators(state, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
+        morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
         break;
 
     }

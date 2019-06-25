@@ -229,6 +229,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
   private IEnumerator LVL2_ReceiveArms() {
 
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);
     LevelSettings.Instance.setSetting("canJump", false);
     LevelSettings.Instance.setSetting("canMorphToCircle", false);
@@ -314,6 +315,7 @@ public class ScriptedEventsManager : MonoBehaviour {
    */
 
   private IEnumerator StartFrequenceLvl1() {
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);
     LevelSettings.Instance.setSetting("canJump", false);
     LevelSettings.Instance.setSetting("canMorphToCircle", false);
@@ -333,6 +335,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(6f);
     TooltipManager.showTooltip("Move");
     yield return new WaitForSeconds(1f);
+    LevelSettings.Instance.setSetting("canSelfDestruct", true);
     LevelSettings.Instance.setSetting("canMove", true);
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     StopCoroutine(StartFrequenceLvl1());
@@ -345,6 +348,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     StopCoroutine(Lvl1_JumpTooltip());
   }
   private IEnumerator Lvl1_RobotAppearScene() {
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);
     yield return new WaitForSeconds(.2f);
     CameraShake.Instance.play(.5f, 2f, 2f);
@@ -365,25 +369,30 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl1_arms_are_further_ahead");
     yield return new WaitForSeconds(4f);
     LevelSettings.Instance.setSetting("canMove", true);
+    LevelSettings.Instance.setSetting("canSelfDestruct", true);
     StopCoroutine(Lvl1_RobotAppearScene());
   }
   private IEnumerator Lvl1_PickUpArms() {
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);
     yield return new WaitForSeconds(.2f);
     DialogSystem.loadDialog("lvl1_pick_up_arms");
     yield return new WaitForSeconds(4f);
     LevelSettings.Instance.setSetting("canMove", true);
+    LevelSettings.Instance.setSetting("canSelfDestruct", true);
     StopCoroutine(Lvl1_PickUpArms());
   }
   private IEnumerator Lvl1_BringArmsBack() {
     GameObject.Find("RoboterArms").SetActive(false);
-    PlayerController.Instance.setValue("holdingItem", true);
+    PlayerManager.Instance.setValue("holdingItem", true);
     yield return new WaitForSeconds(.2f);
     DialogSystem.loadDialog("lvl1_bring_arms_back");
     StopCoroutine(Lvl1_BringArmsBack());
   }
   private IEnumerator Lvl1_RobotGetArmsScene() {
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);
+
     PlayerManager.Instance.setValue("holdingItem", false);
 
     SpriteRenderer robotTexture = GameObject.Find("RobotFigureTexture").GetComponent<SpriteRenderer>();

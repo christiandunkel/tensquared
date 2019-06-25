@@ -101,10 +101,11 @@ public class PlayerManager : MonoBehaviour {
 
   // settings (internal)
   private protected bool canMove = false;
+  private protected bool canJump = false;
+  private protected bool canSelfDestruct = false;
   private protected bool canMorphToCircle = true;
   private protected bool canMorphToTriangle = false;
   private protected bool canMorphToRectangle = false;
-  private protected bool canJump = false;
 
   /* 
    * ==============
@@ -398,6 +399,10 @@ public class PlayerManager : MonoBehaviour {
         canJump = value;
         break;
 
+      case "canSelfDestruct":
+        canSelfDestruct = value;
+        break;
+
       case "canMorphToCircle":
         canMorphToCircle = value;
         break;
@@ -429,6 +434,26 @@ public class PlayerManager : MonoBehaviour {
     }
   }
 
+  protected void loadLevelSettingsIntoPlayer() {
+
+    /*
+     * load the level settings from the 'level settings' script
+     * and replace the values of the internal variables with them
+     */
+
+    LevelSettings settings = LevelSettings.Instance;
+    canMove = settings.canMove;
+    canJump = settings.canJump;
+    canSelfDestruct = settings.canSelfDestruct;
+    canMorphToCircle = settings.canMorphToCircle;
+    canMorphToTriangle = settings.canMorphToTriangle;
+    canMorphToRectangle = settings.canMorphToRectangle;
+
+    // reload 'morph indicator' UI in case morph settings are different now
+    morphIndicator.loadMorphIndicators();
+
+  }
+
 
 
 
@@ -446,6 +471,12 @@ public class PlayerManager : MonoBehaviour {
      */
 
     switch (name) {
+      case "canMove":
+        return canMove;
+      case "canJump":
+        return canJump;
+      case "canSelfDestruct":
+        return canSelfDestruct;
       case "canMorphToCircle":
         return canMorphToCircle;
       case "canMorphToTriangle":

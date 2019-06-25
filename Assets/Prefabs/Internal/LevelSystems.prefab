@@ -1275,6 +1275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f9eed9a45a59343bff222cd499ac16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon0: {fileID: 8093194943431386736}
+  border0: {fileID: 7690069399673992531}
+  text0: {fileID: 2957250019201125525}
   icon1: {fileID: 5005880531090509907}
   border1: {fileID: 1908932523828316960}
   text1: {fileID: 6388329900141973529}
@@ -4331,6 +4334,7 @@ MonoBehaviour:
   levelID: 1
   canMove: 1
   canJump: 1
+  canSelfDestruct: 1
   canMorphToCircle: 1
   canMorphToTriangle: 1
   canMorphToRectangle: 1

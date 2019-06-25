@@ -13,12 +13,21 @@ public class MorphIndicator : MonoBehaviour {
   }
 
 
+
+
   [SerializeField] private CanvasGroup icon0 = null, border0 = null, text0 = null; // self-destruct symbol
   [SerializeField] private CanvasGroup icon1 = null, border1 = null, text1 = null; // circle symbol
   [SerializeField] private CanvasGroup icon2 = null, border2 = null, text2 = null; // triangle symbol
   [SerializeField] private CanvasGroup icon3 = null, border3 = null, text3 = null; // rectangle symbol
-  [SerializeField] private GameObject stateIndicator = null;
-  
+  [SerializeField] private GameObject stateIndicator1 = null;
+  [SerializeField] private GameObject stateIndicator2 = null;
+  [SerializeField] private GameObject stateIndicator3 = null;
+
+
+
+
+
+
   public void loadMorphIndicators() {
 
     /*
@@ -45,24 +54,23 @@ public class MorphIndicator : MonoBehaviour {
      * set the morphing indicator according to the given parameters
      */
 
-    // tests if at least two states can be morphed into,
-    // only then display the 'current state' indicator
-    if (canMorphToCircle && (canMorphToTriangle || canMorphToRectangle) ||
-        (canMorphToTriangle && canMorphToRectangle)) {
-      stateIndicator.SetActive(true);
-    }
-    else {
-      stateIndicator.SetActive(false);
-    }
-
     // display state indicator in position of the icon that corresponds the 'current state'
     switch (playerState) {
       case "Circle":
-        stateIndicator.transform.localPosition = new Vector3(icon1.transform.localPosition.x, stateIndicator.transform.localPosition.y, stateIndicator.transform.localPosition.z); break;
+        stateIndicator1.SetActive(true);
+        stateIndicator2.SetActive(false);
+        stateIndicator3.SetActive(false);
+        break;
       case "Triangle":
-        stateIndicator.transform.localPosition = new Vector3(icon2.transform.localPosition.x, stateIndicator.transform.localPosition.y, stateIndicator.transform.localPosition.z); break;
+        stateIndicator1.SetActive(false);
+        stateIndicator2.SetActive(true);
+        stateIndicator3.SetActive(false);
+        break;
       case "Rectangle":
-        stateIndicator.transform.localPosition = new Vector3(icon3.transform.localPosition.x, stateIndicator.transform.localPosition.y, stateIndicator.transform.localPosition.z); break;
+        stateIndicator1.SetActive(false);
+        stateIndicator2.SetActive(false);
+        stateIndicator3.SetActive(true);
+        break;
     }
 
 

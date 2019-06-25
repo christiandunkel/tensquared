@@ -125,6 +125,8 @@ public class ClosingDoor : MonoBehaviour {
     doorObjectCollider.size = doorSize;
     doorObject.transform.position = doorPos;
 
+    SoundController.Instance.playSound("closingDoorSound");
+
     // start animation
     StartCoroutine(animate());
 
@@ -159,6 +161,8 @@ public class ClosingDoor : MonoBehaviour {
     isMoving = true;
     isOpen = false;
     isClosed = true;
+
+    SoundController.Instance.playSound("closingDoorSound");
 
     // start animation
     StartCoroutine(animate());

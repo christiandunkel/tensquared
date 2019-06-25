@@ -359,6 +359,7 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioClip robotScreamSound = null;
   [SerializeField] private AudioClip breakingBlockSound = null;
   [SerializeField] private AudioClip pistonPushSound = null;
+  [SerializeField] private AudioClip closingDoorSound = null;
 
   public float playSound(string soundName) {
 
@@ -534,6 +535,11 @@ public class SoundController : MonoBehaviour {
 
       case "pistonPushSound":
         c = pistonPushSound;
+        shortSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      case "closingDoorSound":
+        c = closingDoorSound;
         shortSoundPlayer.PlayOneShot(c);
         return c.length;
 

@@ -1,7 +1,7 @@
 
 # Sprite Sorting Order
 
-This table lists all the elements used in the game with their respective layer and orders for their textures / particles.
+This table lists all the elements used in the game with sorting layer and order information for their respective textures and particles effects.
 
 ## FrontLightsLayer
 | Sprite | Layer | Order |
@@ -81,10 +81,10 @@ This table lists all the elements used in the game with their respective layer a
 |-> Log Texture|Default|1|
 |**Spawnpoint**| | |
 |-> Texture|Default|2|
-|---> Extension Border (Texture)|Default|0|
-|---> Extension Lightgray (Texture)|Default|1|
-|---> Extension Darkgray (Texture)|Default|2|
-|---> Light Texture|Default|-1|
+|--> Extension Border (Texture)|Default|0|
+|--> Extension Lightgray (Texture)|Default|1|
+|--> Extension Darkgray (Texture)|Default|2|
+|--> Light Texture|Default|-1|
 |-> Player Holder (Texture)|Default|1|
 |**Connectors (Chains/Bars)**|Default|-10|
 |**AntiMorphForceField**|Default|-20|

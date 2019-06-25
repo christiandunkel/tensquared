@@ -68,9 +68,13 @@ public class Bomberling : MonoBehaviour {
     /*
      * Bomberling starts running into the direction where the player is
      */
-
-    textureObject.GetComponent<Animator>().SetTrigger("StartRunning");
-    // TODO: running Animation in Unity
+    
+    if (runningLeftwards) {
+      textureObject.GetComponent<Animator>().SetTrigger("StandUpLeft");
+    }
+    else {
+      textureObject.GetComponent<Animator>().SetTrigger("StandUpRight");
+    }
 
     // TODO: play short scream sound
 
@@ -84,6 +88,7 @@ public class Bomberling : MonoBehaviour {
       /*
        * move bomberling until he collides with something and dies
        */
+      yield return new WaitForSeconds(1f);
 
       while (!isDead && isRunning) {
         yield return new WaitForSeconds(.05f);
@@ -115,7 +120,6 @@ public class Bomberling : MonoBehaviour {
     IEnumerator deathProcess() {
 
       // stop walking animation and make sprite invisible
-      textureObject.GetComponent<Animator>().SetTrigger("StopRunning");
       rb2d.velocity = Vector2.zero;
       rb2d.freezeRotation = true;
       rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
@@ -123,11 +127,16 @@ public class Bomberling : MonoBehaviour {
       dyingParticles.SetActive(true);
       dyingParticles.GetComponent<ParticleSystem>().Play();
       yield return new WaitForSeconds(.6f);
+      textureObject.GetComponent<Animator>().SetTrigger("Hidden");
       CameraShake.Instance.play(.2f, 50f, 50f);
       deathParticles.SetActive(true);
       deathParticles.GetComponent<ParticleSystem>().Play();
       yield return new WaitForSeconds(.1f);
       textureObject.GetComponent<SpriteRenderer>().sprite = null;
+
+      // disable all collision components of bomberling
+      GetComponent<BoxCollider2D>().enabled = false;
+      Destroy(GetComponent<Rigidbody2D>());
 
       StopCoroutine(deathProcess());
 

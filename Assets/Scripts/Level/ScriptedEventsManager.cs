@@ -226,13 +226,25 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl2_force_fields_everywhere");
     StopCoroutine(LVL2_ForceField());
   }
+
+
+
+
+  private GameObject robotLegSmokeParticles = null;
+  private GameObject robotLegSmokeParticles2 = null;
+
   private IEnumerator LVL2_PickUpLegs() {
     GameObject.Find("RobotLegs").SetActive(false);
     PlayerManager.Instance.setValue("holdingItem", true);
     yield return new WaitForSeconds(.3f);
     DialogSystem.loadDialog("lvl2_found_legs");
+
+    robotLegSmokeParticles = GameObject.Find("RobotLegSmokeParticles");
+    robotLegSmokeParticles2 = GameObject.Find("RobotLegSmokeParticles2");
+
     StopCoroutine(LVL2_PickUpLegs());
   }
+
   private IEnumerator LVL2_ReceiveArms() {
 
     LevelSettings.Instance.setSetting("canSelfDestruct", false);
@@ -291,6 +303,10 @@ public class ScriptedEventsManager : MonoBehaviour {
           yield return new WaitForSeconds(1.1f);
           SoundController.Instance.playSound("robotElectricDefect");
           yield return new WaitForSeconds(.3f);
+          robotLegSmokeParticles.SetActive(true);
+          robotLegSmokeParticles.GetComponent<ParticleSystem>().Play();
+          robotLegSmokeParticles2.SetActive(true);
+          robotLegSmokeParticles2.GetComponent<ParticleSystem>().Play();
         }
         standUpObjectSR.sprite = getLegsSprites[i];
       }

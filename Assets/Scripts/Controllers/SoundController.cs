@@ -341,6 +341,10 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioClip laserBulletHit = null;
   [SerializeField] private AudioClip laserTurretShot = null;
 
+  // bomberling
+  [SerializeField] private AudioClip bomberlingScreamSound = null;
+  [SerializeField] private AudioClip bomberlingExplodeSound = null;
+
   // force field
   [SerializeField] private AudioClip enterForceFieldSound = null;
   [SerializeField] private AudioClip exitForceFieldSound = null;
@@ -465,6 +469,20 @@ public class SoundController : MonoBehaviour {
 
       case "laserTurretShot":
         c = laserTurretShot;
+        shortSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      /*
+       * BOMBERLING
+       */
+
+      case "bomberlingScreamSound":
+        c = bomberlingScreamSound;
+        shortSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      case "bomberlingExplodeSound":
+        c = bomberlingExplodeSound;
         shortSoundPlayer.PlayOneShot(c);
         return c.length;
 

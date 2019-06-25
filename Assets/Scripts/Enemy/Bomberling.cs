@@ -76,7 +76,7 @@ public class Bomberling : MonoBehaviour {
       textureObject.GetComponent<Animator>().SetTrigger("StandUpRight");
     }
 
-    // TODO: play short scream sound
+    SoundController.Instance.playSound("bomberlingScreamSound");
 
     isRunning = true;
     runningLeftwards = transform.position.x > playerObject.transform.position.x ? true : false;
@@ -88,7 +88,7 @@ public class Bomberling : MonoBehaviour {
       /*
        * move bomberling until he collides with something and dies
        */
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(.5f);
 
       while (!isDead && isRunning) {
         yield return new WaitForSeconds(.05f);
@@ -127,6 +127,7 @@ public class Bomberling : MonoBehaviour {
       dyingParticles.SetActive(true);
       dyingParticles.GetComponent<ParticleSystem>().Play();
       yield return new WaitForSeconds(.6f);
+      SoundController.Instance.playSound("bomberlingExplodeSound");
       textureObject.GetComponent<Animator>().SetTrigger("Hidden");
       CameraShake.Instance.play(.2f, 50f, 50f);
       deathParticles.SetActive(true);

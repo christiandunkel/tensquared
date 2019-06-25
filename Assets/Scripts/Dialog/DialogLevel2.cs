@@ -53,14 +53,6 @@ public class DialogLevel2 : MonoBehaviour {
         dialog.setAudioClip("lvl2_full_of_surprises");
         dialog.icon = "surprised";
         break;
-
-      case "lvl2_send_blueprint_for_science":
-        dialog.setText(
-          "You truly have to sent me a blueprint of how to make one of you... So I can tinker around a little... for science."
-        );
-        dialog.setAudioClip("lvl2_send_blueprint_for_science");
-        dialog.icon = "happy";
-        break;
         
       case "lvl2_you_are_out":
         dialog.setText(

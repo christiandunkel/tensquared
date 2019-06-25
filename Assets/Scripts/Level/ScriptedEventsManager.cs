@@ -179,7 +179,6 @@ public class ScriptedEventsManager : MonoBehaviour {
     TooltipManager.hideTooltip("DoubleJumpTriangle");
     yield return new WaitForSeconds(1f);
     DialogSystem.loadDialog("lvl2_full_of_surprises");
-    DialogSystem.loadDialog("lvl2_send_blueprint_for_science");
     StopCoroutine(Lvl2_FirstMorphToTriangle());
   }
   private IEnumerator LVL2_CanYouMorphIntoOtherForms() {
@@ -287,9 +286,9 @@ public class ScriptedEventsManager : MonoBehaviour {
           getLegsObjectSR.sprite = null;
         }
         else if (i == 39) {
-          yield return new WaitForSeconds(.8f);
+          yield return new WaitForSeconds(2f);
           SoundController.Instance.playSound("robotElectricDefect");
-          yield return new WaitForSeconds(.2f);
+          yield return new WaitForSeconds(.3f);
         }
         standUpObjectSR.sprite = getLegsSprites[i];
       }

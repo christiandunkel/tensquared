@@ -105,9 +105,7 @@ public class ScriptedEventsManager : MonoBehaviour {
         case "morph_to_triangle":
           StartCoroutine(Lvl2_FirstMorphToTriangle()); break;
         case "bring_arms_back":
-          DialogSystem.loadDialog("lvl2_you_are_out");
-          DialogSystem.loadDialog("lvl2_bring_me_legs");
-          break;
+          DialogSystem.loadDialog("lvl2_you_are_out"); break;
         case "can_you_morph_into_other_forms":
           StartCoroutine(LVL2_CanYouMorphIntoOtherForms()); break;
         case "rectangle_morph_praises":
@@ -116,8 +114,10 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.loadDialog("lvl2_breakable_block"); break;
         case "smash_right":
           DialogSystem.loadDialog("lvl2_smash_right"); break;
-        case "pick_up_arms":
-          StartCoroutine(LVL2_PickUpArms()); break;
+        case "second_hand_legs":
+          DialogSystem.loadDialog("lvl2_second_hand_legs"); break;
+        case "pick_up_legs":
+          StartCoroutine(LVL2_PickUpLegs()); break;
         case "morph_force_field":
           StartCoroutine(LVL2_ForceField()); break;
         case "receive_arms":
@@ -226,11 +226,12 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl2_force_fields_everywhere");
     StopCoroutine(LVL2_ForceField());
   }
-  private IEnumerator LVL2_PickUpArms() {
+  private IEnumerator LVL2_PickUpLegs() {
     GameObject.Find("RobotLegs").SetActive(false);
     PlayerManager.Instance.setValue("holdingItem", true);
-    yield return new WaitForSeconds(.1f);
-    StopCoroutine(LVL2_PickUpArms());
+    yield return new WaitForSeconds(.3f);
+    DialogSystem.loadDialog("lvl2_found_legs");
+    StopCoroutine(LVL2_PickUpLegs());
   }
   private IEnumerator LVL2_ReceiveArms() {
 

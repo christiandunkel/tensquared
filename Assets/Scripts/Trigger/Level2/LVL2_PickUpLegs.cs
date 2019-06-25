@@ -12,7 +12,7 @@ public class LVL2_PickUpLegs : MonoBehaviour {
 
     if (!playedAlready && col.gameObject.tag == "Player") {
       playedAlready = true; // only load once
-      ScriptedEventsManager.Instance.LoadEvent(2, "pick_up_arms");
+      ScriptedEventsManager.Instance.LoadEvent(2, "pick_up_legs");
     }
 
   }

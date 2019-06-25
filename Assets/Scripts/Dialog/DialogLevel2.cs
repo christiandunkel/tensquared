@@ -64,14 +64,6 @@ public class DialogLevel2 : MonoBehaviour {
         dialog.icon = "neutral";
         break;
 
-      case "lvl2_bring_me_legs":
-        dialog.setText(
-          "Even bringing me a pair of second-hand goods will do... although I will feel very sad inside."
-        );
-        dialog.setAudioClip("lvl2_bring_me_legs");
-        dialog.icon = "sad";
-        break;
-
       case "lvl2_can_you_morph_into_other_forms":
         dialog.setText(
           "Little friend, I'm quite curious...",
@@ -83,7 +75,8 @@ public class DialogLevel2 : MonoBehaviour {
         
       case "lvl2_rectangle_great":
         dialog.setText(
-          "That's great! You can even increase your mass! Wonderful! Although, according to my calculations... It's scientifically impossible... probably."
+          "That's great! You can even increase your mass! Wonderful!" + 
+          "Although, according to my calculations... It's scientifically impossible... probably."
         );
         dialog.setAudioClip("lvl2_rectangle_great");
         dialog.icon = "surprised";
@@ -91,7 +84,8 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_breakable_block":
         dialog.setText(
-          "This metallic thing looks quite brittle, don't you think? Maybe letting something heavy fall on top of it from a certain distance will break it."
+          "This metallic thing looks quite brittle, don't you think?" + 
+          "Maybe letting something heavy fall on top of it from a certain distance will break it."
         );
         dialog.setAudioClip("lvl2_breakable_block");
         dialog.icon = "neutral";
@@ -106,9 +100,27 @@ public class DialogLevel2 : MonoBehaviour {
         dialog.icon = "happy";
         break;
 
+      case "lvl2_second_hand_legs":
+        dialog.setText(
+          "Did you find any legs yet?",
+          "You could even bring me second-hand goods, although I would feel very sad inside."
+        );
+        dialog.setAudioClip("lvl2_second_hand_legs");
+        dialog.icon = "sad";
+        break;
+
+      case "lvl2_found_legs":
+        dialog.setText(
+          "Is that a pair of legs? Very good!"
+        );
+        dialog.setAudioClip("lvl2_found_legs");
+        dialog.icon = "happy";
+        break;
+
       case "lvl2_force_fields_everywhere":
         dialog.setText(
-          "You can find those blue blobs all over the place, like litter, destroying the landscape. At least, they sound nice. And sometimes that's all that counts, don't you think?"
+          "You can find those blue blobs all over the place, like litter, destroying the landscape." + 
+          "At least, they sound nice. And sometimes that's all that counts, don't you think?"
         );
         dialog.setAudioClip("lvl2_force_fields_everywhere");
         dialog.icon = "neutral";

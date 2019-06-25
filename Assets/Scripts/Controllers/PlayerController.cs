@@ -255,7 +255,7 @@ public class PlayerController : PhysicsObject {
             switch (state) {
               case "Rectangle":
                 // shake on landing with rectangle
-                CameraShake.Instance.play(.2f, 30f, 30f);
+                CameraShake.Instance.play(.2f, 17f, 12f);
                 soundController.playSound("landingRectangleSound");
                 break;
               case "Triangle":
@@ -385,7 +385,7 @@ public class PlayerController : PhysicsObject {
 
     IEnumerator respawn() {
 
-      CameraShake.Instance.play(.2f, 10f, 7f);
+      CameraShake.Instance.play(.2f, 13f, 8f);
 
       playDeathParticles();
       soundController.playSound("playerDeathSound");

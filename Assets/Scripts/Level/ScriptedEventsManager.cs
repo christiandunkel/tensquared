@@ -141,6 +141,12 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToCircle", true);
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
+    
+    // disabled 2nd voice linerenderer for standing robot,
+    // until the robot stands up at the end of the level
+    LineRenderer robotStandUpVoiceLineRenderer = DialogSystem.getLineRenderer("RobotStandUpVoiceLineRenderer");
+    robotStandUpVoiceLineRenderer.gameObject.SetActive(false);
+
     yield return new WaitForSeconds(2f);
     DialogSystem.loadDialog("lvl2_no_legs_over_here");
     yield return new WaitForSeconds(13.5f);
@@ -235,11 +241,6 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
 
-    // disabled 2nd voice linerenderer for standing robot,
-    // until the robot stands up
-    LineRenderer robotStandUpVoiceLineRenderer = DialogSystem.getLineRenderer("RobotStandUpVoiceLineRenderer");
-    robotStandUpVoiceLineRenderer.gameObject.SetActive(false);
-
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
 
@@ -296,6 +297,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     }
 
     // robot is standing up, activate 2nd line renderer
+    LineRenderer robotStandUpVoiceLineRenderer = DialogSystem.getLineRenderer("RobotStandUpVoiceLineRenderer");
     robotStandUpVoiceLineRenderer.gameObject.SetActive(true);
 
     yield return new WaitForSeconds(2f);

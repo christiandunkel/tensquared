@@ -55,6 +55,18 @@ public class VolumeController : MonoBehaviour {
 
   }
 
+  public void pauseBackgroundMusic() {
+
+    /*
+     * pauses all sound sources playing background music
+     */
+
+    foreach (AudioSource src in musicSources) {
+      src.Pause();
+    }
+
+  }
+
   private void PauseAudioSources() {
     foreach (AudioSource src in musicSources) src.Pause();
     foreach (AudioSource src in soundSources) src.Pause();

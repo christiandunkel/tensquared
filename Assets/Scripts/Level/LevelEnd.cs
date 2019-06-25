@@ -10,14 +10,19 @@ public class LevelEnd : MonoBehaviour {
   // singleton
   public static LevelEnd Instance;
 
-  public int levelID = 1;
+  public int levelID;
 
-  private CanvasGroup CG, endMenuContainer, levelCompleteCG, nextLevelCG;
+  private CanvasGroup CG;
+  private CanvasGroup endMenuContainer;
+  private CanvasGroup levelCompleteCG;
+  private CanvasGroup nextLevelCG;
 
   private void Awake() {
 
     Instance = this;
     CG = gameObject.GetComponent<CanvasGroup>();
+
+    levelID = LevelSettings.Instance.levelID;
 
     // get animators of child elements
     foreach (Transform child in transform) {
@@ -27,20 +32,26 @@ public class LevelEnd : MonoBehaviour {
       endMenuContainer = child.gameObject.GetComponent<CanvasGroup>();
 
       foreach (Transform child2 in child.gameObject.transform) {
+
         switch (child2.gameObject.name) {
-          case "LevelCompleteAnimation": levelCompleteCG = child2.gameObject.GetComponent<CanvasGroup>(); break;
-          case "NextLevelAnimation": nextLevelCG = child2.gameObject.GetComponent<CanvasGroup>(); break;
-          default: break;
+
+          case "LevelCompleteAnimation":
+            levelCompleteCG = child2.gameObject.GetComponent<CanvasGroup>();
+            break;
+
+          case "NextLevelAnimation":
+            nextLevelCG = child2.gameObject.GetComponent<CanvasGroup>();
+            break;
+
         }
+
       }
 
     }
   }
 
   public void endLevel() {
-
-    Debug.Log("LevelEnd: Reached end of level.");
-
+    
     LevelTimer.Instance.saveTimer();
 
     LevelSettings.Instance.setSetting("canMove", false);
@@ -51,13 +62,22 @@ public class LevelEnd : MonoBehaviour {
 
     PauseMenu.Instance.gameObject.SetActive(false);
 
+    VolumeController.Instance.pauseBackgroundMusic();
+
+    Debug.Log("LevelEnd: Reached end of level.");
+
     // activate next level
-    if (!PlayerPrefs.HasKey("lvls_unlocked")) PlayerPrefs.SetInt("lvls_unlocked", levelID + 1);
-    else if (!(levelID < PlayerPrefs.GetInt("lvls_unlocked"))) PlayerPrefs.SetInt("lvls_unlocked", levelID + 1);
+    if (!PlayerPrefs.HasKey("lvls_unlocked")) {
+      PlayerPrefs.SetInt("lvls_unlocked", levelID + 1);
+    }
+    else if (levelID >= PlayerPrefs.GetInt("lvls_unlocked")) {
+      PlayerPrefs.SetInt("lvls_unlocked", levelID + 1);
+    }
 
     CG.alpha = 1f;
     CG.interactable = true;
 
+    // play end-screen animation
     StartCoroutine(endSceenAnimation());
 
     IEnumerator endSceenAnimation() {

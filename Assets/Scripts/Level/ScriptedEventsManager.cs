@@ -154,7 +154,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
-    CameraShake.Instance.play(.4f, 17f, 17f);
+    CameraShake.Instance.play(.4f, 34f, 34f);
 
     yield return new WaitForSeconds(1.5f);
     robotObjectTexture.GetComponent<Animator>().SetBool("LookRight", true);
@@ -197,7 +197,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
-    CameraShake.Instance.play(.4f, 17f, 17f);
+    CameraShake.Instance.play(.4f, 34f, 34f);
 
     yield return new WaitForSeconds(1.65f);
     DialogSystem.loadDialog("lvl2_can_you_morph_into_other_forms");
@@ -235,6 +235,11 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
 
+    // disabled 2nd voice linerenderer for standing robot,
+    // until the robot stands up
+    LineRenderer robotStandUpVoiceLineRenderer = DialogSystem.getLineRenderer("RobotStandUpVoiceLineRenderer");
+    robotStandUpVoiceLineRenderer.gameObject.SetActive(false);
+
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
 
@@ -248,13 +253,19 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(2.3f);
     // robot lands on ground
     GameObject.Find("RobotLandingParticles").GetComponent<ParticleSystem>().Play();
-    CameraShake.Instance.play(.4f, 17f, 17f);
-    yield return new WaitForSeconds(1.5f);
+    CameraShake.Instance.play(.4f, 34f, 34f);
+    yield return new WaitForSeconds(1.2f);
+
+    DialogSystem.loadDialog("lvl2_thank_you_my_little_friend");
+    yield return new WaitForSeconds(9f);
 
     SpriteRenderer getLegsObjectSR = GameObject.Find("RobotAttachingLegsTexture").GetComponent<SpriteRenderer>();
     SpriteRenderer standUpObjectSR = GameObject.Find("RobotStandUpTexture").GetComponent<SpriteRenderer>();
     Sprite[] getLegsSprites = Resources.LoadAll<Sprite>("RobotGetLegsAnimation");
     int spriteNum = getLegsSprites.Length;
+
+    // repair sound
+    SoundController.Instance.playSound("robotRepairSound");
 
     // remove legs from player
     PlayerManager.Instance.setValue("holdingItem", false);
@@ -272,14 +283,23 @@ public class ScriptedEventsManager : MonoBehaviour {
       }
       else {
         if (i == 32) {
-          yield return new WaitForSeconds(.3f);
           getLegsObjectSR.sprite = null;
+        }
+        else if (i == 39) {
+          yield return new WaitForSeconds(1f);
         }
         standUpObjectSR.sprite = getLegsSprites[i];
       }
       yield return new WaitForSeconds(.08f);
     }
 
+    // robot is standing up, activate 2nd line renderer
+    robotStandUpVoiceLineRenderer.gameObject.SetActive(true);
+
+    yield return new WaitForSeconds(2f);
+    DialogSystem.loadDialog("lvl2_where_did_you_pick_up_these_legs");
+    yield return new WaitForSeconds(15f);
+    LevelEnd.Instance.endLevel();
     StopCoroutine(LVL2_ReceiveArms());
   }
 

@@ -124,26 +124,15 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_thank_you_my_little_friend":
         dialog.setText(
-          "Thank you very much, my little friend! You're a life-safer!",
-          "I will certainly repay you!"
+          "Thank you very much, my little friend! You're a life-safer! I will certainly repay you!"
         );
         dialog.setAudioClip("lvl2_thank_you_my_little_friend");
         dialog.icon = "happy";
         break;
 
-      case "lvl2_tea_and_cookies":
-        dialog.setText(
-          "Why don't you visit me in the future for some tea and cookies?",
-          "But don't forget to bring your scientifically impossible body with you!"
-        );
-        dialog.setAudioClip("lvl2_tea_and_cookies");
-        dialog.icon = "laughing";
-        break;
-
       case "lvl2_where_did_you_pick_up_these_legs":
         dialog.setText(
-          "But tell me my little friend, where did you pick up these legs?",
-          "They make me feel a little strange..."
+          "But tell me my little friend, where did you pick up these legs? They make me feel a little strange..."
         );
         dialog.setAudioClip("lvl2_where_did_you_pick_up_these_legs");
         dialog.icon = "surprised";

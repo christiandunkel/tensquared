@@ -160,6 +160,50 @@ public class DialogSystem : MonoBehaviour {
 
   }
 
+  public static LineRenderer[] getLineRenderers() {
+
+    /*
+     * returns an array of all line renderers
+     */
+
+    return voiceLineRenderers;
+
+  }
+
+  public static LineRenderer getLineRenderer(int id) {
+
+    /*
+     * returns the line renderer with the given id
+     */
+
+    if (id >= voiceLineRenderers.Length) {
+      Debug.LogWarning("DialogSystem: Voice line renderer array (Length: " + voiceLineRenderers.Length+ ")" + 
+                       " does not contain an id = " + id + ".");
+    }
+
+    return voiceLineRenderers[id];
+
+  }
+
+  public static LineRenderer getLineRenderer(string name) {
+
+    /*
+     * returns the line renderer with the given object name
+     */
+
+    foreach (LineRenderer lr in voiceLineRenderers) {
+
+      if (lr.gameObject.name == name) {
+        return lr;
+      }
+
+    }
+
+    Debug.LogWarning("DialogSystem: No voice line renderer with the name '" + name + "' found.");
+    return null;
+
+  }
+
 
 
 
@@ -180,15 +224,7 @@ public class DialogSystem : MonoBehaviour {
     if (voiceLineRenderers.Length > 0) {
 
       if (dialogBoxVisible) {
-        foreach (LineRenderer lr in voiceLineRenderers) {
-          lr.gameObject.SetActive(true);
-        }
         visualizeVoice();
-      }
-      else {
-        foreach (LineRenderer lr in voiceLineRenderers) {
-          lr.gameObject.SetActive(false);
-        }
       }
 
     }

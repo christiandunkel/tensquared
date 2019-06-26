@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7419809932118503189}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1643434866050637194
 AudioSource:
@@ -16088,6 +16088,133 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &5199326848883489699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278551202189200835}
+  - component: {fileID: 3220452754395802209}
+  m_Layer: 0
+  m_Name: BomberlingSoundPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1278551202189200835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5199326848883489699}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7419809932118503189}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &3220452754395802209
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5199326848883489699}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7335364824366915231
 GameObject:
   m_ObjectHideFlags: 0
@@ -16127,6 +16254,7 @@ Transform:
   - {fileID: 1842526319072040984}
   - {fileID: 1842526318748580361}
   - {fileID: 1842526319204392599}
+  - {fileID: 1278551202189200835}
   - {fileID: 7333933708637072687}
   m_Father: {fileID: 1842526319484236204}
   m_RootOrder: 0
@@ -16154,6 +16282,7 @@ MonoBehaviour:
   cameraShakeSoundPlayer: {fileID: 1842526318667145694}
   disappearingBlockAppearSoundPlayer: {fileID: 1842526317865914313}
   disappearingBlockDisappearSoundPlayer: {fileID: 1842526319204392596}
+  bomberlingSoundPlayer: {fileID: 3220452754395802209}
   speechSoundPlayer: {fileID: 1643434866050637194}
   morphSound: {fileID: 8300000, guid: b78052f4a7d49394d8e0e529d6e53718, type: 3}
   landingCircleSound: {fileID: 8300000, guid: 2f18ab7ebff033e41852afa9f5eff95c, type: 3}
@@ -16180,6 +16309,8 @@ MonoBehaviour:
   laserBulletHit: {fileID: 8300000, guid: 0e4d542d1eae0f24b85bed2d1a3068e1, type: 3}
   laserTurretShot: {fileID: 8300000, guid: bfcd3e1f99ef47d4292f6a38d756fe88, type: 3}
   bomberlingScreamSound: {fileID: 8300000, guid: 9a9e451e8d75a0e479716338fcab9f59,
+    type: 3}
+  bomberlingShortScreamSound: {fileID: 8300000, guid: 3cf23fd73aef9b24b968a9dae3b152e9,
     type: 3}
   bomberlingExplodeSound: {fileID: 8300000, guid: 681c8111f85596c41a868dc962e2aec6,
     type: 3}

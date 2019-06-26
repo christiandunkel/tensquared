@@ -16,6 +16,7 @@ public class Bomberling : MonoBehaviour {
   [SerializeField] private GameObject deathParticles = null;
 
   // components
+  private SoundController soundController;
   private Rigidbody2D rb2d;
   private BoxCollider2D boxCollider;
   private float boxColliderSizeHalf;
@@ -33,6 +34,7 @@ public class Bomberling : MonoBehaviour {
     playerObject = PlayerManager.Instance.gameObject;
 
     // get components
+    soundController = SoundController.Instance;
     rb2d = GetComponent<Rigidbody2D>();
     boxCollider = GetComponent<BoxCollider2D>();
     float boxColliderOffset = 3f;
@@ -76,12 +78,13 @@ public class Bomberling : MonoBehaviour {
       textureObject.GetComponent<Animator>().SetTrigger("StandUpRight");
     }
 
-    SoundController.Instance.playSound("bomberlingScreamSound");
+    soundController.playSound("bomberlingScreamSound");
 
     isRunning = true;
     runningLeftwards = transform.position.x > playerObject.transform.position.x ? true : false;
 
     StartCoroutine(run());
+    StartCoroutine(playSound());
 
     IEnumerator run() {
 
@@ -102,6 +105,23 @@ public class Bomberling : MonoBehaviour {
 
     }
 
+    IEnumerator playSound() {
+
+      /*
+       * play continuous bomberling scream sounds
+       */
+
+      yield return new WaitForSeconds(.5f);
+
+      while (!isDead && isRunning) {
+        soundController.playSound("bomberlingShortScreamSound");
+        yield return new WaitForSeconds(.5f);
+      }
+
+      StopCoroutine(playSound());
+
+    }
+
   }
 
   private void selfDestruct() {
@@ -111,7 +131,9 @@ public class Bomberling : MonoBehaviour {
      */
 
     // don't trigger this twice
-    if (isDead) return;
+    if (isDead) {
+      return;
+    }
 
     isDead = true;
     isRunning = false;
@@ -127,7 +149,7 @@ public class Bomberling : MonoBehaviour {
       dyingParticles.SetActive(true);
       dyingParticles.GetComponent<ParticleSystem>().Play();
       yield return new WaitForSeconds(.6f);
-      SoundController.Instance.playSound("bomberlingExplodeSound");
+      soundController.playSound("bomberlingExplodeSound");
       textureObject.GetComponent<Animator>().SetTrigger("Hidden");
       CameraShake.Instance.play(.2f, 50f, 50f);
       deathParticles.SetActive(true);

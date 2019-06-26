@@ -44,6 +44,7 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioSource cameraShakeSoundPlayer = null;
   [SerializeField] private AudioSource disappearingBlockAppearSoundPlayer = null;
   [SerializeField] private AudioSource disappearingBlockDisappearSoundPlayer = null;
+  [SerializeField] private AudioSource bomberlingSoundPlayer = null;
 
   // speech sound players
   [SerializeField] private AudioSource speechSoundPlayer = null;
@@ -107,6 +108,10 @@ public class SoundController : MonoBehaviour {
 
       case "disappearingBlockDisappearSoundPlayer":
         disappearingBlockDisappearSoundPlayer.Stop();
+        break;
+
+      case "bomberlingSoundPlayer":
+        bomberlingSoundPlayer.Stop();
         break;
 
       /* SPEECH */
@@ -343,6 +348,7 @@ public class SoundController : MonoBehaviour {
 
   // bomberling
   [SerializeField] private AudioClip bomberlingScreamSound = null;
+  [SerializeField] private AudioClip bomberlingShortScreamSound = null;
   [SerializeField] private AudioClip bomberlingExplodeSound = null;
 
   // force field
@@ -478,12 +484,17 @@ public class SoundController : MonoBehaviour {
 
       case "bomberlingScreamSound":
         c = bomberlingScreamSound;
-        shortSoundPlayer.PlayOneShot(c);
+        bomberlingSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      case "bomberlingShortScreamSound":
+        c = bomberlingShortScreamSound;
+        bomberlingSoundPlayer.PlayOneShot(c);
         return c.length;
 
       case "bomberlingExplodeSound":
         c = bomberlingExplodeSound;
-        shortSoundPlayer.PlayOneShot(c);
+        bomberlingSoundPlayer.PlayOneShot(c);
         return c.length;
 
       /*

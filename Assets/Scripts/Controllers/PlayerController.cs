@@ -643,8 +643,7 @@ public class PlayerController : PhysicsObject {
 
       case "Piston":
         Debug.Log("PlayerController: Stepped on a piston.");
-        Piston.activate(col.gameObject);
-        soundController.playSound("pistonPushSound");
+        Piston.activatePiston(col.gameObject);
         break;
 
       case "NoMorphForceField":

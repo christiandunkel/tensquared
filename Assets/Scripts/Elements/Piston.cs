@@ -1,26 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /*
  * powers the 'piston' prefab
  */
 
 public class Piston : MonoBehaviour {
-
-  /*
-   * =================
-   * === SINGLETON ===
-   * =================
-   */
-
-  public static Piston Instance;
-
-  void Awake() {
-    Instance = this;
-  }
-
-
-
-
 
   /*
    * ==================
@@ -30,44 +15,11 @@ public class Piston : MonoBehaviour {
 
   // components
   private Animator animator;
+  private static SoundController soundController;
 
   // attributes
-  public bool pistonIsPlaying = false;
-  private const float delayBeforePush = 0.2f;
-  private float timer = 0f;
-
-
-
-
-
-  /*
-   * ================
-   * === EXTERNAL ===
-   * ================
-   */
-
-  public static void activate(GameObject piston) {
-
-    /*
-     * activates the given piston object
-     */
-
-    //piston.GetComponent<Piston>().activate();
-
-  }
-
-  public void activate() {
-
-    /*
-     * activates the current piston instance
-     */
-
-    if (timer <= 0f) {
-      pistonIsPlaying = true;
-      timer = delayBeforePush;
-    }
-
-  }
+  private bool isMoving = false;
+  private const float delayBeforePush = 0.15f;
 
 
 
@@ -80,19 +32,59 @@ public class Piston : MonoBehaviour {
    */
 
   private void Start() {
+    soundController = SoundController.Instance;
     animator = GetComponent<Animator>();
   }
 
-  private void Update() {
+  private void activate() {
 
-    if (pistonIsPlaying && timer <= 0f) {
-      pistonIsPlaying = false;
+    /*
+     * activates the current piston instance
+     */
+
+    if (isMoving) {
+      return;
+    }
+
+    isMoving = true;
+
+    StartCoroutine(openPiston());
+
+    IEnumerator openPiston() {
+
+      // move the piston top up after delay
+      yield return new WaitForSeconds(delayBeforePush);
+      soundController.playSound("pistonPushSound");
       animator.SetTrigger("PushUp");
       PlayerManager.Instance.setValue("steppedOnPiston", true);
-    }
-    else {
-      timer -= Time.deltaTime;
+
+      // reset piston after animation is over
+      yield return new WaitForSeconds(1f);
+      animator.ResetTrigger("PushUp");
+      isMoving = false;
+
     }
 
   }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public static void activatePiston(GameObject piston) {
+
+    /*
+     * activates the given piston object
+     */
+
+    piston.GetComponent<Piston>().activate();
+
+  }
+
 }

@@ -64,6 +64,8 @@ public class DialogSystem : MonoBehaviour {
   // read-only states of dialog box
   private static bool dialogBoxVisible = false;
 
+  private static float speechVolumePercentage = 0f;
+
 
 
 
@@ -79,6 +81,11 @@ public class DialogSystem : MonoBehaviour {
   private void Start() {
 
     Debug.Log("DialogSystem: Loaded.");
+
+
+    // volume level of speech sound players as set via the volume controller
+    // as percentage
+    speechVolumePercentage = VolumeController.Instance.getVolume("speech") * 100;
 
 
     // load audio visualisation objects
@@ -372,7 +379,14 @@ public class DialogSystem : MonoBehaviour {
     int dataPoints = 64;
     float[] samples = new float[dataPoints];
 
+    // get sine data values from audio clip playing in player
     audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
+
+    // as the sample data is affected by the volume set in the volume controller
+    // -> need to correct values with current speech volume
+    for (int i = 0; i < dataPoints; i++) {
+      samples[i] *= (100f / speechVolumePercentage);
+    }
 
     foreach (LineRenderer lr in voiceLineRenderers) {
 

@@ -149,4 +149,19 @@ public class VolumeController : MonoBehaviour {
     PlayerPrefs.SetFloat("speech_volume", newVolume);
   }
 
+  public float getVolume(string name) {
+    switch (name) {
+      case "music":
+        return musicVolume;
+      case "sound":
+        return soundVolume;
+      case "speech":
+        return speechVolume;
+    }
+
+    Debug.LogWarning("VolumeController: Could not find a volume option called " + name + ".");
+    return 0f;
+
+  }
+
 }

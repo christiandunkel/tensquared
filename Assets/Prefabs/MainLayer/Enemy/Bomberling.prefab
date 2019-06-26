@@ -4822,7 +4822,8 @@ MonoBehaviour:
   dyingParticles: {fileID: 2861388246343959845}
   deathParticles: {fileID: 2861388247759358577}
   radiusOfActivation: 150
-  movementSpeed: 2.5
+  movementSpeed: 25
+  movementSpeedIncrease: 1.5
 --- !u!50 &2861388246392929575
 Rigidbody2D:
   serializedVersion: 4

@@ -23,7 +23,8 @@ public class Bomberling : MonoBehaviour {
 
   // settings and attributes
   public float radiusOfActivation = 150f;
-  public float movementSpeed = 2.5f;
+  public float movementSpeed = 25f;
+  public float movementSpeedIncrease = 1.5f;
   private bool isDead = false;
   private bool isRunning = false;
   private bool runningLeftwards = false;
@@ -93,12 +94,29 @@ public class Bomberling : MonoBehaviour {
        */
       yield return new WaitForSeconds(.5f);
 
+      long counter = 0;
       while (!isDead && isRunning) {
         yield return new WaitForSeconds(.05f);
-        Vector2 moveBy = Vector3.zero;
-        moveBy.x = movementSpeed;
-        if (runningLeftwards) moveBy.x *= -1;
-        rb2d.velocity += moveBy;
+
+        Vector2 moveBy = Vector2.zero;
+
+        // start movement in first loop
+        if (counter == 0) {
+          moveBy.x = movementSpeed;
+          if (runningLeftwards) {
+            moveBy.x *= -1;
+          }
+          rb2d.velocity = moveBy;
+        }
+        // additive movement in every loop
+        else {
+          moveBy.x += movementSpeedIncrease;
+          if (runningLeftwards) {
+            moveBy.x *= -1;
+          }
+          rb2d.velocity += moveBy;
+        }
+        counter++;
       }
 
       StopCoroutine(run());
@@ -114,7 +132,11 @@ public class Bomberling : MonoBehaviour {
       yield return new WaitForSeconds(.5f);
 
       while (!isDead && isRunning) {
-        soundController.playSound("bomberlingShortScreamSound");
+
+        if (distanceToPlayer() < 150f) {
+          soundController.playSound("bomberlingShortScreamSound");
+        }
+        
         yield return new WaitForSeconds(.5f);
       }
 
@@ -149,9 +171,13 @@ public class Bomberling : MonoBehaviour {
       dyingParticles.SetActive(true);
       dyingParticles.GetComponent<ParticleSystem>().Play();
       yield return new WaitForSeconds(.6f);
-      soundController.playSound("bomberlingExplodeSound");
+
+      if (distanceToPlayer() < 150f) {
+        soundController.playSound("bomberlingExplodeSound");
+        CameraShake.Instance.play(.2f, 50f, 50f);
+      }
+      
       textureObject.GetComponent<Animator>().SetTrigger("Hidden");
-      CameraShake.Instance.play(.2f, 50f, 50f);
       deathParticles.SetActive(true);
       deathParticles.GetComponent<ParticleSystem>().Play();
       yield return new WaitForSeconds(.1f);

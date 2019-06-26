@@ -102,6 +102,12 @@ This table lists all the elements used in the game with sorting layer and order 
 |**GroundBackground (Extension)**|Default|-71|
 |**RedBackground (Lights)**|Default|-71|
 |**RedBackground**|Default|-72|
+|**BehindPlayerLight1**|Default|-80|
+|**BehindPlayerLight2**|Default|-79|
+|**BehindPlayerLight3**|Default|-78|
+|**BehindPlayerLight4**|Default|-77|
+|**BehindPlayerLight5**|Default|-76|
+|**BehindPlayerLight6**|Default|-75|
 |**Factory**| | |
 |-> Texture Light (Top)|Default|-89|
 |-> Texture|Default|-90|

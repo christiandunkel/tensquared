@@ -13,9 +13,15 @@ This table lists all the elements used in the game with sorting layer and order 
 |**LightFrontShape5**|Foreground|196|
 |**LightFrontShape6**|Foreground|195|
 
-## Foreground
+## MainLayer
 | Sprite | Layer | Order |
 |--|--|--|
+|**BeforePlayerLight1**|Default|500|
+|**BeforePlayerLight2**|Default|499|
+|**BeforePlayerLight3**|Default|498|
+|**BeforePlayerLight4**|Default|497|
+|**BeforePlayerLight5**|Default|496|
+|**BeforePlayerLight6**|Default|495|
 |**ClosingDoor**| | |
 |-> Bottom Texture|Default|400|
 |-> Door Texture|Default|12|

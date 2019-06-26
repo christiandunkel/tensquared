@@ -241,6 +241,8 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     robotLegSmokeParticles = GameObject.Find("RobotLegSmokeParticles");
     robotLegSmokeParticles2 = GameObject.Find("RobotLegSmokeParticles2");
+    robotLegSmokeParticles.SetActive(false);
+    robotLegSmokeParticles2.SetActive(false);
 
     StopCoroutine(LVL2_PickUpLegs());
   }

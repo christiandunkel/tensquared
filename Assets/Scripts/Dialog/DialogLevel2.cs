@@ -75,7 +75,7 @@ public class DialogLevel2 : MonoBehaviour {
         
       case "lvl2_rectangle_great":
         dialog.setText(
-          "That's great! You can even increase your mass! Wonderful!" + 
+          "That's great! You can even increase your mass! Wonderful! " + 
           "Although, according to my calculations... It's scientifically impossible... probably."
         );
         dialog.setAudioClip("lvl2_rectangle_great");
@@ -84,7 +84,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_breakable_block":
         dialog.setText(
-          "This metallic thing looks quite brittle, don't you think?" + 
+          "This metallic thing looks quite brittle, don't you think? " + 
           "Maybe letting something heavy fall on top of it from a certain distance will break it."
         );
         dialog.setAudioClip("lvl2_breakable_block");
@@ -119,7 +119,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_force_fields_everywhere":
         dialog.setText(
-          "You can find those blue blobs all over the place, like litter, destroying the landscape." + 
+          "You can find those blue blobs all over the place, like litter, destroying the landscape. " + 
           "At least, they sound nice. And sometimes that's all that counts, don't you think?"
         );
         dialog.setAudioClip("lvl2_force_fields_everywhere");

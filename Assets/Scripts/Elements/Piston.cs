@@ -52,7 +52,7 @@ public class Piston : MonoBehaviour {
      * activates the given piston object
      */
 
-    piston.GetComponent<Piston>().activate();
+    //piston.GetComponent<Piston>().activate();
 
   }
 

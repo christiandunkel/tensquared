@@ -352,13 +352,10 @@ public class DialogSystem : MonoBehaviour {
         case "angry":     return 6;
         case "furious":   return 7;
         case "sad":       return 8;
-        default:
-          Debug.Log(
-            "DialogSystem: Given dialog item " + iconName +
-            " couldn't be found. Displaying neutral icon."
-          );
-          break;
       }
+      Debug.LogWarning(
+        "DialogSystem: Given dialog item " + iconName + " couldn't be found. Displaying neutral icon."
+      );
       return 0;
     }
 
@@ -388,12 +385,16 @@ public class DialogSystem : MonoBehaviour {
       samples[i] *= (100f / speechVolumePercentage);
     }
 
+    // go through all line renderers found in scene
     foreach (LineRenderer lr in voiceLineRenderers) {
 
       float posX = lr.transform.position.x;
       float posY = lr.transform.position.y;
 
+      // temporary variable in which to save points later applied to line renderer
       Vector3[] points = new Vector3[dataPoints];
+
+      // go through all audio values and convert them to points on the line renderer
       for (int i = 0; i < dataPoints; i++) {
         points[i] = Vector3.zero;
         points[i].x = posX + (i / 1.3f);
@@ -405,6 +406,7 @@ public class DialogSystem : MonoBehaviour {
         }
       }
 
+      // apply converted audio values to line renderer
       lr.SetPositions(points);
 
     }

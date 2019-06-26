@@ -50,9 +50,6 @@ public class LevelManager : MonoBehaviour {
       
     }
 
-    // REMOVE AFTER PREVIEW
-    levelsUnlocked = 3;
-
     Debug.Log("LevelManager: " + levelsUnlocked + " level(s) unlocked.");
 
     try { 

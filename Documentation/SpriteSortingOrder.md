@@ -168,13 +168,13 @@ This table lists all the elements used in the game with sorting layer and order 
 |  |  |  |
 |**Clouds**|Background|30|
 |**Moon**| | |
-|-> Texture|Default|22|
-|-> Light Texture|Default|18|
+|-> Texture|Background|22|
+|-> Light Texture|Background|18|
 |**Sun**| | |
-|-> Foreground Light (Texture)|Default|21|
-|-> Body Texture|Default|20|
-|-> Rays Texture|Default|19|
-|-> Background Light (Texture)|Default|18|
+|-> Foreground Light (Texture)|Background|21|
+|-> Body Texture|Background|20|
+|-> Rays Texture|Background|19|
+|-> Background Light (Texture)|Background|18|
 
 ## BackgroundLayer3
 | Sprite | Layer | Order |

@@ -227,9 +227,6 @@ public class ScriptedEventsManager : MonoBehaviour {
     StopCoroutine(LVL2_ForceField());
   }
 
-
-
-
   private GameObject robotLegSmokeParticles = null;
   private GameObject robotLegSmokeParticles2 = null;
 
@@ -319,7 +316,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     LineRenderer robotStandUpVoiceLineRenderer = DialogSystem.getLineRenderer("RobotStandUpVoiceLineRenderer");
     robotStandUpVoiceLineRenderer.gameObject.SetActive(true);
 
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(3.5f);
     DialogSystem.loadDialog("lvl2_where_did_you_pick_up_these_legs");
     yield return new WaitForSeconds(11f);
     LevelEnd.Instance.endLevel();

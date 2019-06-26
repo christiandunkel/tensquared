@@ -22,9 +22,9 @@ public class Bomberling : MonoBehaviour {
   private float boxColliderSizeHalf;
 
   // settings and attributes
-  public float radiusOfActivation = 150f;
-  public float movementSpeed = 25f;
-  public float movementSpeedIncrease = 1.5f;
+  [SerializeField] private float radiusOfActivation = 120f;
+  [SerializeField] private float movementSpeed = 25f;
+  [SerializeField] private float movementSpeedIncrease = 1.5f;
   private bool isDead = false;
   private bool isRunning = false;
   private bool runningLeftwards = false;

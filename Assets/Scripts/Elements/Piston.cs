@@ -32,8 +32,19 @@ public class Piston : MonoBehaviour {
    */
 
   private void Start() {
+
     soundController = SoundController.Instance;
     animator = GetComponent<Animator>();
+
+  }
+
+  private void OnTriggerEnter2D(Collider2D col) {
+
+    if (col.gameObject.tag == "Player") {
+      Debug.Log("Piston: Player stepped on piston " + gameObject.name + ".");
+      activate();
+    }
+
   }
 
   private void activate() {

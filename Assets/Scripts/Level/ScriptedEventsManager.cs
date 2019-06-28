@@ -456,7 +456,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     DialogSystem.loadDialog("lvl1_im_off");
 
-    yield return new WaitForSeconds(7f);
+    yield return new WaitForSeconds(7.4f);
 
     /* ROBOT FLY OFF ANIMATION */
 

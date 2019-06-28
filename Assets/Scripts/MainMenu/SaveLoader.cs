@@ -14,14 +14,25 @@ public class SaveLoader : MonoBehaviour {
   private string encoding_pass_phrase = "tensquaredSaveFileCipher";
 
   // default value / format of timer
-  private string def_timer = "00:00:000";
-  private Regex timer_regex = new Regex(@"^[0-9]{2}:[0-9]{2}:[0-9]{3}$", RegexOptions.Compiled);
+  private static string def_timer = "00:00:000";
+  private static Regex timer_regex = new Regex(@"^[0-9]{2}:[0-9]{2}:[0-9]{3}$", RegexOptions.Compiled);
 
   private void Start() {
 
     SetDefaultValues();
 
   }
+
+
+
+  public static bool isTimerInRightFormat(string timer) {
+    return timer_regex.IsMatch(timer);
+  }
+  public static string getDefaultTimer() {
+    return def_timer;
+  }
+
+
 
 
   // set default values, if player prefs aren't set

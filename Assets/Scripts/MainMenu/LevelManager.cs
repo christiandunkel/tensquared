@@ -87,7 +87,19 @@ public class LevelManager : MonoBehaviour {
       // set timer values
       foreach (Transform obj in lvl.transform) {
         if (obj.name == "Timer") {
-          string timer = PlayerPrefs.GetString("lvl" + counter + "_timer");
+          string timer = "";
+
+          if (PlayerPrefs.HasKey("lvl" + counter + "_timer")) {
+            timer = PlayerPrefs.GetString("lvl" + counter + "_timer");
+
+            // if timer is in wrong format, write default timer instead
+            if (!SaveLoader.isTimerInRightFormat(timer)) {
+              string default_timer = SaveLoader.getDefaultTimer();
+              timer = default_timer;
+              PlayerPrefs.SetString("lvl" + counter + "_timer", default_timer);
+            }
+          }
+          
           obj.gameObject.GetComponent<TextMeshProUGUI>().text = timer;
         }
       }

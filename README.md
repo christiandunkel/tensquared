@@ -9,6 +9,5 @@ The game is being developed by **Christian** (Programming), **Nyiko** (Animation
 What is *Bauhaus*? The Bauhaus was originally a German art school founded in Weimar by Walter Gropius, being operational from 1919 to 1933. Later, new schools in two German cities, Dessau and Berlin, were founded. Today, upholding modernism, rationality and functionality, the Bauhaus lives on as a way of design in art, architecture and industrial design.
 
 ## More
-[Documentation](/Documentation/Documentation.md)
-
-[Sprite Sorting Order](/Documentation/SpriteSortingOrder.md)
+- [Documentation](/Documentation/Documentation.md)
+- [Sprite Sorting Order](/Documentation/SpriteSortingOrder.md)

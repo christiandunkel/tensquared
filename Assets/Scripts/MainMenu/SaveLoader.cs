@@ -15,6 +15,7 @@ public class SaveLoader : MonoBehaviour {
 
   // default value / format of timer
   private string def_timer = "00:00:000";
+  private Regex timer_regex = new Regex(@"^[0-9]{2}:[0-9]{2}:[0-9]{3}$", RegexOptions.Compiled);
 
   private void Start() {
 
@@ -23,7 +24,7 @@ public class SaveLoader : MonoBehaviour {
   }
 
 
-  // set default values, if player pref isn't set
+  // set default values, if player prefs aren't set
   private void SetDefaultValues() {
    
     // settings
@@ -124,18 +125,10 @@ public class SaveLoader : MonoBehaviour {
       PlayerPrefs.SetFloat("sound_volume", float.Parse(save.sound_volume));
       PlayerPrefs.SetFloat("speech_volume", float.Parse(save.speech_volume));
 
-      PlayerPrefs.SetInt("lvls_unlocked", System.Int32.Parse(save.lvls_unlocked));
-
-      PlayerPrefs.SetString("lvl1_timer", save.lvl1_timer);
-      PlayerPrefs.SetString("lvl2_timer", save.lvl2_timer);
-      PlayerPrefs.SetString("lvl3_timer", save.lvl3_timer);
-      PlayerPrefs.SetString("lvl4_timer", save.lvl4_timer);
-      PlayerPrefs.SetString("lvl5_timer", save.lvl5_timer);
-      PlayerPrefs.SetString("lvl6_timer", save.lvl6_timer);
-      PlayerPrefs.SetString("lvl7_timer", save.lvl7_timer);
-      PlayerPrefs.SetString("lvl8_timer", save.lvl8_timer);
-      PlayerPrefs.SetString("lvl9_timer", save.lvl9_timer);
-      PlayerPrefs.SetString("lvl10_timer", save.lvl10_timer);
+      saveInPlayerPrefs(save.lvls_unlocked, new string[10] {
+         save.lvl1_timer, save.lvl2_timer, save.lvl3_timer, save.lvl4_timer, save.lvl5_timer,
+         save.lvl6_timer, save.lvl7_timer, save.lvl8_timer, save.lvl9_timer, save.lvl10_timer
+      });
 
       VolumeController.Instance.loadPlayerPrefs();
 
@@ -145,18 +138,34 @@ public class SaveLoader : MonoBehaviour {
       SaveNoSettings save = new SaveNoSettings();
       save = JsonUtility.FromJson<SaveNoSettings>(save_data);
 
-      PlayerPrefs.SetInt("lvls_unlocked", System.Int32.Parse(save.lvls_unlocked));
+      saveInPlayerPrefs(save.lvls_unlocked, new string[10] {
+         save.lvl1_timer, save.lvl2_timer, save.lvl3_timer, save.lvl4_timer, save.lvl5_timer,
+         save.lvl6_timer, save.lvl7_timer, save.lvl8_timer, save.lvl9_timer, save.lvl10_timer
+      });
 
-      PlayerPrefs.SetString("lvl1_timer", save.lvl1_timer);
-      PlayerPrefs.SetString("lvl2_timer", save.lvl2_timer);
-      PlayerPrefs.SetString("lvl3_timer", save.lvl3_timer);
-      PlayerPrefs.SetString("lvl4_timer", save.lvl4_timer);
-      PlayerPrefs.SetString("lvl5_timer", save.lvl5_timer);
-      PlayerPrefs.SetString("lvl6_timer", save.lvl6_timer);
-      PlayerPrefs.SetString("lvl7_timer", save.lvl7_timer);
-      PlayerPrefs.SetString("lvl8_timer", save.lvl8_timer);
-      PlayerPrefs.SetString("lvl9_timer", save.lvl9_timer);
-      PlayerPrefs.SetString("lvl10_timer", save.lvl10_timer);
+    }
+
+    void saveInPlayerPrefs(string lvls_unlocked, string[] timers) {
+
+      /*
+       * saves the given progress settings in player prefs
+       */
+
+      // add amount of levels that were unlocked
+      PlayerPrefs.SetInt("lvls_unlocked", System.Int32.Parse(lvls_unlocked));
+
+      // go through all timer values and add them to player prefs
+      for (int i = 0; i < 10; i++) {
+
+        // test if timer has proper format
+        if (timer_regex.IsMatch(timers[i])) {
+          PlayerPrefs.SetString("lvl" + (i + 1) + "_timer", timers[i]);
+        }
+        else {
+          // if format is wrong, set default timer
+          PlayerPrefs.SetString("lvl" + (i + 1) + "_timer", def_timer);
+        }
+      }
 
     }
 

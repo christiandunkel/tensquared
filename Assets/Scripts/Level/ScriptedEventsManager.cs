@@ -340,6 +340,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToCircle", false);
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
+
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl1_hello");
     yield return new WaitForSeconds(8.5f);
@@ -379,9 +380,10 @@ public class ScriptedEventsManager : MonoBehaviour {
     CameraShake.Instance.play(3f, 10f, 10f, "earthquake_3_secs");
     GameObject.Find("RobotAppearingParticles").GetComponent<ParticleSystem>().Play();
     yield return new WaitForSeconds(.45f);
-    GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotAppear");
+    Animator lvl1robotAnimator = GameObject.Find("RobotFigure").GetComponent<Animator>();
+    lvl1robotAnimator.SetTrigger("RobotAppear");
     yield return new WaitForSeconds(2.5f);
-    GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("RobotStraighten");
+    lvl1robotAnimator.SetTrigger("RobotStraighten");
     yield return new WaitForSeconds(.45f);
     DialogSystem.loadDialog("lvl1_its_me");
     yield return new WaitForSeconds(5.5f);
@@ -429,22 +431,12 @@ public class ScriptedEventsManager : MonoBehaviour {
           SoundController.Instance.playSound("robotRepairSound");
           break;
         case 24: multiplier = 6f; break;
-        case 28: multiplier = 4f; break;
+        case 27: multiplier = 4f; break;
         default: break;
       }
 
       yield return new WaitForSeconds(.08f * multiplier);
     }
-
-    // last image of animation -> looks to the right at player
-
-    yield return new WaitForSeconds(.2f);
-    DialogSystem.loadDialog("lvl1_thank_you");
-    yield return new WaitForSeconds(6f);
-
-    // return to look straight forward at camera
-    robotTexture.sprite = robotArmsAnimation[robotArmsAnimation.Length - 2];
-    yield return new WaitForSeconds(.3f);
 
     // make robot take its arms back down
     int[] sprites = new int[5] { 28, 27, 26, 25, 24 };
@@ -454,8 +446,36 @@ public class ScriptedEventsManager : MonoBehaviour {
     }
     yield return new WaitForSeconds(.3f);
 
+
+    yield return new WaitForSeconds(.2f);
+    DialogSystem.loadDialog("lvl1_thank_you");
+    yield return new WaitForSeconds(6.3f);
+
     DialogSystem.loadDialog("lvl1_where_did_i_leave_my_legs");
-    yield return new WaitForSeconds(8f);
+    yield return new WaitForSeconds(5.2f);
+
+    DialogSystem.loadDialog("lvl1_im_off");
+
+    yield return new WaitForSeconds(7f);
+
+    /* ROBOT FLY OFF ANIMATION */
+
+    // animate the robot to fly off
+    GameObject.Find("RobotFigure").GetComponent<Animator>().SetTrigger("FlyOff");
+
+    // deactive voice line renderer on robot
+    // (as it would stay in position, while robot flys up)
+    LineRenderer[] voiceLineRenderers = DialogSystem.getLineRenderers();
+    foreach (LineRenderer lr in voiceLineRenderers) {
+      lr.gameObject.SetActive(false);
+    }
+
+    // play 'take off' sound effect
+    SoundController.Instance.playSound("earthquake_2_secs");
+    yield return new WaitForSeconds(2.3f);
+    SoundController.Instance.playSound("earthquake_3_secs");
+    yield return new WaitForSeconds(6f);
+
     LevelEnd.Instance.endLevel();
     StopCoroutine(Lvl1_RobotGetArmsScene());
   }

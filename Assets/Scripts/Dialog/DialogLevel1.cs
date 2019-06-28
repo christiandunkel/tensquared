@@ -126,6 +126,15 @@ public class DialogLevel1 : MonoBehaviour {
         dialog.icon = "sad";
         break;
 
+      case "lvl1_im_off":
+        dialog.setText(
+          "Well, I'm off looking for them.",
+          "Bye bye, little friend!"
+        );
+        dialog.setAudioClip("lvl1_im_off");
+        dialog.icon = "neutral";
+        break;
+
     }
 
     return dialog;

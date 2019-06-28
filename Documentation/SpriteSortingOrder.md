@@ -97,6 +97,11 @@ This table lists all the elements used in the game with sorting layer and order 
 |**BackgroundSmokeLargeWhite**| | |
 |-> Texture|Default|-60|
 |-> Particles|Default|-61|
+|**Factory**| | |
+|-> Texture Light (Top)|Default|-62|
+|-> Texture|Default|-63|
+|-> Particles|Default|-64|
+|-> Texture Light (Behind)|Default|-65|
 |**GroundBackground (Lights)**|Default|-69|
 |**GroundBackground**|Default|-70|
 |**GroundBackground (Extension)**|Default|-71|
@@ -108,11 +113,6 @@ This table lists all the elements used in the game with sorting layer and order 
 |**BehindPlayerLight4**|Default|-77|
 |**BehindPlayerLight5**|Default|-76|
 |**BehindPlayerLight6**|Default|-75|
-|**Factory**| | |
-|-> Texture Light (Top)|Default|-89|
-|-> Texture|Default|-90|
-|-> Particles|Default|-91|
-|-> Texture Light (Behind)|Default|-91|
 |**TreeBlue1**|Default|-120|
 |**TreeBlue2**|Default|-121|
 |**TreeBlue3**|Default|-122|

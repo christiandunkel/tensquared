@@ -11,7 +11,7 @@ public class ToxicWater : MonoBehaviour {
   public GameObject textureObject;
   public GameObject toxicBubble;
 
-  public float secondsBetweenBubbles = 4f;
+  public float secondsBetweenBubbles = 5f;
   private float bubbleSpawnTimer = 0f;
 
   private float halfWidth = 0f;  // water prefab width / 2 - offset
@@ -23,6 +23,7 @@ public class ToxicWater : MonoBehaviour {
   private bool spawnToxicBubbles = true;
 
   private void Awake() {
+
     bubbleSpawnTimer = secondsBetweenBubbles;
 
     float offset = 20f;
@@ -32,7 +33,7 @@ public class ToxicWater : MonoBehaviour {
 
     if (secondsBetweenBubbles <= 2f) {
       spawnToxicBubbles = false;
-      Debug.LogError("ToxicWater: secondsBetweenBubbles is " + secondsBetweenBubbles + ", but has to be higher than 1.");
+      Debug.LogError("ToxicWater: Variable 'secondsBetweenBubbles' is " + secondsBetweenBubbles + ", but has to be higher than 1.");
     }
     
   }
@@ -58,17 +59,39 @@ public class ToxicWater : MonoBehaviour {
 
     float validRadius = 180f;
 
-    return (Mathf.Abs(pos.x - PlayerController.playerObject.transform.position.x) <= validRadius);
+    return (Mathf.Abs(pos.x - PlayerManager.playerObject.transform.position.x) <= validRadius);
 
   }
 
   private IEnumerator spawnBubble() {
 
+    // determine spawn position of toxic bubble
     Vector3 spawnPos = Vector3.zero;
-
     spawnPos.x = Random.Range(pos.x - halfWidth, pos.x + halfWidth);
     spawnPos.y = pos.y + 15f;
 
+    // position where the player currently is
+    float playerXPos = PlayerManager.Instance.gameObject.transform.position.x;
+
+    // range on x axis, where player is located - don't spawn toxic bubbles there
+    float rangeNoSpawnOffset = 20f;
+    float rangeNoSpawnMin = playerXPos - rangeNoSpawnOffset;
+    float rangeNoSpawnMax = playerXPos + rangeNoSpawnOffset;
+
+    // toxic bubble is spawning below the player -> change position
+    if (spawnPos.x < rangeNoSpawnMax && spawnPos.x > rangeNoSpawnMin) {
+
+      // offset toxic bubble by given offset, so it doesn't spawn below player
+      if (spawnPos.x > playerXPos) {
+        spawnPos.x += rangeNoSpawnOffset;
+      }
+      else {
+        spawnPos.x -= rangeNoSpawnOffset;
+      }
+
+    }
+
+    // create a new toxic bubble object with the calculated position
     GameObject newBubble = Instantiate(toxicBubble, spawnPos, Quaternion.identity);
     newBubble.transform.parent = gameObject.transform;
     newBubble.transform.eulerAngles = new Vector3(0f, 0f, Random.Range(-5f, 5f));

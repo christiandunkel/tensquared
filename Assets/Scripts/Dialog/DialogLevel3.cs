@@ -16,13 +16,28 @@ public class DialogLevel3 : MonoBehaviour {
 
     switch (name) {
 
-      case "lvl3_name":
+      case "lvl3_robot_humming1":
         dialog.setText(
-          "Example",
-          "Text"
+          "Hmm! HmmHmmmHmmHmmmHmm..."
         );
-        dialog.setAudioClip("lvl3_audio_path");
-        dialog.icon = "neutral";
+        dialog.setAudioClip("lvl3_robot_humming1");
+        dialog.icon = "happy";
+        break;
+
+      case "lvl3_robot_humming2":
+        dialog.setText(
+          "HmmHmmmHmHmmmHmm..."
+        );
+        dialog.setAudioClip("lvl3_robot_humming2");
+        dialog.icon = "happy";
+        break;
+
+      case "lvl3_robot_humming3":
+        dialog.setText(
+          "H-H-HHH-HmHmmm-HmmHm-Hm..."
+        );
+        dialog.setAudioClip("lvl3_robot_humming3");
+        dialog.icon = "happy";
         break;
 
     }

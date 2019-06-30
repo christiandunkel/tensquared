@@ -49,6 +49,8 @@ public class ScriptedEventsManager : MonoBehaviour {
       switch (LevelSettings.Instance.levelID) {
         case 1: StartCoroutine(StartFrequenceLvl1()); break;
         case 2: StartCoroutine(StartFrequenceLvl2()); break;
+        case 3: StartCoroutine(StartFrequenceLvl3()); break;
+        case 4: StartCoroutine(StartFrequenceLvl4()); break;
       }
 
       StopCoroutine(delayedAwake());
@@ -68,8 +70,14 @@ public class ScriptedEventsManager : MonoBehaviour {
     if (eventsAlreadyRun.Contains(lvl + "_" + name)) return;
 
     switch (lvl) {
-      case 1: LoadLevel1Event(); break;
-      case 2: LoadLevel2Event(); break;
+      case 1:
+        LoadLevel1Event(); break;
+      case 2:
+        LoadLevel2Event(); break;
+      case 3:
+        LoadLevel3Event(); break;
+      case 4:
+        LoadLevel4Event(); break;
     }
 
     // add event to lists of already run events
@@ -125,6 +133,22 @@ public class ScriptedEventsManager : MonoBehaviour {
       }
     }
 
+    void LoadLevel3Event() {
+      switch (name) {
+        case "robot_humming2":
+          DialogSystem.loadDialog("lvl3_robot_humming2"); break;
+        case "robot_humming3":
+          DialogSystem.loadDialog("lvl3_robot_humming3"); break;
+      }
+    }
+
+    void LoadLevel4Event() {
+      switch (name) {
+        case "":
+          break;
+      }
+    }
+
   }
 
 
@@ -132,9 +156,40 @@ public class ScriptedEventsManager : MonoBehaviour {
 
 
   /* ===============
-   * === LEVEL 2 ===
+   * === LEVEL 4 ===
    * ===============
    */
+
+
+  private IEnumerator StartFrequenceLvl4() {
+    yield return new WaitForSeconds(1f);
+    StopCoroutine(StartFrequenceLvl4());
+  }
+
+
+
+
+
+  /* ===============
+   * === LEVEL 3 ===
+   * ===============
+   */
+
+
+  private IEnumerator StartFrequenceLvl3() {
+    yield return new WaitForSeconds(5f);
+    DialogSystem.loadDialog("lvl3_robot_humming1");
+    yield return new WaitForSeconds(5f);
+    StopCoroutine(StartFrequenceLvl3());
+  }
+
+
+
+
+    /* ===============
+     * === LEVEL 2 ===
+     * ===============
+     */
 
 
   private IEnumerator StartFrequenceLvl2() {

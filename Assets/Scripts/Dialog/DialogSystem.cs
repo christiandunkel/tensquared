@@ -254,6 +254,7 @@ public class DialogSystem : MonoBehaviour {
 
     Dialog dialog = new Dialog();
 
+    // get dialog from class file
     switch (match.Value) {
 
       case "lvl1":
@@ -262,6 +263,14 @@ public class DialogSystem : MonoBehaviour {
 
       case "lvl2":
         dialog = DialogLevel2.getDialog(name);
+        break;
+
+      case "lvl3":
+        dialog = DialogLevel3.getDialog(name);
+        break;
+
+      case "lvl4":
+        dialog = DialogLevel4.getDialog(name);
         break;
 
     }

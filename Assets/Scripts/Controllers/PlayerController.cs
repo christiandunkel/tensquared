@@ -173,6 +173,7 @@ public class PlayerController : PhysicsObject {
 
     // handle frozen state
     if (isFrozen) {
+
       if (!frozenInLastFrame) {
         ghostingEffect.disable();
         frozenInLastFrame = true;
@@ -196,23 +197,25 @@ public class PlayerController : PhysicsObject {
 
     Vector2 move = Vector2.zero;
 
-    if (grounded) inDoubleJump = false;
+    if (canMove) {
+      move.x = Input.GetAxis("Horizontal");
+    }
 
     // test if player is currently moving
-    testForYMovement();
-    
+    testForMovement(move);
+
+    if (grounded) {
+      inDoubleJump = false;
+    }
+
     if (!isDead) {
 
-      if (!canMove) movingX = false;
       // handle movement of character on x and y axis
-      else {
+      if (canMove) {
 
-        move.x = Input.GetAxis("Horizontal");
-
-        // test for movement on x axis
-        testForXMovement(move);
-
-        if (move.x > 0.0f) rollingFixTimer = rollingFixTimerDefault;
+        if (move.x > 0.0f) {
+          rollingFixTimer = rollingFixTimerDefault;
+        }
 
         if (canJump) {
 
@@ -273,7 +276,7 @@ public class PlayerController : PhysicsObject {
           secondsNotGrounded = !grounded ? secondsNotGrounded + Time.deltaTime : 0f;
           secondsAsRectangleFalling = !grounded && state == "Rectangle" ? secondsAsRectangleFalling + Time.deltaTime : 0f;
 
-        }
+        } /* end of canJump if */
 
         if (steppedOnPiston) {
           steppedOnPiston = false;
@@ -282,51 +285,58 @@ public class PlayerController : PhysicsObject {
 
         targetVelocity = move * maxSpeed;
 
+      } /* end of canMove if */
+
+    }
+
+  }
+
+
+  private void testForMovement(Vector2 move) {
+
+    /*
+     * tests if the player is currently moving on the x or y axis 
+     * sets 'movingX', 'movingY' and 'leftwards'
+     */
+
+    if (!canMove || state == "Triangle") {
+      movingX = false;
+    }
+
+    if (isFrozen) {
+      movingX = false;
+      movingY = false;
+    }
+    else {
+      testForXMovement();
+      testForYMovement();
+    }
+
+
+    // test for movement on x axis
+    void testForXMovement() {
+
+      movingX = false;
+
+      if (move.x > 0.02f) {
+        movingX = true;
+        leftwards = false;
+      }
+      else if (move.x < -0.02f) {
+        movingX = true;
+        leftwards = true;
       }
 
     }
 
-  }
+    // test for movement on y axis
+    void testForYMovement() {
 
+      float currentY = transform.position.y;
+      movingY = Mathf.Abs(lastY - currentY) > 0.1f ? true : false;
+      lastY = currentY;
 
-
-  private void testForXMovement(Vector2 move) {
-
-    /*
-     * tests if the player is currently moving on the x axis 
-     * sets 'movingX' and 'leftwards'
-     */
-
-    movingX = false;
-
-    if (isFrozen || state == "Triangle") {
-      return;
     }
-
-    if (move.x > 0.02f) {
-      movingX = true; leftwards = false;
-    }
-    else if (move.x < -0.02f) {
-      movingX = true; leftwards = true;
-    }
-
-  }
-
-
-
-  private void testForYMovement() {
-
-    /*
-     * tests if the player is currently moving on the y axis 
-     * sets 'movingY'
-     */
-
-    movingY = false;
-    float currentY = transform.position.y;
-    if (System.Math.Abs(lastY - currentY) > 0.1f) {
-      movingY = true;
-    }
-    lastY = currentY;
 
   }
 
@@ -574,18 +584,11 @@ public class PlayerController : PhysicsObject {
      * (ground particles when moving over ground on the x axis)
      */
 
-    bool showParticles = false;
-
-    // don't show particles if not moving
-    if (movingX && grounded) {
-      showParticles = true;
-    }
-
     ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
     ParticleSystem.MainModule ps_main = ps.main;
     ParticleSystem.VelocityOverLifetimeModule ps_velocity = ps.velocityOverLifetime;
 
-    if (showParticles) {
+    if (movingX && grounded) {
       ps_velocity.x = (leftwards ? 11f : -11f);
       ps_velocity.y = 7f;
       ps_main.startLifetime = 2.7f;

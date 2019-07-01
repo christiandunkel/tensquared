@@ -9,17 +9,17 @@ using UnityEngine.SceneManagement;
 public class General : MonoBehaviour {
 
   public void disableButton(Button btn) {
-    Debug.Log("General: Disabled button " + btn.name + ".");
+    Log.Print($"Disabled button {btn.name}.");
     btn.interactable = false;
   }
 
   public void enableButton(Button btn) {
-    Debug.Log("General: Enabled button " + btn.name + ".");
+    Log.Print($"Enabled button {btn.name}.");
     btn.interactable = true;
   }
 
   public void _loadSceneByName(string name) {
-    Debug.Log("General: Loaded scene " + name + ".");
+    Log.Print($"Loaded scene {name}.");
     SceneManager.LoadScene(name);
   }
 
@@ -29,7 +29,7 @@ public class General : MonoBehaviour {
     Application.Quit();
 
     // for debug purposes in Unity editor
-    Debug.Log("General: Quit the game.");
+    Log.Print("Quit the game.");
 
   }
 

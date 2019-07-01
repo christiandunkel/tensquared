@@ -39,7 +39,7 @@ public class SoundTest : MonoBehaviour {
 
   private IEnumerator soundTestCoroutine() {
 
-    Debug.Log("SoundTest: Started sound test.");
+    Log.Print("Started sound test.", this);
 
     mainMenuMusicPlayer.Pause();
     gameObject.GetComponent<CanvasGroup>().alpha = 0f;
@@ -73,7 +73,7 @@ public class SoundTest : MonoBehaviour {
     mainMenuMusicPlayer.UnPause();
     soundTestIsPlaying = false;
 
-    Debug.Log("SoundTest: Sound test ended.");
+    Log.Print("Sound test ended.", this);
 
     StopCoroutine(soundTestCoroutine());
 

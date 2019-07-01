@@ -21,7 +21,14 @@ public class PositionAnimator : MonoBehaviour
 
   private void Start() {
 
-    if (disabledAnimation) return;
+    // if animations are disabled, display warning and quit script
+    if (disabledAnimation) {
+      Log.Warn("Initialised with animations being disabled.", this);
+      return;
+    }
+    else {
+      Log.Print("Initialised with animations being enabled.", this);
+    }
 
     // modify all elements
     foreach (Element elem in elements) {
@@ -62,7 +69,6 @@ public class PositionAnimator : MonoBehaviour
         startY > endY ? (startY - endY) / steps : (endY - startY) / steps,
         startZ > endZ ? (startZ - endZ) / steps : (endZ - startZ) / steps
       );
-      /* Debug.Log("Translate vektor for " + obj.obj.name + ": " + obj.translate); //*/
 
       // assign duration
       obj.duration = elem.duration;
@@ -94,7 +100,7 @@ public class PositionAnimator : MonoBehaviour
     timer += Time.deltaTime;
 
     if (animateObjects == null) {
-      Debug.Log("No objects to animate found.");
+      Log.Warn("No objects to animate found.", this);
       return;
     }
 

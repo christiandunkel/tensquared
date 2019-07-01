@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour {
   void Awake() {
     Instance = this;
 
-    Log.Print($"Initialised on {gameObject.name}.", gameObject);
+    Log.Print($"Initialised on {gameObject.name}.", this);
 
     LoadLevelProgess();
   }
@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour {
 
     }
 
-    Log.Print($"Loaded progress with {levelsUnlocked} level(s) unlocked.");
+    Log.Print($"Loaded progress with {levelsUnlocked} level(s) unlocked.", this);
 
     try { 
 

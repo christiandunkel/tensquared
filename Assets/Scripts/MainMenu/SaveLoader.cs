@@ -110,7 +110,7 @@ public class SaveLoader : MonoBehaviour {
     }
     catch (System.Exception e) {
 
-      Debug.LogWarning("SaveLoader: Could not import save data: " + e);
+      Log.Warn("Could not import save data: {e}", this);
 
       // load error message
       errorMessage.gameObject.SetActive(true);
@@ -123,8 +123,7 @@ public class SaveLoader : MonoBehaviour {
     // test if settings had been exported as well
     bool exported_settings = Regex.IsMatch(save_data, "music_volume");
 
-    Debug.Log("SaveLoader: Import save data" + 
-              (exported_settings ? " with export settings" : "") + ".");
+    Log.Print($"Importing save data {(exported_settings ? " with export settings" : "")}.", this);
 
     // convert JSON string back to object
     if (exported_settings) {
@@ -202,16 +201,16 @@ public class SaveLoader : MonoBehaviour {
   public void LoadExportData() {
 
     if (exportField == null) {
-      Debug.LogWarning("SaveLoader: No 'export field' defined.");
+      Log.Warn("No 'export field' defined.", this);
       return;
     }
 
     if (exportSettings == null) {
-      Debug.LogWarning("SaveLoader: No 'export settings button'.");
+      Log.Warn("No 'export settings button'.", this);
       return;
     }
 
-    Debug.Log("SaveLoader: Exported save data");
+    Log.Print("Exported save data.", this);
 
     string save_data = "";
 

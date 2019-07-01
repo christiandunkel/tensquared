@@ -28,7 +28,7 @@ public class VolumeController : MonoBehaviour {
 
     Instance = this;
 
-    Debug.Log("VolumeController: Loaded.");
+    Log.Print($"Initialised on {gameObject.name}.", this);
 
     loadPlayerPrefs();
 
@@ -86,7 +86,7 @@ public class VolumeController : MonoBehaviour {
 
   public void loadPlayerPrefs() {
     
-    Debug.Log("VolumeController: Loaded PlayerPrefs for volume.");
+    Log.Print("Loaded PlayerPrefs for volume.", this);
 
     // load volume data from playerprefs
 
@@ -159,7 +159,7 @@ public class VolumeController : MonoBehaviour {
         return speechVolume;
     }
 
-    Debug.LogWarning("VolumeController: Could not find a volume option called " + name + ".");
+    Log.Warn($"Could not find a volume option called {name}.", this);
     return 0f;
 
   }

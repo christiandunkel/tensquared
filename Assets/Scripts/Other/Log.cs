@@ -30,7 +30,7 @@ public static class Log {
    */
 
 
-  private static void OutputMessage(int type, string message, Object gameObjects, string sourcePath, int lineNumber, string methodName) {
+  private static void OutputMessage(int type, string message, Object gameObject, string sourcePath, int lineNumber, string methodName) {
 
     // get base name of executing file instead of whole path and remove '.cs' file ending
     sourcePath = Path.GetFileName(sourcePath);
@@ -71,19 +71,19 @@ public static class Log {
     // increase id for next message -> make it unique
     messageID++;
 
-    if (gameObjects != null) {
+    if (gameObject != null) {
       switch (type) {
         // print
         case 1:
-          Debug.Log(message, gameObjects);
+          Debug.Log(message, gameObject);
           break;
         // warn
         case 2:
-          Debug.LogWarning(message, gameObjects);
+          Debug.LogWarning(message, gameObject);
           break;
         // error
         case 3:
-          Debug.LogError(message, gameObjects);
+          Debug.LogError(message, gameObject);
           break;
       }
     }
@@ -118,7 +118,7 @@ public static class Log {
 
   public static void Print(
     string message,
-    Object gameObjects = null,
+    Object gameObject = null,
     [System.Runtime.CompilerServices.CallerFilePath] string sourcePath = "",
     [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0,
     [System.Runtime.CompilerServices.CallerMemberName] string methodName = ""
@@ -129,13 +129,13 @@ public static class Log {
      * with additional information about the calling method and script
      */
 
-    OutputMessage(1, message, gameObjects, sourcePath, lineNumber, methodName);
+    OutputMessage(1, message, gameObject, sourcePath, lineNumber, methodName);
 
   }
 
   public static void Warn(
     string message,
-    Object gameObjects = null,
+    Object gameObject = null,
     [System.Runtime.CompilerServices.CallerFilePath] string sourcePath = "",
     [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0,
     [System.Runtime.CompilerServices.CallerMemberName] string methodName = ""
@@ -146,13 +146,13 @@ public static class Log {
      * with additional information about the calling method and script
      */
 
-    OutputMessage(2, message, gameObjects, sourcePath, lineNumber, methodName);
+    OutputMessage(2, message, gameObject, sourcePath, lineNumber, methodName);
 
   }
 
   public static void Error(
     string message,
-    Object gameObjects = null,
+    Object gameObject = null,
     [System.Runtime.CompilerServices.CallerFilePath] string sourcePath = "",
     [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0,
     [System.Runtime.CompilerServices.CallerMemberName] string methodName = ""
@@ -163,7 +163,7 @@ public static class Log {
      * with additional information about the calling method and script
      */
 
-    OutputMessage(3, message, gameObjects, sourcePath, lineNumber, methodName);
+    OutputMessage(3, message, gameObject, sourcePath, lineNumber, methodName);
 
   }
 

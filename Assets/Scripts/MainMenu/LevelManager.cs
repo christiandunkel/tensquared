@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour {
   void Awake() {
     Instance = this;
 
+    Log.Print("LevelManager: Started.");
     Debug.Log("LevelManager: Started.");
 
     LoadLevelProgess();
@@ -23,7 +24,7 @@ public class LevelManager : MonoBehaviour {
 
 
   private int levelsUnlocked = 1;
-  private int maxLevelsUnlockable = 10; // max numbers of level unlockable regardless of 'levelsUnlocked'
+  private int maxLevelsUnlockable = 4; // max numbers of level unlockable regardless of 'levelsUnlocked'
   private List<GameObject> LevelButton = new List<GameObject>();
 
   // element containing all lvl btn gameobjects
@@ -31,10 +32,8 @@ public class LevelManager : MonoBehaviour {
 
   public void LoadLevelProgess() {
 
-    Debug.Log("LevelManager: Loaded level progress.");
-
     // get 'level button' parent container
-    lvlsParent = LevelManager.Instance.lvlsParent;
+    lvlsParent = Instance.lvlsParent;
 
     // determine current number of unlocked levels
     if (PlayerPrefs.HasKey("lvls_unlocked")) {
@@ -47,10 +46,10 @@ public class LevelManager : MonoBehaviour {
       // norm values if too big or too small
       levelsUnlocked = levelsUnlocked < 1 ? 1 : 
                          (levelsUnlocked > 10 ? 10 : levelsUnlocked);
-      
+
     }
 
-    Debug.Log("LevelManager: " + levelsUnlocked + " level(s) unlocked.");
+    Debug.Log("LevelManager: Loaded progress with " + levelsUnlocked + " level(s) unlocked.");
 
     try { 
 

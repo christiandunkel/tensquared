@@ -30,7 +30,12 @@ public static class Log {
    */
 
 
-  private static void OutputMessage(int type, string message, Object gameObject, string sourcePath, int lineNumber, string methodName) {
+  private static string generateMessage(int type, string message, string sourcePath, int lineNumber, string methodName) {
+
+    /*
+     * generates and returns a color-coded message 
+     * formatted for the Debug methods and the Unity console
+     */
 
     // get base name of executing file instead of whole path and remove '.cs' file ending
     sourcePath = Path.GetFileName(sourcePath);
@@ -71,38 +76,7 @@ public static class Log {
     // increase id for next message -> make it unique
     messageID++;
 
-    if (gameObject != null) {
-      switch (type) {
-        // print
-        case 1:
-          Debug.Log(message, gameObject);
-          break;
-        // warn
-        case 2:
-          Debug.LogWarning(message, gameObject);
-          break;
-        // error
-        case 3:
-          Debug.LogError(message, gameObject);
-          break;
-      }
-    }
-    else {
-      switch (type) {
-        // print
-        case 1:
-          Debug.Log(message);
-          break;
-        // warn
-        case 2:
-          Debug.LogWarning(message);
-          break;
-        // error
-        case 3:
-          Debug.LogError(message);
-          break;
-      }
-    }
+    return message;
 
   }
 
@@ -125,11 +99,11 @@ public static class Log {
   ) {
 
     /*
-     * generates a custom message akin Debug.Log()
+     * print a custom, color-coded message akin Debug.Log()
      * with additional information about the calling method and script
      */
 
-    OutputMessage(1, message, gameObject, sourcePath, lineNumber, methodName);
+    Debug.Log(generateMessage(1, message, sourcePath, lineNumber, methodName), gameObject);
 
   }
 
@@ -142,11 +116,11 @@ public static class Log {
   ) {
 
     /*
-     * generates a custom message akin Debug.LogWarning()
+     * print a custom, color-coded message akin Debug.LogWarning()
      * with additional information about the calling method and script
      */
 
-    OutputMessage(2, message, gameObject, sourcePath, lineNumber, methodName);
+    Debug.LogWarning(generateMessage(2, message, sourcePath, lineNumber, methodName), gameObject);
 
   }
 
@@ -159,11 +133,11 @@ public static class Log {
   ) {
 
     /*
-     * generates a custom message akin Debug.LogError()
+     * generates a custom, color-coded message akin Debug.LogError()
      * with additional information about the calling method and script
      */
 
-    OutputMessage(3, message, gameObject, sourcePath, lineNumber, methodName);
+    Debug.LogError(generateMessage(3, message, sourcePath, lineNumber, methodName), gameObject);
 
   }
 

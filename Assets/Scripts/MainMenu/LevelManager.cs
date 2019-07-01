@@ -15,8 +15,7 @@ public class LevelManager : MonoBehaviour {
   void Awake() {
     Instance = this;
 
-    Log.Print("LevelManager: Started.");
-    Debug.Log("LevelManager: Started.");
+    Log.Print($"Initialised on {gameObject.name}.", gameObject);
 
     LoadLevelProgess();
   }
@@ -49,7 +48,7 @@ public class LevelManager : MonoBehaviour {
 
     }
 
-    Debug.Log("LevelManager: Loaded progress with " + levelsUnlocked + " level(s) unlocked.");
+    Log.Print($"Loaded progress with {levelsUnlocked} level(s) unlocked.");
 
     try { 
 
@@ -63,7 +62,7 @@ public class LevelManager : MonoBehaviour {
 
     }
     catch (System.Exception e) {
-      Debug.LogWarning("LevelManager: Could not locate level buttons: " + e);
+      Log.Warn($"Could not locate level buttons: {e}");
       return;
     } 
 

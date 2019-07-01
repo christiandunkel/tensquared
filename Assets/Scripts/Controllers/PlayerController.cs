@@ -179,11 +179,17 @@ public class PlayerController : PhysicsObject {
         frozenInLastFrame = true;
         frozenYPos = gameObject.transform.position.y;
       }
+
       // hold object on the same y position
       Vector3 frozenPos = gameObject.transform.position;
       frozenPos.y = frozenYPos;
       gameObject.transform.position = frozenPos;
+
+      movingX = false;
+      movingY = false;
+
       return;
+
     }
     else if (frozenInLastFrame) {
       frozenInLastFrame = false;
@@ -195,9 +201,11 @@ public class PlayerController : PhysicsObject {
       resetDynamicRGB2D();
     }
 
+    // vector containing movement values
     Vector2 move = Vector2.zero;
 
-    if (canMove) {
+    // apply movement from x axis input
+    if (!isDead && canMove) {
       move.x = Input.GetAxis("Horizontal");
     }
 

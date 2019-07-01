@@ -11,6 +11,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   public static ScriptedEventsManager Instance;
 
   public Animator virtualCameraAnimator;
+
   public bool playStartFrequence = true,
               playEvents = true;
 
@@ -19,6 +20,9 @@ public class ScriptedEventsManager : MonoBehaviour {
   private void Awake() {
 
     Instance = this;
+
+    // clear list of 'events already run' on start/restart of level
+    eventsAlreadyRun.Clear();
 
     Debug.Log("ScriptedEventManager: Initialised.");
 

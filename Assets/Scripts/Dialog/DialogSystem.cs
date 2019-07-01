@@ -80,6 +80,11 @@ public class DialogSystem : MonoBehaviour {
 
   private void Start() {
 
+    // reset dialog system on start/restart of level
+    dialogBoxVisible = false;
+    dialogQueue.Clear();
+
+
     Debug.Log("DialogSystem: Loaded.");
 
 
@@ -283,11 +288,11 @@ public class DialogSystem : MonoBehaviour {
     // dialog is currently playing, break it
     if (dialogBoxVisible) {
       audioSource.Stop();
-      DialogSystem.Instance.StopCoroutine(playDialog());
+      Instance.StopCoroutine(playDialog());
     }
 
     currentDialogPlaying = dialog;
-    DialogSystem.Instance.StartCoroutine(playDialog());
+    Instance.StartCoroutine(playDialog());
 
 
 

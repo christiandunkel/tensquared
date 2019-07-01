@@ -18,6 +18,7 @@ public class AboutMenu : MonoBehaviour {
 
   // all objects that will be moved upwards, when scrolling down to animation menu
   [SerializeField] private GameObject[] obj = null;
+
   // all buttons that may trigger the about menu appearing / disappearing
   // -> will be disabled while animation is playing
   [SerializeField] private GameObject[] btns = null;
@@ -34,16 +35,19 @@ public class AboutMenu : MonoBehaviour {
 
   // number of objects to animate
   private int objNum;
+
   // start position of all elements that will be moved
   private Vector2[] startPos = null;
   private float moveValue = 839.0f;
+
   // state of where to move camera (1 = move down (to about menu), 2 = move up)
   private int move = 0;
   private int lastMove = 2;
-  private bool animationPlaying = false;
+
   // duration of how long the animation is going to take
   private float duration = 1.2f;
   private float timer = 0.0f;
+  private bool animationPlaying = false;
 
 
 

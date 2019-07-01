@@ -110,7 +110,7 @@ public class SaveLoader : MonoBehaviour {
     }
     catch (System.Exception e) {
 
-      Log.Warn("Could not import save data: {e}", this);
+      Log.Warn($"Could not import save data: {e}", this);
 
       // load error message
       errorMessage.gameObject.SetActive(true);

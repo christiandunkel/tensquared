@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour {
   void Awake() {
     Instance = this;
 
-    Log.Print($"Initialised on {gameObject.name}.", this);
+    Log.Print($"Initialised on object '{gameObject.name}'.", this);
 
     LoadLevelProgess();
   }

@@ -28,7 +28,7 @@ public class VolumeController : MonoBehaviour {
 
     Instance = this;
 
-    Log.Print($"Initialised on {gameObject.name}.", this);
+    Log.Print($"Initialised on object '{gameObject.name}'.", this);
 
     loadPlayerPrefs();
 
@@ -86,7 +86,7 @@ public class VolumeController : MonoBehaviour {
 
   public void loadPlayerPrefs() {
     
-    Log.Print("Loaded PlayerPrefs for volume.", this);
+    Log.Print("Loaded PlayerPrefs for volume settings.", this);
 
     // load volume data from playerprefs
 

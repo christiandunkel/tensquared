@@ -4,11 +4,12 @@ using UnityEngine;
 /*
  * powers the 'corrupted icon' effect on the dialogue system
  * by generating a Perlin Noise texture
+ * HAS TO BE PLACED ON 3D-OBJECT -> QUAD
  */
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-public class CorruptedIcon : MonoBehaviour {
+public class NoiseGenerator : MonoBehaviour {
 
   /*
    ==================
@@ -16,11 +17,11 @@ public class CorruptedIcon : MonoBehaviour {
    ==================
    */
 
-  private int width = 32;
-  private int height = 128;
+  [SerializeField] private int width = 128;
+  [SerializeField] private int height = 128;
 
   // the higher it's set, the bigger the pixel's of the noise will be
-  private float scale = 12f;
+  [SerializeField] private float scale = 10f;
 
   // offset values inside noise texture
   // (by constantly randomizing them, creates animated noise effect)
@@ -55,6 +56,7 @@ public class CorruptedIcon : MonoBehaviour {
     textureRenderer = GetComponent<Renderer>();
 
     // start the noise generation animation
+    StopCoroutine(updateNoiseTexture());
     StartCoroutine(updateNoiseTexture());
 
   }

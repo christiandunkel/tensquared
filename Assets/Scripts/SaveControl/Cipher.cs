@@ -13,19 +13,53 @@ using UnityEngine;
 
 public class Cipher : MonoBehaviour {
 
+  /*
+   ==================
+   === ATTRIBUTES ===
+   ==================
+   */
+
   // keysize of the encryption algorithm in bits
   private const int Keysize = 256;
 
   // number of iterations for 'password bytes generation' function
   private const int DerivationIterations = 1000;
 
-  public static string Encrypt(string plainText, string passPhrase) {
+
+
+
+
+  /*
+   ================
+   === INTERNAL ===
+   ================
+   */
+   
+  private static byte[] RandomEntropy() {
+
+    /*
+     * generate 256 bits of random entropy
+     */
+
+    // 32 bites * 8 = 256 bits
+    var randomBytes = new byte[Keysize / 8];
+
+    using (var rngCsp = new RNGCryptoServiceProvider()) {
+      // fill with cryptographically secure random bytes
+      rngCsp.GetBytes(randomBytes);
+    }
+
+    return randomBytes;
+
+  }
+
+  private static string EncryptPlainText(string text, string passPhrase) {
 
     // salt and IV are randomly generated each time, 
     // but preprended to encrypted cipher for decryption
     var saltStringBytes = RandomEntropy();
     var ivStringBytes = RandomEntropy();
-    var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+    var plainTextBytes = Encoding.UTF8.GetBytes(text);
 
     using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations)) {
       var keyBytes = password.GetBytes(Keysize / 8);
@@ -55,11 +89,11 @@ public class Cipher : MonoBehaviour {
 
   }
 
-  public static string Decrypt(string cipherText, string passPhrase) {
+  private static string DecryptCipherText(string text, string passPhrase) {
 
     // get complete stream of bytes that represent:
     // [32 bytes of Salt] + [32 bytes of IV] + [n bytes of CipherText]
-    var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
+    var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(text);
 
     // get saltbytes by extracting the first 32 bytes from the supplied cipherText bytes
     var saltStringBytes = cipherTextBytesWithSaltAndIv.Take(Keysize / 8).ToArray();
@@ -94,18 +128,47 @@ public class Cipher : MonoBehaviour {
 
   }
 
-  // generate 256 bits of random entropy
-  private static byte[] RandomEntropy() {
 
-    // 32 bites * 8 = 256 bits
-    var randomBytes = new byte[Keysize / 8];
 
-    using (var rngCsp = new RNGCryptoServiceProvider()) {
-      // fill with cryptographically secure random bytes
-      rngCsp.GetBytes(randomBytes);
+
+
+  /*
+   ================
+   === EXTERNAL ===
+   ================
+   */
+
+  public static string Encrypt(string plainText, string passPhrase) {
+
+    Log.Print($"Encrypting string '{plainText.Substring(0, 5)}...'.");
+
+    string cipherText = "";
+
+    try {
+      cipherText = EncryptPlainText(plainText, passPhrase);
+    }
+    catch (Exception e) {
+      Log.Error($"Encrypting string '{plainText.Substring(0, 5)}...' failed: {e}");
     }
 
-    return randomBytes;
+    return cipherText;
+
+  }
+
+  public static string Decrypt(string cipherText, string passPhrase) {
+
+    Log.Print($"Decrypting string '{cipherText.Substring(0, 5)}...'.");
+
+    string plainText = "";
+
+    try {
+      plainText = DecryptCipherText(cipherText, passPhrase);
+    }
+    catch (Exception e) {
+      Log.Error($"Decrypting string '{cipherText.Substring(0, 5)}...' failed: {e}");
+    }
+
+    return plainText;
 
   }
 

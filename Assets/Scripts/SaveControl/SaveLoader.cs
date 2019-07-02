@@ -11,35 +11,63 @@ using UnityEngine.UI;
 
 public class SaveLoader : MonoBehaviour {
 
+  /*
+   ==================
+   === ATTRIBUTES ===
+   ==================
+   */
+
   private string encoding_pass_phrase = "tensquaredSaveFileCipher";
 
   // default value / format of timer
   private static string def_timer = "00:00:000";
   private static Regex timer_regex = new Regex(@"^[0-9]{2}:[0-9]{2}:[0-9]{3}$", RegexOptions.Compiled);
 
+
+
+
+
+  /*
+   ==================
+   === COMPONENTS ===
+   ==================
+   */
+
+  // 'import save' components
+  [SerializeField] private InputField importField = null;
+  [SerializeField] private CanvasGroup successMessage = null;
+  [SerializeField] private CanvasGroup errorMessage = null;
+
+  // 'export save' components
+  [SerializeField] private InputField exportField = null;
+  [SerializeField] private Toggle exportSettings = null;
+
+
+
+
+
+  /*
+   ================
+   === INTERNAL ===
+   ================
+   */
+
   private void Start() {
 
-    SetDefaultValues();
+    setDefaultValues();
 
   }
-
-
-
-  public static bool isTimerInRightFormat(string timer) {
-    return timer_regex.IsMatch(timer);
-  }
-  public static string getDefaultTimer() {
-    return def_timer;
-  }
-
-
-
 
   // set default values, if player prefs aren't set
-  private void SetDefaultValues() {
-   
+  private void setDefaultValues() {
+
+    /*
+     * set default values for settings and progress, 
+     * if there are no player prefs set yet
+     */
+
     // settings
-    
+
     if (!PlayerPrefs.HasKey("music_volume")) PlayerPrefs.SetFloat("music_volume", 1f);
     if (!PlayerPrefs.HasKey("sound_volume")) PlayerPrefs.SetFloat("sound_volume", 1f);
     if (!PlayerPrefs.HasKey("speech_volume")) PlayerPrefs.SetFloat("speech_volume", 1f);
@@ -67,8 +95,41 @@ public class SaveLoader : MonoBehaviour {
 
 
 
-  // reset saved progress data
+
+
+  /*
+   ================
+   === EXTERNAL ===
+   ================
+   */
+
+  public static bool isTimerInRightFormat(string timer) {
+
+    /*
+     * tests if a given timer is in the right format
+     * and returns the result as a boolean
+     */
+
+    return timer_regex.IsMatch(timer);
+
+  }
+
+  public static string getDefaultTimer() {
+    
+    /*
+     * returns the default format for the timer
+     * in form of a string
+     */
+
+    return def_timer;
+
+  }
+
   public void ResetProgress() {
+
+    /*
+     * reset saved progress data
+     */
 
     PlayerPrefs.SetInt("lvls_unlocked", 1);
 
@@ -87,9 +148,12 @@ public class SaveLoader : MonoBehaviour {
 
   }
 
-
-  // unlock all levels
   public void UnlockAllLevels() {
+
+    /*
+     * unlocks all levels in the level manager
+     * and all levels in the level menu
+     */
 
     PlayerPrefs.SetInt("lvls_unlocked", LevelManager.Instance.getInt("maxLevelsUnlockable"));
 
@@ -97,14 +161,12 @@ public class SaveLoader : MonoBehaviour {
 
   }
 
-
-
-
-  public InputField importField = null;
-  public CanvasGroup successMessage = null,
-                     errorMessage = null;
-
   public void ImportSave() {
+
+    /*
+     * imports a save text from the 'import save' text field
+     * and loads the settings/progress data into player prefs
+     */
 
     string save_data = importField.text;
 
@@ -201,14 +263,12 @@ public class SaveLoader : MonoBehaviour {
 
   }
 
-
-
-
-
-  public InputField exportField = null;
-  public Toggle exportSettings = null;
-
   public void LoadExportData() {
+
+    /*
+     * generates a save string as export data
+     * and places it in the export field
+     */
 
     if (exportField == null) {
       Log.Warn("No 'export field' defined.", this);
@@ -220,7 +280,7 @@ public class SaveLoader : MonoBehaviour {
       return;
     }
 
-    Log.Print("Exported save data.", this);
+    Log.Print("Exporting save data.", this);
 
     string save_data = "";
 

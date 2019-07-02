@@ -4,6 +4,12 @@
 
 public class SaveNoSettings {
 
+  /*
+   ================
+   === PROGRESS ===
+   ================
+   */
+
   public string lvls_unlocked;
   public string lvl1_timer;
   public string lvl2_timer;

@@ -248,6 +248,11 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
   private IEnumerator LVL2_CanYouMorphIntoOtherForms() {
 
+    // freeze player until he morphs to rectangle
+    LevelSettings.Instance.setSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canJump", false);
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
+
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
 
@@ -276,8 +281,13 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator LVL2_RectangleMorphPraises() {
     TooltipManager.hideTooltip("MorphRectangle");
     yield return new WaitForSeconds(.5f);
+
+    // un-freeze player from previous event
+    LevelSettings.Instance.setSetting("canMove", true);
+    LevelSettings.Instance.setSetting("canJump", true);
+    LevelSettings.Instance.setSetting("canSelfDestruct", true);
+
     DialogSystem.loadDialog("lvl2_rectangle_great");
-    GameObject.Find("OnlyProceedAsRectangle").SetActive(false);
     StopCoroutine(LVL2_RectangleMorphPraises());
   }
   private IEnumerator LVL2_ForceField() {

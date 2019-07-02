@@ -226,6 +226,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private IEnumerator StartFrequenceLvl4() {
     yield return new WaitForSeconds(1f);
+    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     StopCoroutine(StartFrequenceLvl4());
   }
 
@@ -239,7 +240,9 @@ public class ScriptedEventsManager : MonoBehaviour {
    */
 
   private IEnumerator StartFrequenceLvl3() {
-    yield return new WaitForSeconds(5f);
+    yield return new WaitForSeconds(2f);
+    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
+    yield return new WaitForSeconds(3f);
     DialogSystem.loadDialog("lvl3_robot_humming1");
     StopCoroutine(StartFrequenceLvl3());
   }

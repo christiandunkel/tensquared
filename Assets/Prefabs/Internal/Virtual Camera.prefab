@@ -111,8 +111,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1609525788489615061}
-  - component: {fileID: 1609525788489615060}
   - component: {fileID: 1609525788489615062}
+  - component: {fileID: 1609525788489615060}
   - component: {fileID: 1609525788489615063}
   m_Layer: 0
   m_Name: Virtual Camera
@@ -136,6 +136,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1609525788489615062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609525788489615067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc55cd6a18122de4ea14ff55bd46283d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VirtualCamera: {fileID: 1609525788489615060}
 --- !u!114 &1609525788489615060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,19 +186,6 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1609525787938531892}
---- !u!114 &1609525788489615062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609525788489615067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc55cd6a18122de4ea14ff55bd46283d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VirtualCamera: {fileID: 1609525788489615060}
 --- !u!95 &1609525788489615063
 Animator:
   serializedVersion: 3

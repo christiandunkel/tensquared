@@ -59,6 +59,16 @@ public class DialogLevel3 : MonoBehaviour {
         dialog.icon = "neutral";
         break;
 
+      case "lvl3_EVIL_beautiful_melody":
+        dialog.setText(
+          "This melody is beautiful.",
+          "I wish you could hear it."
+        );
+        dialog.setAudioClip("lvl3_EVIL_beautiful_melody");
+        dialog.icon = "happy";
+        dialog.isEvil = true;
+        break;
+
       case "lvl3_smoking_legs":
         dialog.setText(
           "Hey, little friend. Those new legs you brought me... well, they work, but... they seem to smoke, did you notice that?"

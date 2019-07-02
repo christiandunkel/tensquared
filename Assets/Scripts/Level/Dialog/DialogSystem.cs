@@ -65,8 +65,6 @@ public class DialogSystem : MonoBehaviour {
 
   // read-only states of dialog box
   private static bool dialogBoxVisible = false;
-  // display red-tinted flicker effect on dialog box
-  private static bool robotVoiceIsEvil = false;
 
   private static float speechVolumePercentage = 0f;
 
@@ -86,7 +84,6 @@ public class DialogSystem : MonoBehaviour {
 
     // reset dialog system on start/restart of level
     dialogBoxVisible = false;
-    robotVoiceIsEvil = false;
     dialogQueue.Clear();
 
 
@@ -239,12 +236,15 @@ public class DialogSystem : MonoBehaviour {
       loadDialogFromQueue();
     }
 
-    if (voiceLineRenderers.Length > 0) {
+    if (dialogBoxVisible) {
 
-      if (dialogBoxVisible) {
+      // visualiaze voice line renderers
+      if (voiceLineRenderers.Length > 0) {
         visualizeVoice();
       }
-      if (robotVoiceIsEvil) {
+
+      // display red-tinted flicker effect on dialog box
+      if (currentDialogPlaying.isEvil) {
         visualizeEvilVoice();
       }
 
@@ -314,7 +314,6 @@ public class DialogSystem : MonoBehaviour {
        */
 
       dialogBoxVisible = true;
-      robotVoiceIsEvil = currentDialogPlaying.isEvil;
 
       // reset dialog
       textElement.SetText("");
@@ -349,7 +348,6 @@ public class DialogSystem : MonoBehaviour {
       // reset dialog
       textElement.SetText("");
       dialogBoxVisible = false;
-      robotVoiceIsEvil = false;
       Instance.StopCoroutine(playDialog());
 
     }

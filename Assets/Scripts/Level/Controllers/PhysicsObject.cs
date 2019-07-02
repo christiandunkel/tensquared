@@ -7,30 +7,34 @@ using UnityEngine;
 
 public class PhysicsObject : PlayerManager {
 
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private protected override void OnStart() {
     contactFilter.useTriggers = false;
     contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
     contactFilter.useLayerMask = true;
   }
 
-
-
   private protected override void PhysicsUpdate() {
     targetVelocity = Vector2.zero;
   }
 
-
-
   private protected override void OnFixedUpdate() {
 
     /*
-     * manage the physics of the player
+     * manage the physics of the player;
      * method is called every fixed frame-rate frame
      * (with the frequency of the physics system)
      */
 
     // if player is set to frozen, don't calculate movement
-    if (PlayerController.Instance.isFrozen) return;
+    if (isFrozen) {
+      return;
+    }
 
     velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
     velocity.x = targetVelocity.x;
@@ -99,8 +103,16 @@ public class PhysicsObject : PlayerManager {
 
 
 
+
+
+  /*
+   * ===================
+   * === DOUBLE JUMP ===
+   * ===================
+   */
+
   private bool playingResetTriangleRotationAnimation = false;
-  public void resetTriangleRotation() {
+  private void resetTriangleRotation() {
 
     /*
      * reset texture's rotation back to normal
@@ -109,21 +121,27 @@ public class PhysicsObject : PlayerManager {
 
     if (!playingResetTriangleRotationAnimation) {
       playingResetTriangleRotationAnimation = true;
+      StopCoroutine(resetTriangleRotationCoroutine());
       StartCoroutine(resetTriangleRotationCoroutine());
     }
 
     IEnumerator resetTriangleRotationCoroutine() {
 
+      // wait for a short while, before resetting rotation
       yield return new WaitForSeconds(.3f);
 
-      int stepNumber = 15;
+      // get current rotation of triangle
       Vector3 startRotation = textureObject.transform.localEulerAngles;
 
-      // leftwards
-      if (startRotation.z > 269f) startRotation.z -= 360f;
+      // if rotated leftwards
+      if (startRotation.z > 269f) {
+        startRotation.z -= 360f;
+      }
 
+      int stepNumber = 15;
       float step = startRotation.z / stepNumber;
 
+      // smoothly rotate triangle back to original rotation
       for (int i = 0; i < stepNumber; i++) {
 
         Vector3 newRotation = startRotation;
@@ -131,13 +149,17 @@ public class PhysicsObject : PlayerManager {
         textureObject.transform.localEulerAngles = newRotation;
 
         yield return new WaitForFixedUpdate();
+
       }
 
-      Debug.Log("PhysicsObject: Reset triangle rotation.");
+      Log.Print("Reset triangle rotation.", this);
 
-      Vector3 nullRotation = textureObject.transform.localEulerAngles;
-      nullRotation.z = 0f;
-      textureObject.transform.localEulerAngles = nullRotation;
+      // if for loop goes a bit over 0f, make a final reset
+      if (textureObject.transform.localEulerAngles.z != 0f) {
+        Vector3 nullRotation = textureObject.transform.localEulerAngles;
+        nullRotation.z = 0f;
+        textureObject.transform.localEulerAngles = nullRotation;
+      }
 
       playingResetTriangleRotationAnimation = false;
       StopCoroutine(resetTriangleRotationCoroutine());
@@ -145,9 +167,7 @@ public class PhysicsObject : PlayerManager {
     }
 
   }
-
   
-
   private void setDoubleJumpMovement() {
 
     /*
@@ -155,8 +175,8 @@ public class PhysicsObject : PlayerManager {
      * and saves it inside vector2 'doubleJumpMovement'
      */
 
-    float doubleJumpReducer = .8f,
-          angle = getAngleMousePlayer();
+    float doubleJumpReducer = .8f;
+    float angle = getAngleMousePlayer();
 
     // leftwards
     if (angle < 90f) {
@@ -181,8 +201,6 @@ public class PhysicsObject : PlayerManager {
 
   }
 
-
-
   private float getAngleMousePlayer() {
 
     /*
@@ -192,8 +210,8 @@ public class PhysicsObject : PlayerManager {
 
     Vector2 mouseCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    Vector2 v1 = Vector2.right,
-            v2 = Vector2.zero;
+    Vector2 v1 = Vector2.right;
+    Vector2 v2 = Vector2.zero;
 
     v2.x = transform.position.x - mouseCoords.x;
     v2.y = transform.position.y - mouseCoords.y;
@@ -201,17 +219,42 @@ public class PhysicsObject : PlayerManager {
     // angle between two vectors
     float angleMousePlayer = v1.x * v2.x + v1.y * v2.y;
     angleMousePlayer /= (Mathf.Sqrt(Mathf.Pow(v1.x, 2) + Mathf.Pow(v1.y, 2)) * Mathf.Sqrt(Mathf.Pow(v2.x, 2) + Mathf.Pow(v2.y, 2)));
-
     angleMousePlayer = Mathf.Rad2Deg * Mathf.Acos(angleMousePlayer);
 
     return angleMousePlayer;
 
   }
-  
 
-  
-  private void xMovement(Vector2 move) {Movement(move, false); }
-  private void yMovement(Vector2 move) {Movement(move, true); }
+
+
+
+
+  /*
+   * ================
+   * === MOVEMENT ===
+   * ================
+   */
+
+  private void xMovement(Vector2 move) {
+
+    /*
+     * apply velocity to rigid body on x axis
+     */
+
+    Movement(move, false);
+
+  }
+
+  private void yMovement(Vector2 move) {
+
+    /*
+     * apply velocity to rigid body on y axis
+     */
+
+    Movement(move, true);
+
+  }
+
   private void Movement(Vector2 move, bool yMovement) {
 
     /*

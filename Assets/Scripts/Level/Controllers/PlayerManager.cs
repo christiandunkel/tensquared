@@ -169,7 +169,7 @@ public class PlayerManager : MonoBehaviour {
     // load morphing sprites into memory
     loadMorphAnimationSprites();
 
-    Debug.Log("PlayerManager: Player With parent object '" + parentObject.name + "' initialized.");
+    Log.Print($"Initialised player with parent object '{parentObject.name}'.", parentObject);
 
     OnAwake();
 
@@ -428,7 +428,7 @@ public class PlayerManager : MonoBehaviour {
         break;
 
       default:
-        Debug.LogWarning("PlayerManager: Could not set '" + name + "' as it's not a valid value name.");
+        Log.Warn($"'{name}' is not a valid value name.", this);
         break;
 
     }
@@ -489,7 +489,7 @@ public class PlayerManager : MonoBehaviour {
         return holdingItem;
     }
 
-    Debug.LogWarning("PlayerManager: Boolean of the name " + name + " couldn't be found.");
+    Log.Warn($"Boolean named '{name}' couldn't be found.", this);
     return false;
 
   }
@@ -508,7 +508,7 @@ public class PlayerManager : MonoBehaviour {
         return secondsAsRectangleFalling;
     }
 
-    Debug.LogWarning("PlayerManager: Float of the name " + name + " couldn't be found.");
+    Log.Warn($"Float named '{name}' couldn't be found.", this);
     return 0f;
 
   }
@@ -524,7 +524,7 @@ public class PlayerManager : MonoBehaviour {
         return state;
     }
 
-    Debug.LogWarning("PlayerManager: String of the name " + name + " couldn't be found.");
+    Log.Warn($"String named '{name}' couldn't be found.", this);
     return null;
 
   }
@@ -550,7 +550,7 @@ public class PlayerManager : MonoBehaviour {
         return doubleJumpParticles;
     }
 
-    Debug.LogWarning("PlayerManager: GameObject of the name " + name + " couldn't be found.");
+    Log.Warn($"Object named '{name}' couldn't be found.", this);
     return null;
 
   }

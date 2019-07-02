@@ -7,87 +7,37 @@ using UnityEngine;
  */
 
 public class PlayerController : PhysicsObject {
-  
-  /*
-   =======================
-   === CAMERA CONTROLS ===
-   =======================
-   */
-
-  private void handleCameraZoom() {
-
-    /*
-     * manages the zoom-in and zoom-out effect
-     * of the virtual camera following the player
-     */
-
-    // handle camera zooming (inwards)
-    if (zoomedInCameraTimer > 0f) {
-      zoomedInCameraTimer -= Time.fixedDeltaTime;
-      if (!cameraAnimator.GetBool("ZoomedIn")) {
-        cameraAnimator.SetBool("ZoomedIn", true);
-        Debug.Log("PlayerController: Entered 'camera zoom in' area.");
-      }
-    }
-    else if (cameraAnimator.GetBool("ZoomedIn")) {
-      cameraAnimator.SetBool("ZoomedIn", false);
-      Debug.Log("PlayerController: Left 'camera zoom in' area.");
-    }
-
-    // handle camera zooming (outwards)
-    if (zoomedOutCameraTimer > 0f) {
-      zoomedOutCameraTimer -= Time.fixedDeltaTime;
-      if (!cameraAnimator.GetBool("ZoomedOut")) {
-        cameraAnimator.SetBool("ZoomedOut", true);
-        Debug.Log("PlayerController: Entered 'camera zoom out' area.");
-      }
-    }
-    else if (cameraAnimator.GetBool("ZoomedOut")) {
-      cameraAnimator.SetBool("ZoomedOut", false);
-      Debug.Log("PlayerController: Left 'camera zoom out' area.");
-    }
-
-    // handle camera zooming (outwards far)
-    if (zoomedOutCameraFarTimer > 0f) {
-      zoomedOutCameraFarTimer -= Time.fixedDeltaTime;
-      if (!cameraAnimator.GetBool("ZoomedOutFar")) {
-        cameraAnimator.SetBool("ZoomedOutFar", true);
-        Debug.Log("PlayerController: Entered 'camera zoom out far' area.");
-      }
-    }
-    else if (cameraAnimator.GetBool("ZoomedOutFar")) {
-      cameraAnimator.SetBool("ZoomedOutFar", false);
-      Debug.Log("PlayerController: Left 'camera zoom out far' area.");
-    }
-
-  }
-
-
 
   /*
    ======================
-   === INITIALIZATION ===
+   === INITIALISATION ===
    ======================
    */
 
   private protected override void OnAwake() {
 
+    /*
+     * called on Awake() by PlayerManager
+     */
+
+    // set proper states in morph indicator UI
     morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
 
-    resetAttributes(); // set attributes for start character state
+    // set attributes for start character state
+    resetAttributes();
     loadLevelSettingsIntoPlayer();
 
     lastX = transform.position.x;
     lastY = transform.position.y;
 
-    Debug.Log("PlayerController: Initialized.");
+    Log.Print($"Initialised on object '{gameObject.name}'.", this);
 
   }
 
   private protected override void UpdateBeforeVelocity() {
 
     /*
-     * called before velocity is calculate
+     * called by PlayerManager before velocity is calculated
      */
 
     if (!isDead && canSelfDestruct && Input.GetKeyDown(KeyCode.Alpha0)) {
@@ -103,7 +53,7 @@ public class PlayerController : PhysicsObject {
   private protected override void UpdateAfterVelocity() {
 
     /*
-     * called after velocity is updated
+     * called by PlayerManager after velocity is updated
      */
 
     showMovementParticles();
@@ -126,7 +76,7 @@ public class PlayerController : PhysicsObject {
   private void handleHoldingItem() {
 
     /*
-     * handle holding item state
+     * handle the 'holding item' state
      */
 
     if (holdingItem && !heldItemObject.activeSelf) {
@@ -137,6 +87,175 @@ public class PlayerController : PhysicsObject {
     }
 
   }
+
+  private void setCollider(string state) {
+
+    /*
+     * set the right 2D collider depending
+     * on the player's current state
+     */
+
+    GetComponent<CircleCollider2D>().enabled = (state == "Circle" ? true : false);
+    GetComponent<PolygonCollider2D>().enabled = (state == "Triangle" ? true : false);
+    GetComponent<BoxCollider2D>().enabled = (state == "Rectangle" ? true : false);
+  }
+
+  private void handleMorphing() {
+
+    /*
+     * changes player's state to another one 
+     */
+
+    bool initiateMorphing = false;
+
+    if (!isChangingState) {
+      if (canMorphToCircle && Input.GetKeyDown(KeyCode.Alpha1) && state != "Circle") {
+        newState = "Circle";
+        initiateMorphing = true;
+      }
+      else if (canMorphToTriangle && Input.GetKeyDown(KeyCode.Alpha2) && state != "Triangle") {
+        newState = "Triangle";
+        initiateMorphing = true;
+        scriptedEvents.LoadEvent(2, "morph_to_triangle");
+      }
+      else if (canMorphToRectangle && Input.GetKeyDown(KeyCode.Alpha3) && state != "Rectangle") {
+        newState = "Rectangle";
+        initiateMorphing = true;
+        scriptedEvents.LoadEvent(2, "rectangle_morph_praises");
+      }
+    }
+
+
+
+    // the final array which will be animated
+    Sprite[] animationArray = null;
+
+    if (initiateMorphing) {
+
+      // create and reutrn new array with values of given array
+      void assignAnimationArray(Sprite[] spriteArray, bool reverse) {
+
+        animationArray = new Sprite[spriteArray.Length];
+
+        int counter = reverse ? spriteArray.Length - 1 : 0;
+
+        foreach (Sprite sprite in spriteArray) {
+          animationArray[counter] = sprite;
+          counter = reverse ? counter - 1 : counter + 1;
+        }
+
+      }
+
+      switch (state) {
+        // circle --> triangle/rectangle
+        case "Circle": assignAnimationArray(newState == "Triangle" ? triangleToCircle : rectToCircle, true); break;
+        // triangle --> circle/rectangle
+        case "Triangle": assignAnimationArray(newState == "Circle" ? triangleToCircle : rectToTriangle, newState == "Rectangle"); break;
+        // rectangle --> circle/triangle
+        case "Rectangle": assignAnimationArray(newState == "Circle" ? rectToCircle : rectToTriangle, false); break;
+      }
+
+      // play morphing sound
+      soundController.playSound("morphSound");
+
+      // set movement variables of the character type
+      Attributes a = getAttributes(newState);
+      gravityModifier = a.gravityModifier;
+      maxSpeed = a.maxSpeed;
+      jumpTakeOffSpeed = a.jumpTakeOffSpeed;
+
+      // particle color for movement particles
+      ParticleSystem.MainModule mainModule = movementParticles.GetComponent<ParticleSystem>().main;
+      mainModule.startColor = a.particleColor;
+
+      // particle color for death particles
+      mainModule = deathParticles.GetComponent<ParticleSystem>().main;
+      mainModule.startColor = a.particleColor;
+
+      // set new state of character
+      state = newState;
+      setCollider(state);
+      resetDynamicRGB2D();
+      isChangingState = true;
+
+      morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
+
+      // start morphing animation
+      StopCoroutine(animateState());
+      StartCoroutine(animateState());
+
+    }
+
+    IEnumerator animateState() {
+
+      // reset rotation
+      textureObject.transform.eulerAngles = Vector3.zero;
+
+      float animationDuration = 0.16f;
+
+      for (int i = 0; i < animationArray.Length; i++) {
+
+        yield return new WaitForSeconds(animationDuration / animationArray.Length);
+        textureObject.GetComponent<SpriteRenderer>().sprite = animationArray[i] as Sprite;
+
+      }
+
+      isChangingState = false;
+
+      StopCoroutine(animateState());
+
+    }
+
+  }
+
+  private void handleCameraZoom() {
+
+    /*
+     * manages the zoom-in and zoom-out effect
+     * of the virtual camera following the player
+     */
+
+    // handle camera zooming (inwards)
+    if (zoomedInCameraTimer > 0f) {
+      zoomedInCameraTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedIn")) {
+        cameraAnimator.SetBool("ZoomedIn", true);
+        Log.Print("Entered 'camera zoom in' area.", cameraAnimator.gameObject);
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedIn")) {
+      cameraAnimator.SetBool("ZoomedIn", false);
+      Log.Print("Left 'camera zoom in' area.", cameraAnimator.gameObject);
+    }
+
+    // handle camera zooming (outwards)
+    if (zoomedOutCameraTimer > 0f) {
+      zoomedOutCameraTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedOut")) {
+        cameraAnimator.SetBool("ZoomedOut", true);
+        Log.Print("Entered 'camera zoom out' area.", cameraAnimator.gameObject);
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedOut")) {
+      cameraAnimator.SetBool("ZoomedOut", false);
+      Log.Print("Left 'camera zoom out' area.", cameraAnimator.gameObject);
+    }
+
+    // handle camera zooming (outwards far)
+    if (zoomedOutCameraFarTimer > 0f) {
+      zoomedOutCameraFarTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedOutFar")) {
+        cameraAnimator.SetBool("ZoomedOutFar", true);
+        Log.Print("Entered 'camera zoom out far' area.", cameraAnimator.gameObject);
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedOutFar")) {
+      cameraAnimator.SetBool("ZoomedOutFar", false);
+      Log.Print("Left 'camera zoom out far' area.", cameraAnimator.gameObject);
+    }
+
+  }
+
 
 
 
@@ -297,7 +416,6 @@ public class PlayerController : PhysicsObject {
 
   }
 
-
   private void testForMovement(Vector2 move) {
 
     /*
@@ -346,7 +464,6 @@ public class PlayerController : PhysicsObject {
 
   }
 
-
   private Vector3 rotationVec = new Vector3(0.0f, 0.0f, 0.0f);
   private void rotateCircle() {
 
@@ -362,6 +479,181 @@ public class PlayerController : PhysicsObject {
 
 
 
+
+
+  /*
+   * =================
+   * === PARTICLES ===
+   * =================
+   */
+
+  private void showMovementParticles() {
+
+    /*
+     * update state of "movement particles" every frame
+     * (ground particles when moving over ground on the x axis)
+     */
+
+    ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
+    ParticleSystem.MainModule ps_main = ps.main;
+    ParticleSystem.VelocityOverLifetimeModule ps_velocity = ps.velocityOverLifetime;
+
+    if (movingX && grounded) {
+      ps_velocity.x = (leftwards ? 11f : -11f);
+      ps_velocity.y = 7f;
+      ps_main.startLifetime = 2.7f;
+    }
+    else {
+      ps_velocity.x = 0f;
+      ps_velocity.y = 0f;
+      ps_main.startLifetime = 0f;
+    }
+
+  }
+
+  private void playDeathParticles() {
+
+    /*
+     * play exploding particles on death
+     */
+
+    ParticleSystem.MainModule mainModule = deathParticles.GetComponent<ParticleSystem>().main;
+
+    // set particle color for death particles
+    Attributes a = getAttributes();
+    mainModule.startColor = a.particleColor;
+
+    deathParticles.SetActive(true);
+    deathParticles.GetComponent<ParticleSystem>().Play();
+
+  }
+
+  
+
+
+
+
+
+
+  /*
+   ================
+   === TRIGGERS ===
+   ================
+   */
+
+  private void OnTriggerEnter2D(Collider2D col) {
+
+    switch (col.gameObject.tag) {
+
+      case "Water":
+        Log.Print($"Player died by falling in water '{col.gameObject.name}'.", col.gameObject);
+        soundController.playSound("waterSplashSound");
+        scriptedEvents.LoadEvent(1, "water_death");
+        die();
+        break;
+
+      case "KillZone":
+        Log.Print($"Player died by entering kill zone '{col.gameObject.name}'.", col.gameObject);
+        die();
+        break;
+
+      case "NoMorphForceField":
+        Log.Print($"Entered anti morph force field '{col.gameObject.name}'.", col.gameObject);
+        soundController.playSound("enterForceFieldSound");
+        canMorphToCircle = false;
+        canMorphToTriangle = false;
+        canMorphToRectangle = false;
+        morphIndicator.loadMorphIndicators(state, true, false, false, false);
+        scriptedEvents.LoadEvent(2, "morph_force_field");
+        break;
+
+    }
+
+  }
+
+  private void OnTriggerExit2D(Collider2D col) {
+
+    switch (col.gameObject.tag) {
+
+      case "NoMorphForceField":
+        Log.Print($"Left anti morph force field '{col.gameObject.name}'.", col.gameObject);
+        soundController.playSound("exitForceFieldSound");
+        loadLevelSettingsIntoPlayer();
+        morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
+        break;
+
+    }
+
+  }
+
+  private void OnTriggerStay2D(Collider2D col) {
+
+    switch (col.gameObject.tag) {
+
+      /* Camera Zooming */
+
+      case "ZoomInCamera":
+        zoomedInCameraTimer = 0.5f;
+        break;
+
+      case "ZoomOutCamera":
+        zoomedOutCameraTimer = 0.5f;
+        break;
+
+      case "ZoomOutCameraFar":
+        zoomedOutCameraFarTimer = 0.5f;
+        break;
+
+      /* Sounds */
+
+      case "Grass":
+        if (movingX && grounded) {
+          soundController.setTimer("movingThroughGrassTimer", 0.2f);
+        }
+        break;
+
+      case "PreventMovementSounds":
+        soundController.setTimer("preventMovementSoundsTimer", 0.2f);
+        break;
+
+      case "MovingPlatformSounds":
+        soundController.setTimer("movingPlatformSoundsTimer", 0.2f);
+        break;
+
+      case "FireSounds":
+        soundController.setTimer("fireSoundTimer", 0.2f);
+        break;
+
+      case "NoMorphForceField":
+        soundController.setTimer("forceFieldSoundTimer", 0.2f);
+        break;
+
+    }
+
+  }
+
+  private void OnCollisionStay2D(Collision2D col) {
+
+    switch (col.gameObject.tag) {
+
+      case "MovingPlatform":
+        // make the player move along the moving platform if standing on top
+        transform.position += col.gameObject.GetComponent<MovingPlatform>().movePlayerBy;
+        break;
+
+    }
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
 
   public void die() {
 
@@ -455,284 +747,6 @@ public class PlayerController : PhysicsObject {
       loadLevelSettingsIntoPlayer(); // reset internal settings for player, replace with level settings
 
       StopCoroutine(respawn());
-
-    }
-
-  }
-
-  
-
-  private void setCollider(string state) {
-
-    /*
-     * set the right 2D collider depending
-     * on the player's current state
-     */
-
-    GetComponent<CircleCollider2D>().enabled = (state == "Circle" ? true : false);
-    GetComponent<PolygonCollider2D>().enabled = (state == "Triangle" ? true : false);
-    GetComponent<BoxCollider2D>().enabled = (state == "Rectangle" ? true : false);
-  }
-
-
-  private void handleMorphing() {
-
-    /*
-     * changes player's state to another one 
-     */
-
-    bool initiateMorphing = false;
-
-    if (!isChangingState) { 
-      if (canMorphToCircle && Input.GetKeyDown(KeyCode.Alpha1) && state != "Circle") {
-        newState = "Circle";
-        initiateMorphing = true;
-      }
-      else if (canMorphToTriangle && Input.GetKeyDown(KeyCode.Alpha2)  && state != "Triangle") {
-        newState = "Triangle";
-        initiateMorphing = true;
-        scriptedEvents.LoadEvent(2, "morph_to_triangle");
-      }
-      else if (canMorphToRectangle && Input.GetKeyDown(KeyCode.Alpha3) && state != "Rectangle") {
-        newState = "Rectangle";
-        initiateMorphing = true;
-        scriptedEvents.LoadEvent(2, "rectangle_morph_praises");
-      }
-    }
-
-
-
-    // the final array which will be animated
-    Sprite[] animationArray = null;
-
-    if (initiateMorphing) {
-
-      // create and reutrn new array with values of given array
-      void assignAnimationArray(Sprite[] spriteArray, bool reverse) {
-
-        animationArray = new Sprite[spriteArray.Length];
-
-        int counter = reverse ? spriteArray.Length - 1 : 0;
-
-        foreach (Sprite sprite in spriteArray) {
-          animationArray[counter] = sprite;
-          counter = reverse ? counter - 1 : counter + 1;
-        }
-
-      }
-
-      switch (state) {
-        // circle --> triangle/rectangle
-        case "Circle": assignAnimationArray(newState == "Triangle" ? triangleToCircle : rectToCircle, true); break;
-        // triangle --> circle/rectangle
-        case "Triangle": assignAnimationArray(newState == "Circle" ? triangleToCircle : rectToTriangle, newState == "Rectangle"); break;
-        // rectangle --> circle/triangle
-        case "Rectangle": assignAnimationArray(newState == "Circle" ? rectToCircle : rectToTriangle, false); break;
-      }
-
-      // play morphing sound
-      soundController.playSound("morphSound");
-
-      // set movement variables of the character type
-      Attributes a = getAttributes(newState);
-      gravityModifier = a.gravityModifier;
-      maxSpeed = a.maxSpeed;
-      jumpTakeOffSpeed = a.jumpTakeOffSpeed;
-
-      // particle color for movement particles
-      ParticleSystem.MainModule mainModule = movementParticles.GetComponent<ParticleSystem>().main;
-      mainModule.startColor = a.particleColor;
-
-      // particle color for death particles
-      mainModule = deathParticles.GetComponent<ParticleSystem>().main;
-      mainModule.startColor = a.particleColor;
-
-      // set new state of character
-      state = newState;
-      setCollider(state);
-      resetDynamicRGB2D();
-      isChangingState = true;
-
-      morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
-
-      // start morphing animation
-      StopCoroutine(animateState());
-      StartCoroutine(animateState());
-
-    }
-
-    IEnumerator animateState() {
-
-      // reset rotation
-      textureObject.transform.eulerAngles = Vector3.zero;
-
-      float animationDuration = 0.16f;
-
-      for (int i = 0; i < animationArray.Length; i++) {
-
-        yield return new WaitForSeconds(animationDuration / animationArray.Length);
-        textureObject.GetComponent<SpriteRenderer>().sprite = animationArray[i] as Sprite;
-
-      }
-
-      isChangingState = false;
-
-      StopCoroutine(animateState());
-
-    }
-
-  }
-
-  private void showMovementParticles() {
-
-    /*
-     * update state of "movement particles" every frame
-     * (ground particles when moving over ground on the x axis)
-     */
-
-    ParticleSystem ps = movementParticles.GetComponent<ParticleSystem>();
-    ParticleSystem.MainModule ps_main = ps.main;
-    ParticleSystem.VelocityOverLifetimeModule ps_velocity = ps.velocityOverLifetime;
-
-    if (movingX && grounded) {
-      ps_velocity.x = (leftwards ? 11f : -11f);
-      ps_velocity.y = 7f;
-      ps_main.startLifetime = 2.7f;
-    }
-    else {
-      ps_velocity.x = 0f;
-      ps_velocity.y = 0f;
-      ps_main.startLifetime = 0f;
-    }
-
-  }
-
-  private void playDeathParticles() {
-
-    /*
-     * play exploding particles on death
-     */
-
-    ParticleSystem.MainModule mainModule = deathParticles.GetComponent<ParticleSystem>().main;
-
-    // set particle color for death particles
-    Attributes a = getAttributes();
-    mainModule.startColor = a.particleColor;
-
-    deathParticles.SetActive(true);
-    deathParticles.GetComponent<ParticleSystem>().Play();
-
-  }
-
-
-
-
-
-  /*
-   ===============================
-   === TRIGGERS AND COLLISIONS ===
-   ===============================
-   */
-
-  private void OnTriggerEnter2D(Collider2D col) {
-
-    switch (col.gameObject.tag) {
-
-      case "Water":
-        Debug.Log("PlayerController: Player died by entering water.");
-        soundController.playSound("waterSplashSound");
-        die();
-        scriptedEvents.LoadEvent(1, "water_death");
-        break;
-
-      case "KillZone":
-        Debug.Log("PlayerController: Player died by entering a kill zone.");
-        die();
-        break;
-
-      case "NoMorphForceField":
-        Debug.Log("PlayerController: Entered a 'no morph force field'.");
-        soundController.playSound("enterForceFieldSound");
-        canMorphToCircle = false;
-        canMorphToTriangle = false;
-        canMorphToRectangle = false;
-        morphIndicator.loadMorphIndicators(state, true, false, false, false);
-        scriptedEvents.LoadEvent(2, "morph_force_field");
-        break;
-
-    }
-
-  }
-
-  private void OnTriggerExit2D(Collider2D col) {
-
-    switch (col.gameObject.tag) {
-
-      case "NoMorphForceField":
-        Debug.Log("PlayerController: Left a 'no morph force field'.");
-        loadLevelSettingsIntoPlayer();
-        soundController.playSound("exitForceFieldSound");
-        morphIndicator.loadMorphIndicators(state, canSelfDestruct, canMorphToCircle, canMorphToTriangle, canMorphToRectangle);
-        break;
-
-    }
-
-  }
-
-  private void OnTriggerStay2D(Collider2D col) {
-
-    switch (col.gameObject.tag) {
-
-      /* Camera Zooming */
-
-      case "ZoomInCamera":
-        zoomedInCameraTimer = 0.5f;
-        break;
-
-      case "ZoomOutCamera":
-        zoomedOutCameraTimer = 0.5f;
-        break;
-
-      case "ZoomOutCameraFar":
-        zoomedOutCameraFarTimer = 0.5f;
-        break;
-
-      /* Sounds */
-
-      case "Grass":
-        if (movingX && grounded) {
-          soundController.setTimer("movingThroughGrassTimer", 0.2f);
-        }
-        break;
-
-      case "PreventMovementSounds":
-        soundController.setTimer("preventMovementSoundsTimer", 0.2f);
-        break;
-
-      case "MovingPlatformSounds":
-        soundController.setTimer("movingPlatformSoundsTimer", 0.2f);
-        break;
-
-      case "FireSounds":
-        soundController.setTimer("fireSoundTimer", 0.2f);
-        break;
-
-      case "NoMorphForceField":
-        soundController.setTimer("forceFieldSoundTimer", 0.2f);
-        break;
-
-    }
-
-  }
-
-  private void OnCollisionStay2D(Collision2D col) {
-
-    switch (col.gameObject.tag) {
-
-      case "MovingPlatform":
-        // make the player move along the moving platform if standing on top
-        transform.position += col.gameObject.GetComponent<MovingPlatform>().movePlayerBy;
-        break;
 
     }
 

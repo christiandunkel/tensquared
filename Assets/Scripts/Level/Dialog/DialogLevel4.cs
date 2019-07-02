@@ -12,7 +12,7 @@ public class DialogLevel4 : MonoBehaviour {
      * returns a dialog object with the attributes for the name
      */
 
-    Dialog dialog = new Dialog();
+    Dialog dialog = new Dialog(4);
 
     switch (name) {
 

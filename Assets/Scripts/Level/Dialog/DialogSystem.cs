@@ -41,7 +41,9 @@ public class DialogSystem : MonoBehaviour {
   private static AudioSource audioSource = null;
   private static GameObject dialogBox = null;
   private static TextMeshProUGUI textElement = null;
+  // background of dialogue box
   private static GameObject panelElement = null;
+  private static Image panelElementImage = null;
   private static Image iconElement = null;
 
   // audio visualization
@@ -63,6 +65,8 @@ public class DialogSystem : MonoBehaviour {
 
   // read-only states of dialog box
   private static bool dialogBoxVisible = false;
+  // display red-tinted flicker effect on dialog box
+  private static bool robotVoiceIsEvil = false;
 
   private static float speechVolumePercentage = 0f;
 
@@ -82,6 +86,7 @@ public class DialogSystem : MonoBehaviour {
 
     // reset dialog system on start/restart of level
     dialogBoxVisible = false;
+    robotVoiceIsEvil = false;
     dialogQueue.Clear();
 
 
@@ -125,6 +130,7 @@ public class DialogSystem : MonoBehaviour {
 
             case "Background":
               panelElement = obj2;
+              panelElementImage = panelElement.GetComponent<Image>();
               break;
 
             case "Text":
@@ -238,6 +244,9 @@ public class DialogSystem : MonoBehaviour {
       if (dialogBoxVisible) {
         visualizeVoice();
       }
+      if (robotVoiceIsEvil) {
+        visualizeEvilVoice();
+      }
 
     }
 
@@ -305,6 +314,7 @@ public class DialogSystem : MonoBehaviour {
        */
 
       dialogBoxVisible = true;
+      robotVoiceIsEvil = currentDialogPlaying.isEvil;
 
       // reset dialog
       textElement.SetText("");
@@ -339,13 +349,12 @@ public class DialogSystem : MonoBehaviour {
       // reset dialog
       textElement.SetText("");
       dialogBoxVisible = false;
-      DialogSystem.Instance.StopCoroutine(playDialog());
+      robotVoiceIsEvil = false;
+      Instance.StopCoroutine(playDialog());
 
     }
 
   }
-  
-
 
   private static Sprite getDialogIcon(string iconName) {
 
@@ -378,12 +387,10 @@ public class DialogSystem : MonoBehaviour {
 
   }
 
-
-
   private static void visualizeVoice() {
 
     /*
-     * takes all defined line renderers and applies the frequency data values,
+     * takes all defined line renderers and applies the sound frequency data values,
      * extracted from the dialog audio clip, to the line as points
      */
 
@@ -424,6 +431,57 @@ public class DialogSystem : MonoBehaviour {
       lr.SetPositions(points);
 
     }
+
+  }
+
+  private static void visualizeEvilVoice() {
+
+    /*
+     * applies the highest sound frequency data values from the voice
+     * as a red tint to the dialog background
+     */
+
+    int dataPoints = 64;
+    float[] samples = new float[dataPoints];
+
+    // get sine data values from audio clip playing in player
+    audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
+
+    // as the sample data is affected by the volume set in the volume controller
+    // -> need to correct values with current speech volume
+    for (int i = 0; i < dataPoints; i++) {
+      samples[i] *= (100f / speechVolumePercentage);
+    }
+
+    // find highest frequency value in array
+    float max = samples[0];
+
+    for (int i = 1; i < dataPoints; i++) {
+      if (samples[i] > max) {
+        max = samples[i];
+      }
+    }
+
+    // increase value to be significantly high enough to matter
+    max *= 5000;
+    // if audio was too loud and exceeds 255 RGB value, limit it
+    if (max > 255f) {
+      max = 255f;
+    }
+
+    // normalize color to be between 0 and 1
+    float normalized_color = max / 255f;
+    // limit the color value to 0.6
+    if (normalized_color > 0.6f) {
+      normalized_color = 0.6f;
+    }
+
+    // get previous normalized color
+    float previous_normalized_color = 1f - panelElementImage.color.g;
+    // calculate mid point between the two colors to smoothen the transition
+    float smooth_normalized_color = (normalized_color + previous_normalized_color) / 2;
+
+    panelElementImage.color = new Color(1f, 1f - smooth_normalized_color, 1f - smooth_normalized_color);
 
   }
 

@@ -17,7 +17,7 @@ public static class Log {
 
   // add unique id to messages to make sure each is displayed in
   // its own line inside unity and not combined with similar messages
-  private static int messageID = 1;
+  private static int messageID = 0;
 
 
 
@@ -30,7 +30,7 @@ public static class Log {
    */
 
 
-  private static string generateMessage(int type, string message, string sourcePath, int lineNumber, string methodName) {
+  private static string generateMessage(int type, object message, string sourcePath, int lineNumber, string methodName) {
 
     /*
      * generates and returns a color-coded message 
@@ -66,17 +66,18 @@ public static class Log {
         break;
     }
 
+    // increase id for next message -> make it unique
+    messageID++;
+
     // add additional attributes to message
-    message = $"<color={color_header}>" + 
+    string formatted_message = 
+              $"<color={color_header}>" + 
                   $"<size=10>{thisID}</size> " + 
                   $"<b>{sourcePath}</b>:{lineNumber}:{methodName}()" + 
               $"</color> " + 
               $"<color={color_message}>{message}</color>";
 
-    // increase id for next message -> make it unique
-    messageID++;
-
-    return message;
+    return formatted_message;
 
   }
 
@@ -91,7 +92,7 @@ public static class Log {
    */
 
   public static void Print(
-    string message,
+    object message,
     Object gameObject = null,
     [System.Runtime.CompilerServices.CallerFilePath] string sourcePath = "",
     [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0,
@@ -108,7 +109,7 @@ public static class Log {
   }
 
   public static void Warn(
-    string message,
+    object message,
     Object gameObject = null,
     [System.Runtime.CompilerServices.CallerFilePath] string sourcePath = "",
     [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0,
@@ -125,7 +126,7 @@ public static class Log {
   }
 
   public static void Error(
-    string message,
+    object message,
     Object gameObject = null,
     [System.Runtime.CompilerServices.CallerFilePath] string sourcePath = "",
     [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0,

@@ -12,11 +12,20 @@ public struct Dialog {
    * ==================
    */
 
+  // in which level dialogue is playing
+  public int level;
+
+  // text attributes
   public string text;
   public int textLength;
+  
+  // audio attributes
   public AudioClip audioClip;
   public float audioClipLength;
+
+  // visual information
   public string icon;
+  public bool isEvil;
 
 
 
@@ -27,6 +36,16 @@ public struct Dialog {
    * === EXTERNAL ===
    * ================
    */
+
+  public Dialog(int definedLevel) {
+    level = definedLevel;
+    text = "";
+    textLength = 0;
+    audioClip = null;
+    audioClipLength = 0f;
+    icon = "";
+    isEvil = false;
+  }
 
   public void setText(params string[] text_) {
 

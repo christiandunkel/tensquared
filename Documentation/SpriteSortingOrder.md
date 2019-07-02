@@ -40,6 +40,8 @@ This table lists all the elements used in the game with sorting layer and order 
 |-> Smoke Particles|Default|69|
 |-> Glow Particles|Default|68|
 |**LaserTurret**| | |
+|-> TurretDisabledSparks (Particles)|Default|67|
+|-> TurretDisabled Particles|Default|66|
 |-> Holder Texture|Default|65|
 |-> Turret Texture|Default|64|
 |-> Light Texture|Default|62|

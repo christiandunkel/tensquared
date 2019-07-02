@@ -7,7 +7,15 @@ using UnityEngine;
 
 public class LaserTurret : MonoBehaviour {
 
-  public GameObject turret, bullet;
+  public GameObject turret;
+  public GameObject bullet;
+
+  // particles shown, when laser turret is disabled
+  public GameObject disabledParticles1;
+  private ParticleSystem disabledParticles1_PS;
+  public GameObject disabledParticles2;
+  private ParticleSystem disabledParticles2_PS;
+
   public ParticleSystem shortParticles;
 
   // distance of player to turret, in which turret becomes active
@@ -24,6 +32,12 @@ public class LaserTurret : MonoBehaviour {
   private SoundController soundController;
 
   private void Awake() {
+
+    // get particles systems
+    disabledParticles1_PS = disabledParticles1.GetComponent<ParticleSystem>();
+    disabledParticles2_PS = disabledParticles2.GetComponent<ParticleSystem>();
+
+
 
     if (secondsBetweenShots < 0.3f) {
       Debug.LogError("LaserTurret: Shot frequency of " + secondsBetweenShots  + 
@@ -49,7 +63,19 @@ public class LaserTurret : MonoBehaviour {
   private void Update() {
 
     if (!isEnabled) {
+      // play 'disabled turret' particles
+      if (!disabledParticles1.activeSelf) {
+        disabledParticles1.SetActive(true);
+        disabledParticles2.SetActive(true);
+        disabledParticles1_PS.Play();
+        disabledParticles2_PS.Play();
+      }
       return;
+    }
+    // don't play 'disabled turret' particles anymore
+    else if (disabledParticles1.activeSelf) {
+      disabledParticles1.SetActive(false);
+      disabledParticles2.SetActive(false);
     }
 
     // test if player is close enough to turret for it to be active, otherwise return

@@ -6,15 +6,15 @@
 [Bb]uilds/
 [Ll]ogs/
 
-# Never ignore Asset meta data
-![Aa]ssets/**/*.meta
-
-# TextMesh Pro files
-#[Aa]ssets/TextMesh*Pro/
-
 # Visual Studio directories
 .vs/
 .vscode/
+
+# never ignore Asset meta data
+![Aa]ssets/**/*.meta
+
+# never ignore .md files
+!*.md
 
 # Gradle cache directory
 .gradle/
@@ -27,14 +27,12 @@
 # Unity3D generated file on crash reports
 sysinfo.txt
 
-# Builds
+# builds
 *.apk
 *.unitypackage
 
-# Crashlytics generated file
+# crashlytics generated file
 crashlytics-build.properties
-
-# https://gist.github.com/FullStackForger/20bbf62861394b1a3de0
 
 # VS/MD/Consulo solution and project files
 [Ee]xportedObj/

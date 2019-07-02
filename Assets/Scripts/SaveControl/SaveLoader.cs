@@ -88,6 +88,16 @@ public class SaveLoader : MonoBehaviour {
   }
 
 
+  // unlock all levels
+  public void UnlockAllLevels() {
+
+    PlayerPrefs.SetInt("lvls_unlocked", LevelManager.Instance.getInt("maxLevelsUnlockable"));
+
+    LevelManager.Instance.LoadLevelProgess();
+
+  }
+
+
 
 
   public InputField importField = null;

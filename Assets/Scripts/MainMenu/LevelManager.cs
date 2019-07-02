@@ -24,6 +24,22 @@ public class LevelManager : MonoBehaviour {
 
   private int levelsUnlocked = 1;
   private int maxLevelsUnlockable = 4; // max numbers of level unlockable regardless of 'levelsUnlocked'
+
+  public int getInt(string name) {
+
+    switch (name) {
+      case "levelsUnlocked":
+        return levelsUnlocked;
+      case "maxLevelsUnlockable":
+        return maxLevelsUnlockable;
+    }
+
+    Log.Warn($"Could not find integer of name {name}.", this);
+    return 0;
+
+  }
+
+
   private List<GameObject> LevelButton = new List<GameObject>();
 
   // element containing all lvl btn gameobjects

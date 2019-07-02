@@ -409,7 +409,7 @@ public class PlayerController : PhysicsObject {
       yield return new WaitForSeconds(1.5f);
 
       // teleport to spawn point
-      Vector2 ps = LevelSettings.Instance.playerSpawn;
+      Vector2 ps = LevelSettings.Instance.getVector2("playerSpawn");
       gameObject.transform.localPosition = ps;
       frozenYPos = ps.y;
 

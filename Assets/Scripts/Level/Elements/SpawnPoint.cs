@@ -190,9 +190,9 @@ public class SpawnPoint : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision) {
     
-    if (!isActivated && LevelSettings.Instance.playerSpawn.x < spawnCoordinates.x) {
+    if (!isActivated && LevelSettings.Instance.getVector2("playerSpawn").x < spawnCoordinates.x) {
 
-      PlayerController.Instance.setValue("hasSpawnpointSet", true);
+      PlayerManager.Instance.setValue("hasSpawnpointSet", true);
 
       // deactivate all spawn points
       GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");

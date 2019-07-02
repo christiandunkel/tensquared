@@ -50,11 +50,17 @@ public class ScriptedEventsManager : MonoBehaviour {
       Debug.Log("ScriptedEventManager: Successfully loaded as all required scripts are loaded.");
 
       // start frequence of each level
-      switch (LevelSettings.Instance.levelID) {
-        case 1: StartCoroutine(StartFrequenceLvl1()); break;
-        case 2: StartCoroutine(StartFrequenceLvl2()); break;
-        case 3: StartCoroutine(StartFrequenceLvl3()); break;
-        case 4: StartCoroutine(StartFrequenceLvl4()); break;
+      switch (LevelSettings.Instance.getInt("levelID")) {
+        case 1:
+          StartCoroutine(StartFrequenceLvl1());
+          break;
+        case 2:
+          StartCoroutine(StartFrequenceLvl2());
+          break;
+        case 3: StartCoroutine(StartFrequenceLvl3());
+          break;
+        case 4: StartCoroutine(StartFrequenceLvl4());
+          break;
       }
 
       StopCoroutine(delayedAwake());
@@ -68,10 +74,14 @@ public class ScriptedEventsManager : MonoBehaviour {
   public void LoadEvent(int lvl, string name) {
 
     // only play events of current level
-    if (lvl != LevelSettings.Instance.levelID || !playEvents) return;
+    if (lvl != LevelSettings.Instance.getInt("levelID") || !playEvents) {
+      return;
+    }
 
     // don't play an event twice
-    if (eventsAlreadyRun.Contains(lvl + "_" + name)) return;
+    if (eventsAlreadyRun.Contains(lvl + "_" + name)) {
+      return;
+    }
 
     switch (lvl) {
       case 1:

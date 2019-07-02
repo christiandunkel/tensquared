@@ -9,7 +9,7 @@ public class GhostingEffect : MonoBehaviour {
 
   /*
    * ==================
-   * === ATTRIBUTES ===
+   * === COMPONENTS ===
    * ==================
    */
 
@@ -19,6 +19,16 @@ public class GhostingEffect : MonoBehaviour {
   // player's texture
   [SerializeField] private GameObject textureObject = null;
   [SerializeField] private SpriteRenderer textureObjectSR = null;
+
+
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
   // settings and attributes
   private float delayBetweenGhosts = 0.1f;
@@ -159,12 +169,9 @@ public class GhostingEffect : MonoBehaviour {
       case "ghostDelaySeconds":
         return ghostDelaySeconds;
 
-      default:
-        Debug.LogWarning("GhostingEffect: Could not find variable of the name " + name + ".");
-        break;
-
     }
 
+    Log.Warn($"Could not find variable of the name {name}.", this);
     return 0f;
 
   }

@@ -442,12 +442,12 @@ public class PlayerManager : MonoBehaviour {
      */
 
     LevelSettings settings = LevelSettings.Instance;
-    canMove = settings.canMove;
-    canJump = settings.canJump;
-    canSelfDestruct = settings.canSelfDestruct;
-    canMorphToCircle = settings.canMorphToCircle;
-    canMorphToTriangle = settings.canMorphToTriangle;
-    canMorphToRectangle = settings.canMorphToRectangle;
+    canMove = settings.getBool("canMove");
+    canJump = settings.getBool("canJump");
+    canSelfDestruct = settings.getBool("canSelfDestruct");
+    canMorphToCircle = settings.getBool("canMorphToCircle");
+    canMorphToTriangle = settings.getBool("canMorphToTriangle");
+    canMorphToRectangle = settings.getBool("canMorphToRectangle");
 
     // reload 'morph indicator' UI in case morph settings are different now
     morphIndicator.loadMorphIndicators();

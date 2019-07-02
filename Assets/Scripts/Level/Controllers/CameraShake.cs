@@ -47,42 +47,6 @@ public class CameraShake : MonoBehaviour {
 
   /*
    * ================
-   * === EXTERNAL ===
-   * ================
-   */
-
-  public void play(float duration, float amplitude, float frequency, string sound) {
-
-    /*
-     * plays the camera shake and an accompanying sound effect
-     */
-
-    play(duration, amplitude, frequency);
-
-    // access the sound controller to play given sound effect
-    soundController.playSound(sound);
-
-  }
-
-  public void play(float duration, float amplitude, float frequency) {
-
-    /*
-     * sets the attributes for the camera shake effect
-     * and plays it if the duration is bigger than 0
-     */
-
-    elapsedTime = duration;
-    shakeAmplitude = amplitude;
-    shakeFrequency = frequency;
-
-  }
-
-
-
-
-
-  /*
-   * ================
    * === INTERNAL ===
    * ================
    */
@@ -127,6 +91,42 @@ public class CameraShake : MonoBehaviour {
       virtualCameraNoise.m_AmplitudeGain = 0.0f;
       elapsedTime = 0.0f;
     }
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public void play(float duration, float amplitude, float frequency, string sound) {
+
+    /*
+     * plays the camera shake and an accompanying sound effect
+     */
+
+    play(duration, amplitude, frequency);
+
+    // access the sound controller to play given sound effect
+    soundController.playSound(sound);
+
+  }
+
+  public void play(float duration, float amplitude, float frequency) {
+
+    /*
+     * sets the attributes for the camera shake effect
+     * and plays it if the duration is bigger than 0
+     */
+
+    elapsedTime = duration;
+    shakeAmplitude = amplitude;
+    shakeFrequency = frequency;
 
   }
 

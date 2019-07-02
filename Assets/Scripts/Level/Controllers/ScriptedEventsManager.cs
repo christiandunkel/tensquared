@@ -100,59 +100,109 @@ public class ScriptedEventsManager : MonoBehaviour {
     void LoadLevel1Event() {
       switch (name) {
         case "hide_move_tooltip":
-          TooltipManager.hideTooltip("Move"); break;
+          TooltipManager.hideTooltip("Move");
+          break;
         case "jump_tooltip":
-          StartCoroutine(Lvl1_JumpTooltip()); break;
+          StartCoroutine(Lvl1_JumpTooltip());
+          break;
         case "hide_jump_tooltip":
-          TooltipManager.hideTooltip("Jump"); break;
+          TooltipManager.hideTooltip("Jump");
+          break;
         case "dialog_about_water":
-          DialogSystem.loadDialog("lvl1_dont_jump_into_water"); break;
+          DialogSystem.loadDialog("lvl1_dont_jump_into_water");
+          break;
         case "dialog_about_water_death":
-          DialogSystem.loadDialog("lvl1_not_the_smartest_circle"); break;
+          DialogSystem.loadDialog("lvl1_not_the_smartest_circle");
+          break;
         case "dialog_you_are_quick":
-          DialogSystem.loadDialog("lvl1_quick_compared_to_other_circles"); break;
+          DialogSystem.loadDialog("lvl1_quick_compared_to_other_circles");
+          break;
         case "robot_appear_scene":
-          StartCoroutine(Lvl1_RobotAppearScene()); break;
+          StartCoroutine(Lvl1_RobotAppearScene());
+          break;
         case "dialog_pick_up_arms":
-          StartCoroutine(Lvl1_PickUpArms()); break;
+          StartCoroutine(Lvl1_PickUpArms());
+          break;
         case "dialog_bring_arms_back":
-          StartCoroutine(Lvl1_BringArmsBack()); break;
+          StartCoroutine(Lvl1_BringArmsBack());
+          break;
         case "robot_get_arms_scene":
-          StartCoroutine(Lvl1_RobotGetArmsScene()); break;
+          StartCoroutine(Lvl1_RobotGetArmsScene());
+          break;
       }
     }
 
     void LoadLevel2Event() {
       switch (name) {
         case "morph_to_triangle":
-          StartCoroutine(Lvl2_FirstMorphToTriangle()); break;
+          StartCoroutine(Lvl2_FirstMorphToTriangle());
+          break;
         case "bring_arms_back":
-          DialogSystem.loadDialog("lvl2_you_are_out"); break;
+          DialogSystem.loadDialog("lvl2_you_are_out");
+          break;
         case "can_you_morph_into_other_forms":
-          StartCoroutine(LVL2_CanYouMorphIntoOtherForms()); break;
+          StartCoroutine(LVL2_CanYouMorphIntoOtherForms());
+          break;
         case "rectangle_morph_praises":
-          StartCoroutine(LVL2_RectangleMorphPraises()); break;
+          StartCoroutine(LVL2_RectangleMorphPraises());
+          break;
         case "breakable_block":
-          DialogSystem.loadDialog("lvl2_breakable_block"); break;
+          DialogSystem.loadDialog("lvl2_breakable_block");
+          break;
         case "smash_right":
-          DialogSystem.loadDialog("lvl2_smash_right"); break;
+          DialogSystem.loadDialog("lvl2_smash_right");
+          break;
         case "second_hand_legs":
-          DialogSystem.loadDialog("lvl2_second_hand_legs"); break;
+          DialogSystem.loadDialog("lvl2_second_hand_legs");
+          break;
         case "pick_up_legs":
-          StartCoroutine(LVL2_PickUpLegs()); break;
+          StartCoroutine(LVL2_PickUpLegs());
+          break;
         case "morph_force_field":
-          StartCoroutine(LVL2_ForceField()); break;
+          StartCoroutine(LVL2_ForceField());
+          break;
         case "receive_arms":
-          StartCoroutine(LVL2_ReceiveArms()); break;
+          StartCoroutine(LVL2_ReceiveArms());
+          break;
       }
     }
 
     void LoadLevel3Event() {
       switch (name) {
         case "robot_humming2":
-          DialogSystem.loadDialog("lvl3_robot_humming2"); break;
+          DialogSystem.loadDialog("lvl3_robot_humming2");
+          break;
         case "robot_humming3":
-          DialogSystem.loadDialog("lvl3_robot_humming3"); break;
+          DialogSystem.loadDialog("lvl3_robot_humming3");
+          break;
+        case "like_the_melody":
+          DialogSystem.loadDialog("lvl3_EVIL_like_the_melody");
+          break;
+        case "neck_nose_ear_doctor":
+          DialogSystem.loadDialog("lvl3_neck_nose_ear_specialist");
+          DialogSystem.loadDialog("lvl3_EVIL_beautiful_melody");
+          break;
+        case "smoking_legs":
+          DialogSystem.loadDialog("lvl3_smoking_legs");
+          DialogSystem.loadDialog("lvl3_messed_up_place");
+          break;
+        case "safe_laser_turrets":
+          GameObject.Find("MalfunctioningLaserTurret").GetComponent<LaserTurret>().disable();
+          GameObject.Find("MalfunctioningLaserTurret2").GetComponent<LaserTurret>().disable();
+          DialogSystem.loadDialog("lvl3_EVIL_fruit_juice_shooters");
+          break;
+        case "surprised_about_laser_cannons":
+          DialogSystem.loadDialog("lvl3_surprised_about_laser_cannons");
+          break;
+        case "set_on_fire":
+          DialogSystem.loadDialog("lvl3_EVIL_set_on_fire");
+          break;
+        case "toxic_gases":
+          DialogSystem.loadDialog("lvl3_toxic_gases");
+          break;
+        case "end_scene":
+          StartCoroutine(LVL3_EndScene());
+          break;
       }
     }
 
@@ -174,7 +224,6 @@ public class ScriptedEventsManager : MonoBehaviour {
    * ===============
    */
 
-
   private IEnumerator StartFrequenceLvl4() {
     yield return new WaitForSeconds(1f);
     StopCoroutine(StartFrequenceLvl4());
@@ -189,22 +238,33 @@ public class ScriptedEventsManager : MonoBehaviour {
    * ===============
    */
 
-
   private IEnumerator StartFrequenceLvl3() {
     yield return new WaitForSeconds(5f);
     DialogSystem.loadDialog("lvl3_robot_humming1");
-    yield return new WaitForSeconds(5f);
     StopCoroutine(StartFrequenceLvl3());
+  }
+  private IEnumerator LVL3_EndScene() {
+
+    LevelSettings.Instance.setSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canJump", false);
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
+    LevelSettings.Instance.setSetting("canMorphToCircle", false);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", false);
+    LevelSettings.Instance.setSetting("canMorphToRectangle", false);
+
+    yield return new WaitForSeconds(1f);
+    DialogSystem.loadDialog("lvl3_melody_is_gone");
+    DialogSystem.loadDialog("lvl3_EVIL_unfortunate");
+    DialogSystem.loadDialog("lvl3_EVIL_hand_over_your_body");
+    StopCoroutine(LVL3_EndScene());
   }
 
 
 
-
-    /* ===============
-     * === LEVEL 2 ===
-     * ===============
-     */
-
+  /* ===============
+    * === LEVEL 2 ===
+    * ===============
+    */
 
   private IEnumerator StartFrequenceLvl2() {
     LevelSettings.Instance.setSetting("canMorphToCircle", true);

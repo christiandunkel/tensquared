@@ -13,6 +13,8 @@ public class LaserTurret : MonoBehaviour {
   // distance of player to turret, in which turret becomes active
   public float distanceToPlayerNeededForActivation = 160f;
 
+  [SerializeField] private bool isEnabled = true;
+
   // shooting timer attributes
   public GameObject bulletSpawnPosition;
   private bool inShootingPosition = true;
@@ -46,8 +48,12 @@ public class LaserTurret : MonoBehaviour {
 
   private void Update() {
 
+    if (!isEnabled) {
+      return;
+    }
+
     // test if player is close enough to turret for it to be active, otherwise return
-    Vector2 playerPos = PlayerController.playerObject.transform.position;
+    Vector2 playerPos = PlayerManager.playerObject.transform.position;
     if (
       Mathf.Pow((playerPos.x - transform.position.x), 2) +
       Mathf.Pow((playerPos.y - transform.position.y), 2)
@@ -58,7 +64,7 @@ public class LaserTurret : MonoBehaviour {
     }
 
     // calculate angle between turret and player position
-    Vector3 dir = PlayerController.playerObject.transform.localPosition - turret.transform.position;
+    Vector3 dir = PlayerManager.playerObject.transform.localPosition - turret.transform.position;
     float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
     // don't rotate through the turret through the holder texture
@@ -89,6 +95,14 @@ public class LaserTurret : MonoBehaviour {
       inShootingPosition = false;
     }
 
+  }
+
+  public void enable() {
+    isEnabled = true;
+  }
+
+  public void disable() {
+    isEnabled = false;
   }
 
   private void shootBullet() {

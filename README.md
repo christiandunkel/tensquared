@@ -1,4 +1,4 @@
-[![tensquared Poster](/Posters/poster_1984x2806px.png)](#)
+[![tensquared Poster](/Posters/poster_500x707px_compressed.png)](#)
 
 The 2D puzzle platformer **tensquared** was made in Unity for the *8-bit Bauhaus* study project in the summer semester of 2019 at the *Bauhaus University Weimar*. The project was started to create a number of Bauhaus-themed games in order to celebrate 100 years of Bauhaus. See the [documentation](/Documentation/Documentation.md) for more information.
 

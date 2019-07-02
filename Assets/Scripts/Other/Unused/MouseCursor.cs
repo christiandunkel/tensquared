@@ -13,9 +13,9 @@ public class MouseCursor : MonoBehaviour {
    */
 
   private Animator animator;
-  [SerializeField] private SpriteRenderer cursorImage;
-  [SerializeField] private ParticleSystem clickEffect;
-  [SerializeField] private ParticleSystem trailEffect;
+  [SerializeField] private SpriteRenderer cursorImage = null;
+  [SerializeField] private ParticleSystem clickEffect = null;
+  [SerializeField] private ParticleSystem trailEffect = null;
 
 
 

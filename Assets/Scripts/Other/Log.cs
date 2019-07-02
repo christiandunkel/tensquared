@@ -8,15 +8,15 @@ using UnityEngine;
  */
 
 public static class Log {
-  
+
   /*
    ==================
    === ATTRIBUTES ===
    ==================
    */
 
-  // add unique id to messages to make sure each is displayed 
-  // in its own line inside unity and not combined with similar messages
+  // add unique id to messages to make sure each is displayed in
+  // its own line inside unity and not combined with similar messages
   private static int messageID = 1;
 
 

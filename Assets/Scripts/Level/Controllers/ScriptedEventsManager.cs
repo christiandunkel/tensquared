@@ -239,12 +239,13 @@ public class ScriptedEventsManager : MonoBehaviour {
    * ===============
    */
 
+  private GameObject voiceLineRendererRed = null;
   private IEnumerator StartFrequenceLvl3() {
     yield return new WaitForSeconds(2f);
-    StartCoroutine(LVL3_EndScene());
+
     // set evil red voice line renderer inactive for later
-    LineRenderer voiceLineRendererRed = DialogSystem.getLineRenderer(1);
-    voiceLineRendererRed.gameObject.SetActive(false);
+    voiceLineRendererRed = GameObject.Find("VoiceLineRendererRed");
+    voiceLineRendererRed.SetActive(false);
 
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     yield return new WaitForSeconds(3f);
@@ -264,9 +265,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     Sprite[] robotFallingApartAnimation = Resources.LoadAll<Sprite>("RobotFallingApartAnimation");
     int spritesNumber = robotFallingApartAnimation.Length;
 
-    // game objects to target for animation at end of level
-    LineRenderer voiceLineRendererBlue = DialogSystem.getLineRenderer(0);
-    LineRenderer voiceLineRendererRed = DialogSystem.getLineRenderer(1);
+    // game object to target for animation at end of level
     SpriteRenderer robotEndObject = GameObject.Find("RobotFallingApartTexture").GetComponent<SpriteRenderer>();
 
     yield return new WaitForSeconds(1f);
@@ -281,7 +280,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
       // disabled blue voice line renderer
       if (i == 1) {
-        voiceLineRendererBlue.gameObject.SetActive(false);
+        GameObject.Find("VoiceLineRendererBlue").SetActive(false);
       }
 
       // add pauses in animation (still-frames)
@@ -303,7 +302,7 @@ public class ScriptedEventsManager : MonoBehaviour {
       else if (i == 19) {
         yield return new WaitForSeconds(.4f);
         // enable evil red voice line renderer
-        voiceLineRendererRed.gameObject.SetActive(true);
+        voiceLineRendererRed.SetActive(true);
       }
 
       yield return new WaitForSeconds(0.1f);

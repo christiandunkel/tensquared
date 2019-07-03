@@ -241,13 +241,17 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private IEnumerator StartFrequenceLvl3() {
     yield return new WaitForSeconds(2f);
+    // set evil red voice line renderer inactive for later
+    LineRenderer voiceLineRendererRed = DialogSystem.getLineRenderer(1);
+    voiceLineRendererRed.gameObject.SetActive(false);
+
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     yield return new WaitForSeconds(3f);
     DialogSystem.loadDialog("lvl3_robot_humming1");
     StopCoroutine(StartFrequenceLvl3());
   }
   private IEnumerator LVL3_EndScene() {
-
+    
     LevelSettings.Instance.setSetting("canMove", false);
     LevelSettings.Instance.setSetting("canJump", false);
     LevelSettings.Instance.setSetting("canSelfDestruct", false);
@@ -255,10 +259,62 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
 
+    // load animation sprites
+    Sprite[] robotFallingApartAnimation = Resources.LoadAll<Sprite>("RobotFallingApartAnimation");
+    int spritesNumber = robotFallingApartAnimation.Length;
+
+    // game objects to target for animation at end of level
+    LineRenderer voiceLineRendererBlue = DialogSystem.getLineRenderer(0);
+    LineRenderer voiceLineRendererRed = DialogSystem.getLineRenderer(1);
+    SpriteRenderer robotEndObject = GameObject.Find("RobotFallingApartTexture").GetComponent<SpriteRenderer>();
+
     yield return new WaitForSeconds(1f);
     DialogSystem.loadDialog("lvl3_melody_is_gone");
+
+    yield return new WaitForSeconds(6.5f);
+    SoundController.Instance.playSound("robotElectricDefect");
+
+    for (int i = 0; i < spritesNumber; i++) {
+
+      robotEndObject.sprite = robotFallingApartAnimation[i];
+
+      // disabled blue voice line renderer
+      if (i == 1) {
+        voiceLineRendererBlue.gameObject.SetActive(false);
+      }
+
+      // add pauses in animation (still-frames)
+      if (i == 5) {
+        yield return new WaitForSeconds(0.4f);
+      }
+      else if (i == 10) {
+        // part of robot is falling and landing on the ground
+        SoundController.Instance.playSound("landingRectangleSound");
+      }
+      else if (i == 12) {
+        // part of robot is falling and landing on the ground
+        SoundController.Instance.playSound("landingTriangleSound");
+      }
+      else if (i == 15) {
+        yield return new WaitForSeconds(0.2f);
+        SoundController.Instance.playSound("robotElectricDefect");
+      }
+      else if (i == 19) {
+        yield return new WaitForSeconds(.4f);
+        // enable evil red voice line renderer
+        voiceLineRendererRed.gameObject.SetActive(true);
+      }
+
+      yield return new WaitForSeconds(0.1f);
+
+    }
+
     DialogSystem.loadDialog("lvl3_EVIL_unfortunate");
     DialogSystem.loadDialog("lvl3_EVIL_hand_over_your_body");
+    yield return new WaitForSeconds(19f);
+
+    LevelEnd.Instance.endLevel(false);
+
     StopCoroutine(LVL3_EndScene());
   }
 

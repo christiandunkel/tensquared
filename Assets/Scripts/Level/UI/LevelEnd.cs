@@ -50,12 +50,13 @@ public class LevelEnd : MonoBehaviour {
     }
   }
 
-  public void endLevel() {
+  public void endLevel(bool playSound = true) {
     
     LevelTimer.Instance.saveTimer();
 
     LevelSettings.Instance.setSetting("canMove", false);
     LevelSettings.Instance.setSetting("canJump", false);
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMorphToCircle", false);
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
@@ -82,7 +83,9 @@ public class LevelEnd : MonoBehaviour {
 
     IEnumerator endSceenAnimation() {
 
-      SoundController.Instance.playSound("levelCompleteSound");
+      if (playSound) {
+        SoundController.Instance.playSound("levelCompleteSound");
+      }
 
       // fade in 'level complete' animation
       for (int i = 0; i < 50; i++) {

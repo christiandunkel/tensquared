@@ -365,10 +365,13 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioClip levelCompleteSound = null;
   [SerializeField] private AudioClip levelCompleteSoundEvil = null;
 
-  // other
+  // robot
   [SerializeField] private AudioClip robotRepairSound = null;
   [SerializeField] private AudioClip robotScreamSound = null;
   [SerializeField] private AudioClip robotElectricDefect = null;
+  [SerializeField] private AudioClip robotPartsFallOff = null;
+
+  // other
   [SerializeField] private AudioClip breakingBlockSound = null;
   [SerializeField] private AudioClip pistonPushSound = null;
   [SerializeField] private AudioClip closingDoorSound = null;
@@ -551,7 +554,7 @@ public class SoundController : MonoBehaviour {
         return c.length;
 
       /*
-       * OTHER
+       * ROBOT
        */
 
       case "robotRepairSound":
@@ -568,6 +571,15 @@ public class SoundController : MonoBehaviour {
         c = robotElectricDefect;
         speechSoundPlayer.PlayOneShot(c);
         return c.length;
+
+      case "robotPartsFallOff":
+        c = robotPartsFallOff;
+        speechSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      /*
+       * OTHER
+       */
 
       case "breakingBlockSound":
         c = breakingBlockSound;

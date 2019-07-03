@@ -288,11 +288,7 @@ public class ScriptedEventsManager : MonoBehaviour {
       }
       else if (i == 10) {
         // part of robot is falling and landing on the ground
-        SoundController.Instance.playSound("landingRectangleSound");
-      }
-      else if (i == 12) {
-        // part of robot is falling and landing on the ground
-        SoundController.Instance.playSound("landingTriangleSound");
+        SoundController.Instance.playSound("robotPartsFallOff");
       }
       else if (i == 15) {
         yield return new WaitForSeconds(0.2f);

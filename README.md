@@ -13,3 +13,4 @@ What is *Bauhaus*? The Bauhaus was originally a German art school founded in Wei
 ## More
 - [Documentation](/Documentation/Documentation.md)
 - [Sprite Sorting Order](/Documentation/SpriteSortingOrder.md)
+- [Credits](/Documentation/Credits.md)

@@ -10,7 +10,7 @@ public class LevelEnd : MonoBehaviour {
   // singleton
   public static LevelEnd Instance;
 
-  public int levelID;
+  private int levelID;
 
   private CanvasGroup CG;
   private CanvasGroup endMenuContainer;
@@ -50,7 +50,7 @@ public class LevelEnd : MonoBehaviour {
     }
   }
 
-  public void endLevel(bool playSound = true) {
+  public void endLevel(string soundName = "levelCompleteSound") {
     
     LevelTimer.Instance.saveTimer();
 
@@ -83,9 +83,8 @@ public class LevelEnd : MonoBehaviour {
 
     IEnumerator endSceenAnimation() {
 
-      if (playSound) {
-        SoundController.Instance.playSound("levelCompleteSound");
-      }
+      // play 'level complete' sound
+      SoundController.Instance.playSound(soundName);
 
       // fade in 'level complete' animation
       for (int i = 0; i < 50; i++) {

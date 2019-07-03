@@ -363,6 +363,7 @@ public class SoundController : MonoBehaviour {
 
   // UI
   [SerializeField] private AudioClip levelCompleteSound = null;
+  [SerializeField] private AudioClip levelCompleteSoundEvil = null;
 
   // other
   [SerializeField] private AudioClip robotRepairSound = null;
@@ -541,6 +542,11 @@ public class SoundController : MonoBehaviour {
 
       case "levelCompleteSound":
         c = levelCompleteSound;
+        shortSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      case "levelCompleteSoundEvil":
+        c = levelCompleteSoundEvil;
         shortSoundPlayer.PlayOneShot(c);
         return c.length;
 

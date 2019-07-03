@@ -241,6 +241,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private IEnumerator StartFrequenceLvl3() {
     yield return new WaitForSeconds(2f);
+    StartCoroutine(LVL3_EndScene());
     // set evil red voice line renderer inactive for later
     LineRenderer voiceLineRendererRed = DialogSystem.getLineRenderer(1);
     voiceLineRendererRed.gameObject.SetActive(false);
@@ -313,7 +314,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl3_EVIL_hand_over_your_body");
     yield return new WaitForSeconds(19f);
 
-    LevelEnd.Instance.endLevel(false);
+    LevelEnd.Instance.endLevel("levelCompleteSoundEvil");
 
     StopCoroutine(LVL3_EndScene());
   }

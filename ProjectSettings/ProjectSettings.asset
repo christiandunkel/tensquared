@@ -12,10 +12,10 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: 8-Bit Bauhaus Projekt
+  companyName: 8-Bit Bauhaus
   productName: tensquared
   defaultCursor: {fileID: 2800000, guid: 237be1cf778b82e49b1606fcdca567c6, type: 3}
-  cursorHotspot: {x: 0, y: 0}
+  cursorHotspot: {x: 42, y: 80}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
@@ -43,7 +43,9 @@ PlayerSettings:
   - logo: {fileID: 10404, guid: 0000000000000000e000000000000000, type: 0}
     duration: 2
   - logo: {fileID: 21300000, guid: a413071c228d77f4e8c4f3392b7b1f58, type: 3}
-    duration: 7
+    duration: 4
+  - logo: {fileID: 21300000, guid: 453bf0a599007dc4a93df7e84d26540e, type: 3}
+    duration: 3
   - logo: {fileID: 21300000, guid: 50e73564d267bb341af38912d8ba3e6e, type: 3}
     duration: 5
   m_VirtualRealitySplashScreen: {fileID: 0}
@@ -124,7 +126,7 @@ PlayerSettings:
     16:10: 0
     16:9: 1
     Others: 0
-  bundleVersion: 0.5
+  bundleVersion: 6
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0

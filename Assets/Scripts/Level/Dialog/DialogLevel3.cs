@@ -77,14 +77,6 @@ public class DialogLevel3 : MonoBehaviour {
         dialog.icon = "sad";
         break;
 
-      case "lvl3_messed_up_place":
-        dialog.setText(
-          "Anyway, what happened to this place? Why does all this toxic water leak out? Did you do that, little friend?"
-        );
-        dialog.setAudioClip("lvl3_messed_up_place");
-        dialog.icon = "angry";
-        break;
-
       case "lvl3_EVIL_fruit_juice_shooters":
         dialog.setText(
           "Don't worry. Those laser cannons... I mean, fruit juice shooters are totally harmless."

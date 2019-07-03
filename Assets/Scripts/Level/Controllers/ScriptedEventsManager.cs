@@ -184,7 +184,6 @@ public class ScriptedEventsManager : MonoBehaviour {
           break;
         case "smoking_legs":
           DialogSystem.loadDialog("lvl3_smoking_legs");
-          DialogSystem.loadDialog("lvl3_messed_up_place");
           break;
         case "safe_laser_turrets":
           GameObject.Find("MalfunctioningLaserTurret").GetComponent<LaserTurret>().disable();

@@ -74556,7 +74556,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3719917309792748830}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3719917309792748831}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fe5394174fe3ec468ca9353bb920c5a, type: 3}
@@ -82277,6 +82277,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7c7a9ee1d1186446878038dd60d1b8a, type: 3}
+--- !u!1 &3719917309792748831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3719917311167921798, guid: c7c7a9ee1d1186446878038dd60d1b8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3719917309792748830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3719917309792748832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719917309792748831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2fd0b11cfb2fb4ca4ed47adfcc3b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shader: {fileID: 4800000, guid: 9d7e8f87435780644abb4acdfd72a2f0, type: 3}
+  LookupTexture: {fileID: 0}
+  Amount: 1
+  TintColor: {r: 0.95289814, g: 1, b: 0.7028302, a: 1}
+  Hue: 0
+  Saturation: 0.14
+  Brightness: 0.12
+  Contrast: 0.08
+  Sharpness: 0
 --- !u!1001 &6103871597368131212
 PrefabInstance:
   m_ObjectHideFlags: 0

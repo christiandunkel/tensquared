@@ -7154,6 +7154,7 @@ GameObject:
   - component: {fileID: 519420035}
   - component: {fileID: 519420034}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera (+Unity Splashscreen BG color)
   m_TagString: MainCamera
@@ -7183,6 +7184,27 @@ MonoBehaviour:
   btns:
   - {fileID: 1312708103}
   - {fileID: 2016010941}
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2fd0b11cfb2fb4ca4ed47adfcc3b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shader: {fileID: 4800000, guid: 9d7e8f87435780644abb4acdfd72a2f0, type: 3}
+  LookupTexture: {fileID: 0}
+  Amount: 1
+  TintColor: {r: 1, g: 0.99505085, b: 0.8254717, a: 1}
+  Hue: 0
+  Saturation: 0.01
+  Brightness: 0.08
+  Contrast: 0
+  Sharpness: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

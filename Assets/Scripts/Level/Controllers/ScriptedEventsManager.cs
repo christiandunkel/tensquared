@@ -295,7 +295,7 @@ public class ScriptedEventsManager : MonoBehaviour {
         SoundController.Instance.playSound("robotElectricDefect");
       }
       else if (i == 19) {
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(1f);
         // enable evil red voice line renderer
         voiceLineRendererRed.SetActive(true);
       }
@@ -534,6 +534,8 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
 
+    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
+
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl1_hello");
     yield return new WaitForSeconds(8.5f);
@@ -550,7 +552,6 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(1f);
     LevelSettings.Instance.setSetting("canSelfDestruct", true);
     LevelSettings.Instance.setSetting("canMove", true);
-    virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     StopCoroutine(StartFrequenceLvl1());
   }
   private IEnumerator Lvl1_JumpTooltip() {

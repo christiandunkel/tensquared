@@ -6,6 +6,10 @@ See the [documentation](/Documentation/Documentation.md) for more information.
 
 The game is currently in *live development*. You can download the project up to the newest commit, or select one of the releases. You can play it in the Unity editor or build it. The game in its newest version requires **Unity version 2019.1.4f1**. A newer version than that should work fine as well, probably.
 
+## Summary
+
+A lonely circle wakes up somewhere in nowhere, not knowing who it is, how it got there, and with no idea of where to go from now on. However, it doesn't take long for it to come into contact with a strange robot. The metal giant helps out it out, guides it, and together, they discover the peculiar abilities of the circle. It can morph its body into other geometric forms. The robot is intrigued and asks for help to find some missing parts of its body that it had lost. Together, they go on a journey to recover these parts. And all would have been well if there wasn't something slightly off about the whole situation.
+
 ## Download Game
 
 You can find the download link for the newest playable release of the game (Windows) under the *Releases* tab. Or you can just simply click on the *Download* button below.

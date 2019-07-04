@@ -3913,12 +3913,12 @@ RectTransform:
   m_Children:
   - {fileID: 723235058}
   m_Father: {fileID: 729912383}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 106.8, y: 26}
+  m_SizeDelta: {x: 98, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &306745461
 SpriteRenderer:
@@ -4319,7 +4319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 107.00001}
+  m_AnchoredPosition: {x: 0, y: 110.50001}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &340162534
@@ -5121,7 +5121,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: RESET PROGRESS
+  m_text: 'RESET
+
+    PROGRESS'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fbd4d01bf70ab4498cf8e229de08c93, type: 2}
   m_sharedMaterial: {fileID: 5736393800962770454, guid: 9fbd4d01bf70ab4498cf8e229de08c93,
@@ -5159,7 +5161,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_textAlignment: 514
-  m_characterSpacing: -4
+  m_characterSpacing: -8
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -5197,7 +5199,7 @@ MonoBehaviour:
     spaceCount: 1
     wordCount: 2
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -6311,7 +6313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 242.00002}
+  m_AnchoredPosition: {x: 0, y: 234.00002}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &466461704
@@ -9954,7 +9956,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: UNLOCK ALL LEVELS
+  m_text: 'UNLOCK ALL
+
+    LEVELS'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fbd4d01bf70ab4498cf8e229de08c93, type: 2}
   m_sharedMaterial: {fileID: 5736393800962770454, guid: 9fbd4d01bf70ab4498cf8e229de08c93,
@@ -9992,7 +9996,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_textAlignment: 514
-  m_characterSpacing: -4
+  m_characterSpacing: -8
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -10030,7 +10034,7 @@ MonoBehaviour:
     spaceCount: 2
     wordCount: 3
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -10091,8 +10095,8 @@ RectTransform:
   - {fileID: 1618446997}
   - {fileID: 340162533}
   - {fileID: 1654171085}
-  - {fileID: 1412552411}
   - {fileID: 306745460}
+  - {fileID: 1412552411}
   - {fileID: 429725490}
   m_Father: {fileID: 910178219}
   m_RootOrder: 0
@@ -20823,7 +20827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7781513
+  m_AspectRatio: 1.7767527
 --- !u!1 &1105004093
 GameObject:
   m_ObjectHideFlags: 0
@@ -30776,7 +30780,7 @@ RectTransform:
   - {fileID: 118177308}
   - {fileID: 1185114897}
   m_Father: {fileID: 729912383}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -32724,7 +32728,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000047683716, y: 175.00005}
+  m_AnchoredPosition: {x: -0.0000047683716, y: 172.3}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1618446998
@@ -33222,8 +33226,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 39.10001}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: -107.6, y: 27.2}
+  m_SizeDelta: {x: 98, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1654171086
 SpriteRenderer:

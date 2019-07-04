@@ -95,11 +95,13 @@ public class ButtonHoverEffect : MonoBehaviour {
       soundDelayTimer <= 0f
     ) {
       soundPlayer.PlayOneShot(hoverSound);
-      soundDelayTimer = 0.4f;
+      soundDelayTimer = 0.5f;
     }
 
-    isHovering = true;
-
+    if (hoverEffectEnabled) {
+      isHovering = true;
+    }
+    
   }
 
   public void hoverExit() {

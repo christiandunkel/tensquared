@@ -254,6 +254,19 @@ public class PlayerController : PhysicsObject {
       Log.Print("Left 'camera zoom out far' area.", cameraAnimator.gameObject);
     }
 
+    // handle camera zooming (outwards cinematic)
+    if (zoomedOutCameraCinematicTimer > 0f) {
+      zoomedOutCameraCinematicTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedOutCinematic")) {
+        cameraAnimator.SetBool("ZoomedOutCinematic", true);
+        Log.Print("Entered 'camera zoom out cinematic' area.", cameraAnimator.gameObject);
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedOutCinematic")) {
+      cameraAnimator.SetBool("ZoomedOutCinematic", false);
+      Log.Print("Left 'camera zoom out cinematic' area.", cameraAnimator.gameObject);
+    }
+
   }
 
 
@@ -602,6 +615,10 @@ public class PlayerController : PhysicsObject {
 
       case "ZoomOutCameraFar":
         zoomedOutCameraFarTimer = 0.5f;
+        break;
+
+      case "ZoomOutCameraCinematic":
+        zoomedOutCameraCinematicTimer = 0.5f;
         break;
 
       /* Sounds */

@@ -118,6 +118,7 @@ public class PlayerManager : MonoBehaviour {
   private protected float zoomedInCameraTimer = 0f;
   private protected float zoomedOutCameraTimer = 0f;
   private protected float zoomedOutCameraFarTimer = 0f;
+  private protected float zoomedOutCameraCinematicTimer = 0f;
 
   // morph states
   private protected string state = "Circle";

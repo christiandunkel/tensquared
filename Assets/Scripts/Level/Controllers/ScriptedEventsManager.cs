@@ -512,7 +512,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(3.5f);
     DialogSystem.loadDialog("lvl2_where_did_you_pick_up_these_legs");
     yield return new WaitForSeconds(11f);
-    LevelEnd.Instance.endLevel();
+    LevelEnd.Instance.endLevel("levelCompleteSound");
     StopCoroutine(LVL2_ReceiveArms());
   }
 
@@ -670,7 +670,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     SoundController.Instance.playSound("earthquake_3_secs");
     yield return new WaitForSeconds(6f);
 
-    LevelEnd.Instance.endLevel();
+    LevelEnd.Instance.endLevel("levelCompleteSound");
     StopCoroutine(Lvl1_RobotGetArmsScene());
   }
 

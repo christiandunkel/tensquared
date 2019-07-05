@@ -79,7 +79,8 @@ public class LevelTimer : MonoBehaviour {
     int lvlID = LevelSettings.Instance.getInt("levelID");
 
     // get timer that's already saved in player prefs
-    int oldTimer = convertStringTimerToInt(PlayerPrefs.GetString("lvl" + lvlID + "_timer"));
+    int oldTimer = PlayerPrefs.HasKey("lvl" + lvlID + "_timer") ? 
+      convertStringTimerToInt(PlayerPrefs.GetString("lvl" + lvlID + "_timer")) : 99999999;
 
     // check if timer isn't 0 (default value), and new timer is faster/smaller than old one
     // if so, replace old timer with new timer (currentTimer)

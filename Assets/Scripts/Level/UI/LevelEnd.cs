@@ -50,7 +50,7 @@ public class LevelEnd : MonoBehaviour {
     }
   }
 
-  public void endLevel(string soundName = "levelCompleteSound") {
+  public void endLevel(string soundName) {
     
     LevelTimer.Instance.saveTimer();
 

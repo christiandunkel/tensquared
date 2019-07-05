@@ -136,7 +136,7 @@ public class DialogLevel2 : MonoBehaviour {
 
       case "lvl2_where_did_you_pick_up_these_legs":
         dialog.setText(
-          "But tell me my little friend, where did you pick up these legs? They make me feel a little strange..."
+          "But tell me, my little friend, where did you pick up these legs? They make me feel a little strange..."
         );
         dialog.setAudioClip("lvl2_where_did_you_pick_up_these_legs");
         dialog.icon = "surprised";

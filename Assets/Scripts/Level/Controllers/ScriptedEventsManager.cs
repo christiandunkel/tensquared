@@ -306,7 +306,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     DialogSystem.loadDialog("lvl3_EVIL_unfortunate");
     DialogSystem.loadDialog("lvl3_EVIL_hand_over_your_body");
-    yield return new WaitForSeconds(19f);
+    yield return new WaitForSeconds(21f);
 
     LevelEnd.Instance.endLevel("levelCompleteSoundEvil");
 

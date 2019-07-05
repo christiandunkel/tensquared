@@ -89,7 +89,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4806707913453346733}
   - component: {fileID: 4806707913453346731}
-  - component: {fileID: 4806707913453346732}
   m_Layer: 0
   m_Name: TextureLightBehind
   m_TagString: Untagged
@@ -159,19 +158,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4806707913453346732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4806707913453346734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e51164b678ff62438835579a9f8f886, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowOffset: {x: 0.3, y: -0.3, z: 0}
 --- !u!1 &6703732698653585932
 GameObject:
   m_ObjectHideFlags: 0

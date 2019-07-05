@@ -22,6 +22,7 @@ public class DialogLevel3 : MonoBehaviour {
         );
         dialog.setAudioClip("lvl3_robot_humming1");
         dialog.icon = "happy";
+        dialog.isEvil = true;
         break;
 
       case "lvl3_robot_humming2":

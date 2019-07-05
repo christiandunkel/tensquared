@@ -58,6 +58,8 @@ public class DialogSystem : MonoBehaviour {
   private static Vector2 jitterElementStartPos = Vector2.zero;
   private static int jitterElementAmount = 4;
   private static SimpleLUT colorGrading;
+  private static Color originalTint;
+  private static Color evilRedTint = new Color(169f / 255f, 37f / 255f, 33f / 255f);
 
   // audio visualization
   private static LineRenderer[] voiceLineRenderers;
@@ -76,8 +78,9 @@ public class DialogSystem : MonoBehaviour {
   private static ArrayList dialogQueue;
   private static Dialog currentDialogPlaying;
 
-  // read-only states of dialog box
+  // states of dialog box
   private static bool dialogBoxVisible = false;
+  private static bool dialogBoxWasVisibleInLastFrame = false;
 
   private static float speechVolumePercentage = 0f;
 
@@ -158,7 +161,9 @@ public class DialogSystem : MonoBehaviour {
               }
 
               // get element on main camera for color grading
-              colorGrading = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SimpleLUT>();
+              GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+              colorGrading = mainCamera.GetComponent<SimpleLUT>();
+              originalTint = colorGrading.TintColor;
               break;
 
             case "Background":
@@ -193,77 +198,10 @@ public class DialogSystem : MonoBehaviour {
 
   /*
    * ================
-   * === EXTERNAL ===
-   * ================
-   */
-
-  public static void loadDialog(string name) {
-
-    /*
-     * add a given dialogue to the queue;
-     * it will be played the earliest 
-     * where no other dialog is playing
-     */
-
-    if (!dialogQueue.Contains(name)) {
-      dialogQueue.Add(name);
-    }
-
-  }
-
-  public static LineRenderer[] getLineRenderers() {
-
-    /*
-     * returns an array of all line renderers
-     */
-
-    return voiceLineRenderers;
-
-  }
-
-  public static LineRenderer getLineRenderer(int id) {
-
-    /*
-     * returns the line renderer with the given id
-     */
-
-    if (id >= voiceLineRenderers.Length) {
-      Debug.LogWarning("DialogSystem: Voice line renderer array (Length: " + voiceLineRenderers.Length+ ")" + 
-                       " does not contain an id = " + id + ".");
-    }
-
-    return voiceLineRenderers[id];
-
-  }
-
-  public static LineRenderer getLineRenderer(string name) {
-
-    /*
-     * returns the line renderer with the given object name
-     */
-
-    foreach (LineRenderer lr in voiceLineRenderers) {
-
-      if (lr.gameObject.name == name) {
-        return lr;
-      }
-
-    }
-
-    Debug.LogWarning("DialogSystem: No voice line renderer with the name '" + name + "' found.");
-    return null;
-
-  }
-
-
-
-
-
-  /*
-   * ================
    * === INTERNAL ===
    * ================
    */
+   private float colorGradingTimer = 0f;
 
   private void Update() {
 
@@ -274,6 +212,10 @@ public class DialogSystem : MonoBehaviour {
 
     if (dialogBoxVisible) {
 
+      if (!dialogBoxWasVisibleInLastFrame) {
+        colorGradingTimer = 0f;
+      }
+
       // visualiaze voice line renderers
       if (voiceLineRenderers.Length > 0) {
         visualizeVoice();
@@ -282,6 +224,45 @@ public class DialogSystem : MonoBehaviour {
       // display red-tinted flicker effect on dialog box
       if (currentDialogPlaying.isEvil) {
         visualizeEvilVoice();
+
+        if (colorGradingTimer <= 1f) {
+          colorGradingTimer += (Time.fixedDeltaTime / 4f);
+        }
+
+        if (colorGrading != null) {
+          // adjust color grading on evil voice
+          colorGrading.TintColor = Color.Lerp(colorGrading.TintColor, evilRedTint, colorGradingTimer);
+        }
+      }
+
+      dialogBoxWasVisibleInLastFrame = true;
+
+    }
+    // reset dialogue box after dialogue is over
+    else {
+
+      if (dialogBoxWasVisibleInLastFrame) {
+
+        // reset position of elements of jitter effect
+        for (int i = 0; i < jitterElementAmount; i++) {
+          jitterElements[i].transform.localPosition = jitterElementStartPos;
+        }
+
+        dialogBoxWasVisibleInLastFrame = false;
+
+        colorGradingTimer = 0f;
+
+      }
+
+      if (colorGrading != null) {
+
+        if (colorGradingTimer <= 1f) {
+          colorGradingTimer += (Time.fixedDeltaTime / 4f);
+        }
+
+        // reset color grading back to normal after evil voice dialogue is over
+        colorGrading.TintColor = Color.Lerp(colorGrading.TintColor, originalTint, colorGradingTimer);
+
       }
 
     }
@@ -519,10 +500,6 @@ public class DialogSystem : MonoBehaviour {
 
     panelElementImage.color = redTint;
 
-    if (colorGrading != null) {
-      // todo: adjust color grading on evil voice
-    }
-
     // animate all 4 jitter elements depending on the audio sin curve
     float offsetJitterElement = smoothNormalizedColor * 20f;
     for (int i = 0; i < jitterElementAmount; i++) {
@@ -532,6 +509,75 @@ public class DialogSystem : MonoBehaviour {
       newPos.y += (i == 1 || i == 3) ? offsetJitterElement : -offsetJitterElement;
       jitterElements[i].transform.localPosition = newPos;
     }
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public static void loadDialog(string name) {
+
+    /*
+     * add a given dialogue to the queue;
+     * it will be played the earliest 
+     * where no other dialog is playing
+     */
+
+    if (!dialogQueue.Contains(name)) {
+      dialogQueue.Add(name);
+    }
+
+  }
+
+  public static LineRenderer[] getLineRenderers() {
+
+    /*
+     * returns an array of all line renderers
+     */
+
+    return voiceLineRenderers;
+
+  }
+
+  public static LineRenderer getLineRenderer(int id) {
+
+    /*
+     * returns the line renderer with the given id
+     */
+
+    if (id >= voiceLineRenderers.Length) {
+      Debug.LogWarning("DialogSystem: Voice line renderer array (Length: " + voiceLineRenderers.Length + ")" +
+                       " does not contain an id = " + id + ".");
+      return null;
+    }
+
+    return voiceLineRenderers[id];
+
+  }
+
+  public static LineRenderer getLineRenderer(string name) {
+
+    /*
+     * returns the line renderer with the given object name
+     */
+
+    foreach (LineRenderer lr in voiceLineRenderers) {
+
+      if (lr.gameObject.name == name) {
+        return lr;
+      }
+
+    }
+
+    Debug.LogWarning("DialogSystem: No voice line renderer with the name '" + name + "' found.");
+    return null;
 
   }
 

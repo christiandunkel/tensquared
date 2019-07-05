@@ -36,15 +36,25 @@ public class DialogSystem : MonoBehaviour {
   // array containg all roboter icons as sprites
   private static Sprite[] dialogIcons = null;
 
-  // elements of the dialog box
   private static Animator animator = null;
   private static AudioSource audioSource = null;
+
+  // elements of the dialog box
   private static GameObject dialogBox = null;
   private static TextMeshProUGUI textElement = null;
+
   // background of dialogue box
   private static GameObject panelElement = null;
   private static Image panelElementImage = null;
+
+  // robot emoticon
   private static Image iconElement = null;
+
+  // elements for red jittering effect on the evil robot voice
+  private static GameObject jitterContainer = null;
+  private static GameObject[] jitterElements = null;
+  private static Vector2 jitterElementStartPos = Vector2.zero;
+  private static int jitterElementAmount = 4;
 
   // audio visualization
   private static LineRenderer[] voiceLineRenderers;
@@ -124,6 +134,25 @@ public class DialogSystem : MonoBehaviour {
 
           // get parts of dialog system
           switch (obj2.name) {
+
+            case "BackgroundJitterEffect":
+              jitterContainer = obj2;
+              jitterElements = new GameObject[jitterElementAmount];
+              // get single elements inside jitter container,
+              // that will later be animated when evil robot voice is playing
+              int i = 0;
+              foreach (Transform child3 in jitterContainer.transform) {
+                jitterElements[i] = child3.gameObject;
+
+                // get start position of jitter elements, 
+                // which is the same for all of them
+                if (i == 0) {
+                  jitterElementStartPos = child3.gameObject.transform.localPosition;
+                }
+
+                i++;
+              }
+              break;
 
             case "Background":
               panelElement = obj2;
@@ -480,6 +509,16 @@ public class DialogSystem : MonoBehaviour {
     float smooth_normalized_color = (normalized_color + previous_normalized_color) / 2;
 
     panelElementImage.color = new Color(1f, 1f - smooth_normalized_color, 1f - smooth_normalized_color);
+
+    // animate all 4 jitter elements depending on the audio sin curve
+    float offsetJitterElement = smooth_normalized_color * 20f;
+    for (int i = 0; i < jitterElementAmount; i++) {
+      Vector2 newPos = jitterElementStartPos;
+      // animate the 4 elements in the 4 different diagonal directions
+      newPos.x += (i == 1 || i == 2) ? offsetJitterElement : -offsetJitterElement;
+      newPos.y += (i == 1 || i == 3) ? offsetJitterElement : -offsetJitterElement;
+      jitterElements[i].transform.localPosition = newPos;
+    }
 
   }
 

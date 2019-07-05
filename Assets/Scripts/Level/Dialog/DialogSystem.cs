@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DigitalRuby.SimpleLUT;
 
 /*
  * powers the dialog boxes and roboter voice in the levels
@@ -55,6 +56,7 @@ public class DialogSystem : MonoBehaviour {
   private static GameObject[] jitterElements = null;
   private static Vector2 jitterElementStartPos = Vector2.zero;
   private static int jitterElementAmount = 4;
+  private static SimpleLUT colorGrading;
 
   // audio visualization
   private static LineRenderer[] voiceLineRenderers;
@@ -152,6 +154,9 @@ public class DialogSystem : MonoBehaviour {
 
                 i++;
               }
+
+              // get element on main camera for color grading
+              colorGrading = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SimpleLUT>();
               break;
 
             case "Background":
@@ -497,21 +502,27 @@ public class DialogSystem : MonoBehaviour {
     }
 
     // normalize color to be between 0 and 1
-    float normalized_color = max / 255f;
+    float normalizedColor = max / 255f;
     // limit the color value to 0.6
-    if (normalized_color > 0.6f) {
-      normalized_color = 0.6f;
+    if (normalizedColor > 0.6f) {
+      normalizedColor = 0.6f;
     }
 
     // get previous normalized color
-    float previous_normalized_color = 1f - panelElementImage.color.g;
+    float previousNormalizedColor = 1f - panelElementImage.color.g;
     // calculate mid point between the two colors to smoothen the transition
-    float smooth_normalized_color = (normalized_color + previous_normalized_color) / 2;
+    float smoothNormalizedColor = (normalizedColor + previousNormalizedColor) / 2;
 
-    panelElementImage.color = new Color(1f, 1f - smooth_normalized_color, 1f - smooth_normalized_color);
+    Color redTint = new Color(1f, 1f - smoothNormalizedColor, 1f - smoothNormalizedColor);
+
+    panelElementImage.color = redTint;
+
+    if (colorGrading != null) {
+      // todo: adjust color grading on evil voice
+    }
 
     // animate all 4 jitter elements depending on the audio sin curve
-    float offsetJitterElement = smooth_normalized_color * 20f;
+    float offsetJitterElement = smoothNormalizedColor * 20f;
     for (int i = 0; i < jitterElementAmount; i++) {
       Vector2 newPos = jitterElementStartPos;
       // animate the 4 elements in the 4 different diagonal directions

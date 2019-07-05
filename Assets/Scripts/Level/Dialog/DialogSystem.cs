@@ -36,6 +36,10 @@ public class DialogSystem : MonoBehaviour {
 
   // array containg all roboter icons as sprites
   private static Sprite[] dialogIcons = null;
+  private static Sprite[] dialogIconsEvil = null;
+
+  // robot emoticon
+  private static Image iconElement = null;
 
   private static Animator animator = null;
   private static AudioSource audioSource = null;
@@ -47,9 +51,6 @@ public class DialogSystem : MonoBehaviour {
   // background of dialogue box
   private static GameObject panelElement = null;
   private static Image panelElementImage = null;
-
-  // robot emoticon
-  private static Image iconElement = null;
 
   // elements for red jittering effect on the evil robot voice
   private static GameObject jitterContainer = null;
@@ -119,6 +120,7 @@ public class DialogSystem : MonoBehaviour {
 
     // load icons into sprite array
     dialogIcons = Resources.LoadAll<Sprite>("DialogIcons/");
+    dialogIconsEvil = Resources.LoadAll<Sprite>("DialogIconsEvil/");
 
     // get inner elements
     foreach (Transform child in gameObject.transform) {
@@ -353,7 +355,7 @@ public class DialogSystem : MonoBehaviour {
       textElement.SetText("");
 
       // load robot image
-      iconElement.sprite = getDialogIcon(currentDialogPlaying.icon);
+      iconElement.sprite = getDialogIcon(currentDialogPlaying.icon, currentDialogPlaying.isEvil);
 
       // play animation
       animator.SetBool("ShowDialog", true);
@@ -388,7 +390,7 @@ public class DialogSystem : MonoBehaviour {
 
   }
 
-  private static Sprite getDialogIcon(string iconName) {
+  private static Sprite getDialogIcon(string iconName, bool evilVoice) {
 
     /*
      * returns the roboter icon with given name
@@ -415,7 +417,7 @@ public class DialogSystem : MonoBehaviour {
     }
 
     // return sprite at index
-    return dialogIcons[getIndex()];
+    return evilVoice ? dialogIconsEvil[getIndex()] : dialogIcons[getIndex()];
 
   }
 

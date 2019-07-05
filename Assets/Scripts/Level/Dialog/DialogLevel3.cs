@@ -22,7 +22,6 @@ public class DialogLevel3 : MonoBehaviour {
         );
         dialog.setAudioClip("lvl3_robot_humming1");
         dialog.icon = "happy";
-        dialog.isEvil = true;
         break;
 
       case "lvl3_robot_humming2":
@@ -47,7 +46,7 @@ public class DialogLevel3 : MonoBehaviour {
           "I like it."
         );
         dialog.setAudioClip("lvl3_EVIL_like_the_melody");
-        dialog.icon = "happy";
+        dialog.icon = "neutral";
         dialog.isEvil = true;
         break;
 

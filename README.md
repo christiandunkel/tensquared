@@ -14,7 +14,7 @@ A lonely circle wakes up somewhere in nowhere, not knowing who it is, how it got
 
 You can find the download link for the newest playable release of the game (Windows) under the *Releases* tab. Or you can just simply click on the *Download* button below.
 
-[![Download the game](/Documentation/Images/download_button.png)](https://github.com/riti1867/tensquared/releases/download/v6/build.zip)
+[![Download the game](/Documentation/Images/download_button.png)](https://github.com/riti1867/tensquared/releases/download/v6.1/build.zip)
 
 ## What is Bauhaus?
 

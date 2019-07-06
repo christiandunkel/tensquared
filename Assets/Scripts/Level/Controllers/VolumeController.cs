@@ -41,11 +41,11 @@ public class VolumeController : MonoBehaviour {
     updateVolume();
 
     if (PauseMenu.Instance != null) {
-      if (!soundIsPaused && PauseMenu.Instance.isPaused) {
+      if (!soundIsPaused && PauseMenu.Instance.isPaused()) {
         soundIsPaused = true;
         PauseAudioSources();
       }
-      else if (soundIsPaused && !PauseMenu.Instance.isPaused) {
+      else if (soundIsPaused && !PauseMenu.Instance.isPaused()) {
         soundIsPaused = false;
         UnPauseAudioSources();
       }

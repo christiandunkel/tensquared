@@ -12,9 +12,9 @@ using UnityEngine.UI;
 public class SaveLoader : MonoBehaviour {
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   private string encoding_pass_phrase = "tensquaredSaveFileCipher";
@@ -28,9 +28,9 @@ public class SaveLoader : MonoBehaviour {
 
 
   /*
-   ==================
-   === COMPONENTS ===
-   ==================
+   * ==================
+   * === COMPONENTS ===
+   * ==================
    */
 
   // 'import save' components
@@ -47,9 +47,9 @@ public class SaveLoader : MonoBehaviour {
 
 
   /*
-   ================
-   === INTERNAL ===
-   ================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
 
   private void Start() {
@@ -98,9 +98,9 @@ public class SaveLoader : MonoBehaviour {
 
 
   /*
-   ================
-   === EXTERNAL ===
-   ================
+   * ================
+   * === EXTERNAL ===
+   * ================
    */
 
   public static bool timerIsInRightFormat(string timer) {

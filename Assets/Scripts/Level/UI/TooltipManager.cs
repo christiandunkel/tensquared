@@ -7,13 +7,47 @@ using UnityEngine;
 
 public class TooltipManager : MonoBehaviour {
 
-  // singleton
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static TooltipManager Instance;
+
+  private void Awake() {
+    Instance = this;
+    initialize();
+  }
+
+
+
+
+
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
 
   private static GameObject tooltipManager;
   private static List<GameObject> tooltipList;
 
-  private void Awake() {
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  private void initialize() {
+
+    /*
+     * initializes the manager
+     */
 
     Instance = this;
 
@@ -26,16 +60,31 @@ public class TooltipManager : MonoBehaviour {
       child.gameObject.SetActive(true);
     }
 
+    Log.Print($"Initialized on object named '{gameObject.name}'.", this);
+
   }
 
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
   public static void showTooltip(string name) {
+
+    /*
+     * fades in a tooltip with a specific name
+     */
 
     GameObject obj = null;
 
     foreach (GameObject o in tooltipList) {
       if (o.name == name) {
         obj = o;
-        o.GetComponent<Animator>().SetBool("Visible", true);
       }
       else {
         o.GetComponent<Animator>().SetBool("Visible", false);
@@ -43,13 +92,20 @@ public class TooltipManager : MonoBehaviour {
     }
 
     if (obj == null) {
-      Debug.Log("TooltipManager: Could not find tooltip with the name " + name);
+      Log.Warn($"Could not find the tooltip '{name}'.", Instance.gameObject);
       return;
     }
+
+    obj.GetComponent<Animator>().SetBool("Visible", true);
+    Log.Print($"Displaying the tooltip '{name}'.", Instance.gameObject);
 
   }
 
   public static void hideTooltip(string name) {
+
+    /*
+     * hides a tooltip with a specific name
+     */
 
     GameObject obj = null;
 
@@ -61,7 +117,7 @@ public class TooltipManager : MonoBehaviour {
     }
 
     if (obj == null) {
-      Debug.Log("TooltipManager: Could not find tooltip with the name " + name);
+      Log.Warn($"Could not find the tooltip '{name}'.", Instance.gameObject);
       return;
     }
     else {
@@ -70,7 +126,11 @@ public class TooltipManager : MonoBehaviour {
 
   }
 
-  public static void hideTooltips()  {
+  public static void hideTooltips() {
+
+    /*
+     * hides all tooltips
+     */
 
     foreach (GameObject o in tooltipList) {
       o.GetComponent<Animator>().SetBool("Visible", false);

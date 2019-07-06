@@ -12,9 +12,9 @@ using UnityEngine;
 public class NoiseGenerator : MonoBehaviour {
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   [SerializeField] private int width = 128;
@@ -33,9 +33,9 @@ public class NoiseGenerator : MonoBehaviour {
 
 
   /*
-   ==================
-   === COMPONENTS ===
-   ==================
+   * ==================
+   * === COMPONENTS ===
+   * ==================
    */
 
   Renderer textureRenderer = null;
@@ -44,9 +44,9 @@ public class NoiseGenerator : MonoBehaviour {
 
 
   /*
-   ================
-   === INTERNAL ===
-   ================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
 
   private void Start() {

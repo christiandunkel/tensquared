@@ -5,9 +5,9 @@
 public class SaveNoSettings {
 
   /*
-   ================
-   === PROGRESS ===
-   ================
+   * ================
+   * === PROGRESS ===
+   * ================
    */
 
   public string lvls_unlocked;

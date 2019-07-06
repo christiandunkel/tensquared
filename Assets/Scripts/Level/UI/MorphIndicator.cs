@@ -7,13 +7,26 @@ using UnityEngine;
 
 public class MorphIndicator : MonoBehaviour {
 
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static MorphIndicator Instance;
   private void Awake() {
     Instance = this;
   }
 
 
+   
 
+
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
 
   [SerializeField] private CanvasGroup icon0 = null, border0 = null, text0 = null; // self-destruct symbol
   [SerializeField] private CanvasGroup icon1 = null, border1 = null, text1 = null; // circle symbol
@@ -27,6 +40,55 @@ public class MorphIndicator : MonoBehaviour {
 
 
 
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  private void fadeCanvasGroup(CanvasGroup thisCG, float thisNewValue) {
+
+    /*
+     * runs the fading animation of a given canvas group
+     */
+
+    // run animation
+    StartCoroutine(fadeCanvasGroupCoroutine(thisCG, thisNewValue));
+
+    IEnumerator fadeCanvasGroupCoroutine(CanvasGroup CG, float newValue) {
+
+      float duration = 0.3f;
+      int steps = 20;
+
+      // how much to fade in every step
+      float fadeBy = Mathf.Abs(CG.alpha - newValue) / steps;
+      if (newValue < CG.alpha) {
+        fadeBy *= -1;
+      }
+
+      for (int i = 0; i < 10; i++) {
+
+        CG.alpha += fadeBy;
+
+        yield return new WaitForSeconds(duration / steps);
+
+      }
+
+      CG.alpha = newValue;
+
+    }
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
 
   public void loadMorphIndicators() {
 
@@ -117,40 +179,6 @@ public class MorphIndicator : MonoBehaviour {
       fadeCanvasGroup(icon3, 0.1f);
       fadeCanvasGroup(border3, 0f);
       fadeCanvasGroup(text3, 0f);
-    }
-
-  }
-
-  private void fadeCanvasGroup(CanvasGroup thisCG, float thisNewValue) {
-
-    /*
-     * runs the fading animation of a given canvas group
-     */
-
-    // run animation
-    StartCoroutine(fadeCanvasGroupCoroutine(thisCG, thisNewValue));
-
-    IEnumerator fadeCanvasGroupCoroutine(CanvasGroup CG, float newValue) {
-
-      float duration = 0.3f;
-      int steps = 20;
-
-      // how much to fade in every step
-      float fadeBy = Mathf.Abs(CG.alpha - newValue) / steps;
-      if (newValue < CG.alpha) {
-        fadeBy *= -1;
-      }
-
-      for (int i = 0; i < 10; i++) {
-
-        CG.alpha += fadeBy;
-
-        yield return new WaitForSeconds(duration / steps);
-
-      }
-
-      CG.alpha = newValue;
-
     }
 
   }

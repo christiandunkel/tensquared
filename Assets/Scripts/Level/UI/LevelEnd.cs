@@ -7,19 +7,62 @@ using UnityEngine;
 
 public class LevelEnd : MonoBehaviour {
 
-  // singleton
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static LevelEnd Instance;
 
+  private void Awake() {
+    Instance = this;
+    initializeScript();
+  }
+
+
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
   private int levelID;
+
+
+
+
+
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
 
   private CanvasGroup CG;
   private CanvasGroup endMenuContainer;
   private CanvasGroup levelCompleteCG;
   private CanvasGroup nextLevelCG;
 
-  private void Awake() {
 
-    Instance = this;
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  private void initializeScript() {
+
+    /*
+     * initializes the script and loads the required components
+     */
+
     CG = gameObject.GetComponent<CanvasGroup>();
 
     levelID = LevelSettings.Instance.getInt("levelID");
@@ -27,7 +70,9 @@ public class LevelEnd : MonoBehaviour {
     // get animators of child elements
     foreach (Transform child in transform) {
 
-      if (child.gameObject.name != "LevelEndMenu") continue;
+      if (child.gameObject.name != "LevelEndMenu") {
+        continue;
+      }
 
       endMenuContainer = child.gameObject.GetComponent<CanvasGroup>();
 
@@ -50,7 +95,22 @@ public class LevelEnd : MonoBehaviour {
     }
   }
 
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
   public void endLevel(string soundName) {
+
+    /*
+     * disables all player controls and freezes them in position;
+     * loads the 'end level' screen and 'next level' button
+     */
     
     LevelTimer.Instance.saveTimer();
 
@@ -65,7 +125,7 @@ public class LevelEnd : MonoBehaviour {
 
     VolumeController.Instance.pauseBackgroundMusic();
 
-    Debug.Log("LevelEnd: Reached end of level.");
+    Log.Print($"Reached end of level {levelID}.", gameObject);
 
     // activate next level
     if (!PlayerPrefs.HasKey("lvls_unlocked")) {
@@ -119,25 +179,31 @@ public class LevelEnd : MonoBehaviour {
 
   }
 
-  // button that leads player to next level
   public void goToNextLevel() {
+
+    /*
+     * powers the button that leads player to next level
+     */
 
     CG.alpha = 0f;
     CG.interactable = false;
 
-    Debug.Log("LevelEnd: Go to next level (" + levelID + "->" + (levelID + 1) + ").");
+    Log.Print($"Go to next level, from level {levelID} to level {(levelID + 1)}.", this);
 
     SceneTransition.Instance.LoadScene("Level" + (levelID + 1));
 
   }
 
-  // button that leads back to main menu
   public void goToMainMenu() {
+
+    /*
+     * powers the button that leads back to main menu
+     */
 
     CG.alpha = 0f;
     CG.interactable = false;
 
-    Debug.Log("LevelEnd: Returned to main menu.");
+    Log.Print("Go to the main menu.", this);
 
     PositionAnimator.disabledAnimation = true;
     FadeOnStart.disableDelay();

@@ -163,7 +163,9 @@ public class DialogSystem : MonoBehaviour {
               // get element on main camera for color grading
               GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
               colorGrading = mainCamera.GetComponent<SimpleLUT>();
-              originalTint = colorGrading.TintColor;
+              if (colorGrading != null) {
+                originalTint = colorGrading.TintColor;
+              }
               break;
 
             case "Background":

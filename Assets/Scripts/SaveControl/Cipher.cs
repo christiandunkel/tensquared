@@ -14,9 +14,9 @@ using UnityEngine;
 public class Cipher : MonoBehaviour {
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   // keysize of the encryption algorithm in bits
@@ -30,9 +30,9 @@ public class Cipher : MonoBehaviour {
 
 
   /*
-   ================
-   === INTERNAL ===
-   ================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
    
   private static byte[] RandomEntropy() {
@@ -133,9 +133,9 @@ public class Cipher : MonoBehaviour {
 
 
   /*
-   ================
-   === EXTERNAL ===
-   ================
+   * ================
+   * === EXTERNAL ===
+   * ================
    */
 
   public static string Encrypt(string plainText, string passPhrase) {

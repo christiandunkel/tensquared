@@ -13,6 +13,7 @@ public class SceneTransition : MonoBehaviour {
    * === SINGLETON ===
    * =================
    */
+
   public static SceneTransition Instance;
 
   private void Awake() {
@@ -44,8 +45,13 @@ public class SceneTransition : MonoBehaviour {
 
   public void LoadScene(string name) {
 
+    /*
+     * loads a new scene, and runs the transition between scenes
+     */
+
     if (!sceneTransitionPlaying) {
       sceneTransitionPlaying = true;
+      Log.Print($"Loading scene '{name}'.", this);
       StartCoroutine(PlaySceneTransition());
     }
 

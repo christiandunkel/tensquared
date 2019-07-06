@@ -5,9 +5,9 @@
 public class Save {
   
   /*
-   ================
-   === SETTINGS ===
-   ================
+   * ================
+   * === SETTINGS ===
+   * ================
    */
 
   public string music_volume;
@@ -19,9 +19,9 @@ public class Save {
 
 
   /*
-   ================
-   === PROGRESS ===
-   ================
+   * ================
+   * === PROGRESS ===
+   * ================
    */
 
   public string lvls_unlocked;

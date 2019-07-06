@@ -10,9 +10,9 @@
 public class SpriteDropShadow : MonoBehaviour {
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   [SerializeField] private Vector3 shadowOffset = new Vector3(0.3f, -0.3f, 0f);
@@ -25,9 +25,9 @@ public class SpriteDropShadow : MonoBehaviour {
 
 
   /*
-   ================
-   === INTERNAL ===
-   ================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
 
   private void Awake() {
@@ -77,9 +77,9 @@ public class SpriteDropShadow : MonoBehaviour {
 
 
   /*
-   ================
-   === EXTERNAL ===
-   ================
+   * ================
+   * === EXTERNAL ===
+   * ================
    */
 
   public GameObject getShadow() {

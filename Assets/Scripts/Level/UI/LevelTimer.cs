@@ -3,17 +3,50 @@ using TMPro;
 
 public class LevelTimer : MonoBehaviour {
 
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static LevelTimer Instance;
 
-  public GameObject timer;
+  private void Awake() {
+    Instance = this;
+    initialize();
+  }
+
+
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  [SerializeField] private GameObject timer = null;
   private bool timerIsActive = false;
   private bool timerLockedIn = false;
   private float currentTimer = 0f; 
   private string currentTimerString = "00:00:000";
 
-  private void Awake() {
 
-    Instance = this;
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  private void initialize() {
+
+    /*
+     * initializes the script
+     */
 
     // if the next level relative to this one is already unlocked
     // activate the timer for this level
@@ -27,7 +60,9 @@ public class LevelTimer : MonoBehaviour {
 
   private void Update() {
 
-    if (!timerIsActive || timerLockedIn || PauseMenu.Instance.isPaused) return;
+    if (!timerIsActive || timerLockedIn || PauseMenu.Instance.isPaused()) {
+      return;
+    }
 
     // increase timer and display new number
     currentTimer += Time.fixedDeltaTime;
@@ -40,6 +75,10 @@ public class LevelTimer : MonoBehaviour {
   }
 
   private string convertToTimerFormat() {
+
+    /*
+     * converts the current timer value (seconds) to a string in the timer format
+     */
 
     int temp = (int) (currentTimer * 1000f);
 
@@ -58,6 +97,10 @@ public class LevelTimer : MonoBehaviour {
 
   private int convertStringTimerToInt(string timer) {
 
+    /*
+     * converts the timer (string) to seconds (int)
+     */
+
     int seconds = 0;
 
     timer = System.Text.RegularExpressions.Regex.Replace(timer, @":", "");
@@ -67,8 +110,21 @@ public class LevelTimer : MonoBehaviour {
 
   }
 
-  // save timer value in player prefs at the end of an level
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
   public void saveTimer() {
+
+    /*
+     * saves the timer value in player prefs
+     */
 
     if (!timerIsActive) {
       return;

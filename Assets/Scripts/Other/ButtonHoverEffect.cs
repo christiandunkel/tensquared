@@ -11,9 +11,9 @@
 public class ButtonHoverEffect : MonoBehaviour {
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   [SerializeField] private AudioSource soundPlayer = null;
@@ -32,9 +32,9 @@ public class ButtonHoverEffect : MonoBehaviour {
 
 
   /*
-   ================
-   === INTERNAL ===
-   ================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
 
   private void Start() {
@@ -76,9 +76,9 @@ public class ButtonHoverEffect : MonoBehaviour {
 
 
   /*
-   ================
-   === EXTERNAL ===
-   ================
+   * ================
+   * === EXTERNAL ===
+   * ================
    */
 
   public void hoverEnter() {

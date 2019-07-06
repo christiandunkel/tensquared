@@ -7,9 +7,9 @@
 public class MouseCursor : MonoBehaviour {
 
   /*
-   ==================
-   === COMPONENTS ===
-   ==================
+   * ==================
+   * === COMPONENTS ===
+   * ==================
    */
 
   private Animator animator;
@@ -22,9 +22,9 @@ public class MouseCursor : MonoBehaviour {
 
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   [SerializeField] private bool playParticleEffects = true;
@@ -40,9 +40,9 @@ public class MouseCursor : MonoBehaviour {
 
 
   /*
-   ================
-   === INTERNAL ===
-   ================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
 
   private void Start() {
@@ -65,7 +65,7 @@ public class MouseCursor : MonoBehaviour {
 
     if (pauseMenuExists) {
 
-      if (PauseMenu.Instance.isPaused) {
+      if (PauseMenu.Instance.isPaused()) {
         Cursor.visible = true;
         // make image transparent
         cursorImage.color = new Color(1f, 1f, 1f, 0f);

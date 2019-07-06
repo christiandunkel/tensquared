@@ -10,9 +10,9 @@ using UnityEngine;
 public static class Log {
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   // add unique id to messages to make sure each is displayed in
@@ -24,9 +24,9 @@ public static class Log {
 
 
   /*
-   ================
-   === Internal ===
-   ================
+   * ================
+   * === Internal ===
+   * ================
    */
 
 
@@ -90,9 +90,9 @@ public static class Log {
 
 
   /*
-   ================
-   === EXTERNAL ===
-   ================
+   * ================
+   * === EXTERNAL ===
+   * ================
    */
 
   public static void Print(

@@ -40,12 +40,16 @@ public class ToxicWater : MonoBehaviour {
 
   private void Update() {
 
-    if (!spawnToxicBubbles) return;
+    if (!spawnToxicBubbles) {
+      return;
+    }
 
     bubbleSpawnTimer -= Time.fixedDeltaTime;
 
     if (bubbleSpawnTimer < 0f) {
-      bubbleSpawnTimer = secondsBetweenBubbles;
+
+      // reset timer, and add some randomness to it
+      bubbleSpawnTimer = secondsBetweenBubbles + Random.Range(0f, secondsBetweenBubbles / 3f);
 
       if (playerIsInRange()) {
         StartCoroutine(spawnBubble());

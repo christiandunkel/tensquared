@@ -267,6 +267,19 @@ public class PlayerController : PhysicsObject {
       Log.Print("Left 'camera zoom out cinematic' area.", cameraAnimator.gameObject);
     }
 
+    // handle camera zooming (downwards)
+    if (zoomedDownCameraTimer > 0f) {
+      zoomedDownCameraTimer -= Time.fixedDeltaTime;
+      if (!cameraAnimator.GetBool("ZoomedDown")) {
+        cameraAnimator.SetBool("ZoomedDown", true);
+        Log.Print("Entered 'camera zoom down' area.", cameraAnimator.gameObject);
+      }
+    }
+    else if (cameraAnimator.GetBool("ZoomedDown")) {
+      cameraAnimator.SetBool("ZoomedDown", false);
+      Log.Print("Left 'camera zoom down' area.", cameraAnimator.gameObject);
+    }
+
   }
 
 
@@ -619,6 +632,10 @@ public class PlayerController : PhysicsObject {
 
       case "ZoomOutCameraCinematic":
         zoomedOutCameraCinematicTimer = 0.5f;
+        break;
+
+      case "ZoomDownCamera":
+        zoomedDownCameraTimer = 0.5f;
         break;
 
       /* Sounds */

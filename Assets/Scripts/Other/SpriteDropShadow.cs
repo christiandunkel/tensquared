@@ -75,4 +75,21 @@ public class SpriteDropShadow : MonoBehaviour {
 
   }
 
+
+  /*
+   ================
+   === EXTERNAL ===
+   ================
+   */
+
+  public GameObject getShadow() {
+
+    /*
+     * get the shadow game object
+     */
+
+    return shadow;
+
+  }
+
 }

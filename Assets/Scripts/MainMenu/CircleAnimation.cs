@@ -1,22 +1,38 @@
 ﻿using UnityEngine;
 
 /*
- * powers animation of "circle rolling into screen" in main menu
+ * powers animation of 'circle rolling into screen' in main menu
  */
 
 public class CircleAnimation : MonoBehaviour {
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
   // timer for animated circle to move into view
   private float timer = 0.0f;
   private int distance = 0;
 
-  // circle image
-  public GameObject image = null;
-
   // properties for circle rotation
-  public float rotationSpeed = -120f,
-               delay = 0f;
+  [SerializeField] private float rotationSpeed = -120f;
+  [SerializeField] private float delay = 0f;
   private Vector3 rotationVec = Vector3.zero;
+
+  // circle image
+  [SerializeField] private GameObject image = null;
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
 
   private void Update() {
 
@@ -31,14 +47,19 @@ public class CircleAnimation : MonoBehaviour {
       distance++;
       
     }
-    else timer += Time.deltaTime;
+    else {
+      timer += Time.deltaTime;
+    }
 
-    RotateCircle();
+    rotateCircle();
 
   }
 
-  // rotate the child containing the circle image
-  private void RotateCircle() {
+  private void rotateCircle() {
+
+    /*
+     * rotate the child object containing the circle image
+     */
 
     // update circle rotation and keep it in 360 degrees
     float zRotation = (Time.deltaTime * rotationSpeed) % 360;

@@ -8,22 +8,50 @@ using UnityEngine.SceneManagement;
 
 public class General : MonoBehaviour {
 
-  public void disableButton(Button btn) {
-    Log.Print($"Disabled button {btn.name}.");
-    btn.interactable = false;
-  }
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
 
   public void enableButton(Button btn) {
-    Log.Print($"Enabled button {btn.name}.");
+
+    /*
+     * enables given button
+     */
+
+    Log.Print($"Enabled button {btn.gameObject.name}.");
     btn.interactable = true;
+
+  }
+
+  public void disableButton(Button btn) {
+
+    /*
+     * disables given button
+     */
+
+    Log.Print($"Disabled button {btn.gameObject.name}.");
+    btn.interactable = false;
+
   }
 
   public void _loadSceneByName(string name) {
+
+    /*
+     * loads a scene with a certain name
+     */
+
     Log.Print($"Loaded scene {name}.");
     SceneManager.LoadScene(name);
+
   }
 
   public void _quitGame() {
+
+    /*
+     * closes the game
+     */
 
     // close the application
     Application.Quit();

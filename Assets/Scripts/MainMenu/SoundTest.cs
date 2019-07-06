@@ -7,37 +7,41 @@ using UnityEngine;
 
 public class SoundTest : MonoBehaviour {
 
-  public GameObject soundTestMessage;
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
 
-  public AudioClip musicClip, speechClip;
-  public AudioClip[] soundClips;
+  [SerializeField] private GameObject soundTestMessage = null;
 
-  public AudioSource mainMenuMusicPlayer, musicPlayer, speechPlayer, soundPlayer;
+  [SerializeField] private AudioClip musicClip = null;
+  [SerializeField] private AudioClip speechClip = null;
+  [SerializeField] private AudioClip[] soundClips = null;
+
+  [SerializeField] private AudioSource mainMenuMusicPlayer = null;
+  [SerializeField] private AudioSource musicPlayer = null;
+  [SerializeField] private AudioSource speechPlayer = null;
+  [SerializeField] private AudioSource soundPlayer = null;
 
   private bool soundTestIsPlaying = false;
 
-  public void playSoundTest() {
-    if (!soundTestIsPlaying) {
-      soundTestIsPlaying = true;
-      StartCoroutine(soundTestCoroutine());
-    }
-  }
 
-  public void stopSoundTest()  {
-    if (soundTestIsPlaying) {
-      StopCoroutine(soundTestCoroutine());
-      soundTestIsPlaying = false;
-      soundTestMessage.SetActive(false);
-      gameObject.GetComponent<CanvasGroup>().alpha = 1f;
-      gameObject.GetComponent<CanvasGroup>().interactable = true;
-      musicPlayer.Stop();
-      speechPlayer.Stop();
-      soundPlayer.Stop();
-      mainMenuMusicPlayer.UnPause();
-    }
-  }
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
 
   private IEnumerator soundTestCoroutine() {
+
+    /*
+     * starts playing the sound test and
+     * manages the audio clips playing
+     */
 
     Log.Print("Started sound test.", this);
 
@@ -76,6 +80,49 @@ public class SoundTest : MonoBehaviour {
     Log.Print("Sound test ended.", this);
 
     StopCoroutine(soundTestCoroutine());
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public void playSoundTest() {
+
+    /*
+     * starts playing the sound test
+     */
+
+    if (!soundTestIsPlaying) {
+      soundTestIsPlaying = true;
+      StartCoroutine(soundTestCoroutine());
+    }
+
+  }
+
+  public void stopSoundTest() {
+
+    /*
+     * stops the current sound test playing
+     */
+
+    if (soundTestIsPlaying) {
+      StopCoroutine(soundTestCoroutine());
+      soundTestIsPlaying = false;
+      soundTestMessage.SetActive(false);
+      gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+      gameObject.GetComponent<CanvasGroup>().interactable = true;
+      musicPlayer.Stop();
+      speechPlayer.Stop();
+      soundPlayer.Stop();
+      mainMenuMusicPlayer.UnPause();
+    }
 
   }
 

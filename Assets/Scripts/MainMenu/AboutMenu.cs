@@ -11,9 +11,9 @@ using UnityEngine.UI;
 public class AboutMenu : MonoBehaviour {
 
   /*
-   ==================
-   === COMPONENTS ===
-   ==================
+   * ==================
+   * === COMPONENTS ===
+   * ==================
    */
 
   // all objects that will be moved upwards, when scrolling down to animation menu
@@ -28,9 +28,9 @@ public class AboutMenu : MonoBehaviour {
 
 
   /*
-   ==================
-   === ATTRIBUTES ===
-   ==================
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
    */
 
   // number of objects to animate
@@ -54,9 +54,9 @@ public class AboutMenu : MonoBehaviour {
 
 
   /*
-   ==================
-   === INTERNAL ===
-   ==================
+   * ==================
+   * === INTERNAL ===
+   * ==================
    */
 
   private void Start() {
@@ -135,9 +135,9 @@ public class AboutMenu : MonoBehaviour {
 
 
   /*
-   ================
-   === EXTERNAL ===
-   ================
+   * ================
+   * === EXTERNAL ===
+   * ================
    */
 
   public void MoveCamera() {

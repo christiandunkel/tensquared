@@ -49,21 +49,25 @@ public static class Log {
     string color_message = "";
 
     switch (type) {
+
       // grey, default message
       case 1:
         color_header = "#666666";
         color_message = "#3b3b3b";
         break;
+
       // yellow, warning
       case 2:
         color_header = "#787000";
         color_message = "#423e01";
         break;
+
       // red, error
       case 3:
         color_header = "#b80000";
         color_message = "#610000";
         break;
+
     }
 
     // increase id for next message -> make it unique

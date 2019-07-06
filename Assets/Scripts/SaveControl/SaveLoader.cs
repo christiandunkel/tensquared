@@ -21,7 +21,7 @@ public class SaveLoader : MonoBehaviour {
 
   // default value / format of timer
   private static string def_timer = "00:00:000";
-  private static Regex timer_regex = new Regex(@"^[0-9]{2}:[0-9]{2}:[0-9]{3}$", RegexOptions.Compiled);
+  private static Regex timerRegex = new Regex(@"^[0-9]{2}:[0-9]{2}:[0-9]{3}$", RegexOptions.Compiled);
 
 
 
@@ -103,14 +103,14 @@ public class SaveLoader : MonoBehaviour {
    ================
    */
 
-  public static bool isTimerInRightFormat(string timer) {
+  public static bool timerIsInRightFormat(string timer) {
 
     /*
      * tests if a given timer is in the right format
      * and returns the result as a boolean
      */
 
-    return timer_regex.IsMatch(timer);
+    return timerRegex.IsMatch(timer);
 
   }
 
@@ -240,7 +240,7 @@ public class SaveLoader : MonoBehaviour {
       for (int i = 0; i < 10; i++) {
 
         // test if timer has proper format
-        if (timer_regex.IsMatch(timers[i])) {
+        if (timerIsInRightFormat(timers[i])) {
           PlayerPrefs.SetString("lvl" + (i + 1) + "_timer", timers[i]);
         }
         else {

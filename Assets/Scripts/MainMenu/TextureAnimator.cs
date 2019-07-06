@@ -1,18 +1,30 @@
 ﻿using UnityEngine;
 
 /*
- * loads sprites from ressources and plays them one after another 
- * as an animation on the game object with the defined FPS
+ * loads sprites from ressources and plays them as an animation on a game object
  */
 
 public class TextureAnimator : MonoBehaviour {
 
-  // public variables
-  public int framesPerSec = 30; 
-  public string directory; // directory of textures
-  public float delay = 0.0f; // delay animation by given seconds
-  public bool loop = true; // if false, only play animation once
-  public float delayPerLoop = 0.0f; // wait every full loop round for given amount of time
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  [SerializeField] private int framesPerSec = 30;
+
+  // directory containing the sprites
+  [SerializeField] private string directory = "";
+
+  // delay animation start by given seconds
+  [SerializeField] private float delay = 0f;
+
+  // if false, only play animation once
+  [SerializeField] private bool loop = true;
+
+  // wait every full loop round for given amount of time
+  [SerializeField] private float delayPerLoop = 0.0f; 
   private float delayPerLoop_temp = 0.0f;
 
   // internal use
@@ -24,7 +36,16 @@ public class TextureAnimator : MonoBehaviour {
   private float timer = 0.0f;
   private int counter = 0;
 
-  // Start is called before the first frame update
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private void Start() {
 
     // this game object's sprite renderer
@@ -42,7 +63,9 @@ public class TextureAnimator : MonoBehaviour {
   private void Update() {
 
     // stop after first runthrough, if loops are disabled
-    if (!loop && ranOnce) return;
+    if (!loop && ranOnce) {
+      return;
+    }
     
     // use normal timer if delay is 0 or less than 0
     if (delay <= 0.0f) {
@@ -50,7 +73,9 @@ public class TextureAnimator : MonoBehaviour {
       timer += Time.deltaTime;
 
       // for beauty's sake, set negative values to 0
-      if (delay < 0f) delay = 0f;
+      if (delay < 0f) {
+        delay = 0f;
+      }
 
     }
     // otherwise reduce delay timer until 0

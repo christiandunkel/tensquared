@@ -140,7 +140,7 @@ public class LevelEnd : MonoBehaviour {
     Debug.Log("LevelEnd: Returned to main menu.");
 
     PositionAnimator.disabledAnimation = true;
-    FadeOnStart.disableDelay = true;
+    FadeOnStart.disableDelay();
 
     SceneTransition.Instance.LoadScene("MainMenu");
 

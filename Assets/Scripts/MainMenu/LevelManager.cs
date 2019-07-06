@@ -9,43 +9,107 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour {
 
-  // singleton
-  public static LevelManager Instance;
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
 
+  public static LevelManager Instance;
+  
   void Awake() {
     Instance = this;
-
-    Log.Print($"Initialised on object '{gameObject.name}'.", this);
-
-    LoadLevelProgess();
+    initializeManager();
   }
 
 
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
   private int levelsUnlocked = 1;
-  private int maxLevelsUnlockable = 4; // max numbers of level unlockable regardless of 'levelsUnlocked'
+  // max numbers of level unlockable regardless of 'levelsUnlocked'
+  private int maxLevelsUnlockable = 4;
 
-  public int getInt(string name) {
 
-    switch (name) {
-      case "levelsUnlocked":
-        return levelsUnlocked;
-      case "maxLevelsUnlockable":
-        return maxLevelsUnlockable;
-    }
 
-    Log.Warn($"Could not find integer of name {name}.", this);
-    return 0;
 
-  }
 
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
 
   private List<GameObject> LevelButton = new List<GameObject>();
 
   // element containing all lvl btn gameobjects
-  public GameObject lvlsParent = null;
+  [SerializeField] private GameObject lvlsParent = null;
+
+
+
+
+
+  /*
+   * =================
+   * === INTERNAL ====
+   * =================
+   */
+
+  private void initializeManager() {
+
+    /*
+     * initializes the level manager
+     */
+
+    Log.Print($"Initialised on object '{gameObject.name}'.", this);
+
+    LoadLevelProgess();
+
+  }
+
+
+
+
+
+  /*
+   * =================
+   * === EXTERNAL ====
+   * =================
+   */
+
+  public int getInt(string name) {
+
+    /*
+     * returns the value of a given attribute with the name
+     */
+
+    switch (name) {
+
+      case "levelsUnlocked":
+        return levelsUnlocked;
+
+      case "maxLevelsUnlockable":
+        return maxLevelsUnlockable;
+
+    }
+
+    Log.Warn($"Could not find attribute of name {name}.", this);
+    return 0;
+
+  }
 
   public void LoadLevelProgess() {
+
+    /*
+     * loads the player's progress into
+     * the level buttons in the level menu
+     */
 
     // get 'level button' parent container
     lvlsParent = Instance.lvlsParent;
@@ -107,7 +171,7 @@ public class LevelManager : MonoBehaviour {
             timer = PlayerPrefs.GetString("lvl" + counter + "_timer");
 
             // if timer is in wrong format, write default timer instead
-            if (!SaveLoader.isTimerInRightFormat(timer)) {
+            if (!SaveLoader.timerIsInRightFormat(timer)) {
               string default_timer = SaveLoader.getDefaultTimer();
               timer = default_timer;
               PlayerPrefs.SetString("lvl" + counter + "_timer", default_timer);

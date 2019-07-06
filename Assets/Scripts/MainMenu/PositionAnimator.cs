@@ -5,12 +5,17 @@ using UnityEngine;
  * smoothly animates given objects to a new position in world space
  */
 
-public class PositionAnimator : MonoBehaviour
-{
+public class PositionAnimator : MonoBehaviour {
 
-  public float globalDelay = 0.0f;
-  public int framesPerSecond = 20;
-  public Element[] elements = null;
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  [SerializeField] private float globalDelay = 0.0f;
+  [SerializeField] private int framesPerSecond = 20;
+  [SerializeField] private Element[] elements = null;
   private List<AnimateObject> animateObjects = new List<AnimateObject>();
   
   // immediately loads end positions all elements at their end positions
@@ -18,6 +23,16 @@ public class PositionAnimator : MonoBehaviour
 
   private float timer = 0.0f;
   private bool run = true;
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
 
   private void Start() {
 
@@ -89,11 +104,17 @@ public class PositionAnimator : MonoBehaviour
   private void Update() {
 
     // only run if there's at least one object with more than 0 steps left
-    if (run) Animate();
+    if (run) {
+      Animate();
+    }
     
   }
 
   private void Animate() {
+
+    /*
+     * animates all elements from their original to their final position
+     */
 
     run = false;
 
@@ -157,7 +178,17 @@ public class PositionAnimator : MonoBehaviour
 
   }
 
-  // class used to assign values via Unity inspector
+
+
+
+
+  /*
+   * =======================
+   * === DATA STRUCTURES ===
+   * =======================
+   */
+
+  // struct used to assign values via Unity inspector
   [System.Serializable]
   public struct Element {
 

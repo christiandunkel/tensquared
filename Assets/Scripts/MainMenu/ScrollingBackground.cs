@@ -1,18 +1,37 @@
 ﻿using UnityEngine;
 
 /*
- * animates the game object it's attached to
- * the game object will move to the left with a given speed for its full length,
- * before resetting its position to its original value and restarting
+ * animates the game object it's attached to from the left to the right
+ * with a given speed for its full width, before resetting its position and restarting
  */
 
 public class ScrollingBackground : MonoBehaviour {
 
-  public bool useLocalTransform = true;
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
-  public float scrollPercentage = 0.3f;
-  private float scrollBy, // calculated with width and scrollPercentage
-                startPosX, counter;
+  [SerializeField] private bool useLocalTransform = true;
+
+  [SerializeField] private float scrollPercentage = 0.3f;
+
+  // calculated with width and scrollPercentage
+  private float scrollBy;
+
+  private float startPosX;
+  private float counter;
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
 
   private void Start() {
 
@@ -26,7 +45,6 @@ public class ScrollingBackground : MonoBehaviour {
     counter = 0.0f;
 
   }
-
 
   private void Update() {
 

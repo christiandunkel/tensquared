@@ -54,7 +54,7 @@ public class PauseMenu : MonoBehaviour {
     // menu parts of main menu should be in place when returning to menu
     // -> therefore, deactivate animations
     PositionAnimator.disabledAnimation = true;
-    FadeOnStart.disableDelay = true;
+    FadeOnStart.disableDelay();
 
     SceneTransition.Instance.LoadScene("MainMenu");
 

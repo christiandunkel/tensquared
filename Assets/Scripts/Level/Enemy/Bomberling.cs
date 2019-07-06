@@ -49,11 +49,19 @@ public class Bomberling : MonoBehaviour {
       return;
     }
 
+    // sometimes bomberling slowly slide to one side without activation,
+    // if placed a little above the ground on game start
+    if (!isRunning) {
+      rb2d.velocity = Vector2.zero;
+    }
+
     // activate the bomberling if the player is close enough
     // and player is roughly on the same height (y value)
     if (distanceToPlayer() <= radiusOfActivation &&
-        Mathf.Abs(playerObject.gameObject.transform.position.y - transform.position.y) < 15f) {
+        Mathf.Abs(playerObject.gameObject.transform.position.y - gameObject.transform.position.y) < 15f) {
+
       startRunning();
+
     }
 
   }
@@ -64,7 +72,9 @@ public class Bomberling : MonoBehaviour {
      * calculates the distance between this instance of a bomberling and the player
      */
 
-    return ((Vector2)transform.position - (Vector2)playerObject.transform.position).magnitude;
+    float distance = ((Vector2)gameObject.transform.position - (Vector2)playerObject.transform.position).magnitude;
+
+    return distance;
 
   }
 
@@ -164,6 +174,8 @@ public class Bomberling : MonoBehaviour {
     StartCoroutine(deathProcess());
 
     IEnumerator deathProcess() {
+
+      Log.Print($"Bomberling {gameObject.name} self-destructed.", gameObject);
 
       // stop walking animation and make sprite invisible
       rb2d.velocity = Vector2.zero;

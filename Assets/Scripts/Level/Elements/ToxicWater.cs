@@ -33,7 +33,7 @@ public class ToxicWater : MonoBehaviour {
 
     if (secondsBetweenBubbles <= 2f) {
       spawnToxicBubbles = false;
-      Debug.LogError("ToxicWater: Variable 'secondsBetweenBubbles' is " + secondsBetweenBubbles + ", but has to be higher than 1.");
+      Debug.LogError("ToxicWater: Variable 'secondsBetweenBubbles' is " + secondsBetweenBubbles + ", but has to be higher than 2.");
     }
     
   }
@@ -100,6 +100,10 @@ public class ToxicWater : MonoBehaviour {
     newBubble.transform.parent = gameObject.transform;
     newBubble.transform.eulerAngles = new Vector3(0f, 0f, Random.Range(-5f, 5f));
 
+    // wait a moment, while "spawn position indicator" particles of the bubble play
+    yield return new WaitForSeconds(2f);
+
+    // wait for toxic bubble to go through its whole animation
     yield return new WaitForSeconds(2f);
 
     Destroy(newBubble);

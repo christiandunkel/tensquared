@@ -2,10 +2,17 @@
 using UnityEngine;
 
 /*
- * powers the 'Bomberling'-enemy prefab
+ * powers the 'Bomberling'-enemy prefab,
+ * which is a small robot detecting nearby players,
+ * running towards them and exploding
  */
 
 public class Bomberling : MonoBehaviour {
+
+  /* ==================
+   * === COMPONENTS ===
+   * ==================
+   */
 
   // external objects
   private GameObject playerObject;
@@ -21,6 +28,15 @@ public class Bomberling : MonoBehaviour {
   private BoxCollider2D boxCollider;
   private float boxColliderSizeHalf;
 
+
+
+
+
+  /* ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
   // settings and attributes
   [SerializeField] private float radiusOfActivation = 120f;
   [SerializeField] private float movementSpeed = 25f;
@@ -28,6 +44,15 @@ public class Bomberling : MonoBehaviour {
   private bool isDead = false;
   private bool isRunning = false;
   private bool runningLeftwards = false;
+
+
+
+
+
+  /* ================
+   * === INTERNAL ===
+   * ================
+   */
 
   private void Awake() {
 
@@ -40,6 +65,18 @@ public class Bomberling : MonoBehaviour {
     boxCollider = GetComponent<BoxCollider2D>();
     float boxColliderOffset = 3f;
     boxColliderSizeHalf = boxCollider.size.x / 2f + boxColliderOffset;
+
+    if (radiusOfActivation < 0f) {
+      Log.Warn($"Radius of activation is '{radiusOfActivation}', but can not be negative.", gameObject);
+    }
+
+    if (movementSpeed < 0f) {
+      Log.Warn($"Movement speed is '{movementSpeed}', but can not be negative.", gameObject);
+    }
+
+    if (movementSpeedIncrease < 0f) {
+      Log.Warn($"Movement speed increase is '{movementSpeedIncrease}', but can not be negative.", gameObject);
+    }
 
   }
 

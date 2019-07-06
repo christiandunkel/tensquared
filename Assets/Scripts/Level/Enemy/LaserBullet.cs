@@ -1,9 +1,18 @@
 ﻿using System.Collections;
-
 using UnityEngine;
+
+/*
+ * powers the 'laser bullet' prefab,
+ * instantiated by 'laser turret' prefab when shooting
+ */
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class LaserBullet : MonoBehaviour {
+
+  /* ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
   private float secondsBeforeVanishing = 3f;
   private float speed = 260f;
@@ -13,12 +22,23 @@ public class LaserBullet : MonoBehaviour {
   // particle effects
   public GameObject explodeParticles;
 
+
+
+
+
+  /* ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private void Start() {
     rb2d = GetComponent<Rigidbody2D>();
     rb2d.velocity = transform.right * speed;
   }
 
   private void Update() {
+    // timer before the bullet vanishes, 
+    // if it doesn't hit any collider
     secondsBeforeVanishing -= Time.fixedDeltaTime;
   }
 
@@ -27,7 +47,10 @@ public class LaserBullet : MonoBehaviour {
     if (!hasHit || secondsBeforeVanishing <= 0f) {
       hasHit = true;
 
-      if (col.gameObject.tag == "Player") PlayerController.Instance.die();
+      // if the collider hit by the bullet was from the player, kill them
+      if (col.gameObject.tag == "Player") {
+        PlayerManager.Instance.die();
+      }
 
       StartCoroutine(destroyBullet());
     }
@@ -35,6 +58,11 @@ public class LaserBullet : MonoBehaviour {
   }
 
   private IEnumerator destroyBullet() {
+
+    /*
+     * plays a sound and particle effect on hitting something,
+     * as well as destroys the bullet
+     */
 
     rb2d.velocity = Vector2.zero;
 

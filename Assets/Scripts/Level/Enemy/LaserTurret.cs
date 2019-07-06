@@ -7,29 +7,52 @@ using UnityEngine;
 
 public class LaserTurret : MonoBehaviour {
 
-  public GameObject turret;
-  public GameObject bullet;
+  /* ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
+  [SerializeField] private GameObject turret = null;
+  [SerializeField] private GameObject bullet = null;
 
   // particles shown, when laser turret is disabled
-  public GameObject disabledParticles1;
+  [SerializeField] private GameObject disabledParticles1 = null;
   private ParticleSystem disabledParticles1_PS;
-  public GameObject disabledParticles2;
+  [SerializeField] private GameObject disabledParticles2 = null;
   private ParticleSystem disabledParticles2_PS;
 
-  public ParticleSystem shortParticles;
+  [SerializeField] private ParticleSystem shortParticles = null;
+
+  private SoundController soundController;
+
+
+
+
+
+  /* ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
   // distance of player to turret, in which turret becomes active
-  public float distanceToPlayerNeededForActivation = 160f;
+  [SerializeField] private float distanceToPlayerNeededForActivation = 160f;
 
   [SerializeField] private bool isEnabled = true;
 
   // shooting timer attributes
-  public GameObject bulletSpawnPosition;
+  [SerializeField] private GameObject bulletSpawnPosition = null;
   private bool inShootingPosition = true;
-  public float secondsBetweenShots = 3f;
+  [SerializeField] private float secondsBetweenShots = 3f;
   private float timeUntilNextShot = 0f;
 
-  private SoundController soundController;
+
+
+
+
+  /* ================
+   * === INTERNAL ===
+   * ================
+   */
 
   private void Awake() {
 
@@ -37,16 +60,14 @@ public class LaserTurret : MonoBehaviour {
     disabledParticles1_PS = disabledParticles1.GetComponent<ParticleSystem>();
     disabledParticles2_PS = disabledParticles2.GetComponent<ParticleSystem>();
 
-
-
     if (secondsBetweenShots < 0.3f) {
-      Debug.LogError("LaserTurret: Shot frequency of " + secondsBetweenShots  + 
-                     " seconds between shots is too low.");
+      Log.Error($"Shot frequency of '{secondsBetweenShots}' seconds between shots is too low.", gameObject);
     }
 
     timeUntilNextShot = secondsBetweenShots;
 
-    // delay; start up scripted events once other scripts are ready
+    // delayed start up,
+    // wait for other scripts to be ready
     StartCoroutine(delayedAwake());
 
     IEnumerator delayedAwake() {
@@ -59,7 +80,6 @@ public class LaserTurret : MonoBehaviour {
     }
 
   }
-
   private void Update() {
 
     if (!isEnabled) {
@@ -123,24 +143,62 @@ public class LaserTurret : MonoBehaviour {
 
   }
 
-  public void enable() {
-    isEnabled = true;
-  }
-
-  public void disable() {
-    isEnabled = false;
-  }
-
   private void shootBullet() {
+
+    /*
+     * shoots a laser bullet in the current direction
+     * in which the laser cannon is rotated
+     */
+
     Instantiate(bullet, bulletSpawnPosition.transform.position, turret.transform.rotation);
     soundController.playSound("laserTurretShot");
     shortParticles.Play();
+
   }
 
-  // external method to destroy a bullet object,
-  // (using it inside laserBullet.cs has some problematic quirks)
+
+
+
+
+  /* ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public void enable() {
+
+    /*
+     * enables the laser turret
+     */
+
+    isEnabled = true;
+
+    Log.Print($"Enabled laser turret {gameObject.name}.", gameObject);
+
+  }
+
+  public void disable() {
+
+    /*
+     * disables the laser turret
+     */
+
+    isEnabled = false;
+
+    Log.Print($"Disabled laser turret {gameObject.name}.", gameObject);
+
+  }
+
   public static void destroyBullet(GameObject bullet) {
+
+    /*
+     * destroys a defined 'laser bullet' object,
+     * called by a given laser bullet when hitting something 
+     * or flying for too long without hitting any collider
+     */
+
     Destroy(bullet);
+
   }
 
 }

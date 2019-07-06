@@ -1,4 +1,6 @@
-[![tensquared Poster](/Posters/poster_500x707px_compressed.png)](#)
+[![Screenshot of the main menu of the game tensquared, depicting the sky, the sun, hills, trees and a factory in the background.](/Documentation/Screenshots/screenshot_main_menu.png)](#)
+
+# tensquared
 
 The 2D puzzle platformer **tensquared** was made in Unity for the *8-bit Bauhaus* study project in the summer semester of 2019 at the *Bauhaus University Weimar*. The project was started to create a number of Bauhaus-themed games in order to celebrate 100 years of Bauhaus.
 
@@ -24,4 +26,5 @@ The Bauhaus was originally a German art school founded in Weimar by Walter Gropi
 
 ## Links
 - [Documentation](/Documentation/Documentation.md)
+- [Screenshots](/Documentation/Screenshots/)
 - [Credits](/Documentation/Credits.md)

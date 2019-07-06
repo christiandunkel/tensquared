@@ -151,6 +151,75 @@ Transform:
   m_Father: {fileID: 295342744}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &38618309
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2861388246392929563, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_Name
+      value: Bomberling
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1192.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -52
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861388246392929560, guid: 20402f431117df5489b7b7b4b1794b90,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 20402f431117df5489b7b7b4b1794b90, type: 3}
 --- !u!4 &192712605 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6103871596774385569, guid: c2eb2c8fbdb92c44cb3120640341aa20,
@@ -442,85 +511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxFactor: 0.6
---- !u!1001 &702483536
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2492536252188407723, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_Name
-      value: ZoomDownCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1167.4733
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -40.79158
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3.1251
-      objectReference: {fileID: 0}
-    - target: {fileID: 2492536252188407722, guid: eeb2ad44f34169c468eb7c2dec219863,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5125
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eeb2ad44f34169c468eb7c2dec219863, type: 3}
 --- !u!82 &767534770 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 1842526319204392596, guid: cc60f7b2d752bf243ad55150ca368d0b,

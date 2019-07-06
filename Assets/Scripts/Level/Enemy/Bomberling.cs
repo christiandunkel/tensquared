@@ -45,7 +45,9 @@ public class Bomberling : MonoBehaviour {
 
   private void Update() {
 
-    if (isDead || isRunning) return;
+    if (isDead || isRunning) {
+      return;
+    }
 
     // activate the bomberling if the player is close enough
     // and player is roughly on the same height (y value)

@@ -58,7 +58,7 @@ public class PhysicsObject : PlayerManager {
 
           calculateDoubleJumpMovement();
           textureObject.transform.parent.gameObject.GetComponent<Animator>().Play("JumpSquish");
-          resetTriangleRotation();
+          resetTriangleRotation(1);
 
         }
 
@@ -87,7 +87,7 @@ public class PhysicsObject : PlayerManager {
       else {
         // reset line renderer
         triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
-        resetTriangleRotation();
+        resetTriangleRotation(2);
       }
 
     }
@@ -99,6 +99,7 @@ public class PhysicsObject : PlayerManager {
       // reset double jump movement
       doubleJumpMovement = Vector2.zero;
       doubleJumpMovementIsAssigned = false;
+      playingResetTriangleRotationAnimation = false;
 
       // reset rotation of triangle
       if (textureObject.transform.localEulerAngles.z > 357f && textureObject.transform.localEulerAngles.z > 3f) {
@@ -131,7 +132,7 @@ public class PhysicsObject : PlayerManager {
    */
 
   private bool playingResetTriangleRotationAnimation = false;
-  private void resetTriangleRotation() {
+  private void resetTriangleRotation(int u) {
 
     /*
      * reset texture's rotation back to normal
@@ -140,6 +141,7 @@ public class PhysicsObject : PlayerManager {
 
     if (!playingResetTriangleRotationAnimation) {
       playingResetTriangleRotationAnimation = true;
+      Log.Print($"Start 'reset triangle rotation' process on {(u == 1 ? "double jump" : "landing")}.", this);
       StopCoroutine(resetTriangleRotationCoroutine());
       StartCoroutine(resetTriangleRotationCoroutine());
     }
@@ -171,7 +173,7 @@ public class PhysicsObject : PlayerManager {
 
       }
 
-      Log.Print("Reset triangle rotation.", this);
+      Log.Print("Finished resetting triangle rotation.", this);
 
       // if for loop goes a bit over 0f, make a final reset
       if (textureObject.transform.localEulerAngles.z != 0f) {
@@ -179,8 +181,7 @@ public class PhysicsObject : PlayerManager {
         nullRotation.z = 0f;
         textureObject.transform.localEulerAngles = nullRotation;
       }
-
-      playingResetTriangleRotationAnimation = false;
+      
       StopCoroutine(resetTriangleRotationCoroutine());
 
     }

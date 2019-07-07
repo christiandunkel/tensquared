@@ -222,11 +222,13 @@ public class SoundController : MonoBehaviour {
       }
 
     }
-    else if (state == "Circle") {
-      circleMovementSoundPlayer.Pause();
-    }
     else {
-      rectangleMovementSoundPlayer.Pause();
+      if (circleMovementSoundPlayer.isPlaying) {
+        circleMovementSoundPlayer.Pause();
+      }
+      if (rectangleMovementSoundPlayer) {
+        rectangleMovementSoundPlayer.Pause();
+      }
     }
 
 

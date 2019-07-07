@@ -251,6 +251,13 @@ public class PhysicsObject : PlayerManager {
 
   }
 
+  private void OnCollisionEnter2D(Collision2D col) {
+
+    // reset double jump velocity when hitting a wall / collider
+    doubleJumpMovement = Vector2.zero;
+
+  }
+
 
 
 

@@ -592,17 +592,24 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToCircle", false);
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
-
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
-
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl1_hello");
     yield return new WaitForSeconds(8.5f);
     DialogSystem.loadDialog("lvl1_asleep");
     yield return new WaitForSeconds(5f);
     CameraShake.Instance.play(2f, 10f, 10f, "earthquake_2_5_secs_loud");
-    yield return new WaitForSeconds(2f);
-    GameObject.Find("LVL1_SleepingAnimation").SetActive(false);
+    yield return new WaitForSeconds(1.3f);
+    GameObject sleepingAnimation = GameObject.Find("LVL1_SleepingAnimation");
+    SpriteRenderer sleepingAnimationSR = sleepingAnimation.GetComponent<SpriteRenderer>();
+    // fade out the sleeping animation sprite
+    for (int i = 0; i < 10; i++) {
+      Color newColor = sleepingAnimationSR.color;
+      newColor.a -= 0.1f;
+      sleepingAnimationSR.color = newColor;
+      yield return new WaitForSeconds(0.06f);
+    }
+    sleepingAnimation.SetActive(false);
     GameObject.Find("LVL1_WakeUpAnimation").GetComponent<Animator>().SetTrigger("WakeUp");
     yield return new WaitForSeconds(3f);
     DialogSystem.loadDialog("lvl1_move");

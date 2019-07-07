@@ -187,7 +187,7 @@ public class SoundController : MonoBehaviour {
   public void handleContinuousSound(string state, bool movingX, bool grounded) {
 
     /*
-     * handle continuous sounds
+     * handle looping sound players
      */
 
     movingTimer = movingX && grounded ? 0.2f : movingTimer;
@@ -338,6 +338,10 @@ public class SoundController : MonoBehaviour {
   [SerializeField] private AudioClip waterSplashSound = null;
   [SerializeField] private AudioClip waterSplashFloatingBlockSound = null;
 
+  // toxic bubbles
+  [SerializeField] private AudioClip bubbleIndicatorSound = null;
+  [SerializeField] private AudioClip bubbleShootOutSound = null;
+
   // spawn point
   [SerializeField] private AudioClip activateSpawnpointSound = null;
   [SerializeField] private AudioClip respawnAtSpawnpointSound = null;
@@ -451,6 +455,20 @@ public class SoundController : MonoBehaviour {
 
       case "waterSplashFloatingBlockSound":
         c = waterSplashFloatingBlockSound;
+        shortSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      /*
+       * TOXIC BUBBLES
+       */
+
+      case "bubbleIndicatorSound":
+        c = bubbleIndicatorSound;
+        shortSoundPlayer.PlayOneShot(c);
+        return c.length;
+
+      case "bubbleShootOutSound":
+        c = bubbleShootOutSound;
         shortSoundPlayer.PlayOneShot(c);
         return c.length;
 

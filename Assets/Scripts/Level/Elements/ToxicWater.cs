@@ -15,6 +15,7 @@ public class ToxicWater : MonoBehaviour {
    */
 
   [SerializeField] private GameObject toxicBubble = null;
+  private SoundController soundController;
 
 
 
@@ -48,6 +49,8 @@ public class ToxicWater : MonoBehaviour {
    */
 
   private void Awake() {
+
+    soundController = SoundController.Instance;
 
     bubbleSpawnTimer = secondsBetweenBubbles;
 
@@ -134,8 +137,12 @@ public class ToxicWater : MonoBehaviour {
     newBubble.transform.parent = gameObject.transform;
     newBubble.transform.eulerAngles = new Vector3(0f, 0f, Random.Range(-5f, 5f));
 
+    soundController.playSound("bubbleIndicatorSound");
+
     // wait a moment, while "spawn position indicator" particles of the bubble play
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(1.2f);
+    soundController.playSound("bubbleShootOutSound");
+    yield return new WaitForSeconds(.8f);
 
     // wait for toxic bubble to go through its whole animation
     yield return new WaitForSeconds(2f);

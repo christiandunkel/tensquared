@@ -32,9 +32,16 @@ public class PhysicsObject : PlayerManager {
      */
 
     // if player is set to frozen, don't calculate movement
-    if (isFrozen) {
+    if (isFrozen || isDead) {
       return;
     }
+
+    // reset double jump movement when player is dead or morphing
+    if (isDead) {
+      doubleJumpMovement = Vector2.zero;
+      return;
+    }
+
 
     velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
     velocity.x = targetVelocity.x;
@@ -44,10 +51,15 @@ public class PhysicsObject : PlayerManager {
 
       if (inDoubleJump) {
 
-        if (doubleJumpMovement.x == 0f && doubleJumpMovement.y == 0f) {
-          setDoubleJumpMovement();
+        // initialize double jump if no double jump movement value is assigned yet
+        if (!doubleJumpMovementIsAssigned) {
+
+          doubleJumpMovementIsAssigned = true;
+
+          calculateDoubleJumpMovement();
           textureObject.transform.parent.gameObject.GetComponent<Animator>().Play("JumpSquish");
           resetTriangleRotation();
+
         }
 
         // reset line renderer
@@ -58,7 +70,10 @@ public class PhysicsObject : PlayerManager {
 
         // draw line from player to mouse cursor
         triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) });
+
+        // reset double jump movement
         doubleJumpMovement = Vector2.zero;
+        doubleJumpMovementIsAssigned = false;
 
         // calculate angle in which to rotate the triangle
         float angle = getAngleMousePlayer();
@@ -77,9 +92,13 @@ public class PhysicsObject : PlayerManager {
 
     }
     else {
+
       // reset line renderer
       triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
+
+      // reset double jump movement
       doubleJumpMovement = Vector2.zero;
+      doubleJumpMovementIsAssigned = false;
 
       // reset rotation of triangle
       if (textureObject.transform.localEulerAngles.z > 357f && textureObject.transform.localEulerAngles.z > 3f) {
@@ -168,12 +187,18 @@ public class PhysicsObject : PlayerManager {
 
   }
   
-  private void setDoubleJumpMovement() {
+  private void calculateDoubleJumpMovement() {
 
     /*
      * calculates the velocity for double jump
      * and saves it inside vector2 'doubleJumpMovement'
      */
+
+    // don't give double jump velocity, if dead or morphing
+    if (isDead || isChangingState) {
+      doubleJumpMovement = Vector2.zero;
+      return;
+    }
 
     float doubleJumpReducer = .8f;
     float angle = getAngleMousePlayer();
@@ -189,6 +214,7 @@ public class PhysicsObject : PlayerManager {
     }
     // rightwards
     else if (angle > 90f) {
+
       doubleJumpMovement.x = (angle - 90f) / (50f * doubleJumpReducer);
 
       // less upwards movement the closer the cursor is to the vertical vector standing on player

@@ -77,6 +77,7 @@ public class PlayerManager : MonoBehaviour {
 
   // double jump
   protected bool inDoubleJump = false;
+  protected bool doubleJumpMovementIsAssigned = false;
   protected Vector2 doubleJumpMovement = Vector2.zero;
 
   // frozen player

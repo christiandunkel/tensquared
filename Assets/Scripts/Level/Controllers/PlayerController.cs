@@ -718,6 +718,9 @@ public class PlayerController : PhysicsObject {
 
       resetDynamicRGB2D();
 
+      // reset all velocity on rigid body
+      rb2d.velocity = Vector3.zero;
+
       // start playing death animation
       StartCoroutine(respawn());
     }

@@ -215,7 +215,7 @@ public class Bomberling : MonoBehaviour {
 
     IEnumerator deathProcess() {
 
-      Log.Print($"Bomberling {gameObject.name} self-destructed.", gameObject);
+      Log.Print($"Bomberling {gameObject.name} self-destructed.", this);
 
       // stop walking animation and make sprite invisible
       rb2d.velocity = Vector2.zero;
@@ -224,13 +224,13 @@ public class Bomberling : MonoBehaviour {
       CameraShake.Instance.play(.45f, 18f, 18f);
       dyingParticles.SetActive(true);
       dyingParticles.GetComponent<ParticleSystem>().Play();
-      yield return new WaitForSeconds(.6f);
+      yield return new WaitForSeconds(.3f);
 
       if (distanceToPlayer() < 150f) {
         soundController.playSound("bomberlingExplodeSound");
         CameraShake.Instance.play(.2f, 50f, 50f);
       }
-      
+
       textureObject.GetComponent<Animator>().SetTrigger("Hidden");
       deathParticles.SetActive(true);
       deathParticles.GetComponent<ParticleSystem>().Play();
@@ -240,6 +240,11 @@ public class Bomberling : MonoBehaviour {
       // disable all collision components of bomberling
       GetComponent<BoxCollider2D>().enabled = false;
       Destroy(GetComponent<Rigidbody2D>());
+
+      // kill player if in radius of explosion
+      if (distanceToPlayer() < 30f) {
+        PlayerManager.Instance.die();
+      }
 
       StopCoroutine(deathProcess());
 

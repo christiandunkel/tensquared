@@ -24,7 +24,7 @@ public class SoundController : MonoBehaviour {
 
   /* 
    * =====================
-   * === SOUND PLAYERs ===
+   * === SOUND PLAYERS ===
    * =====================
    */
 
@@ -121,7 +121,7 @@ public class SoundController : MonoBehaviour {
         break;
 
       default:
-        Debug.LogWarning("PlayerController: Sound player " + soundPlayer + " wasn't found.");
+        Log.Warn($"Sound player {soundPlayer} wasn't found.", this);
         break;
 
     }
@@ -598,7 +598,7 @@ public class SoundController : MonoBehaviour {
 
     }
 
-    Debug.LogWarning("PlayerController: Sound " + soundName + " wasn't found.");
+    Log.Warn($"Sound '{soundName}' wasn't found.", this);
     return 0f;
 
   }

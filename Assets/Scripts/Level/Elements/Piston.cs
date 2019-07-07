@@ -41,7 +41,7 @@ public class Piston : MonoBehaviour {
   private void OnTriggerEnter2D(Collider2D col) {
 
     if (col.gameObject.tag == "Player") {
-      Debug.Log("Piston: Player stepped on piston " + gameObject.name + ".");
+      Log.Print($"Player stepped on piston '{gameObject.name}'.", this);
       activate();
     }
 

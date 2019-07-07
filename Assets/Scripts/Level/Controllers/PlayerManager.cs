@@ -33,6 +33,10 @@ public class PlayerManager : MonoBehaviour {
   [SerializeField] private protected GameObject deathParticles;
   [SerializeField] private protected GameObject doubleJumpParticles;
 
+
+
+
+
   /* 
    * ==============
    * === PHYSIC ===
@@ -80,6 +84,10 @@ public class PlayerManager : MonoBehaviour {
   private protected bool frozenInLastFrame = false;
   private protected float frozenYPos = 0.0f;
 
+
+
+
+
   /* 
    * ==================
    * === ATTRIBUTES ===
@@ -106,6 +114,10 @@ public class PlayerManager : MonoBehaviour {
   private protected bool canMorphToCircle = true;
   private protected bool canMorphToTriangle = false;
   private protected bool canMorphToRectangle = false;
+
+
+
+
 
   /* 
    * ==============
@@ -208,9 +220,9 @@ public class PlayerManager : MonoBehaviour {
 
 
   /* 
-   * ========================
-   * === INTERNAL METHODS ===
-   * ========================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
 
   private void loadMorphAnimationSprites() {

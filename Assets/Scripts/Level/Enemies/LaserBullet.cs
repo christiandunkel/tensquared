@@ -9,7 +9,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class LaserBullet : MonoBehaviour {
 
-  /* ==================
+  /* 
+   * ==================
    * === ATTRIBUTES ===
    * ==================
    */
@@ -26,7 +27,8 @@ public class LaserBullet : MonoBehaviour {
 
 
 
-  /* ================
+  /* 
+   * ================
    * === INTERNAL ===
    * ================
    */

@@ -8,8 +8,23 @@ using UnityEngine;
 
 public class ToxicWater : MonoBehaviour {
 
-  public GameObject textureObject;
-  public GameObject toxicBubble;
+  /* 
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
+  [SerializeField] private GameObject toxicBubble = null;
+
+
+
+
+
+  /* 
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
   public float secondsBetweenBubbles = 5f;
   private float bubbleSpawnTimer = 0f;
@@ -22,6 +37,16 @@ public class ToxicWater : MonoBehaviour {
 
   private bool spawnToxicBubbles = true;
 
+
+
+
+
+  /* 
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private void Awake() {
 
     bubbleSpawnTimer = secondsBetweenBubbles;
@@ -33,7 +58,7 @@ public class ToxicWater : MonoBehaviour {
 
     if (secondsBetweenBubbles <= 2f) {
       spawnToxicBubbles = false;
-      Debug.LogError("ToxicWater: Variable 'secondsBetweenBubbles' is " + secondsBetweenBubbles + ", but has to be higher than 2.");
+      Log.Error($"Variable 'secondsBetweenBubbles' is {secondsBetweenBubbles}, but has to be higher than 2.", this);
     }
     
   }
@@ -61,13 +86,22 @@ public class ToxicWater : MonoBehaviour {
 
   private bool playerIsInRange() {
 
-    float validRadius = 180f;
+    /*
+     * tests if the player is in range for 
+     * the toxic bubble spawning process to activate
+     */
+
+    float validRadius = 230f;
 
     return (Mathf.Abs(pos.x - PlayerManager.playerObject.transform.position.x) <= validRadius);
 
   }
 
   private IEnumerator spawnBubble() {
+
+    /*
+     * spawns a toxic bubble (prefab) jumping out of the water
+     */
 
     // determine spawn position of toxic bubble
     Vector3 spawnPos = Vector3.zero;

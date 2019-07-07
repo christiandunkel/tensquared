@@ -8,9 +8,9 @@ using UnityEngine;
 public class ClosingDoor : MonoBehaviour {
 
   /*
-   * ===============
-   * === OBJECTS ===
-   * ===============
+   * ==================
+   * === COMPONENTS ===
+   * ==================
    */
 
   private GameObject playerObject;
@@ -52,6 +52,8 @@ public class ClosingDoor : MonoBehaviour {
 
 
 
+
+
   /*
    * ================
    * === INTERNAL ===
@@ -72,14 +74,16 @@ public class ClosingDoor : MonoBehaviour {
 
     // warning if door position marker is placed wrongly
     if (topPositionDoor.y < doorPos.y) {
-      Debug.LogWarning("ClosingDoor: The door opening marker 'TopPositionDoor' has to be placed higher than the door bottom.");
+      Log.Warn("Door opening marker 'TopPositionDoor' has to be placed higher than the door bottom.", this);
     }
 
   }
 
   private void Update() {
 
-    if (isMoving) return;
+    if (isMoving) {
+      return;
+    }
 
     xDistanceToPlayer = playerObject.transform.position.x - transform.position.x;
 
@@ -113,6 +117,10 @@ public class ClosingDoor : MonoBehaviour {
   }
 
   private void openDoor() {
+
+    /*
+     * opens this door with an animation
+     */
 
     // set new attributes
     isMoving = true;
@@ -157,6 +165,10 @@ public class ClosingDoor : MonoBehaviour {
   }
 
   private void closeDoor() {
+
+    /*
+     * closes this door with an animation
+     */
 
     // set new attributes
     isMoving = true;

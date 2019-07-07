@@ -8,12 +8,50 @@
 [ExecuteInEditMode]
 public class ParallaxLayer : MonoBehaviour {
 
-  public float parallaxFactor;
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
-  public void Move(float delta) {
+  [SerializeField] private float parallaxFactor = 0f;
+
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  void Start() {
+
+    Log.Print($"Initialized parallax effect on layer '{gameObject.name}'.", this);
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public void moveBy(float delta) {
+
+    /*
+     * moves the layer by the defined factor
+     */
+
     Vector3 newPos = transform.localPosition;
     newPos.x -= delta * parallaxFactor;
     transform.localPosition = newPos;
+
   }
 
 }

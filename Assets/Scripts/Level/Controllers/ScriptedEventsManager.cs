@@ -8,23 +8,66 @@ using UnityEngine;
 
 public class ScriptedEventsManager : MonoBehaviour {
 
+  /*
+   * =================
+   * === SINGLETON ===
+   * =================
+   */
+
   public static ScriptedEventsManager Instance;
 
-  public Animator virtualCameraAnimator;
+  private void Awake() {
+    Instance = this;
+    initialize();
+  }
 
-  public bool playStartFrequence = true,
-              playEvents = true;
+
+
+
+
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
+  [SerializeField] private Animator virtualCameraAnimator = null;
+
+
+
+
+
+  /*
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
 
   private List<string> eventsAlreadyRun = new List<string>();
 
-  private void Awake() {
+  [SerializeField] private bool playStartFrequence = true;
+  [SerializeField] private bool playEvents = true;
 
-    Instance = this;
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
+  private void initialize() {
+
+    /*
+     * initializes the script
+     */
 
     // clear list of 'events already run' on start/restart of level
     eventsAlreadyRun.Clear();
 
-    Debug.Log("ScriptedEventManager: Initialised.");
+    Log.Print($"Initialised on object named {gameObject.name}.", this);
 
     // block start frequence if events or start frequence are disabled
     if (!playStartFrequence || !playEvents) {
@@ -47,20 +90,27 @@ public class ScriptedEventsManager : MonoBehaviour {
         yield return new WaitForSeconds(.1f);
       }
 
-      Debug.Log("ScriptedEventManager: Successfully loaded as all required scripts are loaded.");
+      Log.Print($"Successfully loaded as all required scripts.", this);
 
       // start frequence of each level
       switch (LevelSettings.Instance.getInt("levelID")) {
+
         case 1:
           StartCoroutine(StartFrequenceLvl1());
           break;
+
         case 2:
           StartCoroutine(StartFrequenceLvl2());
           break;
-        case 3: StartCoroutine(StartFrequenceLvl3());
+
+        case 3:
+          StartCoroutine(StartFrequenceLvl3());
           break;
-        case 4: StartCoroutine(StartFrequenceLvl4());
+
+        case 4:
+          StartCoroutine(StartFrequenceLvl4());
           break;
+
       }
 
       StopCoroutine(delayedAwake());
@@ -84,14 +134,23 @@ public class ScriptedEventsManager : MonoBehaviour {
     }
 
     switch (lvl) {
+
       case 1:
-        LoadLevel1Event(); break;
+        LoadLevel1Event();
+        break;
+
       case 2:
-        LoadLevel2Event(); break;
+        LoadLevel2Event();
+        break;
+
       case 3:
-        LoadLevel3Event(); break;
+        LoadLevel3Event();
+        break;
+
       case 4:
-        LoadLevel4Event(); break;
+        LoadLevel4Event();
+        break;
+
     }
 
     // add event to lists of already run events

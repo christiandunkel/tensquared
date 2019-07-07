@@ -8,15 +8,36 @@
 [ExecuteInEditMode]
 public class ParallaxCamera : MonoBehaviour {
 
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
   public delegate void ParallaxCameraDelegate(float deltaMovement);
   public ParallaxCameraDelegate onCameraTranslate;
   private float oldPosition;
 
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private void Start() {
+
     oldPosition = transform.position.x;
+
+    Log.Print($"Initialized parallax effect on camera '{gameObject.name}'.", this);
+
   }
 
   private void Update() {
+
     if (transform.position.x != oldPosition) {
       if (onCameraTranslate != null) {
         float delta = oldPosition - transform.position.x;
@@ -24,6 +45,7 @@ public class ParallaxCamera : MonoBehaviour {
       }
       oldPosition = transform.position.x;
     }
+
   }
 
 }

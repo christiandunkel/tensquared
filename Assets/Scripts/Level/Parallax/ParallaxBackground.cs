@@ -9,19 +9,45 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class ParallaxBackground : MonoBehaviour {
 
+  /*
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
   public ParallaxCamera parallaxCamera;
   List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
 
+
+
+
+
+  /*
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private void Start() {
 
-    if (parallaxCamera == null) parallaxCamera = Camera.main.GetComponent<ParallaxCamera>();
-    if (parallaxCamera != null) parallaxCamera.onCameraTranslate += Move;
-      
-    SetLayers();
+    if (parallaxCamera == null) {
+      parallaxCamera = Camera.main.GetComponent<ParallaxCamera>();
+    }
+    else {
+      parallaxCamera.onCameraTranslate += moveLayers;
+    }
+
+    setLayers();
+
+    Log.Print($"Initialized parallax effect on background '{gameObject.name}'.", this);
 
   }
 
-  private void SetLayers() {
+  private void setLayers() {
+
+    /*
+     * get the current parallax layers
+     */
 
     parallaxLayers.Clear();
 
@@ -29,15 +55,23 @@ public class ParallaxBackground : MonoBehaviour {
 
       ParallaxLayer layer = transform.GetChild(i).GetComponent<ParallaxLayer>();
 
-      if (layer != null) parallaxLayers.Add(layer);
+      if (layer != null) {
+        parallaxLayers.Add(layer);
+      }
 
     }
 
   }
 
-  private void Move(float delta) {
+  private void moveLayers(float delta) {
 
-    foreach (ParallaxLayer layer in parallaxLayers) layer.Move(delta);
+    /*
+     * moves all layers relative to player's current position
+     */
+
+    foreach (ParallaxLayer layer in parallaxLayers) {
+      layer.moveBy(delta);
+    }
 
   }
 

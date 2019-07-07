@@ -6,13 +6,21 @@
 
 public class MovingPlatform : MonoBehaviour {
 
+  /* 
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
   // save movement distance of each tick 
   // to move the player standing on top along
   public Vector3 movePlayerBy = Vector3.zero;
 
   // the platform moves from leftPos to rightPos, 
   // starting at startPos, with nextPos being the next pos to move to
-  public Transform leftPos, rightPos, startPos;
+  [SerializeField] private Transform leftPos = null;
+  [SerializeField] private Transform rightPos = null;
+  [SerializeField] private Transform startPos = null;
   private Vector3 nextPos;
 
   // last position of platform on y axis
@@ -21,12 +29,22 @@ public class MovingPlatform : MonoBehaviour {
   // how fast the platform moves
   public float speed;
 
+
+
+
+
+  /* 
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private void Start() {
 
     // to calculate offset
     // (pos' are placed at borders in unity to where platform should move,
     // but they actually represent the center position to where the platform will move,
-    // thus you need to offset them)
+    // thus there's the need to offset them)
     float offset = gameObject.GetComponent<BoxCollider2D>().bounds.size.x * 0.5f;
 
     Vector3 lp = leftPos.localPosition;

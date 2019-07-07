@@ -53,68 +53,6 @@ public class SpawnPoint : MonoBehaviour {
 
   /*
    * ================
-   * === EXTERNAL ===
-   * ================
-   */
-
-  public void animateHoldingArm() {
-
-    // run animation
-    StopCoroutine(moveOutHoldingArm());
-    StartCoroutine(moveOutHoldingArm());
-
-
-
-    // animate the metallic arm holding the player on respawn
-    IEnumerator moveOutHoldingArm() {
-
-      playerHolderSR.sortingOrder = PlayerManager.Instance.getObject("textureObject")
-                                    .GetComponent<SpriteRenderer>().sortingOrder + 1;
-
-      int steps = 50;
-      float spawnPointmoveCharBy = 19f / steps;
-
-      // move out the holding arm
-      for (int i = 0; i < steps; i++) {
-        playerHolder.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
-        yield return new WaitForSeconds(0.03f);
-      }
-
-      playerHolderSR.sprite = playerHolderTextureOpen;
-
-      yield return new WaitForSeconds(0.8f);
-
-      playerHolderSR.sprite = playerHolderTextureClosed;
-
-      // move back inside much faster
-      steps /= 4;
-      spawnPointmoveCharBy *= 4f;
-
-      // move it back into the tube
-      for (int i = 0; i < steps; i++) {
-        playerHolder.transform.position -= new Vector3(spawnPointmoveCharBy, 0f, 0f);
-        yield return new WaitForSeconds(0.01f);
-      }
-
-      // if prior calculations are imprecise on Unity's side
-      // also reset position of player arm back to its fixed position
-      playerHolder.transform.position = playerHolderPosition;
-
-      textureObjectSR.sortingOrder = sortingOrderTexture;
-      playerHolderSR.sortingOrder = sortingOrderPlayerHolder;
-
-      StopCoroutine(moveOutHoldingArm());
-
-    }
-
-  }
-
-
-
-
-
-  /*
-   * ================
    * === INTERNAL ===
    * ================
    */
@@ -206,6 +144,73 @@ public class SpawnPoint : MonoBehaviour {
       }
 
       isActivated = true;
+
+    }
+
+  }
+
+
+
+
+
+  /*
+   * ================
+   * === EXTERNAL ===
+   * ================
+   */
+
+  public void animateHoldingArm() {
+
+    /*
+     * animates the little metallic arm holding the player,
+     * after they died, respawned and get pushed out of the spawnpoint
+     */
+
+    // run animation
+    StopCoroutine(moveOutHoldingArm());
+    StartCoroutine(moveOutHoldingArm());
+
+
+
+    // animate the metallic arm holding the player on respawn
+    IEnumerator moveOutHoldingArm() {
+
+      playerHolderSR.sortingOrder = PlayerManager.Instance.getObject("textureObject")
+                                    .GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+      int steps = 50;
+      float spawnPointmoveCharBy = 19f / steps;
+
+      // move out the holding arm
+      for (int i = 0; i < steps; i++) {
+        playerHolder.transform.position += new Vector3(spawnPointmoveCharBy, 0f, 0f);
+        yield return new WaitForSeconds(0.03f);
+      }
+
+      playerHolderSR.sprite = playerHolderTextureOpen;
+
+      yield return new WaitForSeconds(0.8f);
+
+      playerHolderSR.sprite = playerHolderTextureClosed;
+
+      // move back inside much faster
+      steps /= 4;
+      spawnPointmoveCharBy *= 4f;
+
+      // move it back into the tube
+      for (int i = 0; i < steps; i++) {
+        playerHolder.transform.position -= new Vector3(spawnPointmoveCharBy, 0f, 0f);
+        yield return new WaitForSeconds(0.01f);
+      }
+
+      // if prior calculations are imprecise on Unity's side
+      // also reset position of player arm back to its fixed position
+      playerHolder.transform.position = playerHolderPosition;
+
+      textureObjectSR.sortingOrder = sortingOrderTexture;
+      playerHolderSR.sortingOrder = sortingOrderPlayerHolder;
+
+      StopCoroutine(moveOutHoldingArm());
 
     }
 

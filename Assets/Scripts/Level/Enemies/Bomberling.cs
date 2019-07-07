@@ -9,7 +9,8 @@ using UnityEngine;
 
 public class Bomberling : MonoBehaviour {
 
-  /* ==================
+  /* 
+   * ==================
    * === COMPONENTS ===
    * ==================
    */
@@ -32,7 +33,8 @@ public class Bomberling : MonoBehaviour {
 
 
 
-  /* ==================
+  /* 
+   * ==================
    * === ATTRIBUTES ===
    * ==================
    */
@@ -49,7 +51,8 @@ public class Bomberling : MonoBehaviour {
 
 
 
-  /* ================
+  /* 
+   * ================
    * === INTERNAL ===
    * ================
    */

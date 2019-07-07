@@ -17,7 +17,7 @@ public static class Log {
 
   // add unique id to messages to make sure each is displayed in
   // its own line inside unity and not combined with similar messages
-  private static int messageID = 0;
+  private static int messageID = 1;
 
 
 
@@ -25,10 +25,9 @@ public static class Log {
 
   /*
    * ================
-   * === Internal ===
+   * === INTERNAL ===
    * ================
    */
-
 
   private static string generateMessage(int type, object message, string sourcePath, int lineNumber, string methodName) {
 

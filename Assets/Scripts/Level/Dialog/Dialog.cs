@@ -27,16 +27,6 @@ public struct Dialog {
   public string icon;
   public bool isEvil;
 
-
-
-
-
-  /*
-   * ================
-   * === EXTERNAL ===
-   * ================
-   */
-
   public Dialog(int definedLevel) {
     level = definedLevel;
     text = "";
@@ -46,6 +36,16 @@ public struct Dialog {
     icon = "";
     isEvil = false;
   }
+
+
+
+
+
+  /*
+   * ==============
+   * === SETTER ===
+   * ==============
+   */
 
   public void setText(params string[] text_) {
 

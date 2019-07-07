@@ -110,6 +110,8 @@ public class CameraShake : MonoBehaviour {
      * plays the camera shake and an accompanying sound effect
      */
 
+    Log.Print($"Shake the camera for {duration} seconds, at {amplitude} amplitude and {frequency} frequency, with sound {sound}.", this);
+
     play(duration, amplitude, frequency);
 
     // access the sound controller to play given sound effect
@@ -123,6 +125,8 @@ public class CameraShake : MonoBehaviour {
      * sets the attributes for the camera shake effect
      * and plays it if the duration is bigger than 0
      */
+
+    Log.Print($"Shake the camera for {duration} seconds, at {amplitude} amplitude and {frequency} frequency.", this);
 
     elapsedTime = duration;
     shakeAmplitude = amplitude;

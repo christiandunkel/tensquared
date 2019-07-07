@@ -8,16 +8,32 @@ using UnityEngine;
 
 public class FloatingBlock : MonoBehaviour {
 
+  /* 
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
   private Rigidbody2D rb2d;
   private SoundController soundController;
   public ParticleSystem splashParticles;
   private float sinkInTimer = 0f;
 
+
+
+
+
+  /* 
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
+
   private void Awake() {
 
     rb2d = GetComponent<Rigidbody2D>();
 
-    // delay; start up scripted events once other scripts are ready
+    // start async loop that will load other scripts once they are ready
     StartCoroutine(delayedAwake());
 
     IEnumerator delayedAwake() {

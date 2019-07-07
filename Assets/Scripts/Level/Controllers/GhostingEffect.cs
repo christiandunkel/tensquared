@@ -48,7 +48,11 @@ public class GhostingEffect : MonoBehaviour {
 
   // Start is called before the first frame update
   private void Start() {
+
     ghostDelaySeconds = delayBetweenGhosts;
+
+    Log.Print($"Initialized on object named '{gameObject.name}'.", this);
+
   }
 
   // Update is called once per frame
@@ -71,8 +75,8 @@ public class GhostingEffect : MonoBehaviour {
   private void spawnGhost() {
 
     /*
-     * spawns a single transparent ghosting object
-     * at the player's position
+     * spawns an object with the player's current sprites 
+     * transparent at the player's position
      */
 
     // generate fading ghost object
@@ -96,9 +100,9 @@ public class GhostingEffect : MonoBehaviour {
 
 
   /*
-   * ==============
-   * === SETTER ===
-   * ==============
+   * ================
+   * === EXTERNAL ===
+   * ================
    */
 
   public void set(bool enabled) {
@@ -130,16 +134,6 @@ public class GhostingEffect : MonoBehaviour {
     displayGhost = false;
 
   }
-
-
-
-
-
-  /*
-   * ==============
-   * === GETTER ===
-   * ==============
-   */
 
   public bool getStatus() {
 

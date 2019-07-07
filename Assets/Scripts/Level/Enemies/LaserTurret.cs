@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class LaserTurret : MonoBehaviour {
 
-  /* ==================
+  /* 
+   * ==================
    * === COMPONENTS ===
    * ==================
    */
@@ -29,7 +30,8 @@ public class LaserTurret : MonoBehaviour {
 
 
 
-  /* ==================
+  /* 
+   * ==================
    * === ATTRIBUTES ===
    * ==================
    */
@@ -49,7 +51,8 @@ public class LaserTurret : MonoBehaviour {
 
 
 
-  /* ================
+  /* 
+   * ================
    * === INTERNAL ===
    * ================
    */
@@ -160,7 +163,8 @@ public class LaserTurret : MonoBehaviour {
 
 
 
-  /* ================
+  /* 
+   * ================
    * === EXTERNAL ===
    * ================
    */

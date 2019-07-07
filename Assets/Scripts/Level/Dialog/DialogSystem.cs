@@ -84,6 +84,8 @@ public class DialogSystem : MonoBehaviour {
 
   private static float speechVolumePercentage = 0f;
 
+  private float colorGradingTimer = 0f;
+
 
 
 
@@ -91,9 +93,9 @@ public class DialogSystem : MonoBehaviour {
 
 
   /*
-   * ======================
-   * === INITIALISATION ===
-   * ======================
+   * ================
+   * === INTERNAL ===
+   * ================
    */
 
   private void Start() {
@@ -103,7 +105,7 @@ public class DialogSystem : MonoBehaviour {
     dialogQueue.Clear();
 
 
-    Debug.Log("DialogSystem: Loaded.");
+    Log.Print($"Initialized on game object named '{gameObject.name}'.", this);
 
 
     // volume level of speech sound players as set via the volume controller
@@ -193,17 +195,6 @@ public class DialogSystem : MonoBehaviour {
     }
 
   }
-
-
-
-
-
-  /*
-   * ================
-   * === INTERNAL ===
-   * ================
-   */
-   private float colorGradingTimer = 0f;
 
   private void Update() {
 
@@ -309,7 +300,7 @@ public class DialogSystem : MonoBehaviour {
     }
 
     if (dialog.text == "") {
-      Debug.LogWarning("DialogSystem: Could not find dialog '" + name + "'.");
+      Log.Warn($"Could not find the dialog named '{name}'.", Instance.gameObject);
       return;
     }
 
@@ -380,8 +371,12 @@ public class DialogSystem : MonoBehaviour {
      * loads the icon from array by key
      */
 
-    // get index of icon in sprite array by key
     int getIndex() {
+
+      /*
+       * get index of icon in sprite array
+       */
+
       switch (iconName) {
         case "neutral":   return 0;
         case "happy":     return 1;
@@ -393,10 +388,10 @@ public class DialogSystem : MonoBehaviour {
         case "furious":   return 7;
         case "sad":       return 8;
       }
-      Debug.LogWarning(
-        "DialogSystem: Given dialog item " + iconName + " couldn't be found. Displaying neutral icon."
-      );
+
+      Log.Warn($"Given icon {iconName} couldn't be found. Will display neutral icon.", Instance.gameObject);
       return 0;
+
     }
 
     // return sprite at index
@@ -555,8 +550,7 @@ public class DialogSystem : MonoBehaviour {
      */
 
     if (id >= voiceLineRenderers.Length) {
-      Debug.LogWarning("DialogSystem: Voice line renderer array (Length: " + voiceLineRenderers.Length + ")" +
-                       " does not contain an id = " + id + ".");
+      Log.Warn($"Voice line renderer array of size '{voiceLineRenderers.Length}' does not contain id '{id}'.", Instance.gameObject);
       return null;
     }
 
@@ -578,7 +572,7 @@ public class DialogSystem : MonoBehaviour {
 
     }
 
-    Debug.LogWarning("DialogSystem: No voice line renderer with the name '" + name + "' found.");
+    Log.Warn($"No voice line renderer with the name '{name}' found.", Instance.gameObject);
     return null;
 
   }

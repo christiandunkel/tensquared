@@ -104,6 +104,10 @@ public class LevelSettings : MonoBehaviour {
 
   public void setSetting(string name, bool value) {
 
+    /*
+     * changes a settings value to the given value
+     */
+
     switch (name) {
 
       case "canMove":
@@ -146,6 +150,10 @@ public class LevelSettings : MonoBehaviour {
   
   public void setSetting(string name, Vector2 pos) {
 
+    /*
+     * changes a settings value to the given value
+     */
+
     switch (name) {
 
       case "worldSpawn":
@@ -166,6 +174,10 @@ public class LevelSettings : MonoBehaviour {
 
   public int getInt(string name) {
 
+    /*
+     * gets an integer variable's value
+     */
+
     switch (name) {
 
       case "levelID":
@@ -179,6 +191,10 @@ public class LevelSettings : MonoBehaviour {
   }
 
   public bool getBool(string name) {
+
+    /*
+     * gets a boolean variable's value
+     */
 
     switch (name) {
 
@@ -211,6 +227,10 @@ public class LevelSettings : MonoBehaviour {
   }
 
   public Vector2 getVector2(string name) {
+
+    /*
+     * gets a vector2 variable's value
+     */
 
     switch (name) {
 

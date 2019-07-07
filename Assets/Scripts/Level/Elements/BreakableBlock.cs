@@ -9,15 +9,23 @@ public class BreakableBlock : MonoBehaviour {
 
   /*
    * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
+  [SerializeField] private GameObject breakParticles = null;
+
+
+
+
+
+  /*
+   * ==================
    * === ATTRIBUTES ===
    * ==================
    */
 
-  // attributes
   private Sprite[] breakingSprites;
-
-  // internal objects
-  [SerializeField] private GameObject breakParticles = null;
 
 
 

@@ -9,9 +9,9 @@ using UnityEngine;
 public class PlayerController : PhysicsObject {
 
   /*
-   ======================
-   === INITIALISATION ===
-   ======================
+   ================
+   === INTERNAL ===
+   ================
    */
 
   private protected override void OnAwake() {
@@ -555,9 +555,6 @@ public class PlayerController : PhysicsObject {
   }
 
   
-
-
-
 
 
 

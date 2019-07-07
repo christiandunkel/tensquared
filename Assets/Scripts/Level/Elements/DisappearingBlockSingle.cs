@@ -7,22 +7,49 @@ using UnityEngine;
 
 public class DisappearingBlockSingle : MonoBehaviour {
 
-  public Animator squareTexture;
+  /* 
+   * ==================
+   * === COMPONENTS ===
+   * ==================
+   */
+
+  [SerializeField] private Animator squareTexture = null;
   private SoundController soundController;
 
-  public float stayTime = 1.5f,
-               hiddenTime = 1f;
 
-  private float soundDist = 175f; // distance of player to gameobject, in which radius' sounds are playing
+
+
+
+  /* 
+   * ==================
+   * === ATTRIBUTES ===
+   * ==================
+   */
+
+  [SerializeField] private float stayTime = 1.5f;
+  [SerializeField] private float hiddenTime = 1f;
+
+  // distance of player to gameobject, in which sounds should be playing
+  private float soundDist = 175f;
+
+
+
+
+
+  /* 
+   * ================
+   * === INTERNAL ===
+   * ================
+   */
 
   private void Awake() {
 
     if (stayTime < .4f) {
-      Debug.LogError("DisappearingBlockSingle: Given stayTime " + stayTime + " is too small.");
+      Log.Error($"Variable 'stayTime' ({stayTime}) is too small.");
     }
 
     if (hiddenTime < .4f) {
-      Debug.LogError("DisappearingBlockSingle: Given hiddenTime " + hiddenTime + " is too small.");
+      Log.Error($"Variable 'hiddenTime' ({hiddenTime}) is too small.");
     }
 
     // delay; start up scripted events once other scripts are ready
@@ -43,12 +70,13 @@ public class DisappearingBlockSingle : MonoBehaviour {
   private float distanceToPlayer() {
 
     // return high value if player isn't yet initialized
-    if (PlayerController.Instance == null) return 20000f;
+    if (PlayerManager.Instance == null) {
+      return 20000f;
+    }
 
-    Vector2 v1 = new Vector2(transform.position.x, 
-                             transform.position.y),
-            v2 = new Vector2(PlayerController.playerObject.transform.position.x, 
-                             PlayerController.playerObject.transform.position.y);
+
+    Vector2 v1 = transform.position;
+    Vector2 v2 = PlayerManager.playerObject.transform.position;
 
     Vector2 richtungsVektor = v1 - v2;
 

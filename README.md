@@ -10,13 +10,13 @@ The game is currently in *live development*. You can download the project up to 
 
 ## Summary
 
-A lonely circle wakes up somewhere in nowhere, not knowing who it is, how it got there, and with no idea of where to go from now on. However, it doesn't take long for it to come into contact with a strange robot. The metal giant helps out it out, guides it, and together, they discover the peculiar abilities of the circle. It can morph its body into other geometric forms. The robot is intrigued and asks for help to find some missing parts of its body that it had lost. Together, they go on a journey to recover these parts. And all would have been well if there wasn't something slightly off about the whole situation.
+You are a circle. Awakened in the middle of a remote forest, you don't know how you got there and have no idea of where to go. But suddenly, you hear a metallic voice, and the robot speaker is guiding you out of the wilderness. You finally meet the robot that helped you, and you discover that it has lost significant parts of its body. The robot requests your help, and together, you go on a journey to recover the missing limbs. On the way, you learn more about the world around you, as well as discover your peculiar abilities.  And there's nothing that could go horribly wrong in this the whole story.
 
 ## Download Game
 
 You can find the download link for the newest playable release of the game (Windows) under the *Releases* tab. Or you can just simply click on the *Download* button below.
 
-[![Download the game](/Documentation/Images/download_button.png)](https://github.com/riti1867/tensquared/releases/download/v6.1/build.zip)
+[![Download the game](/Documentation/Images/download_button.png)](https://github.com/christiandunkel/tensquared/releases/download/v6.1/build.zip)
 
 ## What is Bauhaus?
 

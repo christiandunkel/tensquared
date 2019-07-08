@@ -266,7 +266,27 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     void LoadLevel4Event() {
       switch (name) {
-        case "":
+        case "four_limbed_animals":
+          DialogSystem.loadDialog("lvl4_four_limbed_animals");
+          DialogSystem.loadDialog("lvl4_inspired_me");
+          break;
+        case "new_friends":
+          DialogSystem.loadDialog("lvl4_new_friends");
+          break;
+        case "bomberling_explosion":
+          DialogSystem.loadDialog("lvl4_hear_explosion");
+          break;
+        case "jealous":
+          DialogSystem.loadDialog("lvl4_jealous");
+          break;
+        case "tea_and_cookies":
+          DialogSystem.loadDialog("lvl4_tea_and_cookies");
+          break;
+        case "am_i_untrustworthy":
+          DialogSystem.loadDialog("lvl4_am_i_not_trustworthy");
+          break;
+        case "you_are_near":
+          DialogSystem.loadDialog("lvl4_you_are_near");
           break;
       }
     }
@@ -283,7 +303,9 @@ public class ScriptedEventsManager : MonoBehaviour {
    */
 
   private IEnumerator StartFrequenceLvl4() {
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(3f);
+    DialogSystem.loadDialog("lvl4_where_have_you_gone");
+    yield return new WaitForSeconds(9f);
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     StopCoroutine(StartFrequenceLvl4());
   }

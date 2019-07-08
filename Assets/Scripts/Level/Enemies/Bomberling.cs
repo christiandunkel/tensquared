@@ -215,6 +215,8 @@ public class Bomberling : MonoBehaviour {
 
     IEnumerator deathProcess() {
 
+      ScriptedEventsManager.Instance.LoadEvent(4, "bomberling_explosion");
+
       Log.Print($"Bomberling {gameObject.name} self-destructed.", this);
 
       // stop walking animation and make sprite invisible

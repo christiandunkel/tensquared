@@ -59,7 +59,7 @@ public class DialogLevel4 : MonoBehaviour {
 
       case "lvl4_hear_explosion":
         dialog.setText(
-          "Did I hear an explosion somewhere? " +
+          "Did I hear an explosion somewhere?",
           "Little circle, did you do something to my friends?"
         );
         dialog.setAudioClip("lvl4_hear_explosion");

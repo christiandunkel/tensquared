@@ -3,7 +3,7 @@ using UnityEngine;
 
 /* 
  * attached to the background layer of a level, powers parallax effect
- * the basic script is from http://answers.unity.com/answers/564891/view.html
+ * @basic functionality is from http://answers.unity.com/answers/564891/view.html
  */
 
 [ExecuteInEditMode]
@@ -39,7 +39,7 @@ public class ParallaxBackground : MonoBehaviour {
 
     setLayers();
 
-    Log.Print($"Initialized parallax effect on background '{gameObject.name}'.", this);
+    Log.Print($"Initialized parallax background on element '{gameObject.name}'.", this);
 
   }
 

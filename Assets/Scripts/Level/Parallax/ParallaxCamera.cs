@@ -2,7 +2,7 @@
 
 /* 
  * attached to the camera of a level, powers parallax effect
- * the basic script is from http://answers.unity.com/answers/564891/view.html
+ * @basic functionality is from http://answers.unity.com/answers/564891/view.html
  */
 
 [ExecuteInEditMode]

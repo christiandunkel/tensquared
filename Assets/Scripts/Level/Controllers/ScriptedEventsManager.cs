@@ -633,7 +633,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(5f);
 
     // wait for level end
-    yield return new WaitForSeconds(9f);
+    yield return new WaitForSeconds(7f);
     LevelEnd.Instance.endLevel("levelCompleteSound");
 
     StopCoroutine(LVL4_EndScene());

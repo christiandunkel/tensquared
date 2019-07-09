@@ -368,12 +368,18 @@ public class ScriptedEventsManager : MonoBehaviour {
    */
 
   private GameObject voiceLineRendererRed = null;
+  private GameObject shoulderSmokeParticlesEnd = null;
   private IEnumerator StartFrequenceLvl3() {
     yield return new WaitForSeconds(2f);
 
     // set evil red voice line renderer inactive for later
     voiceLineRendererRed = GameObject.Find("VoiceLineRendererRed");
     voiceLineRendererRed.SetActive(false);
+
+    // find smote particle system for end animation,
+    // and deactivate for reactivation in end sequence
+    shoulderSmokeParticlesEnd = GameObject.Find("RobotLegSmokeParticles3");
+    shoulderSmokeParticlesEnd.SetActive(false);
 
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     yield return new WaitForSeconds(3f);
@@ -420,6 +426,9 @@ public class ScriptedEventsManager : MonoBehaviour {
         SoundController.Instance.playSound("robotPartsFallOff");
       }
       else if (i == 15) {
+        // active big shoulder smoke particles
+        shoulderSmokeParticlesEnd.SetActive(true);
+        shoulderSmokeParticlesEnd.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(0.2f);
         SoundController.Instance.playSound("robotElectricDefect");
       }

@@ -178,7 +178,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3852842}
   - component: {fileID: 3852845}
-  - component: {fileID: 3852844}
   - component: {fileID: 3852843}
   m_Layer: 0
   m_Name: Cloud4
@@ -214,19 +213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &3852844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3852841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &3852845
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -422,7 +408,6 @@ GameObject:
   m_Component:
   - component: {fileID: 26304079}
   - component: {fileID: 26304082}
-  - component: {fileID: 26304081}
   - component: {fileID: 26304080}
   m_Layer: 0
   m_Name: Cloud6 (4)
@@ -458,19 +443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &26304081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26304078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &26304082
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1341,7 +1313,6 @@ GameObject:
   m_Component:
   - component: {fileID: 85090164}
   - component: {fileID: 85090167}
-  - component: {fileID: 85090166}
   - component: {fileID: 85090165}
   m_Layer: 0
   m_Name: Cloud2
@@ -1377,19 +1348,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &85090166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85090163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &85090167
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1538,7 +1496,6 @@ GameObject:
   m_Component:
   - component: {fileID: 124543224}
   - component: {fileID: 124543227}
-  - component: {fileID: 124543226}
   - component: {fileID: 124543225}
   m_Layer: 0
   m_Name: Cloud6
@@ -1574,19 +1531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &124543226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124543223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &124543227
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2345,7 +2289,6 @@ GameObject:
   m_Component:
   - component: {fileID: 213336940}
   - component: {fileID: 213336943}
-  - component: {fileID: 213336942}
   - component: {fileID: 213336941}
   m_Layer: 0
   m_Name: Cloud2 (4)
@@ -2381,19 +2324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &213336942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213336939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &213336943
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2632,7 +2562,6 @@ GameObject:
   m_Component:
   - component: {fileID: 240577760}
   - component: {fileID: 240577763}
-  - component: {fileID: 240577762}
   - component: {fileID: 240577761}
   m_Layer: 0
   m_Name: Cloud3 (3)
@@ -2668,19 +2597,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &240577762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240577759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &240577763
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2945,7 +2861,6 @@ GameObject:
   m_Component:
   - component: {fileID: 260019406}
   - component: {fileID: 260019409}
-  - component: {fileID: 260019408}
   - component: {fileID: 260019407}
   m_Layer: 0
   m_Name: Cloud4 (3)
@@ -2981,19 +2896,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &260019408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260019405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &260019409
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4294,7 +4196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 331826861}
   - component: {fileID: 331826864}
-  - component: {fileID: 331826863}
   - component: {fileID: 331826862}
   m_Layer: 0
   m_Name: Cloud3 (2)
@@ -4330,19 +4231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &331826863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331826860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &331826864
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10921,7 +10809,6 @@ GameObject:
   m_Component:
   - component: {fileID: 417130169}
   - component: {fileID: 417130171}
-  - component: {fileID: 417130170}
   - component: {fileID: 417130172}
   m_Layer: 0
   m_Name: Hills (2)
@@ -10944,19 +10831,6 @@ Transform:
   m_Father: {fileID: 464968698}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &417130170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417130168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &417130171
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11202,7 +11076,6 @@ GameObject:
   m_Component:
   - component: {fileID: 432760550}
   - component: {fileID: 432760553}
-  - component: {fileID: 432760552}
   - component: {fileID: 432760551}
   m_Layer: 0
   m_Name: Cloud6 (3)
@@ -11238,19 +11111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &432760552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432760549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &432760553
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11985,7 +11845,6 @@ GameObject:
   m_Component:
   - component: {fileID: 486097864}
   - component: {fileID: 486097867}
-  - component: {fileID: 486097866}
   - component: {fileID: 486097865}
   m_Layer: 0
   m_Name: Cloud3
@@ -12021,19 +11880,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &486097866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486097863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &486097867
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12909,7 +12755,6 @@ GameObject:
   m_Component:
   - component: {fileID: 550015872}
   - component: {fileID: 550015875}
-  - component: {fileID: 550015874}
   - component: {fileID: 550015873}
   m_Layer: 0
   m_Name: Cloud2 (1)
@@ -12945,19 +12790,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &550015874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550015871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &550015875
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13016,7 +12848,6 @@ GameObject:
   m_Component:
   - component: {fileID: 554751973}
   - component: {fileID: 554751976}
-  - component: {fileID: 554751975}
   - component: {fileID: 554751974}
   m_Layer: 0
   m_Name: Cloud6 (2)
@@ -13052,19 +12883,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &554751975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554751972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &554751976
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14134,7 +13952,6 @@ GameObject:
   m_Component:
   - component: {fileID: 619146425}
   - component: {fileID: 619146428}
-  - component: {fileID: 619146427}
   - component: {fileID: 619146426}
   m_Layer: 0
   m_Name: Cloud5
@@ -14170,19 +13987,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &619146427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619146424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &619146428
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14399,7 +14203,6 @@ GameObject:
   m_Component:
   - component: {fileID: 629130447}
   - component: {fileID: 629130450}
-  - component: {fileID: 629130449}
   - component: {fileID: 629130448}
   m_Layer: 0
   m_Name: Hills (5)
@@ -14435,19 +14238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.3, y: -0.3, z: 0}
---- !u!114 &629130449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629130446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &629130450
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15862,7 +15652,6 @@ GameObject:
   m_Component:
   - component: {fileID: 725917543}
   - component: {fileID: 725917546}
-  - component: {fileID: 725917545}
   - component: {fileID: 725917544}
   m_Layer: 0
   m_Name: Cloud (1)
@@ -15898,19 +15687,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &725917545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725917542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &725917546
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18808,7 +18584,6 @@ GameObject:
   m_Component:
   - component: {fileID: 927972327}
   - component: {fileID: 927972330}
-  - component: {fileID: 927972329}
   - component: {fileID: 927972328}
   m_Layer: 0
   m_Name: Cloud (3)
@@ -18844,19 +18619,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &927972329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927972326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &927972330
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19005,7 +18767,6 @@ GameObject:
   m_Component:
   - component: {fileID: 942049603}
   - component: {fileID: 942049606}
-  - component: {fileID: 942049605}
   - component: {fileID: 942049604}
   m_Layer: 0
   m_Name: Cloud5 (1)
@@ -19041,19 +18802,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &942049605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942049602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &942049606
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19780,7 +19528,6 @@ GameObject:
   m_Component:
   - component: {fileID: 985643868}
   - component: {fileID: 985643870}
-  - component: {fileID: 985643869}
   - component: {fileID: 985643871}
   m_Layer: 0
   m_Name: Hills (1)
@@ -19803,19 +19550,6 @@ Transform:
   m_Father: {fileID: 464968698}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &985643869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985643867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &985643870
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20190,7 +19924,6 @@ GameObject:
   m_Component:
   - component: {fileID: 999772492}
   - component: {fileID: 999772495}
-  - component: {fileID: 999772494}
   - component: {fileID: 999772493}
   m_Layer: 0
   m_Name: Cloud2 (3)
@@ -20226,19 +19959,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &999772494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999772491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &999772495
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20498,7 +20218,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1006666228}
   - component: {fileID: 1006666230}
-  - component: {fileID: 1006666229}
   - component: {fileID: 1006666231}
   m_Layer: 0
   m_Name: Hills (3)
@@ -20521,19 +20240,6 @@ Transform:
   m_Father: {fileID: 464968698}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1006666229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1006666227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1006666230
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21212,7 +20918,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1050600168}
   - component: {fileID: 1050600171}
-  - component: {fileID: 1050600170}
   - component: {fileID: 1050600169}
   m_Layer: 0
   m_Name: Cloud
@@ -21248,19 +20953,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1050600170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050600167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1050600171
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -26530,7 +26222,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1072995850}
   - component: {fileID: 1072995853}
-  - component: {fileID: 1072995852}
   - component: {fileID: 1072995851}
   m_Layer: 0
   m_Name: Cloud6 (1)
@@ -26566,19 +26257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1072995852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072995849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1072995853
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -27035,7 +26713,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1108133386}
   - component: {fileID: 1108133389}
-  - component: {fileID: 1108133388}
   - component: {fileID: 1108133387}
   m_Layer: 0
   m_Name: Cloud5 (2)
@@ -27071,19 +26748,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1108133388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108133385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1108133389
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -27977,7 +27641,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1170650531}
   - component: {fileID: 1170650534}
-  - component: {fileID: 1170650533}
   - component: {fileID: 1170650532}
   m_Layer: 0
   m_Name: Cloud3 (1)
@@ -28013,19 +27676,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1170650533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170650530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1170650534
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32947,7 +32597,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1201152317}
   - component: {fileID: 1201152320}
-  - component: {fileID: 1201152319}
   - component: {fileID: 1201152318}
   m_Layer: 0
   m_Name: Cloud5 (3)
@@ -32983,19 +32632,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1201152319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201152316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1201152320
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33735,7 +33371,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1279459666}
   - component: {fileID: 1279459669}
-  - component: {fileID: 1279459668}
   - component: {fileID: 1279459667}
   m_Layer: 0
   m_Name: Hills (4)
@@ -33771,19 +33406,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.3, y: -0.3, z: 0}
---- !u!114 &1279459668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279459665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1279459669
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34573,7 +34195,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1332641905}
   - component: {fileID: 1332641908}
-  - component: {fileID: 1332641907}
   - component: {fileID: 1332641906}
   m_Layer: 0
   m_Name: Cloud4 (4)
@@ -34609,19 +34230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1332641907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1332641904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1332641908
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -36240,7 +35848,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1467471133}
   - component: {fileID: 1467471136}
-  - component: {fileID: 1467471135}
   - component: {fileID: 1467471134}
   m_Layer: 0
   m_Name: Cloud4 (2)
@@ -36276,19 +35883,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1467471135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467471132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1467471136
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37567,7 +37161,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1547957227}
   - component: {fileID: 1547957230}
-  - component: {fileID: 1547957229}
   - component: {fileID: 1547957228}
   m_Layer: 0
   m_Name: Cloud5 (4)
@@ -37603,19 +37196,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1547957229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1547957226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1547957230
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38021,6 +37601,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 55067681}
     m_Modifications:
+    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
+        type: 3}
+      propertyPath: m_Name
+      value: Grass_Green_Light_4
+      objectReference: {fileID: 0}
     - target: {fileID: 4626641216267634910, guid: 70ca012bb34c83d4c8150169d7a0e542,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38090,11 +37675,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
-        type: 3}
-      propertyPath: m_Name
-      value: Grass_Green_Light_4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ca012bb34c83d4c8150169d7a0e542, type: 3}
@@ -38500,7 +38080,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1599709206}
   - component: {fileID: 1599709209}
-  - component: {fileID: 1599709208}
   - component: {fileID: 1599709207}
   m_Layer: 0
   m_Name: Cloud (4)
@@ -38536,19 +38115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1599709208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599709205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1599709209
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38753,6 +38319,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2137315893}
     m_Modifications:
+    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
+        type: 3}
+      propertyPath: m_Name
+      value: Grass_Green_Light_4
+      objectReference: {fileID: 0}
     - target: {fileID: 4626641216267634910, guid: 70ca012bb34c83d4c8150169d7a0e542,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38822,11 +38393,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 6.6839857
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626641216267634881, guid: 70ca012bb34c83d4c8150169d7a0e542,
-        type: 3}
-      propertyPath: m_Name
-      value: Grass_Green_Light_4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ca012bb34c83d4c8150169d7a0e542, type: 3}
@@ -39062,7 +38628,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1636123834}
   - component: {fileID: 1636123837}
-  - component: {fileID: 1636123836}
   - component: {fileID: 1636123835}
   m_Layer: 0
   m_Name: Cloud2 (2)
@@ -39098,19 +38663,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1636123836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1636123833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1636123837
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -40130,7 +39682,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1703326304}
   - component: {fileID: 1703326307}
-  - component: {fileID: 1703326306}
   - component: {fileID: 1703326305}
   m_Layer: 0
   m_Name: Cloud6 (5)
@@ -40166,19 +39717,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1703326306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703326303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1703326307
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -43265,7 +42803,6 @@ GameObject:
   - component: {fileID: 1929582330}
   - component: {fileID: 1929582332}
   - component: {fileID: 1929582331}
-  - component: {fileID: 1929582333}
   m_Layer: 0
   m_Name: Hills
   m_TagString: Untagged
@@ -43296,10 +42833,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929582329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e51164b678ff62438835579a9f8f886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
+  shadowOffset: {x: 0.3, y: -0.3, z: 0}
 --- !u!212 &1929582332
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -43348,19 +42885,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1929582333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929582329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e51164b678ff62438835579a9f8f886, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowOffset: {x: 0.3, y: -0.3, z: 0}
 --- !u!1 &1931370348
 GameObject:
   m_ObjectHideFlags: 0
@@ -44147,7 +43671,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1973579566}
   - component: {fileID: 1973579569}
-  - component: {fileID: 1973579568}
   - component: {fileID: 1973579567}
   m_Layer: 0
   m_Name: Cloud (2)
@@ -44183,19 +43706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &1973579568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973579565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &1973579569
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -44851,7 +44361,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2045776324}
   - component: {fileID: 2045776327}
-  - component: {fileID: 2045776326}
   - component: {fileID: 2045776325}
   m_Layer: 0
   m_Name: Cloud4 (1)
@@ -44887,19 +44396,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &2045776326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045776323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &2045776327
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -46076,7 +45572,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2121153656}
   - component: {fileID: 2121153659}
-  - component: {fileID: 2121153658}
   - component: {fileID: 2121153657}
   m_Layer: 0
   m_Name: Cloud3 (5)
@@ -46112,19 +45607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &2121153658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121153655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &2121153659
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -46216,7 +45698,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2128652890}
   - component: {fileID: 2128652893}
-  - component: {fileID: 2128652892}
   - component: {fileID: 2128652891}
   m_Layer: 0
   m_Name: Cloud3 (4)
@@ -46252,19 +45733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowOffset: {x: 0.1, y: -0.1, z: 0}
---- !u!114 &2128652892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2128652889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa23ddc298324b54690a0240ed9edbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxFactor: 0.4
 --- !u!212 &2128652893
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -21,7 +21,6 @@ You can find the download link for the newest playable release of the game (Wind
 *Other Download links:*
 - [Windows (32 bit)](https://github.com/christiandunkel/tensquared/releases/download/v7/build_windows_32bit.zip)
 - [Linux (64 bit)](https://github.com/christiandunkel/tensquared/releases/download/v7/build_linux_64bit.zip)
-- [Linux (32 bit)](https://github.com/christiandunkel/tensquared/releases/download/v7/build_linux_32bit.zip)
 - [Mac](https://github.com/christiandunkel/tensquared/releases/download/v7/build_mac.zip)
 
 ## What is Bauhaus?

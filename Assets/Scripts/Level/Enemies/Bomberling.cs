@@ -248,6 +248,9 @@ public class Bomberling : MonoBehaviour {
         PlayerManager.Instance.die();
       }
 
+      // make texture disappear, even if still in animation cycle
+      textureObject.SetActive(false);
+
       StopCoroutine(deathProcess());
 
     }

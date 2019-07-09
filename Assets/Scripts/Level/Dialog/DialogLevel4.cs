@@ -162,7 +162,7 @@ public class DialogLevel4 : MonoBehaviour {
       case "lvl4_end_evil_6":
         dialog.setText(
           "Oh no, I was wrong, this isn't good! " + 
-          "Make it stop! Stop! Stop! Stop! Stop! Stop, stop, stop, stop!"
+          "Make it stop! Stop! Stop! Stop! Stop! Stop... stop... stop... stop..."
         );
         dialog.setAudioClip("lvl4_end_evil_6");
         dialog.icon = "angry";

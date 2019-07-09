@@ -486,25 +486,34 @@ public class PlayerManager : MonoBehaviour {
      */
 
     switch (name) {
+
       case "canMove":
         return canMove;
+
       case "canJump":
         return canJump;
+
       case "canSelfDestruct":
         return canSelfDestruct;
+
       case "canMorphToCircle":
         return canMorphToCircle;
+
       case "canMorphToTriangle":
         return canMorphToTriangle;
+
       case "canMorphToRectangle":
         return canMorphToRectangle;
+
       case "isDead":
         return isDead;
+
       case "holdingItem":
         return holdingItem;
+
     }
 
-    Log.Warn($"Boolean named '{name}' couldn't be found.", this);
+    Log.Warn($"Boolean '{name}' couldn't be found.", this);
     return false;
 
   }
@@ -519,11 +528,13 @@ public class PlayerManager : MonoBehaviour {
 
       case "secondsNotGrounded":
         return secondsNotGrounded;
+
       case "secondsAsRectangleFalling":
         return secondsAsRectangleFalling;
+
     }
 
-    Log.Warn($"Float named '{name}' couldn't be found.", this);
+    Log.Warn($"Float '{name}' couldn't be found.", this);
     return 0f;
 
   }
@@ -535,12 +546,39 @@ public class PlayerManager : MonoBehaviour {
      */
 
     switch (name) {
+
       case "state":
         return state;
+
     }
 
-    Log.Warn($"String named '{name}' couldn't be found.", this);
+    Log.Warn($"String '{name}' couldn't be found.", this);
     return null;
+
+  }
+
+  private Sprite[] emptySpriteArray = new Sprite[0];
+  public ref Sprite[] getSprites(string name) {
+
+    /*
+     * returns a sprite array
+     */
+
+    switch (name) {
+
+      case "triangleToCircle":
+        return ref triangleToCircle;
+
+      case "rectToCircle":
+        return ref rectToCircle;
+
+      case "rectToTriangle":
+        return ref rectToTriangle;
+
+    }
+
+    Log.Warn($"Sprite array '{name}' couldn't be found.", this);
+    return ref emptySpriteArray;
 
   }
 
@@ -551,21 +589,31 @@ public class PlayerManager : MonoBehaviour {
      */
 
     switch (name) {
+
+      case "parentObject":
+        return parentObject;
+
       case "textureObject":
         return textureObject;
+
       case "heldItemObject":
         return heldItemObject;
+
       case "textureContainer":
         return textureContainer;
+
       case "movementParticles":
         return movementParticles;
+
       case "deathParticles":
         return deathParticles;
+
       case "doubleJumpParticles":
         return doubleJumpParticles;
+
     }
 
-    Log.Warn($"Object named '{name}' couldn't be found.", this);
+    Log.Warn($"Object '{name}' couldn't be found.", this);
     return null;
 
   }

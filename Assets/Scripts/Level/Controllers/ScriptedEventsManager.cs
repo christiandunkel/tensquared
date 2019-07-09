@@ -305,14 +305,33 @@ public class ScriptedEventsManager : MonoBehaviour {
    * ===============
    */
 
+  private GameObject voiceLineRendererRedLvl4 = null;
+  private GameObject voiceLineRendererBlueLvl4 = null;
   private AudioClip evilElectroSwingTheme = null;
+  private LineRenderer leftEyeLaserLR = null;
+  private LineRenderer rightEyeLaserLR = null;
   private IEnumerator StartFrequenceLvl4() {
+
     // load evil electro swing theme for later use
     evilElectroSwingTheme = Resources.Load<AudioClip>("Music/EvilElectroSwingTheme");
+
+    // find voice line renderers in level 4, and deactivate blue one
+    // for it to be reactivated at the end of the level
+    voiceLineRendererRedLvl4 = GameObject.Find("VoiceLineRendererRed");
+    voiceLineRendererBlueLvl4 = GameObject.Find("VoiceLineRendererBlue");
+    voiceLineRendererBlueLvl4.SetActive(false);
+
+    // eye laser elements; deactivate, then reactivate at a later point
+    leftEyeLaserLR = GameObject.Find("LeftEyeLaserLineRenderer").GetComponent<LineRenderer>();
+    rightEyeLaserLR = GameObject.Find("RightEyeLaserLineRenderer").GetComponent<LineRenderer>();
+    leftEyeLaserLR.gameObject.SetActive(false);
+    rightEyeLaserLR.gameObject.SetActive(false);
+    /*
     yield return new WaitForSeconds(3f);
     DialogSystem.loadDialog("lvl4_where_have_you_gone");
-    yield return new WaitForSeconds(9f);
+    yield return new WaitForSeconds(9f);*/
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
+    yield return new WaitForSeconds(0.1f);
     StopCoroutine(StartFrequenceLvl4());
   }
   private AudioSource backgroundMusicPlayer = null;
@@ -340,6 +359,7 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
   private IEnumerator LVL4_EndScene() {
 
+    // freeze player
     LevelSettings.Instance.setSetting("canMove", false);
     LevelSettings.Instance.setSetting("canJump", false);
     LevelSettings.Instance.setSetting("canSelfDestruct", false);
@@ -347,12 +367,273 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToTriangle", false);
     LevelSettings.Instance.setSetting("canMorphToRectangle", false);
 
+    // get robot object at end of level
+    GameObject robot = GameObject.Find("RobotEndTexture");
+    SpriteRenderer robotSR = robot.GetComponent<SpriteRenderer>();
+
     // load animation sprites
-    //Sprite[] robotFallingApartAnimation = Resources.LoadAll<Sprite>("RobotFallingApartAnimation");
-    //int spritesNumber = robotFallingApartAnimation.Length;
+    Sprite[] robotTurningWholeAnimation = Resources.LoadAll<Sprite>("RobotTurnWholeAnimation");
+    int spritesNumber = robotTurningWholeAnimation.Length;
 
+    // load references to morphing sprites for later use
+    Sprite[] rectToCircleSprites = PlayerManager.Instance.getSprites("rectToCircle");
+    Sprite[] rectToTriangleSprites = PlayerManager.Instance.getSprites("rectToTriangle");
+    Sprite[] triangleToCircleSprites = PlayerManager.Instance.getSprites("triangleToCircle");
+
+    // eye laser elements
+    Vector3 leftEyePos = GameObject.Find("LaserPositionLeftEye").transform.position;
+    Vector3 rightEyePos = GameObject.Find("LaserPositionRightEye").transform.position;
+
+    // play some dialogue
+    DialogSystem.loadDialog("lvl4_end_evil_1");
+    yield return new WaitForSeconds(11f);
+    DialogSystem.loadDialog("lvl4_end_evil_2");
+    yield return new WaitForSeconds(3f);
+
+    // create player-replacement object
+    GameObject playerReplacement = new GameObject("PlayerReplacement");
+    SpriteRenderer playerReplacementSR = playerReplacement.AddComponent<SpriteRenderer>();
+    playerReplacement.transform.SetParent(PlayerManager.Instance.getObject("parentObject").transform);
+
+    // adjust replacement objects transform values to be the same as the players
+    GameObject playerTextureObject = PlayerManager.Instance.getObject("textureObject");
+    playerReplacement.transform.position = playerTextureObject.transform.position;
+    playerReplacement.transform.eulerAngles = playerTextureObject.transform.eulerAngles;
+    Vector3 newScale = playerTextureObject.transform.localScale;
+    newScale.x *= playerTextureObject.transform.parent.gameObject.transform.localScale.x;
+    newScale.y *= playerTextureObject.transform.parent.gameObject.transform.localScale.y;
+    playerReplacement.transform.localScale = (newScale);
+
+    // set proper sorting layer and order
+    SpriteRenderer playerTextureObjectSR = playerTextureObject.GetComponent<SpriteRenderer>();
+    playerReplacementSR.sortingLayerName = playerTextureObjectSR.sortingLayerName;
+    playerReplacementSR.sortingOrder = playerTextureObjectSR.sortingOrder;
+
+    // make player invisible, but replacement in place
+    playerReplacementSR.sprite = playerTextureObjectSR.sprite;
+    playerTextureObjectSR.sprite = null;
+
+    // animate laser beams from robots eyes onto player
+    leftEyeLaserLR.gameObject.SetActive(true);
+    rightEyeLaserLR.gameObject.SetActive(true);
+    bool stopAnimatedEyeLaser = false;
+    StartCoroutine(animateEyeLaser());
+
+    IEnumerator animateEyeLaser() {
+      while (!stopAnimatedEyeLaser) {
+        Vector3 playerPos = playerReplacement.transform.position;
+        // draw laser beams from robot eyes to the player
+        leftEyeLaserLR.SetPositions(new Vector3[2] { leftEyePos, playerPos });
+        rightEyeLaserLR.SetPositions(new Vector3[2] { rightEyePos, playerPos });
+        yield return new WaitForFixedUpdate();
+      }
+      StopCoroutine(animateEyeLaser());
+    }
+
+    // move player replacement up to the robot 
+    // and move camera (player) in direction of robot as well
+    Vector3 playerStartPos = playerReplacement.transform.position;
+    Vector3 cameraFinalPos = Vector3.zero;
+    cameraFinalPos.x = GameObject.Find("CameraXPos").transform.position.x;
+    cameraFinalPos.y = playerStartPos.y;
+    Vector3 movePlayerToPos = GameObject.Find("MovePlayerToPosition").transform.position;
+    float movePlayerTimer = 0f;
+    float animationDuration = 3.5f;
+    while (true) {
+
+      // move player replacement
+      Vector3 newPlayerPos = Vector3.Lerp(playerStartPos, movePlayerToPos, (movePlayerTimer / animationDuration));
+      playerReplacement.transform.position = newPlayerPos;
+
+      // move camera (actual player)
+      Vector3 newCameraPos = Vector3.Lerp(playerStartPos, cameraFinalPos, (movePlayerTimer / animationDuration));
+      PlayerManager.Instance.gameObject.transform.position = newCameraPos;
+
+      movePlayerTimer += Time.deltaTime;
+
+      if (movePlayerTimer > animationDuration) {
+        playerReplacement.transform.position = movePlayerToPos;
+        PlayerManager.Instance.gameObject.transform.position = cameraFinalPos;
+        break;
+      }
+
+      yield return new WaitForFixedUpdate();
+    }
+
+    // continuously morph the player replacement from one state to another (in appearance)
+    bool stopMorphingPlayer = false;
+    Sprite[] morphStates = new Sprite[rectToCircleSprites.Length + 
+                                      rectToTriangleSprites.Length + 
+                                      triangleToCircleSprites.Length];
+    // load all morphing sprite arrays into this array
+    for (int i = 0; i < rectToCircleSprites.Length; i++) {
+      // reverse rectToCircle Sprite array to circleToRect
+      morphStates[i] = rectToCircleSprites[rectToCircleSprites.Length - 1 - i];
+    }
+    int startLength = rectToCircleSprites.Length;
+    for (int i = 0; i < rectToTriangleSprites.Length; i++) {
+      morphStates[i + startLength] = rectToTriangleSprites[i];
+    }
+    startLength += rectToTriangleSprites.Length;
+    for (int i = 0; i < triangleToCircleSprites.Length; i++) {
+      morphStates[i + startLength] = triangleToCircleSprites[i];
+    }
+    StartCoroutine(morphPlayerReplacementContinuously());
+    IEnumerator morphPlayerReplacementContinuously() {
+      int counter = 0;
+      while (!stopMorphingPlayer) {
+        playerReplacementSR.sprite = morphStates[counter];
+        counter++;
+        if (counter > morphStates.Length - 1) {
+          counter = 0;
+        }
+        yield return new WaitForSeconds(0.05f);
+      }
+      StopCoroutine(morphPlayerReplacementContinuously());
+    }
+
+    // play some dialogue
+    DialogSystem.loadDialog("lvl4_end_evil_3");
+    yield return new WaitForSeconds(4f);
+    DialogSystem.loadDialog("lvl4_end_evil_4");
+    yield return new WaitForSeconds(4f);
+    DialogSystem.loadDialog("lvl4_end_evil_5");
+    yield return new WaitForSeconds(4f);
+    DialogSystem.loadDialog("lvl4_end_evil_6");
+    yield return new WaitForSeconds(10f);
+
+    // remove eye lasers
+    stopAnimatedEyeLaser = true;
+    leftEyeLaserLR.gameObject.SetActive(false);
+    rightEyeLaserLR.gameObject.SetActive(false);
+
+    // shrink the player replacement and move it to the robot's shoulder
+    Vector3 movePlayerToRobotShoulderPos = GameObject.Find("MovePlayerIntoRobotPosition").transform.position;
+    Vector3 playerReplacementStartScale = playerReplacement.gameObject.transform.localScale;
+    Vector3 playerReplacementNewScale = playerReplacement.gameObject.transform.localScale / 2.5f;
+    playerStartPos = playerReplacement.transform.position;
+    movePlayerTimer = 0f;
+    animationDuration = .7f;
+    while (true) {
+
+      // move player replacement
+      Vector3 newPlayerPos = Vector3.Lerp(playerStartPos, movePlayerToRobotShoulderPos, (movePlayerTimer / animationDuration));
+      playerReplacement.transform.position = newPlayerPos;
+
+      // shrink player replacement
+      Vector3 newPlayerScale = Vector3.Lerp(playerReplacementStartScale, playerReplacementNewScale, (movePlayerTimer / animationDuration));
+      playerReplacement.transform.localScale = newPlayerScale;
+
+      movePlayerTimer += Time.deltaTime;
+
+      if (movePlayerTimer > animationDuration) {
+        playerReplacement.transform.position = movePlayerToRobotShoulderPos;
+        playerReplacement.transform.localScale = playerReplacementNewScale;
+        break;
+      }
+
+      yield return new WaitForFixedUpdate();
+    }
+
+    // shrink the player replacement and move it to the robot's shoulder
+    playerStartPos = playerReplacement.transform.position;
+    Vector3 movePlayerIntoRobotPos = GameObject.Find("MovePlayerIntoRobotPosition2").transform.position;
+    movePlayerTimer = 0f;
+    animationDuration = .4f;
+    while (true) {
+
+      // move player replacement
+      Vector3 newPlayerPos = Vector3.Lerp(playerStartPos, movePlayerIntoRobotPos, (movePlayerTimer / animationDuration));
+      playerReplacement.transform.position = newPlayerPos;
+
+      movePlayerTimer += Time.deltaTime;
+
+      if (movePlayerTimer > animationDuration) {
+        playerReplacement.transform.position = movePlayerIntoRobotPos;
+        break;
+      }
+
+      yield return new WaitForFixedUpdate();
+    }
+
+    // deactivate all voice line renderers
+    voiceLineRendererRedLvl4.SetActive(false);
+    voiceLineRendererBlueLvl4.SetActive(false);
+
+    // stop continuously morphing the player replacement
+    stopMorphingPlayer = true;
+    StopCoroutine(morphPlayerReplacementContinuously());
+
+    // hide player replacement
+    playerReplacement.SetActive(false);
+    
+    // remove robot player cover
+    yield return new WaitForSeconds(.1f);
+    GameObject.Find("RobotCoverTexture").SetActive(false);
+
+    // play 'electrical' sound effects
     yield return new WaitForSeconds(2f);
+    SoundController.Instance.playSound("robotElectricDefect");
+    yield return new WaitForSeconds(1.5f);
+    SoundController.Instance.playSound("robotElectricDefect");
 
+    // play sprite animation
+    for (int i = 0; i < spritesNumber; i++) {
+
+      robotSR.sprite = robotTurningWholeAnimation[i];
+
+      // robot has circle in its heart's place
+      if (i == 9) {
+        SoundController.Instance.playSound("robotElectricDefect");
+        yield return new WaitForSeconds(1f);
+        SoundController.Instance.playSound("robotRepairSound");
+        yield return new WaitForSeconds(1f);
+      }
+      // robot has all new parts
+      else if (i == 21) {
+        SoundController.Instance.playSound("robotElectricDefect");
+
+        // deactivate background music
+        backgroundMusicPlayer = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+        backgroundMusicPlayer.clip = null;
+        backgroundMusicPlayer.mute = false;
+        
+        // remove all smoke particles coming from the robot
+        GameObject.Find("RobotLegSmokeParticles").SetActive(false);
+        GameObject.Find("RobotLegSmokeParticles2").SetActive(false);
+        GameObject.Find("RobotShoulderSmokeParticles").SetActive(false);
+
+        yield return new WaitForSeconds(2f);
+      }
+      // rotate the robot so it's once again standing vertically
+      else if (i > 21 && i < 31) {
+        Vector3 newRobotRotation = Vector3.zero;
+        newRobotRotation.z = 1f;
+        robot.transform.localEulerAngles -= newRobotRotation;
+      }
+
+      yield return new WaitForSeconds(.08f);
+
+    }
+
+    // switch voice line renderer to blue
+    yield return new WaitForSeconds(2f);
+    voiceLineRendererBlueLvl4.SetActive(true);
+
+    // play dialogue
+    DialogSystem.loadDialog("lvl4_end_normal_1");
+    yield return new WaitForSeconds(4f);
+    DialogSystem.loadDialog("lvl4_end_normal_2");
+    yield return new WaitForSeconds(6f);
+    DialogSystem.loadDialog("lvl4_end_normal_3");
+    yield return new WaitForSeconds(5f);
+    DialogSystem.loadDialog("lvl4_end_normal_4");
+    yield return new WaitForSeconds(9f);
+    DialogSystem.loadDialog("lvl4_end_normal_5");
+    yield return new WaitForSeconds(5f);
+
+    // wait for level end
+    yield return new WaitForSeconds(9f);
     LevelEnd.Instance.endLevel("levelCompleteSound");
 
     StopCoroutine(LVL4_EndScene());
@@ -367,18 +648,18 @@ public class ScriptedEventsManager : MonoBehaviour {
    * ===============
    */
 
-  private GameObject voiceLineRendererRed = null;
+  private GameObject voiceLineRendererRedLvl3 = null;
   private GameObject shoulderSmokeParticlesEnd = null;
   private IEnumerator StartFrequenceLvl3() {
     yield return new WaitForSeconds(2f);
 
     // set evil red voice line renderer inactive for later
-    voiceLineRendererRed = GameObject.Find("VoiceLineRendererRed");
-    voiceLineRendererRed.SetActive(false);
+    voiceLineRendererRedLvl3 = GameObject.Find("VoiceLineRendererRed");
+    voiceLineRendererRedLvl3.SetActive(false);
 
     // find smote particle system for end animation,
     // and deactivate for reactivation in end sequence
-    shoulderSmokeParticlesEnd = GameObject.Find("RobotLegSmokeParticles3");
+    shoulderSmokeParticlesEnd = GameObject.Find("RobotShoulderSmokeParticles");
     shoulderSmokeParticlesEnd.SetActive(false);
 
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
@@ -435,7 +716,7 @@ public class ScriptedEventsManager : MonoBehaviour {
       else if (i == 19) {
         yield return new WaitForSeconds(1f);
         // enable evil red voice line renderer
-        voiceLineRendererRed.SetActive(true);
+        voiceLineRendererRedLvl3.SetActive(true);
       }
 
       yield return new WaitForSeconds(0.1f);

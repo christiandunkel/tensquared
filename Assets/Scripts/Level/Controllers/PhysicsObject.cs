@@ -58,7 +58,7 @@ public class PhysicsObject : PlayerManager {
 
           calculateDoubleJumpMovement();
           textureObject.transform.parent.gameObject.GetComponent<Animator>().Play("JumpSquish");
-          resetTriangleRotation(1);
+          resetTriangleRotation();
 
         }
 
@@ -87,7 +87,7 @@ public class PhysicsObject : PlayerManager {
       else {
         // reset line renderer
         triangleLineRenderer.SetPositions(new Vector3[2] { transform.position, transform.position });
-        resetTriangleRotation(2);
+        resetTriangleRotation();
       }
 
     }
@@ -132,7 +132,7 @@ public class PhysicsObject : PlayerManager {
    */
 
   private bool playingResetTriangleRotationAnimation = false;
-  private void resetTriangleRotation(int u) {
+  private void resetTriangleRotation() {
 
     /*
      * reset texture's rotation back to normal
@@ -141,7 +141,6 @@ public class PhysicsObject : PlayerManager {
 
     if (!playingResetTriangleRotationAnimation) {
       playingResetTriangleRotationAnimation = true;
-      Log.Print($"Start 'reset triangle rotation' process on {(u == 1 ? "double jump" : "landing")}.", this);
       StopCoroutine(resetTriangleRotationCoroutine());
       StartCoroutine(resetTriangleRotationCoroutine());
     }
@@ -172,8 +171,6 @@ public class PhysicsObject : PlayerManager {
         yield return new WaitForFixedUpdate();
 
       }
-
-      Log.Print("Finished resetting triangle rotation.", this);
 
       // if for loop goes a bit over 0f, make a final reset
       if (textureObject.transform.localEulerAngles.z != 0f) {

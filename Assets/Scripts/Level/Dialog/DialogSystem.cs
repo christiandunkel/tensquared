@@ -59,7 +59,7 @@ public class DialogSystem : MonoBehaviour {
   private static int jitterElementAmount = 4;
   private static SimpleLUT colorGrading;
   private static Color originalTint;
-  private static Color evilRedTint = new Color(169f / 255f, 37f / 255f, 33f / 255f);
+  private static Color evilRedTint = new Color(183f / 255f, 115f / 255f, 112f / 255f);
 
   // audio visualization
   private static LineRenderer[] voiceLineRenderers;
@@ -322,6 +322,8 @@ public class DialogSystem : MonoBehaviour {
        * fades the dialogue into the screen
        * writes text, plays voice, then fades out
        */
+
+      Log.Print($"Playing dialog '{name}'.", Instance.gameObject);
 
       dialogBoxVisible = true;
 

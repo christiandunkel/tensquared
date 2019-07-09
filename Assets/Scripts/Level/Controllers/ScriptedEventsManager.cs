@@ -271,13 +271,13 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.loadDialog("lvl4_inspired_me");
           break;
         case "new_friends":
-          DialogSystem.loadDialog("lvl4_new_friends");
+          StartCoroutine(LVL4_NewFriends());
           break;
         case "bomberling_explosion":
-          DialogSystem.loadDialog("lvl4_hear_explosion");
+          StartCoroutine(LVL4_BomberlingExplosion());
           break;
         case "jealous":
-          DialogSystem.loadDialog("lvl4_jealous");
+          StartCoroutine(LVL4_Jealous());
           break;
         case "tea_and_cookies":
           DialogSystem.loadDialog("lvl4_tea_and_cookies");
@@ -302,12 +302,38 @@ public class ScriptedEventsManager : MonoBehaviour {
    * ===============
    */
 
+  private AudioClip evilElectroSwingTheme = null;
   private IEnumerator StartFrequenceLvl4() {
+    // load evil electro swing theme for later use
+    evilElectroSwingTheme = Resources.Load<AudioClip>("Music/EvilElectroSwingTheme");
     yield return new WaitForSeconds(3f);
     DialogSystem.loadDialog("lvl4_where_have_you_gone");
     yield return new WaitForSeconds(9f);
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     StopCoroutine(StartFrequenceLvl4());
+  }
+  private AudioSource backgroundMusicPlayer = null;
+  private IEnumerator LVL4_NewFriends() {
+    DialogSystem.loadDialog("lvl4_new_friends");
+    yield return new WaitForSeconds(1.5f);
+    // mute the music
+    backgroundMusicPlayer = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+    backgroundMusicPlayer.mute = true;
+    StopCoroutine(LVL4_NewFriends());
+  }
+  private IEnumerator LVL4_BomberlingExplosion() {
+    yield return new WaitForSeconds(1.5f);
+    DialogSystem.loadDialog("lvl4_hear_explosion");
+    StopCoroutine(LVL4_BomberlingExplosion());
+  }
+  private IEnumerator LVL4_Jealous() {
+    DialogSystem.loadDialog("lvl4_jealous");
+    yield return new WaitForSeconds(1.5f);
+    // play evil electro swing theme
+    backgroundMusicPlayer.clip = evilElectroSwingTheme;
+    backgroundMusicPlayer.mute = false;
+    backgroundMusicPlayer.Play();
+    StopCoroutine(LVL4_Jealous());
   }
 
 

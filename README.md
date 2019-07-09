@@ -16,7 +16,7 @@ You are a circle. Awakened in the middle of a remote forest, you don't know how 
 
 You can find the download link for the newest playable release of the game (Windows) under the *Releases* tab. Or you can just simply click on the *Download* button below.
 
-[![Download the game](/Documentation/Images/download_button.png)](https://github.com/christiandunkel/tensquared/releases/download/v6.1/build.zip)
+[![Download the game](/Documentation/Images/download_button.png)](https://github.com/christiandunkel/tensquared/releases/download/v6.1/build_windows.zip)
 
 ## What is Bauhaus?
 

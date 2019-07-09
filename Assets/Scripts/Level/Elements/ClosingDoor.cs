@@ -85,6 +85,7 @@ public class ClosingDoor : MonoBehaviour {
       return;
     }
 
+    // relation of doors position to player on x axis
     xDistanceToPlayer = playerObject.transform.position.x - transform.position.x;
 
     // door is open, when player is on the left of it

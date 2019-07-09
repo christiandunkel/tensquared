@@ -94,9 +94,7 @@ public class ToxicWater : MonoBehaviour {
      * the toxic bubble spawning process to activate
      */
 
-    float validRadius = 230f;
-
-    return (Mathf.Abs(pos.x - PlayerManager.playerObject.transform.position.x) <= validRadius);
+    return Util.distanceOnAxisX(pos, PlayerManager.playerObject) <= 230f;
 
   }
 

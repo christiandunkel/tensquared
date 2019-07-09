@@ -97,24 +97,12 @@ public class Bomberling : MonoBehaviour {
 
     // activate the bomberling if the player is close enough
     // and player is roughly on the same height (y value)
-    if (distanceToPlayer() <= radiusOfActivation &&
-        Mathf.Abs(playerObject.gameObject.transform.position.y - gameObject.transform.position.y) < 15f) {
-
+    if (
+      distanceToPlayer() <= radiusOfActivation &&
+      Util.distanceOnAxisY(playerObject, gameObject) < 15f
+    ) {
       startRunning();
-
     }
-
-  }
-
-  private float distanceToPlayer() {
-
-    /*
-     * calculates the distance between this instance of a bomberling and the player
-     */
-
-    float distance = ((Vector2)gameObject.transform.position - (Vector2)playerObject.transform.position).magnitude;
-
-    return distance;
 
   }
 
@@ -195,6 +183,16 @@ public class Bomberling : MonoBehaviour {
       StopCoroutine(playSound());
 
     }
+
+  }
+
+  private float distanceToPlayer() {
+
+    /*
+     * returns the distance of the turret and the player on the x and y axis
+     */
+
+    return Util.distanceOnAxisXY(playerObject, gameObject);
 
   }
 

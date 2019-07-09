@@ -326,10 +326,10 @@ public class ScriptedEventsManager : MonoBehaviour {
     rightEyeLaserLR = GameObject.Find("RightEyeLaserLineRenderer").GetComponent<LineRenderer>();
     leftEyeLaserLR.gameObject.SetActive(false);
     rightEyeLaserLR.gameObject.SetActive(false);
-    /*
+
     yield return new WaitForSeconds(3f);
     DialogSystem.loadDialog("lvl4_where_have_you_gone");
-    yield return new WaitForSeconds(9f);*/
+    yield return new WaitForSeconds(9f);
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     yield return new WaitForSeconds(0.1f);
     StopCoroutine(StartFrequenceLvl4());

@@ -80,15 +80,7 @@ public class DisappearingBlockDouble : MonoBehaviour {
       return 20000f;
     }
 
-    Vector2 v1 = transform.position;
-    Vector2 v2 = PlayerManager.playerObject.transform.position;
-
-    Vector2 richtungsVektor = v1 - v2;
-
-    // distance player to disappearing blocks
-    float vektorBetrag = Mathf.Sqrt(Mathf.Pow(richtungsVektor.x, 2) + Mathf.Pow(richtungsVektor.y, 2));
-
-    return vektorBetrag;
+    return Util.distanceOnAxisXY(PlayerManager.playerObject, gameObject);
 
   }
 

@@ -87,7 +87,7 @@ public class LaserTurret : MonoBehaviour {
 
     if (!isEnabled) {
       // play 'disabled turret' particles
-      if (!disabledParticles1.activeSelf) {
+      if (!disabledParticles1.activeSelf || !disabledParticles2.activeSelf) {
         disabledParticles1.SetActive(true);
         disabledParticles2.SetActive(true);
         disabledParticles1_PS.Play();
@@ -96,18 +96,13 @@ public class LaserTurret : MonoBehaviour {
       return;
     }
     // don't play 'disabled turret' particles anymore
-    else if (disabledParticles1.activeSelf) {
+    else if (disabledParticles1.activeSelf || disabledParticles2.activeSelf) {
       disabledParticles1.SetActive(false);
       disabledParticles2.SetActive(false);
     }
 
     // test if player is close enough to turret for it to be active, otherwise return
-    Vector2 playerPos = PlayerManager.playerObject.transform.position;
-    if (
-      Mathf.Pow((playerPos.x - transform.position.x), 2) +
-      Mathf.Pow((playerPos.y - transform.position.y), 2)
-      >= Mathf.Pow(distanceToPlayerNeededForActivation, 2)
-    ) {
+    if (Util.distanceOnAxisXY(PlayerManager.playerObject, gameObject) >= distanceToPlayerNeededForActivation) {
       timeUntilNextShot = secondsBetweenShots;
       return;
     }

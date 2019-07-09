@@ -460,7 +460,7 @@ public class ScriptedEventsManager : MonoBehaviour {
       yield return new WaitForFixedUpdate();
     }
 
-    // continuously morph the player replacement from one state to another (in appearance)
+    // prepare 'player continuously morphing' animation
     bool stopMorphingPlayer = false;
     Sprite[] morphStates = new Sprite[rectToCircleSprites.Length + 
                                       rectToTriangleSprites.Length + 
@@ -478,7 +478,6 @@ public class ScriptedEventsManager : MonoBehaviour {
     for (int i = 0; i < triangleToCircleSprites.Length; i++) {
       morphStates[i + startLength] = triangleToCircleSprites[i];
     }
-    StartCoroutine(morphPlayerReplacementContinuously());
     IEnumerator morphPlayerReplacementContinuously() {
       int counter = 0;
       while (!stopMorphingPlayer) {
@@ -496,11 +495,17 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl4_end_evil_3");
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl4_end_evil_4");
+
+    // continuously morph the player replacement
+    // from one state to another (in appearance)
+    StartCoroutine(morphPlayerReplacementContinuously());
+
+    // play even more dialogue
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl4_end_evil_5");
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl4_end_evil_6");
-    yield return new WaitForSeconds(10f);
+    yield return new WaitForSeconds(4f);
 
     // remove eye lasers
     stopAnimatedEyeLaser = true;
@@ -513,7 +518,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     Vector3 playerReplacementNewScale = playerReplacement.gameObject.transform.localScale / 2.5f;
     playerStartPos = playerReplacement.transform.position;
     movePlayerTimer = 0f;
-    animationDuration = .7f;
+    animationDuration = 5f;
     while (true) {
 
       // move player replacement
@@ -539,7 +544,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     playerStartPos = playerReplacement.transform.position;
     Vector3 movePlayerIntoRobotPos = GameObject.Find("MovePlayerIntoRobotPosition2").transform.position;
     movePlayerTimer = 0f;
-    animationDuration = .4f;
+    animationDuration = 2f;
     while (true) {
 
       // move player replacement
@@ -594,7 +599,6 @@ public class ScriptedEventsManager : MonoBehaviour {
         SoundController.Instance.playSound("robotElectricDefect");
 
         // deactivate background music
-        backgroundMusicPlayer = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
         backgroundMusicPlayer.clip = null;
         backgroundMusicPlayer.mute = false;
         
@@ -616,12 +620,12 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     }
 
-    // switch voice line renderer to blue
-    yield return new WaitForSeconds(2f);
-    voiceLineRendererBlueLvl4.SetActive(true);
-
     // play dialogue
+    yield return new WaitForSeconds(2f);
     DialogSystem.loadDialog("lvl4_end_normal_1");
+    yield return new WaitForSeconds(.3f);
+    // switch voice line renderer to blue
+    voiceLineRendererBlueLvl4.SetActive(true);
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl4_end_normal_2");
     yield return new WaitForSeconds(6f);

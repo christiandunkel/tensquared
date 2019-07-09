@@ -288,6 +288,9 @@ public class ScriptedEventsManager : MonoBehaviour {
         case "you_are_near":
           DialogSystem.loadDialog("lvl4_you_are_near");
           break;
+        case "level_end":
+          StartCoroutine(LVL4_EndScene());
+          break;
       }
     }
 
@@ -334,6 +337,25 @@ public class ScriptedEventsManager : MonoBehaviour {
     backgroundMusicPlayer.mute = false;
     backgroundMusicPlayer.Play();
     StopCoroutine(LVL4_Jealous());
+  }
+  private IEnumerator LVL4_EndScene() {
+
+    LevelSettings.Instance.setSetting("canMove", false);
+    LevelSettings.Instance.setSetting("canJump", false);
+    LevelSettings.Instance.setSetting("canSelfDestruct", false);
+    LevelSettings.Instance.setSetting("canMorphToCircle", false);
+    LevelSettings.Instance.setSetting("canMorphToTriangle", false);
+    LevelSettings.Instance.setSetting("canMorphToRectangle", false);
+
+    // load animation sprites
+    //Sprite[] robotFallingApartAnimation = Resources.LoadAll<Sprite>("RobotFallingApartAnimation");
+    //int spritesNumber = robotFallingApartAnimation.Length;
+
+    yield return new WaitForSeconds(2f);
+
+    LevelEnd.Instance.endLevel("levelCompleteSound");
+
+    StopCoroutine(LVL4_EndScene());
   }
 
 

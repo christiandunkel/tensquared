@@ -601,11 +601,11 @@ public class ScriptedEventsManager : MonoBehaviour {
         // deactivate background music
         backgroundMusicPlayer.clip = null;
         backgroundMusicPlayer.mute = false;
-        
+
         // remove all smoke particles coming from the robot
-        GameObject.Find("RobotLegSmokeParticles").SetActive(false);
-        GameObject.Find("RobotLegSmokeParticles2").SetActive(false);
-        GameObject.Find("RobotShoulderSmokeParticles").SetActive(false);
+        GameObject.Find("RobotLegSmokeParticles").GetComponent<ParticleSystem>().Pause();
+        GameObject.Find("RobotLegSmokeParticles2").GetComponent<ParticleSystem>().Pause();
+        GameObject.Find("RobotShoulderSmokeParticles").GetComponent<ParticleSystem>().Pause();
 
         yield return new WaitForSeconds(2f);
       }

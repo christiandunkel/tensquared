@@ -233,6 +233,26 @@ public static class Util {
 
   }
 
+  public static float distance(int num1, float num2) {
+
+    /*
+     * calculates the difference between a float and an integer
+     */
+
+    return Mathf.Abs(num1 - num2);
+
+  }
+
+  public static float distance(float num1, int num2) {
+
+    /*
+     * calculates the difference between a float and an integer
+     */
+
+    return Mathf.Abs(num1 - num2);
+
+  }
+
   public static float distance(int num1, int num2) {
 
     /*

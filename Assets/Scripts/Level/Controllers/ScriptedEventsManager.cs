@@ -462,22 +462,74 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     // prepare 'player continuously morphing' animation
     bool stopMorphingPlayer = false;
-    Sprite[] morphStates = new Sprite[rectToCircleSprites.Length + 
-                                      rectToTriangleSprites.Length + 
-                                      triangleToCircleSprites.Length];
+    Sprite[] morphStates = new Sprite[0];
+
     // load all morphing sprite arrays into this array
-    for (int i = 0; i < rectToCircleSprites.Length; i++) {
-      // reverse rectToCircle Sprite array to circleToRect
-      morphStates[i] = rectToCircleSprites[rectToCircleSprites.Length - 1 - i];
+    switch (PlayerManager.Instance.getString("state")) {
+
+      case "Circle":
+        morphStates = AddCircleToRectSprites(morphStates);
+        morphStates = AddRectToTriangleSprites(morphStates);
+        morphStates = AddTriangleToCircleSprites(morphStates);
+        break;
+
+      case "Rectangle":
+        morphStates = AddRectToTriangleSprites(morphStates);
+        morphStates = AddTriangleToCircleSprites(morphStates);
+        morphStates = AddCircleToRectSprites(morphStates);
+        break;
+
+      case "Triangle":
+        morphStates = AddTriangleToCircleSprites(morphStates);
+        morphStates = AddCircleToRectSprites(morphStates);
+        morphStates = AddRectToTriangleSprites(morphStates);
+        break;
+
     }
-    int startLength = rectToCircleSprites.Length;
-    for (int i = 0; i < rectToTriangleSprites.Length; i++) {
-      morphStates[i + startLength] = rectToTriangleSprites[i];
+
+    Sprite[] AddCircleToRectSprites(Sprite[] oldArray) {
+      int startLength = oldArray.Length;
+      Sprite[] spriteArray = new Sprite[startLength + rectToCircleSprites.Length];
+      // transfer existing sprites from morphStates to spriteArray
+      for (int i = 0; i < startLength; i++) {
+        spriteArray[i] = oldArray[i];
+      }
+      // add new sprites
+      for (int i = 0; i < rectToCircleSprites.Length; i++) {
+        // reverse rectToCircle Sprite array to circleToRect
+        spriteArray[i + startLength] = rectToCircleSprites[rectToCircleSprites.Length - 1 - i];
+      }
+      return spriteArray;
     }
-    startLength += rectToTriangleSprites.Length;
-    for (int i = 0; i < triangleToCircleSprites.Length; i++) {
-      morphStates[i + startLength] = triangleToCircleSprites[i];
+
+    Sprite[] AddRectToTriangleSprites(Sprite[] oldArray) {
+      int startLength = oldArray.Length;
+      Sprite[] spriteArray = new Sprite[startLength + rectToTriangleSprites.Length];
+      // transfer existing sprites from morphStates to spriteArray
+      for (int i = 0; i < startLength; i++) {
+        spriteArray[i] = oldArray[i];
+      }
+      // add new sprites
+      for (int i = 0; i < rectToTriangleSprites.Length; i++) {
+        spriteArray[i + startLength] = rectToTriangleSprites[i];
+      }
+      return spriteArray;
     }
+
+    Sprite[] AddTriangleToCircleSprites(Sprite[] oldArray) {
+      int startLength = morphStates.Length;
+      Sprite[] spriteArray = new Sprite[startLength + triangleToCircleSprites.Length];
+      // transfer existing sprites from morphStates to spriteArray
+      for (int i = 0; i < startLength; i++) {
+        spriteArray[i] = oldArray[i];
+      }
+      // add new sprites
+      for (int i = 0; i < triangleToCircleSprites.Length; i++) {
+        spriteArray[i + startLength] = triangleToCircleSprites[i];
+      }
+      return spriteArray;
+    }
+    
     IEnumerator morphPlayerReplacementContinuously() {
       int counter = 0;
       while (!stopMorphingPlayer) {
@@ -599,13 +651,18 @@ public class ScriptedEventsManager : MonoBehaviour {
         SoundController.Instance.playSound("robotElectricDefect");
 
         // deactivate background music
-        backgroundMusicPlayer.clip = null;
-        backgroundMusicPlayer.mute = false;
+        if (backgroundMusicPlayer != null) {
+          backgroundMusicPlayer.clip = null;
+          backgroundMusicPlayer.mute = false;
+        }
 
-        // remove all smoke particles coming from the robot
-        GameObject.Find("RobotLegSmokeParticles").GetComponent<ParticleSystem>().Pause();
-        GameObject.Find("RobotLegSmokeParticles2").GetComponent<ParticleSystem>().Pause();
-        GameObject.Find("RobotShoulderSmokeParticles").GetComponent<ParticleSystem>().Pause();
+        // un-loop all smoke particles coming from the robot
+        ParticleSystem.MainModule main1 = GameObject.Find("RobotLegSmokeParticles").GetComponent<ParticleSystem>().main;
+        main1.loop = false;
+        ParticleSystem.MainModule main2 = GameObject.Find("RobotLegSmokeParticles2").GetComponent<ParticleSystem>().main;
+        main2.loop = false;
+        ParticleSystem.MainModule main3 = GameObject.Find("RobotShoulderSmokeParticles").GetComponent<ParticleSystem>().main;
+        main3.loop = false;
 
         yield return new WaitForSeconds(2f);
       }

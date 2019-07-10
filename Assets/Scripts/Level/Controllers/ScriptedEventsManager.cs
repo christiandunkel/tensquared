@@ -271,7 +271,7 @@ public class ScriptedEventsManager : MonoBehaviour {
           DialogSystem.loadDialog("lvl4_inspired_me");
           break;
         case "new_friends":
-          StartCoroutine(LVL4_NewFriends());
+          DialogSystem.loadDialog("lvl4_new_friends");
           break;
         case "bomberling_explosion":
           StartCoroutine(LVL4_BomberlingExplosion());
@@ -334,24 +334,17 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(0.1f);
     StopCoroutine(StartFrequenceLvl4());
   }
-  private AudioSource backgroundMusicPlayer = null;
-  private IEnumerator LVL4_NewFriends() {
-    DialogSystem.loadDialog("lvl4_new_friends");
-    yield return new WaitForSeconds(1.5f);
-    // mute the music
-    backgroundMusicPlayer = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
-    backgroundMusicPlayer.mute = true;
-    StopCoroutine(LVL4_NewFriends());
-  }
   private IEnumerator LVL4_BomberlingExplosion() {
     yield return new WaitForSeconds(1.5f);
     DialogSystem.loadDialog("lvl4_hear_explosion");
     StopCoroutine(LVL4_BomberlingExplosion());
   }
+  private AudioSource backgroundMusicPlayer = null;
   private IEnumerator LVL4_Jealous() {
     DialogSystem.loadDialog("lvl4_jealous");
     yield return new WaitForSeconds(1.5f);
     // play evil electro swing theme
+    backgroundMusicPlayer = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
     backgroundMusicPlayer.clip = evilElectroSwingTheme;
     backgroundMusicPlayer.mute = false;
     backgroundMusicPlayer.Play();

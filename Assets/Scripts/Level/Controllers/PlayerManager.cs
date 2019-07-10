@@ -396,6 +396,12 @@ public class PlayerManager : MonoBehaviour {
     setValue(name, value);
     morphIndicator.loadMorphIndicators();
 
+    // test if canMove was disabled, and if so, remove all velocity
+    if (name == "canMove" && value == false) {
+      rb2d.velocity = Vector2.zero;
+      doubleJumpMovement = Vector2.zero;
+    }
+
   }
 
   public void setValue(string name, bool value) {

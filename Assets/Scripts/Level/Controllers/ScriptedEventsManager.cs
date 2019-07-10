@@ -75,7 +75,7 @@ public class ScriptedEventsManager : MonoBehaviour {
       return;
     }
 
-    // delay; start up scripted events once other scripts are ready
+    // start up scripted events once other scripts are ready
     StartCoroutine(delayedAwake());
 
     IEnumerator delayedAwake() {
@@ -119,9 +119,11 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   }
 
-  
-
   public void LoadEvent(int lvl, string name) {
+
+    /*
+     * loads an event with a given name in a level
+     */
 
     // only play events of current level
     if (lvl != LevelSettings.Instance.getInt("levelID") || !playEvents) {
@@ -133,6 +135,10 @@ public class ScriptedEventsManager : MonoBehaviour {
       return;
     }
 
+    // add event to lists of already run events
+    eventsAlreadyRun.Add(lvl + "_" + name);
+
+    // load given event
     switch (lvl) {
 
       case 1:
@@ -153,144 +159,184 @@ public class ScriptedEventsManager : MonoBehaviour {
 
     }
 
-    // add event to lists of already run events
-    eventsAlreadyRun.Add(lvl + "_" + name);
-
     void LoadLevel1Event() {
       switch (name) {
+
         case "hide_move_tooltip":
           TooltipManager.hideTooltip("Move");
           break;
+
         case "jump_tooltip":
           StartCoroutine(Lvl1_JumpTooltip());
           break;
+
         case "hide_jump_tooltip":
           TooltipManager.hideTooltip("Jump");
           break;
+
         case "dialog_about_water":
           DialogSystem.loadDialog("lvl1_dont_jump_into_water");
           break;
+
         case "dialog_about_water_death":
           DialogSystem.loadDialog("lvl1_not_the_smartest_circle");
           break;
+
         case "dialog_you_are_quick":
           DialogSystem.loadDialog("lvl1_quick_compared_to_other_circles");
           break;
+
         case "robot_appear_scene":
           StartCoroutine(Lvl1_RobotAppearScene());
           break;
+
         case "dialog_pick_up_arms":
           StartCoroutine(Lvl1_PickUpArms());
           break;
+
         case "dialog_bring_arms_back":
           StartCoroutine(Lvl1_BringArmsBack());
           break;
+
         case "robot_get_arms_scene":
           StartCoroutine(Lvl1_RobotGetArmsScene());
           break;
+
       }
     }
 
     void LoadLevel2Event() {
       switch (name) {
+
         case "morph_to_triangle":
           StartCoroutine(Lvl2_FirstMorphToTriangle());
           break;
+
         case "bring_arms_back":
           DialogSystem.loadDialog("lvl2_you_are_out");
           break;
+
         case "can_you_morph_into_other_forms":
           StartCoroutine(LVL2_CanYouMorphIntoOtherForms());
           break;
+
         case "rectangle_morph_praises":
           StartCoroutine(LVL2_RectangleMorphPraises());
           break;
+
         case "breakable_block":
           DialogSystem.loadDialog("lvl2_breakable_block");
           break;
+
         case "smash_right":
           DialogSystem.loadDialog("lvl2_smash_right");
           break;
+
         case "second_hand_legs":
           DialogSystem.loadDialog("lvl2_second_hand_legs");
           break;
+
         case "pick_up_legs":
           StartCoroutine(LVL2_PickUpLegs());
           break;
+
         case "morph_force_field":
           StartCoroutine(LVL2_ForceField());
           break;
+
         case "receive_arms":
           StartCoroutine(LVL2_ReceiveArms());
           break;
+
       }
     }
 
     void LoadLevel3Event() {
       switch (name) {
+
         case "robot_humming2":
           DialogSystem.loadDialog("lvl3_robot_humming2");
           break;
+
         case "robot_humming3":
           DialogSystem.loadDialog("lvl3_robot_humming3");
           break;
+
         case "like_the_melody":
           DialogSystem.loadDialog("lvl3_EVIL_like_the_melody");
           break;
+
         case "neck_nose_ear_doctor":
           DialogSystem.loadDialog("lvl3_neck_nose_ear_specialist");
           DialogSystem.loadDialog("lvl3_EVIL_beautiful_melody");
           break;
+
         case "smoking_legs":
           DialogSystem.loadDialog("lvl3_smoking_legs");
           break;
+
         case "safe_laser_turrets":
+          // disable laser turrets
           GameObject.Find("MalfunctioningLaserTurret").GetComponent<LaserTurret>().disable();
           GameObject.Find("MalfunctioningLaserTurret2").GetComponent<LaserTurret>().disable();
           DialogSystem.loadDialog("lvl3_EVIL_fruit_juice_shooters");
           break;
+
         case "surprised_about_laser_cannons":
           DialogSystem.loadDialog("lvl3_surprised_about_laser_cannons");
           break;
+
         case "set_on_fire":
           DialogSystem.loadDialog("lvl3_EVIL_set_on_fire");
           break;
+
         case "toxic_gases":
           DialogSystem.loadDialog("lvl3_toxic_gases");
           break;
+
         case "end_scene":
           StartCoroutine(LVL3_EndScene());
           break;
+
       }
     }
 
     void LoadLevel4Event() {
       switch (name) {
+
         case "four_limbed_animals":
           DialogSystem.loadDialog("lvl4_four_limbed_animals");
           DialogSystem.loadDialog("lvl4_inspired_me");
           break;
+
         case "new_friends":
           DialogSystem.loadDialog("lvl4_new_friends");
           break;
+
         case "bomberling_explosion":
           StartCoroutine(LVL4_BomberlingExplosion());
           break;
+
         case "jealous":
           StartCoroutine(LVL4_Jealous());
           break;
+
         case "tea_and_cookies":
           DialogSystem.loadDialog("lvl4_tea_and_cookies");
           break;
+
         case "am_i_untrustworthy":
           DialogSystem.loadDialog("lvl4_am_i_not_trustworthy");
           break;
+
         case "you_are_near":
           DialogSystem.loadDialog("lvl4_you_are_near");
           break;
+
         case "level_end":
           StartCoroutine(LVL4_EndScene());
           break;
+
       }
     }
 
@@ -334,11 +380,13 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(0.1f);
     StopCoroutine(StartFrequenceLvl4());
   }
+
   private IEnumerator LVL4_BomberlingExplosion() {
     yield return new WaitForSeconds(1.5f);
     DialogSystem.loadDialog("lvl4_hear_explosion");
     StopCoroutine(LVL4_BomberlingExplosion());
   }
+
   private AudioSource backgroundMusicPlayer = null;
   private IEnumerator LVL4_Jealous() {
     DialogSystem.loadDialog("lvl4_jealous");
@@ -350,6 +398,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     backgroundMusicPlayer.Play();
     StopCoroutine(LVL4_Jealous());
   }
+
   private IEnumerator LVL4_EndScene() {
 
     // freeze player
@@ -721,6 +770,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl3_robot_humming1");
     StopCoroutine(StartFrequenceLvl3());
   }
+
   private IEnumerator LVL3_EndScene() {
     
     LevelSettings.Instance.setSetting("canMove", false);
@@ -833,6 +883,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     TooltipManager.showTooltip("MorphTriangle");
     StopCoroutine(StartFrequenceLvl2());
   }
+
   private IEnumerator Lvl2_FirstMorphToTriangle() {
     TooltipManager.hideTooltip("MorphTriangle");
     yield return new WaitForSeconds(.9f);
@@ -843,6 +894,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl2_full_of_surprises");
     StopCoroutine(Lvl2_FirstMorphToTriangle());
   }
+
   private IEnumerator LVL2_CanYouMorphIntoOtherForms() {
 
     // freeze player until he morphs to rectangle
@@ -873,8 +925,9 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMorphToRectangle", true);
     TooltipManager.showTooltip("MorphRectangle");
     StopCoroutine(LVL2_CanYouMorphIntoOtherForms());
-
+    
   }
+
   private IEnumerator LVL2_RectangleMorphPraises() {
     TooltipManager.hideTooltip("MorphRectangle");
     yield return new WaitForSeconds(.5f);
@@ -887,6 +940,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl2_rectangle_great");
     StopCoroutine(LVL2_RectangleMorphPraises());
   }
+
   private IEnumerator LVL2_ForceField() {
     yield return new WaitForSeconds(.8f);
     DialogSystem.loadDialog("lvl2_force_fields_everywhere");
@@ -895,7 +949,6 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private GameObject robotLegSmokeParticles = null;
   private GameObject robotLegSmokeParticles2 = null;
-
   private IEnumerator LVL2_PickUpLegs() {
     GameObject.Find("RobotLegs").SetActive(false);
     PlayerManager.Instance.setValue("holdingItem", true);
@@ -1034,6 +1087,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canMove", true);
     StopCoroutine(StartFrequenceLvl1());
   }
+
   private IEnumerator Lvl1_JumpTooltip() {
     DialogSystem.loadDialog("lvl1_jump");
     yield return new WaitForSeconds(1.5f);
@@ -1041,6 +1095,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     TooltipManager.showTooltip("Jump");
     StopCoroutine(Lvl1_JumpTooltip());
   }
+
   private IEnumerator Lvl1_RobotAppearScene() {
     LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);
@@ -1067,6 +1122,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canSelfDestruct", true);
     StopCoroutine(Lvl1_RobotAppearScene());
   }
+
   private IEnumerator Lvl1_PickUpArms() {
     LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);
@@ -1077,6 +1133,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     LevelSettings.Instance.setSetting("canSelfDestruct", true);
     StopCoroutine(Lvl1_PickUpArms());
   }
+
   private IEnumerator Lvl1_BringArmsBack() {
     GameObject.Find("RoboterArms").SetActive(false);
     PlayerManager.Instance.setValue("holdingItem", true);
@@ -1084,6 +1141,7 @@ public class ScriptedEventsManager : MonoBehaviour {
     DialogSystem.loadDialog("lvl1_bring_arms_back");
     StopCoroutine(Lvl1_BringArmsBack());
   }
+
   private IEnumerator Lvl1_RobotGetArmsScene() {
     LevelSettings.Instance.setSetting("canSelfDestruct", false);
     LevelSettings.Instance.setSetting("canMove", false);

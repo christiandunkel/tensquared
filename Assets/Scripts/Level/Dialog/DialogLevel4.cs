@@ -205,7 +205,8 @@ public class DialogLevel4 : MonoBehaviour {
         dialog.setText(
           "Oh, you are down there. " + 
           "Circular as ever, and certainly real... " + 
-          "This is strange. You now feel like a part of me."
+          "This is strange.",
+          "You now feel like a part of me."
         );
         dialog.setAudioClip("lvl4_end_normal_4");
         dialog.icon = "surprised";

@@ -1,5 +1,6 @@
 
 # Documentation
+[Back to main page](../README.md)
 
 ## Background
 From the very beginning, we set out to create a game in *2D*. We gathered ideas, and it quickly became apparent that we wanted to integrate parkour and puzzle elements into our game. In the spirit of the Bauhaus, we settled on making our playable character a geometric shape, a circle to be exact. The character would be able to move between different geometric shapes, that would each possess different physical attributes and abilities.

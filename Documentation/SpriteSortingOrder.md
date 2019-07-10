@@ -1,5 +1,6 @@
 
 # Sprite Sorting Order
+[Back to main page](../README.md)
 
 This table lists all the elements used in the game with sorting layer and order information for their respective textures and particles effects.
 

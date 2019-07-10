@@ -20,8 +20,6 @@
 
 [![Screenshot showing the player inside a cave made of red blocks and the robot sitting on the side.](/Documentation/Screenshots/screenshot_caves_and_robot.png)](#)
 
-[![Screenshot showing the player inside a cave made of red blocks and the robot sitting on the side.](/Documentation/Screenshots/screenshot_caves_and_robot.png)](#)
-
 [![Screenshot showing a force field, which is a circular, blueish-white bubble.](/Documentation/Screenshots/screenshot_force_field.png)](#)
 
 [![Screenshot showing the player carrying a pair of robot legs.](/Documentation/Screenshots/screenshot_found_robot_legs.png)](#)
@@ -44,8 +42,8 @@
 
 [![Screenshot showing a foggy scenery of withered grass and trees at night time, with the moon prominently hanging in the middle of the image in the sky.](/Documentation/Screenshots/screenshot_night_moon.png)](#)
 
-[![Screenshot showing a foggy area filled with fires, toxic green water, and rubble.](/Documentation/Screenshots/screenshot_toxic_destroyed_area.png
+[![Screenshot showing a foggy area filled with fires, toxic green water, and rubble.](/Documentation/Screenshots/screenshot_toxic_destroyed_area.png)](#)
 
-[![Screenshot showing a pile of rubble consisting mostly of metallic parts.](/Documentation/Screenshots/screenshot_pile_of_rubble.png
+[![Screenshot showing a pile of rubble consisting mostly of metallic parts.](/Documentation/Screenshots/screenshot_pile_of_rubble.png)](#)
 
 [![Screenshot showing the robot staring menacingly at the player with smoke coming from its body.](/Documentation/Screenshots/screenshot_evil_robot.png)](#)

@@ -17,7 +17,7 @@ The story was altered multiple times over the duration of the game's development
 
 [![Sketch showing the player in circle-form bringing the arms to the robot, which it had lost.](/Documentation/Images/sketch_robot_finding_parts.jpg)](#)
 
-[![Screenshot of the game tinted red, and a dialogue box showing the robot talking about a melody playing in its head.](/Documentation/Screenshots/screenshot_crazy_robot.png)](#)
+[![Screenshot of the game, showing the player as a circle before a pair of robot arms.](/Documentation/Screenshots/screenshot_finding_robot_arms.png)](#)
 
 ## Design
 The first draft for a general look of the levels was done in a heartbeat, with a simple paper design style, in an environment that combines nature with industrial elements.
@@ -34,7 +34,7 @@ The further the player gets into the levels, the more destroyed and industrial t
 
 [![Sketch picturing the robot being on fire while looking at the player in circle form.](/Documentation/Images/sketch_robot_on_fire.jpg)](#)
 
-[![Screenshot of the game, showcasing the player inside a cave filled with smoke, and a factory on the side.](/Documentation/Screenshots/screenshot_factory.png)](#)
+[![Screenshot of the game tinted red, with the robot surrounded by smoke and a dialogue box showing it talking.](/Documentation/Screenshots/screenshot_crazy_robot.png)](#)
 
 ## Implementation
 For the first three weeks of the project, we focused on outlining our game's design style, story, and mechanics, while getting more familiar with the Unity engine in the process. We ended up with a rough understanding of the engine, and a fully working main menu, options menu, level menu and some other important parts of the final framework for the game, including scripts to manage the player progress, settings and sound.
@@ -48,3 +48,9 @@ In the first days of June, we finally completed the first level, and, with it, t
 [![Screenshot of the game in an orange tint, showing the sun set with the sun being prominently in the background.](/Documentation/Screenshots/screenshot_sun_set.png)](#)
 
 [![Screenshot of the game, showing a cave filled with toxic, green water.](/Documentation/Screenshots/screenshot_toxic_water.png)](#)
+
+[![Screenshot of the game, showing a night scenery with a bright moon in the air.](/Documentation/Screenshots/screenshot_night_moon.png)](#)
+
+[![Screenshot of the game, showing a pile of rubble containing metal parts.](/Documentation/Screenshots/screenshot_pile_of_rubble.png)](#)
+
+[![Screenshot of the game tinted red, showing the robot, with its shoulder destroyed and smoke coming from its body, talking to the player.](/Documentation/Screenshots/screenshot_evil_robot.png)](#)

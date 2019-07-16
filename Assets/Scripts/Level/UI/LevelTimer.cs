@@ -65,10 +65,12 @@ public class LevelTimer : MonoBehaviour {
     }
 
     // increase timer and display new number
-    currentTimer += Time.fixedDeltaTime;
+    currentTimer += Time.deltaTime;
 
     // max timer value 95:99:999
-    if (currentTimer > 9599999f) currentTimer = 9599999f;
+    if (currentTimer > 9599999f) {
+      currentTimer = 9599999f;
+    }
 
     timer.GetComponent<TextMeshProUGUI>().text = convertToTimerFormat();
 
@@ -83,8 +85,10 @@ public class LevelTimer : MonoBehaviour {
     int temp = (int) (currentTimer * 1000f);
 
     string newTimerValue = temp.ToString();
+
     // pad left side with zeros
     newTimerValue = newTimerValue.PadLeft(7, '0');
+
     // insert colons into timer value
     newTimerValue = newTimerValue.Insert(2, ":");
     newTimerValue = newTimerValue.Insert(5, ":");
@@ -135,14 +139,19 @@ public class LevelTimer : MonoBehaviour {
     int lvlID = LevelSettings.Instance.getInt("levelID");
 
     // get timer that's already saved in player prefs
-    int oldTimer = PlayerPrefs.HasKey("lvl" + lvlID + "_timer") ? 
-      convertStringTimerToInt(PlayerPrefs.GetString("lvl" + lvlID + "_timer")) : 99999999;
+    int oldTimer = 99999999;
+    if (PlayerPrefs.HasKey($"lvl{lvlID}_timer")) {
+      oldTimer = convertStringTimerToInt(PlayerPrefs.GetString($"lvl{lvlID}_timer"));
+    }
 
     // check if timer isn't 0 (default value), and new timer is faster/smaller than old one
-    // if so, replace old timer with new timer (currentTimer)
     if (oldTimer == 0 || (int)(currentTimer * 1000f) < oldTimer) {
-      Debug.Log("LevelTimer: Saved timer " + currentTimerString + " for level " + lvlID + ".");
-      PlayerPrefs.SetString("lvl" + lvlID + "_timer", currentTimerString);
+
+      Log.Print($"Saved timer {currentTimerString} for level {lvlID}.");
+
+      // save the new timer in the player prefs 
+      PlayerPrefs.SetString($"lvl{lvlID}_timer", currentTimerString);
+
     }
 
   }

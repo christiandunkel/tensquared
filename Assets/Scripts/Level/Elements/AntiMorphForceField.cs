@@ -36,7 +36,7 @@ public class AntiMorphForceField : MonoBehaviour {
   private void Update() {
     
     if (wobbleTimer > 0f) {
-      wobbleTimer -= Time.fixedDeltaTime;
+      wobbleTimer -= Time.deltaTime;
 
       if (!wobbleActive) {
         wobbleActive = true;

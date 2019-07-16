@@ -66,7 +66,7 @@ public class ButtonHoverEffect : MonoBehaviour {
     }
 
     if (soundDelayTimer > 0f) {
-      soundDelayTimer -= Time.fixedDeltaTime;
+      soundDelayTimer -= Time.deltaTime;
     }
     
   }

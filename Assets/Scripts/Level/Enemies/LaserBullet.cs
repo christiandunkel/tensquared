@@ -41,7 +41,7 @@ public class LaserBullet : MonoBehaviour {
   private void Update() {
     // timer before the bullet vanishes, 
     // if it doesn't hit any collider
-    secondsBeforeVanishing -= Time.fixedDeltaTime;
+    secondsBeforeVanishing -= Time.deltaTime;
   }
 
   private void OnCollisionEnter2D(Collision2D col) {

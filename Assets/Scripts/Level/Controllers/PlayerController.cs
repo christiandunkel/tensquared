@@ -217,7 +217,7 @@ public class PlayerController : PhysicsObject {
 
     // handle camera zooming (inwards)
     if (zoomedInCameraTimer > 0f) {
-      zoomedInCameraTimer -= Time.fixedDeltaTime;
+      zoomedInCameraTimer -= Time.deltaTime;
       if (!cameraAnimator.GetBool("ZoomedIn")) {
         cameraAnimator.SetBool("ZoomedIn", true);
         Log.Print("Entered 'camera zoom in' area.", cameraAnimator.gameObject);
@@ -230,7 +230,7 @@ public class PlayerController : PhysicsObject {
 
     // handle camera zooming (outwards)
     if (zoomedOutCameraTimer > 0f) {
-      zoomedOutCameraTimer -= Time.fixedDeltaTime;
+      zoomedOutCameraTimer -= Time.deltaTime;
       if (!cameraAnimator.GetBool("ZoomedOut")) {
         cameraAnimator.SetBool("ZoomedOut", true);
         Log.Print("Entered 'camera zoom out' area.", cameraAnimator.gameObject);
@@ -243,7 +243,7 @@ public class PlayerController : PhysicsObject {
 
     // handle camera zooming (outwards far)
     if (zoomedOutCameraFarTimer > 0f) {
-      zoomedOutCameraFarTimer -= Time.fixedDeltaTime;
+      zoomedOutCameraFarTimer -= Time.deltaTime;
       if (!cameraAnimator.GetBool("ZoomedOutFar")) {
         cameraAnimator.SetBool("ZoomedOutFar", true);
         Log.Print("Entered 'camera zoom out far' area.", cameraAnimator.gameObject);
@@ -256,7 +256,7 @@ public class PlayerController : PhysicsObject {
 
     // handle camera zooming (outwards cinematic)
     if (zoomedOutCameraCinematicTimer > 0f) {
-      zoomedOutCameraCinematicTimer -= Time.fixedDeltaTime;
+      zoomedOutCameraCinematicTimer -= Time.deltaTime;
       if (!cameraAnimator.GetBool("ZoomedOutCinematic")) {
         cameraAnimator.SetBool("ZoomedOutCinematic", true);
         Log.Print("Entered 'camera zoom out cinematic' area.", cameraAnimator.gameObject);
@@ -269,7 +269,7 @@ public class PlayerController : PhysicsObject {
 
     // handle camera zooming (downwards)
     if (zoomedDownCameraTimer > 0f) {
-      zoomedDownCameraTimer -= Time.fixedDeltaTime;
+      zoomedDownCameraTimer -= Time.deltaTime;
       if (!cameraAnimator.GetBool("ZoomedDown")) {
         cameraAnimator.SetBool("ZoomedDown", true);
         Log.Print("Entered 'camera zoom down' area.", cameraAnimator.gameObject);

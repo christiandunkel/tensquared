@@ -219,7 +219,7 @@ public class DialogSystem : MonoBehaviour {
         visualizeEvilVoice();
 
         if (colorGradingTimer <= 1f) {
-          colorGradingTimer += (Time.fixedDeltaTime / 4f);
+          colorGradingTimer += (Time.deltaTime / 4f);
         }
 
         if (colorGrading != null) {
@@ -250,7 +250,7 @@ public class DialogSystem : MonoBehaviour {
       if (colorGrading != null) {
 
         if (colorGradingTimer <= 1f) {
-          colorGradingTimer += (Time.fixedDeltaTime / 4f);
+          colorGradingTimer += (Time.deltaTime / 4f);
         }
 
         // reset color grading back to normal after evil voice dialogue is over

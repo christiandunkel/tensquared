@@ -194,7 +194,7 @@ public class SoundController : MonoBehaviour {
 
     // general moving sounds
     if (movingTimer > 0f) {
-      movingTimer -= Time.fixedDeltaTime;
+      movingTimer -= Time.deltaTime;
       if (preventMovementSoundsTimer <= 0f) {
         if (movingX && grounded) {
           if (state == "Circle" && !circleMovementSoundPlayer.isPlaying) {
@@ -218,7 +218,7 @@ public class SoundController : MonoBehaviour {
         }
       }
       else {
-        preventMovementSoundsTimer -= Time.fixedDeltaTime;
+        preventMovementSoundsTimer -= Time.deltaTime;
       }
 
     }
@@ -235,7 +235,7 @@ public class SoundController : MonoBehaviour {
     
     // sounds while moving through grass
     if (movingThroughGrassTimer > 0f) {
-      movingThroughGrassTimer -= Time.fixedDeltaTime;
+      movingThroughGrassTimer -= Time.deltaTime;
 
       // activate player if still inactive (on game start)
       if (!grassSoundPlayer.isActiveAndEnabled) {
@@ -255,7 +255,7 @@ public class SoundController : MonoBehaviour {
 
     // sounds of moving platforms
     if (movingPlatformSoundsTimer > 0f) {
-      movingPlatformSoundsTimer -= Time.fixedDeltaTime;
+      movingPlatformSoundsTimer -= Time.deltaTime;
 
       // activate player if still inactive (on game start)
       if (!movingPlatformSoundPlayer.isActiveAndEnabled) {
@@ -275,7 +275,7 @@ public class SoundController : MonoBehaviour {
 
     // sounds of fire
     if (fireSoundTimer > 0f) {
-      fireSoundTimer -= Time.fixedDeltaTime;
+      fireSoundTimer -= Time.deltaTime;
 
       // activate player if still inactive (on game start)
       if (!fireSoundPlayer.isActiveAndEnabled) {
@@ -295,7 +295,7 @@ public class SoundController : MonoBehaviour {
 
     // sounds of force field
     if (forceFieldSoundTimer > 0f) {
-      forceFieldSoundTimer -= Time.fixedDeltaTime;
+      forceFieldSoundTimer -= Time.deltaTime;
 
       // activate player if still inactive (on game start)
       if (!forceFieldSoundPlayer.isActiveAndEnabled) {

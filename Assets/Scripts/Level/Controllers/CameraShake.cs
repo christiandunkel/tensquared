@@ -85,7 +85,7 @@ public class CameraShake : MonoBehaviour {
       virtualCameraNoise.m_FrequencyGain = shakeFrequency;
 
       // update timer
-      elapsedTime -= Time.fixedDeltaTime;
+      elapsedTime -= Time.deltaTime;
     }
     else {
       virtualCameraNoise.m_AmplitudeGain = 0.0f;

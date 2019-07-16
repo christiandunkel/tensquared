@@ -127,7 +127,7 @@ public class LaserTurret : MonoBehaviour {
     // make turret face the player
     turret.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-    timeUntilNextShot -= Time.fixedDeltaTime;
+    timeUntilNextShot -= Time.deltaTime;
 
     if (inShootingPosition) { 
       if (timeUntilNextShot <= 0f) {

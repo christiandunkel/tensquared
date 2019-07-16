@@ -72,7 +72,7 @@ public class ToxicWater : MonoBehaviour {
       return;
     }
 
-    bubbleSpawnTimer -= Time.fixedDeltaTime;
+    bubbleSpawnTimer -= Time.deltaTime;
 
     if (bubbleSpawnTimer < 0f) {
 

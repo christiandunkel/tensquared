@@ -66,7 +66,7 @@ public class FadeOnStart : MonoBehaviour {
      * power fading effect over time
      */
 
-    timer += Time.fixedDeltaTime;
+    timer += Time.deltaTime;
 
     if (timer > delay) {
 

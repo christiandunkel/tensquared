@@ -6,7 +6,7 @@ The 2D puzzle platformer **tensquared** is a three-man project and was made in U
 
 See the [documentation](/Documentation/Documentation.md) for more information.
 
-The game is currently in *live development*. You can download the project up to the newest commit, or select one of the releases. You can play it in the Unity editor or build it. The game in its newest version requires **Unity version 2019.1.4f1**. A newer version than that should work fine as well, probably.
+You can download the project up to the newest commit, or select one of the releases. You can play it in the Unity editor or build it. The game in its newest version requires **Unity version 2019.1.4f1**. A newer version will probably work fine as well.
 
 ## Summary
 

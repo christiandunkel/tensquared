@@ -15,7 +15,7 @@ public class LaserBullet : MonoBehaviour {
    * ==================
    */
 
-  private float secondsBeforeVanishing = 3f;
+  [SerializeField] private float secondsBeforeVanishing = 8f;
   private float speed = 260f;
   private bool hasHit = false;
   private Rigidbody2D rb2d;
@@ -39,14 +39,22 @@ public class LaserBullet : MonoBehaviour {
   }
 
   private void Update() {
+
     // timer before the bullet vanishes, 
     // if it doesn't hit any collider
     secondsBeforeVanishing -= Time.deltaTime;
+
+    // destroy bullet if it's flying into nothingness
+    if (!hasHit && secondsBeforeVanishing <= 0f) {
+      hasHit = true;
+      StartCoroutine(destroyBullet());
+    }
+
   }
 
   private void OnCollisionEnter2D(Collision2D col) {
     
-    if (!hasHit || secondsBeforeVanishing <= 0f) {
+    if (!hasHit) {
       hasHit = true;
 
       // if the collider hit by the bullet was from the player, kill them

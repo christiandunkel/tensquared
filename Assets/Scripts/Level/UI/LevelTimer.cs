@@ -147,7 +147,7 @@ public class LevelTimer : MonoBehaviour {
     // check if timer isn't 0 (default value), and new timer is faster/smaller than old one
     if (oldTimer == 0 || (int)(currentTimer * 1000f) < oldTimer) {
 
-      Log.Print($"Saved timer {currentTimerString} for level {lvlID}.");
+      Log.Print($"Saved timer {currentTimerString} for level {lvlID}.", this);
 
       // save the new timer in the player prefs 
       PlayerPrefs.SetString($"lvl{lvlID}_timer", currentTimerString);

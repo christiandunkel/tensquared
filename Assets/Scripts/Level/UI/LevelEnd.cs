@@ -185,6 +185,7 @@ public class LevelEnd : MonoBehaviour {
      * powers the button that leads player to next level
      */
 
+    // hide level end menu
     CG.alpha = 0f;
     CG.interactable = false;
 
@@ -200,11 +201,13 @@ public class LevelEnd : MonoBehaviour {
      * powers the button that leads back to main menu
      */
 
+    // hide level end menu
     CG.alpha = 0f;
     CG.interactable = false;
 
     Log.Print("Go to the main menu.", this);
 
+    // disable start animations of main menu
     PositionAnimator.disabledAnimation = true;
     FadeOnStart.disableDelay();
 

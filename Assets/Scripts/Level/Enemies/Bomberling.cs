@@ -257,14 +257,20 @@ public class Bomberling : MonoBehaviour {
 
   private void OnCollisionEnter2D(Collision2D col) {
 
-    if (isDead) return;
+    if (isDead) {
+      return;
+    }
     
     // kill player on touch
     if (col.gameObject.tag == "Player") {
+
+      // kill player
       PlayerManager.Instance.die();
+
       // destroy itself
       selfDestruct();
       return;
+
     }
 
   }

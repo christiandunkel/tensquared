@@ -89,12 +89,23 @@ public class MovingPlatform : MonoBehaviour {
       movePlayerBy.x += offset;
     }
     // if moving downwards, the moving value on y axis needs to be negated
-    if (tempPos.y < lastYPos) movePlayerBy.x *= -1;
+    if (tempPos.y < lastYPos) {
+      movePlayerBy.x *= -1;
+    }
 
     // set platform to new position
     gameObject.transform.localPosition = tempPos;
 
     lastYPos = tempPos.y;
+
+  }
+
+  private void OnCollisionStay2D(Collision2D col) {
+
+    // make the player move along the platform if they're standing on top
+    if (col.gameObject.tag == "Player") {
+      PlayerManager.playerObject.transform.position += movePlayerBy;
+    }
 
   }
 

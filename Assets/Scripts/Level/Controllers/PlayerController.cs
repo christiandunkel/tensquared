@@ -663,19 +663,6 @@ public class PlayerController : PhysicsObject {
 
   }
 
-  private void OnCollisionStay2D(Collision2D col) {
-
-    switch (col.gameObject.tag) {
-
-      case "MovingPlatform":
-        // make the player move along the moving platform if standing on top
-        transform.position += col.gameObject.GetComponent<MovingPlatform>().movePlayerBy;
-        break;
-
-    }
-
-  }
-
 
 
 

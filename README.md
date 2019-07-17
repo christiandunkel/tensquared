@@ -10,9 +10,11 @@ You can download the project up to the newest commit, or select one of the relea
 
 ## Summary
 
+### Story
 You are a circle. Awakened in the middle of a remote forest, you don't know how you got there and have no idea of where to go. But suddenly, you hear a metallic voice, and the robot speaker is guiding you out of the wilderness. You finally meet the robot that helped you, and you discover that it has lost significant parts of its body. The robot requests your help, and together, you go on a journey to recover the missing limbs. On the way, you learn more about the world around you, as well as discover your peculiar abilities.  And there's nothing that could go horribly wrong in this the whole story.
 
-**tensquared** is a puzzle platform game, where you discover a fascinating 2D world as a circle. You can morph into the form of a triangle and rectangle, where you gain new abilities and properties to overcome obstacles while exploring the world. You are also on a quest by a robot to recover the lost parts of its body. In this search, the story, that is as much about the robot as it is about you, will unfold.
+### General
+**tensquared** is a puzzle platform game, where you discover a fascinating 2D world as a circle. You can morph into the form of a triangle and rectangle, where you gain new abilities and properties to overcome obstacles while exploring the world. You are also on a quest by a robot to recover the lost parts of its body. In this search, the story will unfold, and it is as much about the robot as it is about you.
 
 ## Download Game
 

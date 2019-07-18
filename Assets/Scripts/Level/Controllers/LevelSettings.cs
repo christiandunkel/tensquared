@@ -102,11 +102,40 @@ public class LevelSettings : MonoBehaviour {
    * ================
    */
 
+  public void setSettings(params object[] settings) {
+
+    /*
+     * sets multiple boolean settings with one method
+     * required format = setSettings(Level.name, bool value, Level.name2, bool value2,...)
+     */
+
+    if (settings.Length % 2 != 0) {
+      Log.Error($"Requested settings change with uneven number of parameters ({settings.Length}).", this);
+      return;
+    }
+
+    for (int i = 0; i < settings.Length; i++) {
+
+      // all even numbers must be paramter names
+      if (i % 2 == 0) {
+        if (settings[i + 1].GetType() == typeof(bool)) {
+          setSetting((int)settings[i], (bool)settings[i + 1]);
+        }
+        else {
+          Log.Error($"This method can only set boolean settings " + 
+                    $"and can't be given a {settings[i + 1].GetType().ToString()}.", this);
+        }
+      }
+
+    }
+
+  }
+
   public void setSetting(int name, bool value) {
 
     /*
-     * changes a settings value to the given value
-     */
+      * changes a settings value to the given value
+      */
 
     switch (name) {
 

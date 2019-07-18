@@ -402,12 +402,12 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator LVL4_EndScene() {
 
     // freeze player
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_JUMP, false);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_CIRCLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_TRIANGLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_RECTANGLE, false);
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, false,
+                                       Player.CAN_JUMP, false,
+                                       Player.CAN_SELF_DESTRUCT, false,
+                                       Player.CAN_MORPH_TO_CIRCLE, false,
+                                       Player.CAN_MORPH_TO_TRIANGLE, false,
+                                       Player.CAN_MORPH_TO_RECTANGLE, false);
 
     // get robot object at end of level
     GameObject robot = GameObject.Find("RobotEndTexture");
@@ -773,12 +773,12 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private IEnumerator LVL3_EndScene() {
     
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_JUMP, false);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_CIRCLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_TRIANGLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_RECTANGLE, false);
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, false,
+                                       Player.CAN_JUMP, false,
+                                       Player.CAN_SELF_DESTRUCT, false,
+                                       Player.CAN_MORPH_TO_CIRCLE, false,
+                                       Player.CAN_MORPH_TO_TRIANGLE, false,
+                                       Player.CAN_MORPH_TO_RECTANGLE, false);
 
     // load animation sprites
     Sprite[] robotFallingApartAnimation = Resources.LoadAll<Sprite>("RobotFallingApartAnimation");
@@ -845,9 +845,9 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private IEnumerator StartFrequenceLvl2() {
 
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_CIRCLE, true);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_TRIANGLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_RECTANGLE, false);
+    LevelSettings.Instance.setSettings(Player.CAN_MORPH_TO_CIRCLE, true,
+                                       Player.CAN_MORPH_TO_TRIANGLE, false,
+                                       Player.CAN_MORPH_TO_RECTANGLE, false);
 
     // disabled 2nd voice linerenderer for standing robot,
     // until the robot stands up at the end of the level
@@ -899,9 +899,9 @@ public class ScriptedEventsManager : MonoBehaviour {
   private IEnumerator LVL2_CanYouMorphIntoOtherForms() {
 
     // freeze player until he morphs to rectangle
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_JUMP, false);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, false,
+                                       Player.CAN_JUMP, false,
+                                       Player.CAN_SELF_DESTRUCT, false);
 
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
@@ -934,9 +934,9 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(.5f);
 
     // un-freeze player from previous event
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, true);
-    LevelSettings.Instance.setSetting(Player.CAN_JUMP, true);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, true);
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, true,
+                                       Player.CAN_JUMP, true,
+                                       Player.CAN_SELF_DESTRUCT, true);
 
     DialogSystem.loadDialog("lvl2_rectangle_great");
     StopCoroutine(LVL2_RectangleMorphPraises());
@@ -966,12 +966,12 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private IEnumerator LVL2_ReceiveArms() {
 
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_JUMP, false);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_CIRCLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_TRIANGLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_RECTANGLE, false);
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, false,
+                                       Player.CAN_JUMP, false,
+                                       Player.CAN_SELF_DESTRUCT, false,
+                                       Player.CAN_MORPH_TO_CIRCLE, false,
+                                       Player.CAN_MORPH_TO_TRIANGLE, false,
+                                       Player.CAN_MORPH_TO_RECTANGLE, false);
 
     GameObject robotObject = GameObject.Find("RobotFallingDown");
     GameObject robotObjectTexture = GameObject.Find("RobotFallingDownTexture");
@@ -1054,12 +1054,14 @@ public class ScriptedEventsManager : MonoBehaviour {
    */
 
   private IEnumerator StartFrequenceLvl1() {
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_JUMP, false);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_CIRCLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_TRIANGLE, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_RECTANGLE, false);
+
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, false,
+                                       Player.CAN_JUMP, false,
+                                       Player.CAN_SELF_DESTRUCT, false,
+                                       Player.CAN_MORPH_TO_CIRCLE, false,
+                                       Player.CAN_MORPH_TO_TRIANGLE, false,
+                                       Player.CAN_MORPH_TO_RECTANGLE, false);
+
     virtualCameraAnimator.SetTrigger("StartFrequenceOver");
     yield return new WaitForSeconds(4f);
     DialogSystem.loadDialog("lvl1_hello");
@@ -1084,8 +1086,8 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(6f);
     TooltipManager.showTooltip("Move");
     yield return new WaitForSeconds(1f);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, true);
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, true);
+    LevelSettings.Instance.setSettings(Player.CAN_SELF_DESTRUCT, true,
+                                       Player.CAN_MOVE, true);
     StopCoroutine(StartFrequenceLvl1());
   }
 
@@ -1098,8 +1100,8 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
 
   private IEnumerator Lvl1_RobotAppearScene() {
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
+    LevelSettings.Instance.setSettings(Player.CAN_SELF_DESTRUCT, false,
+                                       Player.CAN_MOVE, false);
     yield return new WaitForSeconds(.2f);
     CameraShake.Instance.play(.5f, 2f, 2f);
     yield return new WaitForSeconds(1f);
@@ -1119,19 +1121,19 @@ public class ScriptedEventsManager : MonoBehaviour {
     yield return new WaitForSeconds(5.5f);
     DialogSystem.loadDialog("lvl1_arms_are_further_ahead");
     yield return new WaitForSeconds(4f);
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, true);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, true);
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, true,
+                                       Player.CAN_SELF_DESTRUCT, true);
     StopCoroutine(Lvl1_RobotAppearScene());
   }
 
   private IEnumerator Lvl1_PickUpArms() {
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
+    LevelSettings.Instance.setSettings(Player.CAN_SELF_DESTRUCT, false,
+                                       Player.CAN_MOVE, false);
     yield return new WaitForSeconds(.2f);
     DialogSystem.loadDialog("lvl1_pick_up_arms");
     yield return new WaitForSeconds(4f);
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, true);
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, true);
+    LevelSettings.Instance.setSettings(Player.CAN_MOVE, true,
+                                       Player.CAN_SELF_DESTRUCT, true);
     StopCoroutine(Lvl1_PickUpArms());
   }
 
@@ -1144,8 +1146,9 @@ public class ScriptedEventsManager : MonoBehaviour {
   }
 
   private IEnumerator Lvl1_RobotGetArmsScene() {
-    LevelSettings.Instance.setSetting(Player.CAN_SELF_DESTRUCT, false);
-    LevelSettings.Instance.setSetting(Player.CAN_MOVE, false);
+
+    LevelSettings.Instance.setSettings(Player.CAN_SELF_DESTRUCT, false,
+                                       Player.CAN_MOVE, false);
 
     PlayerManager.Instance.setValue(Player.HOLDING_ITEM, false);
 
@@ -1163,9 +1166,12 @@ public class ScriptedEventsManager : MonoBehaviour {
         case 1:
           SoundController.Instance.playSound("robotRepairSound");
           break;
-        case 24: multiplier = 6f; break;
-        case 27: multiplier = 4f; break;
-        default: break;
+        case 24:
+          multiplier = 6f;
+          break;
+        case 27:
+          multiplier = 4f;
+          break;
       }
 
       yield return new WaitForSeconds(.08f * multiplier);

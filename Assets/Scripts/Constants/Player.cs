@@ -6,7 +6,7 @@
 
   // ATTENTION: IDs in this block must be the same as defined in Level.cs 
   // [ 
-  public const int CAN_MOVE = 1;
+    public const int CAN_MOVE = 1;
     public const int CAN_JUMP = 2;
     public const int CAN_SELF_DESTRUCT = 3;
     public const int CAN_MORPH_TO_CIRCLE = 4;

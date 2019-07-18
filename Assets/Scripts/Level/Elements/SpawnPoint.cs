@@ -97,7 +97,7 @@ public class SpawnPoint : MonoBehaviour {
   private void Update() {
 
     // while death animation, display textures in front of player
-    // **resets and orderChange of playerHolder in animateHoldingArm()
+    // **display spawn point texture above player and player-holder (used in animateHoldingArm)
     if (isActivated && PlayerManager.Instance.getBool(Player.IS_DEAD)) {
       textureObjectSR.sortingOrder = PlayerManager.Instance
                                      .getObject(Player.Objects.TEXTURE_OBJECT)

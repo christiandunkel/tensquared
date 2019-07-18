@@ -845,7 +845,7 @@ public class ScriptedEventsManager : MonoBehaviour {
 
   private IEnumerator StartFrequenceLvl2() {
 
-    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_CIRCLE, false);
+    LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_CIRCLE, true);
     LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_TRIANGLE, false);
     LevelSettings.Instance.setSetting(Player.CAN_MORPH_TO_RECTANGLE, false);
 

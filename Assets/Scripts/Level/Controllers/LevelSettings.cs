@@ -141,7 +141,7 @@ public class LevelSettings : MonoBehaviour {
         break;
 
       default:
-        Log.Warn($"Setting with the id {name} couldn't be found.", this);
+        Log.Warn($"Setting with the id '{name}' couldn't be found.", this);
         break;
 
     }

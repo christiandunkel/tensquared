@@ -38,7 +38,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314884405417755947}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4f9529f1289a979458fb45763eb7cb03, type: 2}
   m_IsTrigger: 0
@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6103871596774385569}
   m_Layer: 0
-  m_Name: DestroyedGroundMiddle1
+  m_Name: DestroyedGroundMiddle2
   m_TagString: GroundPrefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,7 +320,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6103871598239882668}
   m_Enabled: 0
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4f9529f1289a979458fb45763eb7cb03, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

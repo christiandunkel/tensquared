@@ -111,7 +111,7 @@ public class SpawnPoint : MonoBehaviour {
       if (isActivated) {
         textureObjectSR.sprite = activatedSprite;
         spawnPointMessageObject.SetActive(true);
-        LevelSettings.Instance.setSetting("playerSpawn", spawnCoordinates);
+        LevelSettings.Instance.setSetting(Level.PLAYER_SPAWN, spawnCoordinates);
         SoundController.Instance.playSound("activateSpawnpointSound");
       }
       // deactivate it
@@ -129,7 +129,7 @@ public class SpawnPoint : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision) {
     
-    if (!isActivated && LevelSettings.Instance.getVector2("playerSpawn").x < spawnCoordinates.x) {
+    if (!isActivated && LevelSettings.Instance.getVector2(Level.PLAYER_SPAWN).x < spawnCoordinates.x) {
 
       PlayerManager.Instance.setValue(Player.HAS_SPAWN_POINT, true);
 

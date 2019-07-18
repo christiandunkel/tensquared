@@ -51,7 +51,7 @@ public class LevelTimer : MonoBehaviour {
     // if the next level relative to this one is already unlocked
     // activate the timer for this level
     if (PlayerPrefs.HasKey("lvls_unlocked") &&
-        PlayerPrefs.GetInt("lvls_unlocked") > LevelSettings.Instance.getInt("levelID")) {
+        PlayerPrefs.GetInt("lvls_unlocked") > LevelSettings.Instance.getInt(Level.LEVEL_ID)) {
       timerIsActive = true;
       GetComponent<CanvasGroup>().alpha = 1f;
     }
@@ -136,7 +136,7 @@ public class LevelTimer : MonoBehaviour {
 
     timerLockedIn = true;
 
-    int lvlID = LevelSettings.Instance.getInt("levelID");
+    int lvlID = LevelSettings.Instance.getInt(Level.LEVEL_ID);
 
     // get timer that's already saved in player prefs
     int oldTimer = 99999999;

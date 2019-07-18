@@ -4,12 +4,16 @@
    * define named IDs for settings as integer constants
    */
 
+  // ATTENTION: IDs in this block must be the same as defined in Level.cs 
+  // [ 
   public const int CAN_MOVE = 1;
-  public const int CAN_JUMP = 2;
-  public const int CAN_SELF_DESTRUCT = 3;
-  public const int CAN_MORPH_TO_CIRCLE = 4;
-  public const int CAN_MORPH_TO_TRIANGLE = 5;
-  public const int CAN_MORPH_TO_RECTANGLE = 6;
+    public const int CAN_JUMP = 2;
+    public const int CAN_SELF_DESTRUCT = 3;
+    public const int CAN_MORPH_TO_CIRCLE = 4;
+    public const int CAN_MORPH_TO_TRIANGLE = 5;
+    public const int CAN_MORPH_TO_RECTANGLE = 6;
+  // ]
+
   public const int HAS_SPAWN_POINT = 7;
   public const int STEPPED_ON_PISTON = 8;
   public const int HOLDING_ITEM = 9;

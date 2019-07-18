@@ -110,32 +110,32 @@ public class LevelSettings : MonoBehaviour {
 
     switch (name) {
 
-      case Player.CAN_MOVE:
+      case Level.CAN_MOVE:
         canMove = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case Player.CAN_JUMP:
+      case Level.CAN_JUMP:
         canJump = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case Player.CAN_SELF_DESTRUCT:
+      case Level.CAN_SELF_DESTRUCT:
         canSelfDestruct = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case Player.CAN_MORPH_TO_CIRCLE:
+      case Level.CAN_MORPH_TO_CIRCLE:
         canMorphToCircle = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case Player.CAN_MORPH_TO_TRIANGLE:
+      case Level.CAN_MORPH_TO_TRIANGLE:
         canMorphToTriangle = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case Player.CAN_MORPH_TO_RECTANGLE:
+      case Level.CAN_MORPH_TO_RECTANGLE:
         canMorphToRectangle = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
@@ -148,7 +148,7 @@ public class LevelSettings : MonoBehaviour {
 
   }
   
-  public void setSetting(string name, Vector2 pos) {
+  public void setSetting(int name, Vector2 pos) {
 
     /*
      * changes a settings value to the given value
@@ -156,23 +156,23 @@ public class LevelSettings : MonoBehaviour {
 
     switch (name) {
 
-      case "worldSpawn":
+      case Level.WORLD_SPAWN:
         worldSpawn = pos;
         break;
 
-      case "playerSpawn":
+      case Level.PLAYER_SPAWN:
         playerSpawn = pos;
         break;
 
       default:
-        Log.Warn($"Setting {name} couldn't be found.", this);
+        Log.Warn($"Setting with the id '{name}' couldn't be found.", this);
         break;
 
     }
 
   }
 
-  public int getInt(string name) {
+  public int getInt(int name) {
 
     /*
      * gets an integer variable's value
@@ -180,17 +180,17 @@ public class LevelSettings : MonoBehaviour {
 
     switch (name) {
 
-      case "levelID":
+      case Level.LEVEL_ID:
         return levelID;
 
     }
 
-    Log.Warn($"Setting {name} couldn't be found.", this);
+    Log.Warn($"Setting with the id '{name}' couldn't be found.", this);
     return 0;
 
   }
 
-  public bool getBool(string name) {
+  public bool getBool(int name) {
 
     /*
      * gets a boolean variable's value
@@ -198,35 +198,35 @@ public class LevelSettings : MonoBehaviour {
 
     switch (name) {
 
-      case "canMove":
+      case Level.CAN_MOVE:
         return canMove;
 
-      case "canJump":
+      case Level.CAN_JUMP:
         return canJump;
 
-      case "canSelfDestruct":
+      case Level.CAN_SELF_DESTRUCT:
         return canSelfDestruct;
 
-      case "canMorphToCircle":
+      case Level.CAN_MORPH_TO_CIRCLE:
         return canMorphToCircle;
 
-      case "canMorphToTriangle":
+      case Level.CAN_MORPH_TO_TRIANGLE:
         return canMorphToTriangle;
 
-      case "canMorphToRectangle":
+      case Level.CAN_MORPH_TO_RECTANGLE:
         return canMorphToRectangle;
 
-      case "enableGroundColliders":
+      case Level.ENABLE_GROUND_COLLIDERS:
         return enableGroundColliders;
 
     }
 
-    Log.Warn($"Setting {name} couldn't be found.", this);
+    Log.Warn($"Setting with the id '{name}' couldn't be found.", this);
     return false;
 
   }
 
-  public Vector2 getVector2(string name) {
+  public Vector2 getVector2(int name) {
 
     /*
      * gets a vector2 variable's value
@@ -234,15 +234,15 @@ public class LevelSettings : MonoBehaviour {
 
     switch (name) {
 
-      case "worldSpawn":
+      case Level.WORLD_SPAWN:
         return worldSpawn;
 
-      case "playerSpawn":
+      case Level.PLAYER_SPAWN:
         return playerSpawn;
 
     }
 
-    Log.Warn($"Setting {name} couldn't be found.", this);
+    Log.Warn($"Setting with the id '{name}' couldn't be found.", this);
     return Vector2.zero;
 
   }

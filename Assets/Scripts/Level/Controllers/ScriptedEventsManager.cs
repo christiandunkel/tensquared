@@ -90,10 +90,10 @@ public class ScriptedEventsManager : MonoBehaviour {
         yield return new WaitForSeconds(.1f);
       }
 
-      Log.Print($"Successfully loaded as all required scripts.", this);
+      Log.Print($"Successfully loaded all scripts required.", this);
 
       // start frequence of each level
-      switch (LevelSettings.Instance.getInt("levelID")) {
+      switch (LevelSettings.Instance.getInt(Level.LEVEL_ID)) {
 
         case 1:
           StartCoroutine(StartFrequenceLvl1());
@@ -126,7 +126,7 @@ public class ScriptedEventsManager : MonoBehaviour {
      */
 
     // only play events of current level
-    if (lvl != LevelSettings.Instance.getInt("levelID") || !playEvents) {
+    if (lvl != LevelSettings.Instance.getInt(Level.LEVEL_ID) || !playEvents) {
       return;
     }
 

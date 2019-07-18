@@ -65,7 +65,7 @@ public class LevelEnd : MonoBehaviour {
 
     CG = gameObject.GetComponent<CanvasGroup>();
 
-    levelID = LevelSettings.Instance.getInt("levelID");
+    levelID = LevelSettings.Instance.getInt(Level.LEVEL_ID);
 
     // get animators of child elements
     foreach (Transform child in transform) {

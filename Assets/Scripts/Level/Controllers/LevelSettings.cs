@@ -102,7 +102,7 @@ public class LevelSettings : MonoBehaviour {
    * ================
    */
 
-  public void setSetting(string name, bool value) {
+  public void setSetting(int name, bool value) {
 
     /*
      * changes a settings value to the given value
@@ -110,38 +110,38 @@ public class LevelSettings : MonoBehaviour {
 
     switch (name) {
 
-      case "canMove":
+      case Player.CAN_MOVE:
         canMove = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case "canJump":
+      case Player.CAN_JUMP:
         canJump = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case "canSelfDestruct":
+      case Player.CAN_SELF_DESTRUCT:
         canSelfDestruct = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case "canMorphToCircle":
+      case Player.CAN_MORPH_TO_CIRCLE:
         canMorphToCircle = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case "canMorphToTriangle":
+      case Player.CAN_MORPH_TO_TRIANGLE:
         canMorphToTriangle = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
-      case "canMorphToRectangle":
+      case Player.CAN_MORPH_TO_RECTANGLE:
         canMorphToRectangle = value;
         PlayerManager.Instance.setSetting(name, value);
         break;
 
       default:
-        Log.Warn($"Setting {name} couldn't be found.", this);
+        Log.Warn($"Setting with the id {name} couldn't be found.", this);
         break;
 
     }

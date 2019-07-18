@@ -98,8 +98,9 @@ public class SpawnPoint : MonoBehaviour {
 
     // while death animation, display textures in front of player
     // **resets and orderChange of playerHolder in animateHoldingArm()
-    if (isActivated && PlayerManager.Instance.getBool("isDead")) {
-      textureObjectSR.sortingOrder = PlayerManager.Instance.getObject("textureObject")
+    if (isActivated && PlayerManager.Instance.getBool(Player.IS_DEAD)) {
+      textureObjectSR.sortingOrder = PlayerManager.Instance
+                                     .getObject(Player.Objects.TEXTURE_OBJECT)
                                      .GetComponent<SpriteRenderer>().sortingOrder + 2;
     }
     
@@ -130,7 +131,7 @@ public class SpawnPoint : MonoBehaviour {
     
     if (!isActivated && LevelSettings.Instance.getVector2("playerSpawn").x < spawnCoordinates.x) {
 
-      PlayerManager.Instance.setValue("hasSpawnpointSet", true);
+      PlayerManager.Instance.setValue(Player.HAS_SPAWN_POINT, true);
 
       // deactivate all spawn points
       GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
@@ -175,7 +176,8 @@ public class SpawnPoint : MonoBehaviour {
     // animate the metallic arm holding the player on respawn
     IEnumerator moveOutHoldingArm() {
 
-      playerHolderSR.sortingOrder = PlayerManager.Instance.getObject("textureObject")
+      playerHolderSR.sortingOrder = PlayerManager.Instance
+                                    .getObject(Player.Objects.TEXTURE_OBJECT)
                                     .GetComponent<SpriteRenderer>().sortingOrder + 1;
 
       int steps = 50;

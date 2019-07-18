@@ -14,7 +14,8 @@ public class LVL1_RobotGetArmsScene : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D col) {
 
-    if (!playedSceneAlready && col.gameObject.tag == "Player" && PlayerManager.Instance.getBool("holdingItem")) {
+    if (!playedSceneAlready && col.gameObject.tag == "Player" && 
+        PlayerManager.Instance.getBool(Player.HOLDING_ITEM)) {
       playedSceneAlready = true; // only load once
       ScriptedEventsManager.Instance.LoadEvent(1, "robot_get_arms_scene");
     }

@@ -67,7 +67,7 @@ public class Piston : MonoBehaviour {
       yield return new WaitForSeconds(delayBeforePush);
       soundController.playSound("pistonPushSound");
       animator.SetTrigger("PushUp");
-      PlayerManager.Instance.setValue("steppedOnPiston", true);
+      PlayerManager.Instance.setValue(Player.STEPPED_ON_PISTON, true);
 
       // reset piston after animation is over
       yield return new WaitForSeconds(1f);

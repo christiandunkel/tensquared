@@ -386,7 +386,7 @@ public class PlayerManager : MonoBehaviour {
    * ==============
    */
 
-  public void setSetting(string name, bool value) {
+  public void setSetting(int name, bool value) {
     
     /*
      * replaces a variable's content
@@ -397,14 +397,14 @@ public class PlayerManager : MonoBehaviour {
     morphIndicator.loadMorphIndicators();
 
     // test if canMove was disabled, and if so, remove all velocity
-    if (name == "canMove" && value == false) {
+    if (name == Player.CAN_MOVE && value == false) {
       rb2d.velocity = Vector2.zero;
       doubleJumpMovement = Vector2.zero;
     }
 
   }
 
-  public void setValue(string name, bool value) {
+  public void setValue(int name, bool value) {
 
     /*
      * replaces content of variable with given content
@@ -412,44 +412,44 @@ public class PlayerManager : MonoBehaviour {
 
     switch (name) {
 
-      case "canMove":
+      case Player.CAN_MOVE:
         canMove = value;
         break;
 
-      case "canJump":
+      case Player.CAN_JUMP:
         canJump = value;
         break;
 
-      case "canSelfDestruct":
+      case Player.CAN_SELF_DESTRUCT:
         canSelfDestruct = value;
         break;
 
-      case "canMorphToCircle":
+      case Player.CAN_MORPH_TO_CIRCLE:
         canMorphToCircle = value;
         break;
 
-      case "canMorphToTriangle":
+      case Player.CAN_MORPH_TO_TRIANGLE:
         canMorphToTriangle = value;
         break;
 
-      case "canMorphToRectangle":
+      case Player.CAN_MORPH_TO_RECTANGLE:
         canMorphToRectangle = value;
         break;
 
-      case "hasSpawnpointSet":
+      case Player.HAS_SPAWN_POINT:
         hasSpawnpointSet = value;
         break;
 
-      case "steppedOnPiston":
+      case Player.STEPPED_ON_PISTON:
         steppedOnPiston = value;
         break;
 
-      case "holdingItem":
+      case Player.HOLDING_ITEM:
         holdingItem = value;
         break;
 
       default:
-        Log.Warn($"'{name}' is not a valid value name.", this);
+        Log.Warn($"Value with id '{name}' could not be found.", this);
         break;
 
     }
@@ -485,7 +485,7 @@ public class PlayerManager : MonoBehaviour {
    * ==============
    */
 
-  public bool getBool(string name) {
+  public bool getBool(int name) {
 
     /*
      * get the value of a boolean variable in the manager
@@ -493,28 +493,28 @@ public class PlayerManager : MonoBehaviour {
 
     switch (name) {
 
-      case "canMove":
+      case Player.CAN_MOVE:
         return canMove;
 
-      case "canJump":
+      case Player.CAN_JUMP:
         return canJump;
 
-      case "canSelfDestruct":
+      case Player.CAN_SELF_DESTRUCT:
         return canSelfDestruct;
 
-      case "canMorphToCircle":
+      case Player.CAN_MORPH_TO_CIRCLE:
         return canMorphToCircle;
 
-      case "canMorphToTriangle":
+      case Player.CAN_MORPH_TO_TRIANGLE:
         return canMorphToTriangle;
 
-      case "canMorphToRectangle":
+      case Player.CAN_MORPH_TO_RECTANGLE:
         return canMorphToRectangle;
 
-      case "isDead":
+      case Player.IS_DEAD:
         return isDead;
 
-      case "holdingItem":
+      case Player.HOLDING_ITEM:
         return holdingItem;
 
     }
@@ -524,7 +524,7 @@ public class PlayerManager : MonoBehaviour {
 
   }
 
-  public float getFloat(string name) {
+  public float getFloat(int name) {
 
     /*
      * get the value of a float variable in the manager
@@ -532,20 +532,20 @@ public class PlayerManager : MonoBehaviour {
 
     switch (name) {
 
-      case "secondsNotGrounded":
+      case Player.SECONDS_NOT_GROUNDED:
         return secondsNotGrounded;
 
-      case "secondsAsRectangleFalling":
+      case Player.SECONDS_AS_RECTANGLE_FALLING:
         return secondsAsRectangleFalling;
 
     }
 
-    Log.Warn($"Float '{name}' couldn't be found.", this);
+    Log.Warn($"Float with the id '{name}' couldn't be found.", this);
     return 0f;
 
   }
 
-  public string getString(string name) {
+  public string getString(int name) {
 
     /*
      * get the value of a string variable in the manager
@@ -553,18 +553,18 @@ public class PlayerManager : MonoBehaviour {
 
     switch (name) {
 
-      case "state":
+      case Player.STATE:
         return state;
 
     }
 
-    Log.Warn($"String '{name}' couldn't be found.", this);
+    Log.Warn($"String with the id '{name}' couldn't be found.", this);
     return null;
 
   }
 
   private Sprite[] emptySpriteArray = new Sprite[0];
-  public ref Sprite[] getSprites(string name) {
+  public ref Sprite[] getSprites(int name) {
 
     /*
      * returns a sprite array
@@ -572,23 +572,23 @@ public class PlayerManager : MonoBehaviour {
 
     switch (name) {
 
-      case "triangleToCircle":
+      case Player.Sprites.TRIANGLE_TO_CIRCLE:
         return ref triangleToCircle;
 
-      case "rectToCircle":
+      case Player.Sprites.RECTANGLE_TO_CIRCLE:
         return ref rectToCircle;
 
-      case "rectToTriangle":
+      case Player.Sprites.RECTANGLE_TO_TRIANGLE:
         return ref rectToTriangle;
 
     }
 
-    Log.Warn($"Sprite array '{name}' couldn't be found.", this);
+    Log.Warn($"Sprite array with the id '{name}' couldn't be found.", this);
     return ref emptySpriteArray;
 
   }
 
-  public GameObject getObject(string name) {
+  public GameObject getObject(int name) {
 
     /*
      * get an object from the manager
@@ -596,30 +596,30 @@ public class PlayerManager : MonoBehaviour {
 
     switch (name) {
 
-      case "parentObject":
+      case Player.Objects.PARENT_OBJECT:
         return parentObject;
 
-      case "textureObject":
+      case Player.Objects.TEXTURE_OBJECT:
         return textureObject;
 
-      case "heldItemObject":
+      case Player.Objects.HELD_ITEM_OBJECT:
         return heldItemObject;
 
-      case "textureContainer":
+      case Player.Objects.TEXTURE_CONTAINER:
         return textureContainer;
 
-      case "movementParticles":
+      case Player.Objects.MOVEMENT_PARTICLES:
         return movementParticles;
 
-      case "deathParticles":
+      case Player.Objects.DEATH_PARTICLES:
         return deathParticles;
 
-      case "doubleJumpParticles":
+      case Player.Objects.DOUBLE_JUMP_PARTICLES:
         return doubleJumpParticles;
 
     }
 
-    Log.Warn($"Object '{name}' couldn't be found.", this);
+    Log.Warn($"Object with the id '{name}' couldn't be found.", this);
     return null;
 
   }

@@ -100,11 +100,11 @@ public class MorphIndicator : MonoBehaviour {
     PlayerManager player = PlayerManager.Instance;
 
     loadMorphIndicators(
-      player.getString("state"),
-      player.getBool("canSelfDestruct"),
-      player.getBool("canMorphToCircle"),
-      player.getBool("canMorphToTriangle"),
-      player.getBool("canMorphToRectangle")
+      player.getString(Player.STATE),
+      player.getBool(Player.CAN_SELF_DESTRUCT),
+      player.getBool(Player.CAN_MORPH_TO_CIRCLE),
+      player.getBool(Player.CAN_MORPH_TO_TRIANGLE),
+      player.getBool(Player.CAN_MORPH_TO_RECTANGLE)
     );
 
   }

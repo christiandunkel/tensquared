@@ -49,7 +49,7 @@ public class BreakableBlock : MonoBehaviour {
     // if player falls on top of the block as rectangle from a certain height
     if (
       col.gameObject.tag == "Player" && 
-      PlayerManager.Instance.getFloat("secondsAsRectangleFalling") > .55f
+      PlayerManager.Instance.getFloat(Player.SECONDS_AS_RECTANGLE_FALLING) > .55f
     ) {
       StartCoroutine(breakBlock());
     }

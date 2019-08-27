@@ -38,3 +38,4 @@ The Bauhaus was originally a German art school founded in Weimar by Walter Gropi
 - [Screenshots](/Documentation/Screenshots.md)
 - [Posters](/Documentation/Posters/)
 - [Credits](/Documentation/Credits.md)
+- [License](/Documentation/License.md)

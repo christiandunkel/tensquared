@@ -1,20 +1,19 @@
+
 [![Screenshot of the main menu of the game tensquared, depicting the sky, the sun, hills, trees and a factory in the background.](/Documentation/Screenshots/screenshot_main_menu.png)](#)
 
 # tensquared
 
-The 2D puzzle platformer **tensquared** is a three-man project and was made in Unity for the *8-Bit of Bauhaus* study project in the summer semester of 2019 at the *Bauhaus University Weimar*. The project was started to create a number of Bauhaus-themed games in order to celebrate 100 years of Bauhaus.
+**tensquared** is a puzzle platform game, in which you explore a beautiful 2D world as a circle. You can morph into different forms and gain new abilities, while overcoming the obstacles in your way and uncovering the story!
 
-See the [documentation](/Documentation/Documentation.md) for more information.
+## Background
 
-You can download the project up to the newest commit, or select one of the releases. You can play it in the Unity editor or build it. The game in its newest version requires **Unity version 2019.1.4f1**. A newer version will probably work fine as well.
+This game was created for the *8-Bit of Bauhaus* university project in the summer semester of 2019 at the *Bauhaus University Weimar*. The purpose of this project was to produce Bauhaus-themed games to celebrate 100 years of Bauhaus. See the [documentation](/Documentation/Documentation.md) for more information.
 
-## Summary
+You can download the project up to the newest commit, or select one of the releases. You can play it in the Unity editor or build it. The game in its newest version requires **Unity version 2019.2.2f1**. A newer version will probably work fine as well.
 
-### Story
-You are a circle. Awakened in the middle of a remote forest, you don't know how you got there and have no idea of where to go. But suddenly, you hear a metallic voice, and the robot speaker is guiding you out of the wilderness. You finally meet the robot that helped you, and you discover that it has lost significant parts of its body. The robot requests your help, and together, you go on a journey to recover the missing limbs. On the way, you learn more about the world around you, as well as discover your peculiar abilities.  And there's nothing that could go horribly wrong in this the whole story.
+## Synopsis
 
-### General
-**tensquared** is a puzzle platform game, where you discover a fascinating 2D world as a circle. You can morph into the form of a triangle and rectangle, where you gain new abilities and properties to overcome obstacles while exploring the world. You are also on a quest by a robot to recover the lost parts of its body. In this search, the story will unfold, and it is as much about the robot as it is about you.
+You are a circle. You awakened in the middle of a remote forest, and you don't know how you got there. You have no idea of where to go. But suddenly, you hear a metallic voice. The speaker is a robot, and it is guiding you out of the wilderness. You finally meet the robot that helped you, and you discover that it has lost significant parts of its body. The robot requests your help, and you go on a journey to recover the missing limbs. You will learn more about the world around you, as well as discover your peculiar abilities. And there's really nothing that could possibly go horribly wrong on this journey.
 
 ## Download Game
 
@@ -38,4 +37,4 @@ The Bauhaus was originally a German art school founded in Weimar by Walter Gropi
 - [Screenshots](/Documentation/Screenshots.md)
 - [Posters](/Documentation/Posters/)
 - [Credits](/Documentation/Credits.md)
-- [License](/Documentation/License.md)
+- [License](LICENSE.md)

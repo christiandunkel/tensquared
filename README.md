@@ -3,17 +3,17 @@
 
 # tensquared
 
-**tensquared** is a puzzle platform game, in which you explore a beautiful 2D world as a circle. You can morph into different forms and gain new abilities, while overcoming the obstacles in your way and uncovering the story!
+**tensquared** is a puzzle platform game, in which you explore a beautiful 2D world as a circle. You can morph into different forms and gain new abilities, while overcoming the obstacles in your way!
 
 ## Background
 
 This game was created for the *8-Bit of Bauhaus* university project in the summer semester of 2019 at the *Bauhaus University Weimar*. The purpose of this project was to produce Bauhaus-themed games to celebrate 100 years of Bauhaus. See the [documentation](/Documentation/Documentation.md) for more information.
 
-You can download the project up to the newest commit, or select one of the releases. You can play it in the Unity editor or build it. The game in its newest version requires **Unity version 2019.2.2f1**. A newer version will probably work fine as well.
+You can download the project up to the newest commit, or select one of the releases. You can play it in the Unity editor or build it. The game in its newest version requires **Unity version 2019.1.4f1**. A newer version will probably work fine as well.
 
 ## Synopsis
 
-You are a circle. You awakened in the middle of a remote forest, and you don't know how you got there. You have no idea of where to go. But suddenly, you hear a metallic voice. The speaker is a robot, and it is guiding you out of the wilderness. You finally meet the robot that helped you, and you discover that it has lost significant parts of its body. The robot requests your help, and you go on a journey to recover the missing limbs. You will learn more about the world around you, as well as discover your peculiar abilities. And there's really nothing that could possibly go horribly wrong on this journey.
+You are a circle. You awakened in the middle of a remote forest, and you don't know how you got there. You have no idea of where to go, but you suddenly hear a metallic voice that is guiding you out of the wilderness. After you meet the owner of the voice, a rather sassy robot, you discover that it has lost significant parts of its body. The robot requests your help, and you accept and go on a journey to recover the missing limbs. On the way, you will learn more about the world around you, as well as discover your peculiar abilities. And there's really nothing that could possibly go horribly wrong on this journey.
 
 ## Download Game
 
